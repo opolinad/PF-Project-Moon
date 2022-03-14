@@ -1,13 +1,13 @@
 {
-    "name": "moon-protocol",
-    "version": "1.0.0",
+    "name": "moon-protocol-front",
+    "version": "0.1.0",
     "description": "",
     "main": "./back/index.js",
     "scripts": {
         "build": "webpack",
         "start":"node ./back/index.js"
     },
-    "author": "Henry",
+    "author": "Project Moon",
     "license": "ISC",
     "engines": {
       "node": ">=12.18.3",
