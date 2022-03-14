@@ -3,7 +3,9 @@ import * as landingPageActions from "./LandingPage.js";
 import * as messagesActions from "./Messages.js";
 import * as registerActions from "./Register.js";
 import * as userActions from "./User.js";
+import * as navbarActions from "./Navbar.js";
 import * as consts from "../consts.js";
+ 
 // import * as Actions from "./.js";
 
 const Actions=
@@ -13,7 +15,8 @@ const Actions=
     ...messagesActions,
     ...homeActions,
     ...registerActions,
-    ...userActions
+    ...userActions,
+    ...navbarActions,
 };
 
 export default Actions;
