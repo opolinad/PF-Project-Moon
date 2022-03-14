@@ -2,7 +2,7 @@
     "name": "moon-protocol-back",
     "version": "0.1.0",
     "description": "",
-    "main": "./back/index.js",
+    "main": "./index.js",
     "scripts": {
         "build": "webpack",
         "start":"node ./index.js"
