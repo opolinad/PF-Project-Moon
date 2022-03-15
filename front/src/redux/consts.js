@@ -3,6 +3,7 @@ export const DUMMY="DUMMY";
 export const GET_USER_DATA = "GET_USER_DATA";
 export const GET_POST_DATA = "GET_POST_DATA";
 
+export const STARTING_STATUS="STARTING_STATUS";
 export const LOADING_0="LOADING_0";
 export const NOT_FOUND_404="NOT_FOUND_404";
 export const SUCCESS_200="SUCCESS_200";
@@ -26,5 +27,7 @@ export const GET_NOTIFICATIONS= "GET_NOTIFICATIONS";
 /* Home Feed */
 
 export const SET_SEARCHING_TO_LOADING="SET_SEARCHING_TO_LOADING";
+export const SET_FEED_TO_LOADING="SET_FEED_TO_LOADING";
+export const FEED_DATABASE="FEED_DATABASE";
 
 /* Home Feed */
