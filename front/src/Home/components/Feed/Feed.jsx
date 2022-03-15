@@ -1,5 +1,5 @@
 import React from "react";
-import CardPost from "./components/CardPost/CardPost";
+import CardPost from "../../../CardPost/CatdPost.jsx";
 /*
     Estoy asumiendo nombres, cambiar cuando lleguen las conexiones del back
     ademas, cuando se entra al detalle del CardPost y pasa a aser Post, se piden los comentarios!
