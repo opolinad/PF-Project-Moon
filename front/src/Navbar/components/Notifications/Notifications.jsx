@@ -6,7 +6,8 @@ const dummy=[]
 export default function Notifications(props)
 {
 
-    let notificationArr=dummy.map((element,index)=><div key={"notification_"+index} className="notificationInners">{element.description}</div>)
+    let notificationArr;
+    dummy ? dummy.map((element,index)=><Link to={element.link} key={"notification_"+index} className="notificationInners">{element.description}</Link>) : "Loading owo..."
     return(
         <div id="NotificationCont">
             {notificationArr}
