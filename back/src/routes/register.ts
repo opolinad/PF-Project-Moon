@@ -1,6 +1,7 @@
 import { Router, Request, Response} from 'express'
 const User = require('../models/User') 
 const router = Router()
+const CryptoJS = require('crypto-js')
 
 
 router.post('/', async (req:Request,res:Response) => {
@@ -9,7 +10,7 @@ router.post('/', async (req:Request,res:Response) => {
     const newUser = new User({
         username,
         email,
-        password
+        password: CryptoJS.AES.encrypt(password,process.env.HASH_CRYPTO).toString()
     })
     
     try {
