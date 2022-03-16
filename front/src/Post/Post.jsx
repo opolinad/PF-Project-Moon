@@ -48,6 +48,7 @@ export default function Post()
     let cardValues={}
     dummy.description? cardValues.description=dummy.description : cardValues.description="";
     if(dummy.images){cardValues.imgs=dummy.images.map((element,index)=><img key={"img_"+index} className="cardPostImg" src={element} alt={"nu existe :c"}/>)}
+
     cardValues.likes=dummy.likes;
     cardValues.shares=dummy.shares;
     cardValues.saved=dummy.saved;
