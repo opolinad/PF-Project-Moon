@@ -1,7 +1,8 @@
 module.exports = {
     mode:'development',
     entry: [
-      './front/src/index.js'
+      "regenerator-runtime/runtime.js",
+      './front/src/index.js',
     ],
     devtool:'inline-source-map',
     output: {
