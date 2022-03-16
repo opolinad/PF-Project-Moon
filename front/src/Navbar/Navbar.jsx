@@ -16,9 +16,11 @@ export default function Navbar()
 
     function searching()
     {
-        dispatch(Actions.searchingAction(search));
-        dispatch(Actions.setSearchingToLoading());
-        dispatch(Actions.searchingDataBaseAction(search));
+        
+        dispatch(Actions.resetForSearch());  //resetea filter, order y selectedCategory cuando se hace search 
+        dispatch(Actions.searchingAction(search)); //setea search en redux
+        dispatch(Actions.setSearchingToLoading()); //setea feed a loading
+        dispatch(Actions.searchingDataBaseAction(search)); //envia pedido a back
     }
 
     function showNotification()
