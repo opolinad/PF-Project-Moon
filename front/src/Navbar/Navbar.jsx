@@ -17,6 +17,7 @@ export default function Navbar()
     function searching()
     {
         dispatch(Actions.searchingAction(search));
+        dispatch(Actions.resetOptions());
         dispatch(Actions.setSearchingToLoading());
         dispatch(Actions.searchingDataBaseAction(search));
     }

@@ -36,6 +36,25 @@ export const FEED_DATABASE="FEED_DATABASE";
 /* Home Categories */
 
 export const GET_CATEGORIES_LOADING="GET_CATEGORIES_LOADING";
-export const GET_CATEGORIES="GET_CATEGORIES"
+export const GET_CATEGORIES="GET_CATEGORIES";
+export const SET_SELECTED_CATEGORY="SET_SELECTED_CATEGORY";
 
 /* Home Categories */
+
+
+/* Home Filter and Ordering */
+
+export const SET_ORDERING="SET_ORDERING";
+export const SET_FILTER="SET_FILTER";
+export const RESET_OPTIONS="RESET_OPTIONS";
+
+/* Home Filter and Ordering */
+
+
+
+/* Home Page */
+
+export const RESET_PAGE="RESET_PAGE";
+export const NEXT_PAGE="NEXT_PAGE";
+
+/* Home Page */

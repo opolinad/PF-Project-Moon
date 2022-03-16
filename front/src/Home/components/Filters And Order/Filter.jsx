@@ -9,15 +9,16 @@ export default function Filter()
     function filtering(e)
     {
         dispatch(Actions.setFeedToLoading())
-        dispatch(Actions.)
+        dispatch(Actions.changeFilter(e.target.value))
     }
 
     return(
         <div id="filterCont">
+            <h3>Filters!</h3>
             <select name="filterSelect" id="filterSelect" onChange={(e)=>filtering(e)}>  
                 <option value="" className="filterOption"></option>
-                <option value="trending" className="filterOption">Trending</option>
-                <option value="recent" className="filterOption">Recent</option>
+                {/* <option value="trending" className="filterOption">Trending</option> */}
+                <option value="designsOnly" className="filterOption">Designs Only</option>
             </select>
         </div>
     )

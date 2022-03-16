@@ -1,4 +1,4 @@
-import { FEED_DATABASE, GET_CATEGORIES, GET_CATEGORIES_LOADING, LOADING_0, SEARCHING_DATABASE, SET_FEED_TO_LOADING, SET_SEARCHING_TO_LOADING, STARTING_STATUS } from "../consts";
+import { FEED_DATABASE, GET_CATEGORIES, GET_CATEGORIES_LOADING, LOADING_0, NEXT_PAGE, RESET_OPTIONS, RESET_PAGE, SEARCHING_DATABASE, SET_FEED_TO_LOADING, SET_FILTER, SET_ORDERING, SET_SEARCHING_TO_LOADING, SET_SELECTED_CATEGORY, STARTING_STATUS } from "../consts";
 
 
 export function feed(state={status:STARTING_STATUS,posts:[]},action)
@@ -15,4 +15,23 @@ export function categories(state={status:STARTING_STATUS,posts:{}},action)
     else return state;
 }
 
-export function filterAndOrder(state={})
+export function selectedCategory(state="",action)
+{
+    if(action.type===SET_SELECTED_CATEGORY)return action.payload;
+    else return state;
+}
+
+export function filterAndOrder(state={},action)
+{
+    if(action.type===RESET_OPTIONS) {return {};}
+    else if(action.type===SET_FILTER) {return {...state,filter:action.payload};}
+    else if(action.type===SET_ORDERING) {return {...state,ordering:action.payload};}
+    else return state;
+}
+
+export function homePage(state=0,action)
+{
+    if(action.type===RESET_PAGE) return 0;
+    else if(action.type===NEXT_PAGE) return state+1;
+    else return state;
+}

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { STARTING_STATUS } from "../../../redux/consts.js";
 import CardPost from "../../../CardPost/CardPost.jsx";
 import Actions from "../../../redux/actions/index.jsx";
@@ -28,6 +28,10 @@ export default function Feed(props)
     const dispatch = useDispatch();
     const feed = useSelector(state=>state.feed);
     const query = useLocation();//.search.split("=")[1]
+    const filterAndOrder = useSelector(state=>state.filterAndOrder);
+    const selectedCategory = useSelector(state=>state.selectedCategory);
+    const search = useSelector(state=>state.search);
+    const homePage = useSelector(state=>state.homePage)
 
     useEffect(()=>
     {
@@ -46,6 +50,16 @@ export default function Feed(props)
             }
         }
     },[]);
+
+    useEffect(()=>
+    {
+        
+    },[filterAndOrder,selectedCategory,search]);
+
+    useEffect(()=>
+    {
+        
+    },[homePage]);
 
     let postsArr;
 

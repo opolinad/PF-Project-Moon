@@ -1,17 +1,18 @@
-import { FEED_DATABASE, GET_CATEGORIES, GET_CATEGORIES_LOADING, SET_FEED_TO_LOADING } from "../consts";
+import { FEED_DATABASE, GET_CATEGORIES, GET_CATEGORIES_LOADING, NEXT_PAGE, RESET_OPTIONS, RESET_PAGE, SET_FEED_TO_LOADING, SET_FILTER, SET_ORDERING, SET_SELECTED_CATEGORY } from "../consts";
 
-
+/* actions of feed */
 export function setFeedToLoading()
 {
     return({type:SET_FEED_TO_LOADING})
 }
 
-export function feedDataBaseAction(payload="")
+export function feedDataBaseAction(search="",categories,filter,order)
 {
     return async function (dispatch)
     {
         let q="";
-        if(payload!=""){q="?search="+payload;}
+        if(search!=""){q="?search="+search;}
+        if(categories){}
         const resp = await axios.get("http://localhost:3001/feed"+q);
         //despues se procesa
         let status=NOT_FOUND_404;
@@ -20,7 +21,25 @@ export function feedDataBaseAction(payload="")
     }
 }
 
+export function feedNextPageAction(search="",categories,filter,order,page)
+{
+    return async function (dispatch)
+    {
+        let q="";
+        if(search!=""){q="?search="+search;}
+        const resp = await axios.get("http://localhost:3001/feed"+q);
+        //despues se procesa
+        let status=NOT_FOUND_404;
+        if(resp.data.length){status=SUCCESS_200}
+        return({type:FEED_DATABASE,payload:{status,posts:resp.data}})
+    }
+}
 
+/* actions of feed */
+
+
+
+/* categories actions */
 
 export function setCategoriesToLoading()
 {
@@ -38,3 +57,47 @@ export function categoriesDataBaseAction()
         return({type:GET_CATEGORIES,payload:{status,posts:resp.data}})
     }
 }
+
+export function selectedCategoryAction(payload)
+{
+    return ({type:SET_SELECTED_CATEGORY,payload})
+}
+
+/* categories actions */
+
+
+
+/* options actions */
+
+export function changeOrdering(payload)
+{
+    return({type:SET_ORDERING,payload})
+}
+
+export function changeFilter(payload)
+{
+    return({type:SET_FILTER,payload})
+}
+
+export function resetOptions()
+{
+    return({type:RESET_OPTIONS})
+}
+
+/* options actions */
+
+
+
+/* page actions */
+
+export function nextPageAction()
+{
+    return({type:NEXT_PAGE})
+}
+
+export function resetPageAction()
+{
+    return({type:RESET_PAGE})
+}
+
+/* page actions */

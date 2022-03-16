@@ -2,7 +2,7 @@ import { GET_NOTIFICATIONS, GET_NOTIFICATIONS_LOADING, LOADING_0, SEARCHING_ACTI
 
 
 
-export function searchReducer(state="",action)
+export function search(state="",action)
 {
     if(action.type===SEARCHING_ACTION){return action.payload}
     return state;
