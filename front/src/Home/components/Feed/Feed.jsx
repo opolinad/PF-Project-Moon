@@ -54,6 +54,7 @@ export default function Feed(props)
 
     useEffect(()=>
     {
+        dispatch(Actions.setFeedToLoading()) 
         dispatch(Actions.resetPageAction()); 
     },[filterAndOrder,selectedCategory,search]); //reseteo page cuando detecto cambios en filtro, categoria o search
 
@@ -74,7 +75,7 @@ export default function Feed(props)
         <div id="FeedContainer">
             {postsArr}
             <button id="nextPageBut" onClick={dispatch(Actions.nextPageAction())} >Load More</button>
-            </div>
+        </div>
         
     )
 }
