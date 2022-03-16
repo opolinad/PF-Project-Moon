@@ -31,3 +31,11 @@ export const SET_FEED_TO_LOADING="SET_FEED_TO_LOADING";
 export const FEED_DATABASE="FEED_DATABASE";
 
 /* Home Feed */
+
+
+/* Home Categories */
+
+export const GET_CATEGORIES_LOADING="GET_CATEGORIES_LOADING";
+export const GET_CATEGORIES="GET_CATEGORIES"
+
+/* Home Categories */

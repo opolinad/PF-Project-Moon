@@ -41,16 +41,19 @@ export default function Feed(props)
             }
             else
             {
-                dispatch(Actions.feedDataBaseAction(query))
+                dispatch(Actions.feedDataBaseAction())
                 dispatch(Actions.searchingAction())
             }
         }
     },[]);
 
-    let postsArr=feed.posts.map((element,index)=>
-    {
-        <CardPost key={"post_"+element.id} title={element.title} description={element.description} imgs={element.imgs} shares={element.shares} likes={element.likes} saved={element.saved} id={element.id}/>
-    })
+    let postsArr;
+
+    if(feed.status===STARTING_STATUS || feed.status===LOADING_0){postsArr="Loading OwO..."}
+    else if(feed.status===NOT_FOUND_404){postsArr="error! OnO";}
+    else if(feed.status===SUCCESS_200)postsArr=feed.posts.map((element,index)=>{<CardPost key={"post_"+element.id} title={element.title} description={element.description} imgs={element.imgs} shares={element.shares} likes={element.likes} saved={element.saved} id={element.id}/>})
+    
+    
     return(
         <div id="FeedContainer">{postsArr}</div>
     )
