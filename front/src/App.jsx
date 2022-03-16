@@ -1,11 +1,11 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Home from "./Home";
-import LandingPage from "./LandingPage";
-import Post from "./Post";
-import Register from "./Register";
-import User from "./User";
-import Messages from "./Messages";
+import Home from "./Home/Home.jsx";
+import LandingPage from "./LandingPage/LandingPage.jsx";
+import Post from "./Post/Post.jsx";
+import Register from "./Register/Register.jsx";
+import User from "./User/User.jsx";
+import Messages from "./Messages/Messages.jsx";
 
 export default function App()
 {
@@ -13,17 +13,28 @@ export default function App()
         <BrowserRouter>
             <div id="appCont">
             <Routes>
-                <Route exact path= '/' element={<LandingPage/>}/>
-                <Route exact path= '/register' element={<Register/>}/>
-                <Route exact path= '/home' element={<Home/>}/>
-                <Route exact path= '/:user' element={<User/>}/>
-                <Route exact path= '/:user/favorites' element={<User/>}/>
-                <Route exact path= '/:user/posts/:postId' element={<Post/>}/>
-                <Route exact path= '/:user/following' element={<User/>}/>
-                <Route exact path= '/:user/followers' element={<User/>}/>
-                <Route exact path= '/messages/:user' element={<Messages/>}/>
+                <Route path= '/front/public/index.html' element={<User/>}>
+                    <Route path= '/front/public/index.html/register' element={<Register/>}/>
+                    <Route path= '/front/public/index.html/home' element={<Home/>}/>
+                </Route>
+                <Route path={"/user"} element={<Fragment><User/><UserBoard/></Fragment>}/>
+                <Route path="*" element={<User/>} />
             </Routes>
             </div>
         </BrowserRouter>
+    )
+}
+
+function UserBoard () {
+    return (
+        <div>
+            <Routes>
+                <Route path= '/favorites' element={<User/>}/>
+                <Route path= '/posts/:postId' element={<Post/>}/>
+                <Route path= '/following' element={<User/>}/>
+                <Route path= '/followers' element={<User/>}/>
+                <Route path= '/messages' element={<Messages/>}/>
+            </Routes>
+        </div>
     )
 }
