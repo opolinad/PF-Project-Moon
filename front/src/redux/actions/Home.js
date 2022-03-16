@@ -1,6 +1,12 @@
-import { FEED_DATABASE, GET_CATEGORIES, GET_CATEGORIES_LOADING, NEXT_PAGE, RESET_OPTIONS, RESET_PAGE, SET_FEED_TO_LOADING, SET_FILTER, SET_ORDERING, SET_SELECTED_CATEGORY } from "../consts";
+import { FEED_DATABASE, GET_CATEGORIES, GET_CATEGORIES_LOADING, NEXT_PAGE, RESET_OPTIONS, RESET_PAGE, RESET_SELECTED_CATEGORY, SEARCH_RESET_OPTIONS_CATEGORY, SET_FEED_TO_LOADING, SET_FILTER, SET_ORDERING, SET_SELECTED_CATEGORY } from "../consts";
 
 /* actions of feed */
+
+export function resetForSearch()
+{
+    return({type:SEARCH_RESET_OPTIONS_CATEGORY})
+}
+
 export function setFeedToLoading()
 {
     return({type:SET_FEED_TO_LOADING})
@@ -11,8 +17,13 @@ export function feedDataBaseAction(search="",categories,filter,order)
     return async function (dispatch)
     {
         let q="";
+        
         if(search!=""){q="?search="+search;}
-        if(categories){}
+        if(selectedCategory!=""){q=q+"&category="+selectedCategory;}
+        if(filter!=""){q=q+"&filter="+filter;}
+        if(order!=""){q=q+"&order="+order;}
+        q=q+"&page="+page;
+
         const resp = await axios.get("http://localhost:3001/feed"+q);
         //despues se procesa
         let status=NOT_FOUND_404;
@@ -21,17 +32,23 @@ export function feedDataBaseAction(search="",categories,filter,order)
     }
 }
 
-export function feedNextPageAction(search="",categories,filter,order,page)
+export function feedNextPageAction(search="",selectedCategory="",filter="",order="",page=0)
 {
     return async function (dispatch)
     {
         let q="";
+
         if(search!=""){q="?search="+search;}
+        if(selectedCategory!=""){q=q+"&category="+selectedCategory;}
+        if(filter!=""){q=q+"&filter="+filter;}
+        if(order!=""){q=q+"&order="+order;}
+        q=q+"&page="+page;
+
         const resp = await axios.get("http://localhost:3001/feed"+q);
         //despues se procesa
         let status=NOT_FOUND_404;
         if(resp.data.length){status=SUCCESS_200}
-        return({type:FEED_DATABASE,payload:{status,posts:resp.data}})
+        return({type:FEED_NEXT_PAGE_DATABASE,payload:{status,posts:resp.data}})
     }
 }
 
@@ -61,6 +78,11 @@ export function categoriesDataBaseAction()
 export function selectedCategoryAction(payload)
 {
     return ({type:SET_SELECTED_CATEGORY,payload})
+}
+
+export function resetSelectedCategory()
+{
+    return({type:RESET_SELECTED_CATEGORY})
 }
 
 /* categories actions */

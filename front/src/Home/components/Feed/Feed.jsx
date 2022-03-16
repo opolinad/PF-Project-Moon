@@ -37,10 +37,10 @@ export default function Feed(props)
     {
         if(feed.status===STARTING_STATUS)
         {
-            dispatch(Actions.setFeedToLoading())
+            dispatch(Actions.setFeedToLoading())    //Primera vez que cargue feed, vera si hay un search para pedir search al back
             if(query.search)
             {
-                dispatch(Actions.feedDataBaseAction(query.search.split("=")[1]))
+                dispatch(Actions.feedDataBaseAction(query.search.split("=")[1])) 
                 dispatch(Actions.searchingAction(query.search.split("=")[1]))
             }
             else
@@ -53,12 +53,13 @@ export default function Feed(props)
 
     useEffect(()=>
     {
-        
+        dispatch(Actions.resetPageAction()); //reseteo page cuando detecto cambios en filtro, categoria o search
     },[filterAndOrder,selectedCategory,search]);
 
     useEffect(()=>
     {
-        
+        if(homePage===0) dispatch(Actions.feedDataBaseAction(search,selectedCategory,filterAndOrder.filter,filterAndOrder.ordering,0)); //cuando es primera pagina (cambios dee filter etc).
+        else dispatch(Actions.feedNextPageAction(search,selectedCategory,filterAndOrder.filter,filterAndOrder.ordering,homePage)); //Cada cambio de page, 
     },[homePage]);
 
     let postsArr;
