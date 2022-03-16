@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link, useLocation, useParams } from "react-router-dom";
-import CardPost from './CardPost.jsx';
+import CardPost from "../CardPost/CardPost.jsx";
 import { getUserData } from "../redux/actions/User.js";
 import { useDispatch, useSelector } from "react-redux";
     /* const userData = {
