@@ -5,14 +5,18 @@ export interface User {
     email: string;
     password?: string;
     image?: string;
+    followers: number []
+    following: number []
 }
 
 const UserSchema = new Schema<User>(
     {
-        username: {type:String,unique:true},
+        username: {type:String},
         email: {type:String,unique:true},
         password: {type:String},//removed required cause when logging with Google/Microsoft no password is provided
         image: {type:String},
+        followers: {type: []},
+        following: {type: []},
     },
     {timestamps:true}
     )
