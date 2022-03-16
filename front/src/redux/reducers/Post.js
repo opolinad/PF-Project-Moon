@@ -1,15 +1,15 @@
-import { GET_USER_DATA } from "../consts.js";
+import { GET_POST_DATA } from "../consts.js";
 
 const initialState = {
-    userData: []
+    postData: []
 };
 
 export default function (state = initialState, action){
     switch(action.type) {
-        case GET_USER_DATA:
+        case GET_POST_DATA:
             return {
                 ...state,
-                userData: action.payload,
+                postData: action.payload,
             }
         default:
             return state;

@@ -1,15 +1,28 @@
-import React from "react";
+import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
+import {  } from "../redux/actions/Post.js";
+import { useDispatch, useSelector } from "react-redux";
 
-let dummy={};
-let dummyComments=[];
+/* const post/dummy = {
+    title: "",
+    description: "",
+    likes: 0,
+    shares: 0,
+    saved: false,
+    images: ["", ""],
+    comments: [],
+} */
+
+/* let dummy={}; */
+/* let dummyComments=[]; */
 
 function Comment(props)
 {
-    
     return(
         <div className={"commentCont"}>
-            <div className="commentPhotoCont"><img src={props.photo} alt="no foto :c" /></div>
+            <div className="commentPhotoCont">
+                <img src={props.photo} alt="no foto :c" />
+            </div>
             <div className="contTextComment">
                 <div className="nameContComment"><Link to={"/user/"+props.id}>{props.name}</Link></div>
                 <div className="commentaryShell"></div>
@@ -20,6 +33,10 @@ function Comment(props)
 
 export default function Post()
 {
+    const dispatch = useDispatch()
+    const {username, postId} = useParams()
+    const dummy = useSelector ((state) => state.postData)
+    useEffect (() => dispatch(getPostData(username, postId)), [])
 
     const [newComment,setNewComment] = useState("")
 
@@ -30,12 +47,13 @@ export default function Post()
 
     let cardValues={}
     dummy.description? cardValues.description=dummy.description : cardValues.description="";
-    if(dummy.imgs){cardValues.imgs=dummy.imgs.map((element,index)=><img key={"img_"+index} className="cardPostImg" src={element} alt={"nu existe :c"}/>)}
+    if(dummy.images){cardValues.imgs=dummy.images.map((element,index)=><img key={"img_"+index} className="cardPostImg" src={element} alt={"nu existe :c"}/>)}
+
     cardValues.likes=dummy.likes;
     cardValues.shares=dummy.shares;
     cardValues.saved=dummy.saved;
 
-    let commentArr=dummyComments.map((element,index)=>{<Comment key={"comment_"+id} photo={element.photo} id={element.id} name={element.name}></Comment>})
+    let commentArr=dummy.comments.map((element,index)=>{<Comment key={"comment_"+id} photo={element.photo} id={element.id} name={element.name}></Comment>})
 
     return(
         <div className="bigPostCont">
