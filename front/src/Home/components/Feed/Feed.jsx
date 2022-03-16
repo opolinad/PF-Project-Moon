@@ -70,6 +70,10 @@ export default function Feed(props)
     
     
     return(
-        <div id="FeedContainer">{postsArr}</div>
+        <div id="FeedContainer">
+            {postsArr}
+            <button id="nextPageBut" onClick={dispatch(Actions.nextPageAction())} >Load More</button>
+            </div>
+        
     )
 }
