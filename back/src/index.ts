@@ -5,15 +5,15 @@ import dotenv from 'dotenv';
 import passport from "passport";
 import { dbConnect } from './db';
 import authRoutes  from './routes/routes auth';
+const allRoute = require( './routes/routes')
 const app = express();
-// const allRoute = require( './routes/routes')
-
-dotenv.config();
+dotenv.config()
 
 app.use(cors());
 app.use(express.json());
 
 app.use("/login", authRoutes);
+app.use('/api',allRoute)
 
 app.listen(3001, ()=> {
     dbConnect()

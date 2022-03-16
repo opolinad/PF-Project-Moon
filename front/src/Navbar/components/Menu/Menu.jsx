@@ -5,9 +5,9 @@ export default function Menu(props)
 {
     return(
         <div id="MenuCont">
-            <div className="menuOptionShell"><Link to={"/user/self"} className="menuOption">Cuenta</Link></div>
-            <div className="menuOptionShell"><Link to={"user/settings"} className="menuOption">Settings</Link></div>
-            <div className="menuOptionShell"><Link to={"user/saved"} className="menuOption">Saved</Link></div>
+            <div className="menuOptionShell"><Link to={"/user/self"} className="menuOption">Account</Link></div>
+            <div className="menuOptionShell"><Link to={"/user/settings"} className="menuOption">Settings</Link></div>
+            <div className="menuOptionShell"><Link to={"/user/favorites"} className="menuOption">Favorites</Link></div>
         </div>
     )
 }
