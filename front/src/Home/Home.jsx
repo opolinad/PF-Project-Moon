@@ -9,12 +9,14 @@ import Ordering from "./components/Filters And Order/Ordering.jsx";
 
 export default function Home(props)
 {
+    const dispatch= useDispatch()
 
     return(
         <div id="homeCont">
             <div id="filterOrderCont">
                 <Filter/>
                 <Ordering/>
+                <button onClick={()=>dispatch(Actions.resetOptions())} id="resetOption">Reset</button>
             </div>
             <Feed/>  {/*Aca se mostrarian los posts de feed*/}
             <Categories/> {/*Categorias varias a las que se pueden acceder por links*/}

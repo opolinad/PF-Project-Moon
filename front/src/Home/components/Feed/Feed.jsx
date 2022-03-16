@@ -37,7 +37,7 @@ export default function Feed(props)
     {
         if(feed.status===STARTING_STATUS)
         {
-            dispatch(Actions.setFeedToLoading())    //Primera vez que cargue feed, vera si hay un search para pedir search al back
+            dispatch(Actions.setFeedToLoading())    
             if(query.search)
             {
                 dispatch(Actions.feedDataBaseAction(query.search.split("=")[1])) 
@@ -49,17 +49,17 @@ export default function Feed(props)
                 dispatch(Actions.searchingAction())
             }
         }
-    },[]);
+    },[]);  //Primera vez que cargue feed, vera si hay un search para pedir search al back
 
     useEffect(()=>
     {
-        dispatch(Actions.resetPageAction()); //reseteo page cuando detecto cambios en filtro, categoria o search
-    },[filterAndOrder,selectedCategory,search]);
+        dispatch(Actions.resetPageAction()); 
+    },[filterAndOrder,selectedCategory,search]); //reseteo page cuando detecto cambios en filtro, categoria o search
 
     useEffect(()=>
     {
         if(homePage===0) dispatch(Actions.feedDataBaseAction(search,selectedCategory,filterAndOrder.filter,filterAndOrder.ordering,0)); //cuando es primera pagina (cambios dee filter etc).
-        else dispatch(Actions.feedNextPageAction(search,selectedCategory,filterAndOrder.filter,filterAndOrder.ordering,homePage)); //Cada cambio de page, 
+        else dispatch(Actions.feedNextPageAction(search,selectedCategory,filterAndOrder.filter,filterAndOrder.ordering,homePage)); //Cada cambio de page  
     },[homePage]);
 
     let postsArr;

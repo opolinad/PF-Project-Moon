@@ -18,7 +18,7 @@ export default function Categories(props)
             dispatch(Actions.setCategoriesToLoading())
             dispatch(Actions.categoriesDataBaseAction())
         }
-    },[]);
+    },[]);  //busco las categorias al back
     let categoriesArr;
 
     function handleCategoryClick(name)
@@ -29,13 +29,14 @@ export default function Categories(props)
     if(categories.status===STARTING_STATUS || categories.status===LOADING_0){categoriesArr="Loading owo..."}
     else if(categories.status===NOT_FOUND_404){categoriesArr="error! OnO";}
     else if(categories.status===SUCCESS_200){categoriesArr=categories.posts.map((element,index)=><button value={element.name} onClick={(e)=>handleCategoryClick(e.target.value)} key={"category_"+index}>{element.name}</button>);}
+    //Cada categoria es un boton que actualiza la selectedCategory 
     
     return(
         <div id="CategoriesContainer">
             <h2>Categories!</h2>
             <div id="selectedCategory">{selectedCategory}</div>
             {categoriesArr}
-            <button onClick={()=>dispatch(Actions.resetSelectedCategory())}>Reset category</button>
+            <button onClick={()=>dispatch(Actions.resetSelectedCategory())}>Reset category</button> {/* reset de categorias */}
         </div>
     )
 }
