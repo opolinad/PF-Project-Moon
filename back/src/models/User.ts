@@ -5,6 +5,8 @@ export interface User {
     email: string;
     password: string;
     image?: string;
+    followers: number []
+    following: number []
 }
 
 const UserSchema = new Schema<User>(
@@ -13,6 +15,8 @@ const UserSchema = new Schema<User>(
         email: {type:String,unique:true},
         password: {type:String,required:true},
         image: {type:String},
+        followers: {type: []},
+        following: {type: []},
     },
     {timestamps:true}
     )
