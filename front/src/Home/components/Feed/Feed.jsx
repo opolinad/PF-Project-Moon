@@ -4,6 +4,7 @@ import { STARTING_STATUS } from "../../../redux/consts.js";
 import CardPost from "../../../CardPost/CardPost.jsx";
 import Actions from "../../../redux/actions/index.jsx";
 
+
 /*
     Estoy asumiendo nombres, cambiar cuando lleguen las conexiones del back
     ademas, cuando se entra al detalle del CardPost y pasa a aser Post, se piden los comentarios!

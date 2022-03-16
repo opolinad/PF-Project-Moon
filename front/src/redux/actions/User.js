@@ -1,3 +1,4 @@
+import "regenerator-runtime/runtime";
 const axios = require("axios");
 import { GET_USER_DATA } from "../consts.js";
 

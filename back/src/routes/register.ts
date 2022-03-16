@@ -5,10 +5,9 @@ const CryptoJS = require('crypto-js')
 
 
 router.post('/', async (req:Request,res:Response) => {
-    const { username, email, password } = req.body
+    const { email, password } = req.body
 
     const newUser = new User({
-        username,
         email,
         password: CryptoJS.AES.encrypt(password,process.env.HASH_CRYPTO).toString()
     })
