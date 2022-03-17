@@ -61,3 +61,19 @@ export const RESET_PAGE="RESET_PAGE";
 export const NEXT_PAGE="NEXT_PAGE";
 
 /* Home Page */
+
+/* Follows */
+
+export const GET_FOLLOWERS="GET_FOLLOWERS";
+export const GET_FOLLOWING="GET_FOLLOWING";
+
+/* Follows */
+
+/* LandingPage */
+
+export const GET_USERS="GET_USERS";
+export const POST_USERS="POST_USERS";
+export const USERLOGIN="USERLOGIN";
+export const USERLOGOUT="USERLOGOUT";
+
+/* LandingPage */
