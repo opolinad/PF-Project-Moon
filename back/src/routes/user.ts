@@ -52,6 +52,29 @@ router.put('/:id/follow', async (req: Request, res: Response) => {
     }
 })
 
+// Unfollow
+router.put('/:id/unfollow', async (req: Request, res: Response) => {
+    if(req.body.userId !== req.params.id) {
+        try {
+            const user = await User.findById(req.params.id)
+            const currentUser = await User.findById(req.body.userId)
+            
+            if(user.followers.includes(req.body.userId)) {
+                await user.updateOne({$pull: {followers: req.body.userId}})
+                await currentUser.updateOne({$pull: {following: req.params.id}})
+                res.status(200).json('Dejo de seguir a este usuario')
+            }else {
+                res.status(404).json(error)
+            }
+        } catch (error){
+            res.status(500).json(error)
+        }
+
+    } else{
+        res.status(403).json('No podes dejar de seguir a vos mismo')
+    }
+})
+
 // router.put('/follow/:Id',verifyToken, async (req:Request,res:Response) => {
 //     const { password } = req.body
 //     if(password){
