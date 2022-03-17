@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { postUser } from '../redux/LandingPage/LandingPage'
+import { postUsers } from '../redux/actions/LandingPage'
 // import CookiesPolicy from '../CookiesPolicy/CookiesPolicy';
 
 function validate(input){

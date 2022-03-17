@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { STARTING_STATUS } from "../../../redux/consts.js";
 import CardPost from "../../../CardPost/CardPost.jsx";
-import Actions from "../../../redux/actions/index.jsx";
+import Actions from "../../../redux/actions/index.js";
 
 
 /*

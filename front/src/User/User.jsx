@@ -3,6 +3,7 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import CardPost from "../CardPost/CardPost.jsx";
 import { getUserData } from "../redux/actions/User.js";
 import { useDispatch, useSelector } from "react-redux";
+import { userData } from '../../public/dummyStates.js';
     /* const userData = {
         backgroundPhoto: "https://pbs.twimg.com/profile_banners/1321799557542531073/1608500632/600x200",
         profilePhoto: "https://pbs.twimg.com/profile_images/1340770555306373120/JjTyTFOF_400x400.jpg",
@@ -18,8 +19,8 @@ export default function User(){
 
     const dispatch = useDispatch()
     const {username} = useParams()
-    const userData = useSelector ((state) => state.userData)
-    useEffect (() => dispatch(getUserData(username)), [])
+    const userDataA = useSelector ((state) => state.userData)
+    //useEffect (() => dispatch(getUserData(username)), [])
 
     //favorites or myPosts?
     const URL = useLocation()
@@ -53,7 +54,7 @@ export default function User(){
             <div>
                 {illustrations? illustrations.map((e) => {
                     return (
-                        <CardPost userData = {e}/>
+                        <CardPost key={"userCardPost_"+e.id} userData = {e}/>
                     )
                 }): null}
             </div>
