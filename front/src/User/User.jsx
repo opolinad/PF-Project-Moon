@@ -15,6 +15,16 @@ import { userData } from '../../public/dummyStates.js';
         posts: [{image: "https://pbs.twimg.com/media/FNthreYWYAU5Ghr?format=jpg&name=small", title: "homero"}],
         favorites: [{image: "https://pbs.twimg.com/media/FNthreYWYAU5Ghr?format=jpg&name=small", title: "homero"}, {image: "https://pbs.twimg.com/media/FNtT8itXMAIt48K?format=jpg&name=small", title:"burns"}],
     } */
+
+    /*
+        BACKGROUND
+        FOTO DE PERFIL
+        FULLNAME
+        USERNAME
+        CUMPLEAÑOS
+        FOLLOWING Y FOLLOWERS LINKS
+        POSTS Y FAVORITES LINKS 
+    */
 export default function User(){
 
     const dispatch = useDispatch()
