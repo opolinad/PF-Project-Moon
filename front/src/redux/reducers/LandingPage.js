@@ -1,33 +1,27 @@
-import * as consts from "../consts.js";
+import {GET_USERS, POST_USERS} from "../consts.js"
 
 
-const defaultState = {
+const initialState = {
     loggedIn: false,
-    users: {}
+    users: [],
 }
 
-export function userLogin(state = defaultState, action){
-    if(action.type === consts.GET_USERS){
-        return {
-                    ...state,
+export default function(state = initialState, action){
+    switch(action.type){
+        case GET_USERS:
+            return{
+                ...state,
                     users: action.payload
-                }
-    }
-    
-    if(action.type === consts.USERLOGIN){
-        return {
-                    loggedIn: true,
-                    user: {...action.payload}
-                }
-    }
+            }
 
-    if(action.type === consts.USERLOGOUT){
-        localStorage.clear()
-        return {
-            loggedIn: false,
-            user: {}
-        }
-    } else{
-        return state
+        case POST_USERS:
+            return{
+                ...state,
+                users: action.payload
+            }
+
+        default:
+            return state
     }
 }
+
