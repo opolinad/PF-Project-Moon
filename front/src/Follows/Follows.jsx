@@ -26,8 +26,6 @@ export default function Follows(){
 
     return(
         <div>
-            <Link to={`/${user}/following`}>following</Link>
-            <Link to={`/${user}/followers`}>followers</Link>
             <div>
                 {displaying? displaying.map((e) => {
                     return (
