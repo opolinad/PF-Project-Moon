@@ -1,7 +1,7 @@
 import passport from "passport";
 import { Strategy } from "passport-google-oauth2";
 import { config } from "dotenv";
-const User = require('../models/User')
+const User = require('../models/User');
 config();
 
 
@@ -17,7 +17,7 @@ passport.use(
 
       User.find({ email: profile.email }, (err: Error, docs: any) => {
 
-        if(!docs.length){
+        if (!docs.length) {
           User.create({
             username: profile.displayName + profile.id,
             email: profile.email,
