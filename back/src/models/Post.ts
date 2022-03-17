@@ -3,7 +3,7 @@ import {Schema,model} from 'mongoose'
 export interface Post {
     userid: string
     image?: string;
-    descripcion: string;
+    description: string;
     likes?: string [];
     title?: string;
     categories: string []
@@ -11,11 +11,11 @@ export interface Post {
 
 const UserSchema = new Schema<Post>(
     {
-        userid: {type: String, unique: true},
+        userid: {type: String},
         image: {type:String},
         title: {type:String},
         likes: {type: []},
-        descripcion: {type: String, required:true},
+        description: {type: String, required:true},
         categories: {type: [], required:true}
         
     },

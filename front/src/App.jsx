@@ -8,12 +8,12 @@ import User from "./User/User.jsx";
 import Messages from "./Messages/Messages.jsx";
 import UserBoard from "./User/UserBoard.jsx";
 
+
 export default function App()
 {
 
 
-    return(
-        
+    return(      
         <div id="appCont">
             <BrowserRouter>
                 <Routes>
@@ -25,7 +25,6 @@ export default function App()
                         <Route path="*" element={<LandingPage/>} />
                     </Route>  
                 </Routes>
-
             </BrowserRouter>
         </div>
     )

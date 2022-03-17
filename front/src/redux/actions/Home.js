@@ -1,5 +1,6 @@
 import { FEED_DATABASE, GET_CATEGORIES, GET_CATEGORIES_LOADING, NEXT_PAGE, RESET_OPTIONS, RESET_PAGE, RESET_SELECTED_CATEGORY, SEARCH_RESET_OPTIONS_CATEGORY, SET_FEED_TO_LOADING, SET_FILTER, SET_ORDERING, SET_SELECTED_CATEGORY } from "../consts";
 import "regenerator-runtime/runtime";
+import axios from "axios";
 
 /* actions of feed */
 
@@ -18,6 +19,7 @@ export function feedDataBaseAction(search="",categories,filter,order)
     return async function (dispatch)
     {
         let q="";
+        let page = 0;
         
         if(search!=""){q="?search="+search;}
         if(selectedCategory!=""){q=q+"&category="+selectedCategory;}

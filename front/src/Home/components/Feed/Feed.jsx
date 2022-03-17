@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { STARTING_STATUS } from "../../../redux/consts.js";
 import CardPost from "../../../CardPost/CardPost.jsx";
 import Actions from "../../../redux/actions/index.js";
+import { LOADING_0 } from "../../../redux/consts.js";
 
 
 /*
@@ -38,7 +40,7 @@ export default function Feed(props)
     {
         if(feed.status===STARTING_STATUS)
         {
-            dispatch(Actions.setFeedToLoading())    
+            dispatch(Actions.setFeedToLoading())
             if(query.search)
             {
                 dispatch(Actions.feedDataBaseAction(query.search.split("=")[1])) 
@@ -47,7 +49,7 @@ export default function Feed(props)
             else
             {
                 dispatch(Actions.feedDataBaseAction())
-                dispatch(Actions.searchingAction())
+                dispatch(Actions.searchingAction(""))
             }
         }
     },[]);  //Primera vez que cargue feed, vera si hay un search para pedir search al back
@@ -74,7 +76,7 @@ export default function Feed(props)
     return(
         <div id="FeedContainer">
             {postsArr}
-            <button id="nextPageBut" onClick={dispatch(Actions.nextPageAction())} >Load More</button>
+            <button id="nextPageBut" onClick={() => dispatch(Actions.nextPageAction())} >Load More</button>
         </div>
         
     )
