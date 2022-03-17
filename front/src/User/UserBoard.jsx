@@ -9,7 +9,7 @@ export default function UserBoard() {
         <div>
             <Routes>
                 {/* <Route path= 'favorites' element={<User/>}/> */}
-                <Route path= 'posts' element={<Post/>}/>
+                {/* <Route path= 'posts' element={<Post/>}/> */}
                 {/* <Route path= 'following' element={<User/>}/>
                 <Route path= 'followers' element={<User/>}/>
                 <Route path= 'messages' element={<Messages/>}/> */}

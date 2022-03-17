@@ -41,13 +41,13 @@ export default function User(){
                 <p>{userData.birthday}</p>
 
                 <div>
-                    <Link to={"/:username/following"}>following</Link>
-                    <Link to={"/:username/followers"}>followers</Link>
+                    <Link to={"following"}>following</Link>
+                    <Link to={"followers"}>followers</Link>
                 </div>
 
                 <div>
-                    <Link to={"/:username"}>posts</Link>
-                    <Link to={"/:username/favorites"}>favorites</Link>
+                    <Link to={"posts"}>posts</Link>
+                    <Link to={"favorites"}>favorites</Link>
                 </div>
             </div>
 
