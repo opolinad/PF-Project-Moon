@@ -1,5 +1,6 @@
 export const DUMMY="DUMMY";
 
+
 export const GET_USER_DATA = "GET_USER_DATA";
 export const GET_POST_DATA = "GET_POST_DATA";
 
@@ -69,11 +70,8 @@ export const GET_FOLLOWING="GET_FOLLOWING";
 
 /* Follows */
 
-/* LandingPage */
-
-export const GET_USERS="GET_USERS";
-export const POST_USERS="POST_USERS";
-export const USERLOGIN="USERLOGIN";
-export const USERLOGOUT="USERLOGOUT";
 
 /* LandingPage */
+export const GET_USERS ="GET_USERS";
+export const POST_USERS ="POST_USERS";
+/*Landing Page */
