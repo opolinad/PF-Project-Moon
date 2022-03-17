@@ -13,7 +13,11 @@ const UserSchema = new Schema<User>(
     {
         username: {type:String},
         email: {type:String,unique:true},
+<<<<<<< HEAD
         password: {type:String},//removed required cause when logging with Google/Microsoft no password is provided
+=======
+        password: {type:String},
+>>>>>>> resolveMongo
         image: {type:String},
         followers: {type: []},
         following: {type: []},
