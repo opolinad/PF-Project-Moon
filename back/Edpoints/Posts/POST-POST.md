@@ -1,9 +1,9 @@
 <h1>EDPOINT CREAR UN POST</h1>
 
-<h3>Path: http://localhost:3001/api/posts </h3>
+<h3>Path: http://localhost:3001/api/posts/:id </h3>
 <br/>
 <p>Model<p>
-
+	Traer el id del ususario por params
     {
 	"userid": "623248c827ded66e09507be0",
 	"image": "http://s3.hulkshare.com/song_images/original/b/3/b/b3b227bd912a6270ab92a17d2648866f.jpg",
