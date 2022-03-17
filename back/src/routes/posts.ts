@@ -6,13 +6,18 @@ const Post = require('../models/Post')
 import {verifyToken} from '../helpers/verifyToken'
 
 //Create Post
-router.post('/',verifyToken ,async (req:Request, res:Response) => {
+router.post('/:id',verifyToken ,async (req:Request, res:Response) => {
+    const { id } = req.params
+    if(id === req.body.userid) { 
     const newPost = new Post(req.body)
     try {
         const savedPost = await newPost.save()
         res.status(200).json(savedPost)
     } catch (error) {
         res.status(500).json(error)
+    }
+    } else {
+        res.status(400).json('El id del usuario no coincide')
     }
 })
 
