@@ -11,3 +11,12 @@ export function postNewUser(payload) {
         })
     }
 }
+
+export function getCategories(payload) {
+    return async function(dispatch){
+        return dispatch({
+            type: "",
+            payload: ""
+        })
+    }
+}

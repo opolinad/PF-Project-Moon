@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { postUsers, getUsers } from "../redux/actions/LandingPage";
 import { useNavigate } from "react-router";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
+import { logo } from '../../public/'
 // import CookiesPolicy from '../CookiesPolicy/CookiesPolicy';
 
 function validate(input) {
@@ -49,7 +50,6 @@ export default function LandingPage() {
         history('/login')
     }
     
-    function handleChange(e){
 
 
   const onSingoutSuccess = () => {
@@ -119,6 +119,7 @@ export default function LandingPage() {
         )}
 
         <button type="submit">Log in</button>
+        </form>
         <div>
 
           {showLoginButtom ? (

@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
 import { Link } from "react-router-dom";
-import {  } from "../redux/actions/Post.js";
 import { useDispatch, useSelector } from "react-redux";
-import { post } from '../../public/dummyStates.js';
+import { getPostData } from '../redux/actions/Post.js'
+
 /* const post/dummy = {
     title: "",
     description: "",
@@ -53,7 +54,7 @@ export default function Post()
     cardValues.shares=dummy.shares;
     cardValues.saved=dummy.saved;
 
-    let commentArr=dummy.comments.map((element,index)=>{<Comment key={"comment_"+id} photo={element.photo} id={element.id} name={element.name}></Comment>})
+    let commentArr=dummy.comments.map((element,index)=>{<Comment key={"comment_"+element.id} photo={element.photo} id={element.id} name={element.name}></Comment>})
 
     return(
         <div className="bigPostCont">
@@ -67,7 +68,7 @@ export default function Post()
                 <div>Comentarios</div> {/*place holder para escribir comentario*/}
             </div>
             <div id="newCommentaryCont">
-                    <input type="text" name="newComment" id="newCommentInput" value={newComment} onChange={()=>setNewComment(e.target.value)} />
+                    <input type="text" name="newComment" id="newCommentInput" value={newComment} onChange={(e)=>setNewComment(e.target.value)} />
                     <button onClick={sendComment}>Send</button>
                 </div>
             <div className="commentSection">
