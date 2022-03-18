@@ -1,8 +1,8 @@
 import React from "react";
 import Cardpost from "./CardPost.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import {faHeart} from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import {faHeart,faShareSquare} from "@fortawesome/free-solid-svg-icons";
 /*
     title: string,
     description: string,
