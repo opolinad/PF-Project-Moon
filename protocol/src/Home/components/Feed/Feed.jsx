@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { STARTING_STATUS } from "../../../redux/consts.js";
 import CardPost from "../../../CardPost/CardPost.jsx";
 import Actions from "../../../redux/actions/index.js";
-import { LOADING_0 } from "../../../redux/consts.js";
+import { LOADING_0,NOT_FOUND_404,SUCCESS_200 } from "../../../redux/consts.js";
 
 
 /*

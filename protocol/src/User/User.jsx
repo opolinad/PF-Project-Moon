@@ -3,6 +3,7 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import CardPost from "../CardPost/CardPost.jsx";
 import { getUserData } from "../redux/actions/User.js";
 import { useDispatch, useSelector } from "react-redux";
+
 import css from "./User.module.css"
 
 const userData = {
@@ -16,6 +17,9 @@ const userData = {
     posts: [{title: "homero", image: "https://pbs.twimg.com/media/FOGGI51XsAA97Y3?format=jpg&name=small"}, {title: "lisa", image: "https://pbs.twimg.com/media/FOFxffqWUAoegHC?format=jpg&name=small"}],
     favorites: [{ title: "bart", image: "https://pbs.twimg.com/media/FOFBicMXIAI2DR5?format=jpg&name=small"}, {title: "apu", image: "https://pbs.twimg.com/media/FOEzsHqWQAUxnO2?format=jpg&name=small"}, {title: "krusty", image: "https://pbs.twimg.com/media/FN8OZ9rXIAIyebn?format=jpg&name=small"}]
 }
+
+import { userData } from '../../public/dummyStates.js';
+
 
 export default function User(){
 

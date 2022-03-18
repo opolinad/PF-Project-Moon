@@ -1,6 +1,6 @@
 import { GET_NOTIFICATIONS, GET_NOTIFICATIONS_LOADING, NOT_FOUND_404, SEARCHING_ACTION, SEARCHING_DATABASE, SET_SEARCHING_TO_LOADING, SUCCESS_200 } from "../consts";
 import "regenerator-runtime/runtime";
-
+import axios from 'axios';
 
 export function searchingAction(payload)
 {
