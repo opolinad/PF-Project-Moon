@@ -8,6 +8,7 @@ import User from "./User/User.jsx";
 import Messages from "./Messages/Messages.jsx";
 import UserBoard from "./User/UserBoard.jsx";
 
+import "./App.css";
 
 export default function App()
 {

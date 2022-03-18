@@ -31,6 +31,12 @@ export default function User(){
     const {username} = useParams()
     const userDataA = useSelector ((state) => state.userData)
     //useEffect (() => dispatch(getUserData(username)), [])
+    useEffect(()=>
+    {
+        dispatch(Actions.resetPageUser());
+        dispatch(getUserData(username));
+        return(()=>{dispatch(Action.resetUserCards())})
+    },[]);
 
     //favorites or myPosts?
     const URL = useLocation()

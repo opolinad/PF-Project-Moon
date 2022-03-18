@@ -63,6 +63,17 @@ export const NEXT_PAGE="NEXT_PAGE";
 
 /* Home Page */
 
+
+export const RESET_USER_PAGES="RESET_USER_PAGES";
+export const NEXT_FAVORITES_PAGE="NEXT_FAVORITES_PAGE";
+export const NEXT_USER_PAGE="NEXT_USER_PAGE";
+
+export const RESET_USER_CARDS="RESET_USER_CARDS";
+export const NEXT_USER_POSTS="NEXT_USER_POSTS";
+export const NEXT_USER_FAVORITES="NEXT_USER_FAVORITES";
+
+/* User Page */
+
 /* Follows */
 
 export const GET_FOLLOWERS="GET_FOLLOWERS";
@@ -75,3 +86,4 @@ export const GET_FOLLOWING="GET_FOLLOWING";
 export const GET_USERS ="GET_USERS";
 export const POST_USERS ="POST_USERS";
 /*Landing Page */
+
