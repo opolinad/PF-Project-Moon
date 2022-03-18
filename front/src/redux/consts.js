@@ -87,3 +87,7 @@ export const GET_USERS ="GET_USERS";
 export const POST_USERS ="POST_USERS";
 /*Landing Page */
 
+/*Register */
+export const POST_NEWUSER ="NEW_USER"
+/*Register */
+

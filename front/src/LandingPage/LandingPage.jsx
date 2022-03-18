@@ -31,9 +31,14 @@ export default function LandingPage(){
         password: ""
     })
 
+    // function ls(input) {
+    //     localStorage.setItem('user', input)
+    // }
+
     function handleSubmit(e){
         e.preventDefault();
         dispatch(postUsers(input))
+        // ls(input)
         history('/login')
     }
     
@@ -57,13 +62,13 @@ export default function LandingPage(){
                 <p>The passion of design in one place, we will make it to the moon</p>
             </div>
             <form onSubmit={(e) => handleSubmit(e)}>
-                <input type="text" placeholder='email' name= 'email' value={input.email} onChange={(e) => handleChange(e)}/>
+                <input type="email" placeholder='email' name= 'email' value={input.email} onChange={(e) => handleChange(e)}/>
                     {errors.email && (
                         <span className='error'>
                             <small>{errors.email}</small>
                         </span>
                     )}
-                <input type="text" placeholder='password' name= 'password' value={input.password} onChange={(e) => handleChange(e)}/>
+                <input type="password" placeholder='password' name= 'password' value={input.password} onChange={(e) => handleChange(e)}/>
                     {errors.password && (
                         <span className='error'>
                             <small>{errors.password}</small>
