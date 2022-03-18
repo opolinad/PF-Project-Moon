@@ -143,7 +143,7 @@ export default function FormUser(){
                         <select
                             id='categories'
                             name='categories'
-                            onChange={(e) => handleSelect(e)}
+                            // onChange={(e) => handleSelect(e)}
                             required
                         >
                         <option value='categories'>Categories...</option>

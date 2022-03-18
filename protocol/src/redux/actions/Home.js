@@ -1,7 +1,7 @@
 import { FEED_DATABASE, FEED_NEXT_PAGE_DATABASE, GET_CATEGORIES, GET_CATEGORIES_LOADING, NEXT_PAGE, NOT_FOUND_404, RESET_OPTIONS, RESET_PAGE, RESET_SELECTED_CATEGORY, SEARCH_RESET_OPTIONS_CATEGORY, SET_FEED_TO_LOADING, SET_FILTER, SET_ORDERING, SET_SELECTED_CATEGORY } from "../consts";
 import "regenerator-runtime/runtime";
 import axios from "axios";
-import { SUCCESS_200 } from "../../../../front/src/redux/consts";
+import { SUCCESS_200 } from "../consts.js";
 
 /* actions of feed */
 

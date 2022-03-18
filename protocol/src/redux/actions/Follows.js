@@ -1,6 +1,6 @@
 import "regenerator-runtime/runtime";
-const axios = require("axios");
 import { GET_FOLLOWING, GET_FOLLOWERS} from "../consts.js";
+const axios = require("axios");
 
 export function getFollowers(payload){
     return async function(dispatch){
