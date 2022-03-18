@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { postUsers } from '../redux/actions/LandingPage'
+import { postUsers, getUsers } from "../redux/actions/LandingPage"
+import { useNavigate } from 'react-router';
 // import CookiesPolicy from '../CookiesPolicy/CookiesPolicy';
 
 function validate(input){
@@ -22,8 +23,7 @@ return errors
 
 export default function LandingPage(){
     const dispatch = useDispatch()
-    // const history = useHistory()
-    // const users = useSelector((state) => state.users)
+    const history = useNavigate()
     const [errors, setErrors] = useState({})
 
     const [input, setInput] = useState({
@@ -31,17 +31,14 @@ export default function LandingPage(){
         password: ""
     })
 
-    // useEffect(() => {
-    //     dispatch(getUsers())
-    // }, [dispatch])
-
     function handleSubmit(e){
         e.preventDefault();
-        dispatch(postUser(input))
+        dispatch(postUsers(input))
+        history('/login')
     }
     
     function handleChange(e){
-        console.log(e.target.value)
+
         setInput({
             ...input,
             [e.target.name]: e.target.value,
@@ -61,10 +58,20 @@ export default function LandingPage(){
             </div>
             <form onSubmit={(e) => handleSubmit(e)}>
                 <input type="text" placeholder='email' name= 'email' value={input.email} onChange={(e) => handleChange(e)}/>
+                    {errors.email && (
+                        <span className='error'>
+                            <small>{errors.email}</small>
+                        </span>
+                    )}
                 <input type="text" placeholder='password' name= 'password' value={input.password} onChange={(e) => handleChange(e)}/>
-                <Link to={"/login"}>
-                    <button>log in</button>
-                </Link>
+                    {errors.password && (
+                        <span className='error'>
+                            <small>{errors.password}</small>
+                        </span>
+                    )}
+
+                    <button type='submit'>Log in</button>
+
                 <Link to={"/password_reset"}>Forgot password?</Link>
                 <Link to={"/register"}>
                     <button>create a new account</button>
