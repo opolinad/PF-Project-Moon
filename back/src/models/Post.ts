@@ -11,6 +11,8 @@ export interface Post {
     comments?: object []
     price?: string
     premium?: boolean
+    share?: boolean
+    shareId?: string
     
 }
 
@@ -25,6 +27,8 @@ const UserSchema = new Schema<Post>(
         comments: {type: []},
         price: {type:String},
         premium: {type:Boolean},
+        share: {type: Boolean},
+        shareId: {type: String}
         
     },
     {timestamps:true}
