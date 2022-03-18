@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { postUsers, getUsers } from "../redux/actions/LandingPage";
 import { useNavigate } from "react-router";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
-import { logo } from '../../public/'
 // import CookiesPolicy from '../CookiesPolicy/CookiesPolicy';
 
 function validate(input) {
@@ -88,7 +87,7 @@ export default function LandingPage() {
   return (
     <div>
       <div>
-        <img src="" alt="logo not found" />
+        <img src="./logo.svg" alt="logo not found" />
         <h1>MOON PROTOCOL</h1>
         <p>The passion of design in one place, we will make it to the moon</p>
       </div>
