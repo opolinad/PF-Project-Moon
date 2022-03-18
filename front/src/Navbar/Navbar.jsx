@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 import Actions from "../redux/actions/index.js";
 import Menu from "./components/Menu/Menu.jsx";
 import Notifications from "./components/Notifications/Notifications.jsx";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
+
+import NavbarCss from "./Navbar.module.css";
 
 export default function Navbar()
 {
@@ -35,23 +39,23 @@ export default function Navbar()
     let searchbut;
     if(showMenu) menu=<Menu/>
     if(showNotifications) notifications=<Notifications/>;
-    search.length>3 ? searchbut=<Link to={"/home?search="+search} onClick={searching} id="searchLink">owo!</Link> : searchbut=<p onClick={()=>setSearchErr("owo small, >3 pls uwu")}>owo</p>;
+    search.length>3 ? searchbut=<Link to={"/home?search="+search} onClick={searching} id={NavbarCss.searchLink}><FontAwesomeIcon icon={faSearch}/></Link> : searchbut=<p onClick={()=>setSearchErr("owo small, >3 pls uwu")}><FontAwesomeIcon icon={faSearch}/></p>;
     
     return(
-        <div id="navbarShell">
-            <div id="menuIcon">
-                <div id="menuShell" onClick={()=>setShowMenu(!showMenu)}>Menu</div>
+        <div id={NavbarCss.navbarShell}>
+            <div id={NavbarCss.menuIcon}>
+                <div id={NavbarCss.menuShell} onClick={()=>setShowMenu(!showMenu)}><FontAwesomeIcon icon={faBars}/></div>
                 {menu}
             </div>
             
-            <div id="SearchContainer">
-                <div id="inputSearchShell"><input type="text" value={search} name="searchInput" id="searchInput" onChange={(e)=>setSearch(e.target.value)} placeholder={"Search"} /></div>
-                <div id="inputButtonShell"><button  id="searchButton">{searchbut}</button></div>
+            <div id={NavbarCss.SearchContainer}>
+                <div id={NavbarCss.inputSearchShell}><input type="text" value={search} name="searchInput" id={NavbarCss.searchInput} onChange={(e)=>setSearch(e.target.value)} placeholder={"Search"} /></div>
+                <div id={NavbarCss.inputButtonShell}><button  id={NavbarCss.searchButton}>{searchbut}</button></div>
                 <small>{searchErr}</small>
             </div>
 
-            <div id="notificationsShell">
-            <div id="notificationIcon" onClick={showNotification}>Notis</div>
+            <div id={NavbarCss.notificationsShell}>
+            <div id={NavbarCss.notificationIcon} onClick={showNotification}>Notis</div>
                 {notifications}
             </div>
         </div>

@@ -19,6 +19,7 @@ export default function Filter()
                 <option value="" className="filterOption"></option>
                 {/* <option value="trending" className="filterOption">Trending</option> */}
                 <option value="designsOnly" className="filterOption">Designs Only</option>
+                <option value="textOnly" className="filterOption">Text Only</option>
             </select>
         </div>
     )
