@@ -2,23 +2,17 @@ import React from 'react';
 import { Route, Routes } from "react-router";
 import Post from '../Post/Post.jsx';
 import User from "./User.jsx";
-import { useSelector } from 'react-redux';
-import Follows from '../Follows/Follows.jsx';
+import Follows from './UserFollows';
 import Messages from "../Messages/Messages.jsx"
+import Posts from './UserPosts';
 
 
 export default function UserBoard() {
-
-    const userData= useSelector(state=>state.userData);
-
-    let userPosts;
-    if(userData.posts){userPosts}
-
     return (
         <div>
             <Routes>
-                <Route path= 'favorites' element={<Post/>}/>
-                <Route path= 'posts' element={<Post/>}/>
+                <Route path= 'favorites' element={<Posts/>}/>
+                <Route path= 'posts' element={<Posts/>}/>
                 <Route path= 'following' element={<Follows/>}/>
                 <Route path= 'followers' element={<Follows/>}/>
                 <Route path= 'messages' element={<Messages/>}/>
