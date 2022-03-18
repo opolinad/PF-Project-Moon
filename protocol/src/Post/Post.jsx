@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import {  } from "../redux/actions/Post.js";
 import { useDispatch, useSelector } from "react-redux";
 import { post } from '../../public/dummyStates.js';
+import { useParams } from 'react-router';
+
 /* const post/dummy = {
     title: "",
     description: "",

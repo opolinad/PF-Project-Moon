@@ -4,6 +4,7 @@ import CardPost from "../CardPost/CardPost.jsx";
 import { getUserData } from "../redux/actions/User.js";
 import { useDispatch, useSelector } from "react-redux";
 import { userData } from '../../public/dummyStates.js';
+import Actions from '../redux/actions/index.js';
     /* const userData = {
         backgroundPhoto: "https://pbs.twimg.com/profile_banners/1321799557542531073/1608500632/600x200",
         profilePhoto: "https://pbs.twimg.com/profile_images/1340770555306373120/JjTyTFOF_400x400.jpg",
