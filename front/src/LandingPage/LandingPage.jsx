@@ -33,9 +33,24 @@ export default function LandingPage() {
     setShowLogoutButtom(true);
   };
 
+
   const onFailureSuccess = (res) => {
     console.log("Login failed:", res);
   };
+
+    // function ls(input) {
+    //     localStorage.setItem('user', input)
+    // }
+
+    function handleSubmit(e){
+        e.preventDefault();
+        dispatch(postUsers(input))
+        // ls(input)
+        history('/login')
+    }
+    
+    function handleChange(e){
+
 
   const onSingoutSuccess = () => {
     alert("Has sido desconectado con éxito");
@@ -105,6 +120,7 @@ export default function LandingPage() {
 
         <button type="submit">Log in</button>
         <div>
+
           {showLoginButtom ? (
             <GoogleLogin
               clientId={clientId}
@@ -123,6 +139,25 @@ export default function LandingPage() {
             ></GoogleLogout>
           ) : null}
         </div>
+
+            <div>
+                <img src="" alt="logo not found" />
+                <h1>MOON PROTOCOL</h1>
+                <p>The passion of design in one place, we will make it to the moon</p>
+            </div>
+            <form onSubmit={(e) => handleSubmit(e)}>
+                <input type="email" placeholder='email' name= 'email' value={input.email} onChange={(e) => handleChange(e)}/>
+                    {errors.email && (
+                        <span className='error'>
+                            <small>{errors.email}</small>
+                        </span>
+                    )}
+                <input type="password" placeholder='password' name= 'password' value={input.password} onChange={(e) => handleChange(e)}/>
+                    {errors.password && (
+                        <span className='error'>
+                            <small>{errors.password}</small>
+                        </span>
+                    )}
 
         <Link to={"/password_reset"}>Forgot password?</Link>
         <Link to={"/register"}>

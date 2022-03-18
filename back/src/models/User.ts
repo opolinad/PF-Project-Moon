@@ -9,6 +9,7 @@ export interface User {
     followers?: number []
     following?: number []
     favourites?: number []
+    favouritesCategories?: string []
     history?: object []
     
 }
@@ -22,6 +23,9 @@ const UserSchema = new Schema<User>(
         followers: {type: []},
         following: {type: []},
         favourites: {type: []},
+        favouritesCategories: {type: []},
+        history: {type: []},
+
     },
     {timestamps:true}
     )
