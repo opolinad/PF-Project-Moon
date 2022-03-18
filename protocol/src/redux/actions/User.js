@@ -1,6 +1,6 @@
 import "regenerator-runtime/runtime";
-const axios = require("axios");
 import { GET_USER_DATA, NEXT_FAVORITES_PAGE, NEXT_USER_FAVORITES, NEXT_USER_PAGE, NEXT_USER_POSTS, NOT_FOUND_404, RESET_USER_CARDS, RESET_USER_PAGES, SUCCESS_200 } from "../consts.js";
+const axios = require("axios");
 
 export function getUserData(payload){
     return async function(dispatch){

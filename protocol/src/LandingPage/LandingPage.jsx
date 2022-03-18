@@ -49,7 +49,6 @@ export default function LandingPage() {
         history('/login')
     }
     
-    function handleChange(e){
 
 
   const onSingoutSuccess = () => {
@@ -88,7 +87,7 @@ export default function LandingPage() {
   return (
     <div>
       <div>
-        <img src="" alt="logo not found" />
+        <img src="./logo.svg" alt="logo not found" />
         <h1>MOON PROTOCOL</h1>
         <p>The passion of design in one place, we will make it to the moon</p>
       </div>
@@ -119,6 +118,7 @@ export default function LandingPage() {
         )}
 
         <button type="submit">Log in</button>
+        </form>
         <div>
 
           {showLoginButtom ? (
