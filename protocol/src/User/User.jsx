@@ -18,9 +18,6 @@ const userData = {
     favorites: [{ title: "bart", image: "https://pbs.twimg.com/media/FOFBicMXIAI2DR5?format=jpg&name=small"}, {title: "apu", image: "https://pbs.twimg.com/media/FOEzsHqWQAUxnO2?format=jpg&name=small"}, {title: "krusty", image: "https://pbs.twimg.com/media/FN8OZ9rXIAIyebn?format=jpg&name=small"}]
 }
 
-import { userData } from '../../public/dummyStates.js';
-
-
 export default function User(){
 
     const dispatch = useDispatch()
