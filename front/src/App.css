@@ -1,0 +1,12 @@
+body{
+    background-color: black;
+    width: 100%;
+    height: fit-content;
+    margin: 0;
+    padding: 0;
+}
+
+#appCont{
+    width: 100%;
+    height: fit-content;
+}
