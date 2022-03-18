@@ -7,18 +7,24 @@ import Register from "./Register/Register.jsx";
 import User from "./User/User.jsx";
 import Messages from "./Messages/Messages.jsx";
 import UserBoard from "./User/UserBoard.jsx";
-
-import "./App.css";
-import Navbar from "./Navbar/Navbar.jsx";
+import NotFound from "./NotFound/NotFound";
+import "./App.css"
 
 export default function App()
 {
-
-
-    return(      
-        <div id="appCont">
-            <Navbar/>
-        </div>
-    )
+  return(      
+    <div id="appCont">
+      <BrowserRouter>
+        <Routes>
+          <Route path= '/'>
+            <Route index element={<LandingPage/>}/>
+            <Route path= 'register' element={<Register/>}/>
+            <Route path= 'home' element={<Home/>}/>
+            <Route path={"user/*"} element={<Fragment><User/><UserBoard/></Fragment>}/>
+            <Route path="*" element={<NotFound/>} />
+          </Route>  
+        </Routes>
+      </BrowserRouter>
+    </div>
+  )
 }
-
