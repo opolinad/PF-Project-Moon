@@ -1,4 +1,3 @@
-import { error } from 'console'
 import { Router, Request, Response } from 'express'
 import { verifyToken } from '../helpers/verifyToken'
 const User = require('../models/User')
@@ -41,7 +40,7 @@ router.put('/:id/follow', async (req: Request, res: Response) => {
                 await currentUser.updateOne({$push: {following: req.params.id}})
                 res.status(200).json('Esta siguiendo a este usuario')
             }else {
-                res.status(404).json(error)
+                res.status(404).json('Ya estas siguiendo a este usuario')
             }
         } catch (error){
             res.status(500).json(error)
@@ -64,7 +63,7 @@ router.put('/:id/unfollow', async (req: Request, res: Response) => {
                 await currentUser.updateOne({$pull: {following: req.params.id}})
                 res.status(200).json('Dejo de seguir a este usuario')
             }else {
-                res.status(404).json(error)
+                res.status(404).json('Ya dejaste de seguir a este usuario')
             }
         } catch (error){
             res.status(500).json(error)
@@ -74,40 +73,6 @@ router.put('/:id/unfollow', async (req: Request, res: Response) => {
         res.status(403).json('No podes dejar de seguir a vos mismo')
     }
 })
-
-// router.put('/follow/:Id',verifyToken, async (req:Request,res:Response) => {
-//     const { password } = req.body
-//     if(password){
-//         req.body.password = CryptoJS.AES.encrypt(
-//             req.body.password,
-//             process.env.HASH_CRYPTO
-//         ).toString()
-//     }
-//     try {
-//         const putUser = await User.findByIdAndUpdate(
-//             req.params.id, 
-//             {
-//                 $set: req.body
-//             },
-//             { new: true }
-//         )
-//         res.json(putUser)
-//     } catch (error) {
-//         res.status(404).json(error)
-//     }
-// })
-
-// // Follow
-// router.put('/follow/:Id', verifyToken, async (req:Request,res:Response) => {
-//     const { id } = req.params
-//     const user = await User.findbyid(id)
-//     try {
-//         await User.push(user)
-//         res.json('New Follow')
-//     } catch (error) {
-//         res.status(404).json(error)
-//     }
-// })
 
 // Borrar usuario
 router.delete('/:id', verifyToken, async (req:Request,res:Response) => {
