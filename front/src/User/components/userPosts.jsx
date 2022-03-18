@@ -30,6 +30,7 @@ export default function Feed(props)
 
     const dispatch = useDispatch();
     const userData= useSelector(state=>state.userData);
+
     const userPage = useSelector(state=>state.userPage);
     const userFavoritePage = useSelector(state=>state.userFavoritePage);
     const userPosts = useSelector(state=>state.userPosts);
@@ -61,6 +62,5 @@ export default function Feed(props)
             {postsArr}
             <button id="nextPageBut" onClick={handleNextPage} >Load More</button>
         </div>
-        
     )
 }
