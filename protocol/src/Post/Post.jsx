@@ -2,7 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
 import { getPostData } from '../redux/actions/Post.js'
+
+import { post } from '../../public/dummyStates.js';
+import { useParams } from 'react-router';
+
 
 /* const post/dummy = {
     title: "",
