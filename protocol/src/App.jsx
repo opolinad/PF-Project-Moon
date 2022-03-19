@@ -8,6 +8,7 @@ import User from "./User/User";
 import Messages from "./Messages/Messages.jsx";
 import UserBoard from "./User/UserBoard.jsx";
 import NotFound from "./NotFound/NotFound";
+import Navbar from "./Navbar/Navbar.jsx"
 import "./App.css"
 
 export default function App()
@@ -19,7 +20,7 @@ export default function App()
           <Route path= '/'>
             <Route index element={<LandingPage/>}/>
             <Route path= 'register' element={<Register/>}/>
-            <Route path= 'home' element={<Home/>}/>
+            <Route path= 'home' element={<><Navbar/><Home/></>}/>
             <Route path={"user/*"} element={<Fragment><User/><UserBoard/></Fragment>}/>
             <Route path="*" element={<NotFound/>} />
           </Route>  

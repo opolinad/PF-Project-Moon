@@ -1,0 +1,65 @@
+#homeCont{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: fit-content;
+    margin-top: 3vh;
+
+
+}
+
+#filterOrderCont{
+    display: flex;
+    flex-direction: row-reverse;
+    width: 88vw;
+    height: 4vh;
+    padding: 3vh 0 3vh 0;
+}
+
+#resetOption{
+    height: 4vh;
+
+    border: none;
+    border-radius: 1vw;
+    border-bottom: 0.2vh solid #150050;
+    box-shadow: 0 0.3vh 0.3vh #150050;
+
+    color: #F8F8F8;
+    background-color: transparent;
+}
+#resetOption:hover{
+    cursor: pointer;
+    color: #F1D6AB;
+}
+
+
+#InfoCont{
+    display: flex;
+    flex-direction: row;
+
+    width: 80%;
+    margin-left: 20%;
+}
+
+
+#nextPageBut{
+    height: 10vh;
+    width: 100%;
+
+    border: none;
+    border-top: 0.2vh solid #6000945e;
+    box-shadow: inset 0 0.5vh 0.5vh #6000947b;
+    color: rgb(54, 0, 96);
+    background: linear-gradient(180deg, #0a0027 60%, #040111 90%);
+
+    font-size: 1.2vw;
+    font-weight: bolder;
+    text-align: center;
+}
+#nextPageBut:hover{
+    cursor: pointer; 
+    
+}

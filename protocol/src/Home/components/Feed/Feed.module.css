@@ -1,0 +1,10 @@
+#FeedContainer{
+    display: flex;
+    flex-direction: column;
+    width: 60vw;
+    height: 80vh;
+
+    border-left: 2px solid rgb(14, 14, 14);
+    border-right: 2px solid rgb(50, 50, 50);
+}
+

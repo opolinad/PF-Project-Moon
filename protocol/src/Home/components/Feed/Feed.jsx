@@ -6,7 +6,7 @@ import CardPost from "../../../CardPost/CardPost.jsx";
 import Actions from "../../../redux/actions/index.js";
 import { LOADING_0,NOT_FOUND_404,SUCCESS_200 } from "../../../redux/consts.js";
 
-
+import FeedCss from "./Feed.module.css";
 /*
     Estoy asumiendo nombres, cambiar cuando lleguen las conexiones del back
     ademas, cuando se entra al detalle del CardPost y pasa a aser Post, se piden los comentarios!
@@ -74,9 +74,9 @@ export default function Feed(props)
     
     
     return(
-        <div id="FeedContainer">
+        <div id={FeedCss.FeedContainer}>
             {postsArr}
-            <button id="nextPageBut" onClick={() => dispatch(Actions.nextPageAction())} >Load More</button>
+            
         </div>
         
     )

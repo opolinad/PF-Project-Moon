@@ -2,6 +2,8 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import Actions from "../../../redux/actions/index.js";
 
+import FilterCss from "./Filter.module.css";
+
 export default function Filter()
 {
     const dispatch= useDispatch();
@@ -13,13 +15,12 @@ export default function Filter()
     }
 
     return(
-        <div id="filterCont">
-            <h3>Filters!</h3>
-            <select name="filterSelect" id="filterSelect" onChange={(e)=>filtering(e)}>  
-                <option value="" className="filterOption"></option>
+        <div id={FilterCss.filterCont}>
+            <select name="filterSelect" id={FilterCss.filterSelect} onChange={(e)=>filtering(e)}>  
+                <option value="" className={FilterCss.filterOption}>All</option>
                 {/* <option value="trending" className="filterOption">Trending</option> */}
-                <option value="designsOnly" className="filterOption">Designs Only</option>
-                <option value="textOnly" className="filterOption">Text Only</option>
+                <option value="designsOnly" className={FilterCss.filterOption}>Designs Only</option>
+                <option value="textOnly" className={FilterCss.filterOption}>Text Only</option>
             </select>
         </div>
     )
