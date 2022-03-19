@@ -1,8 +1,9 @@
 import { Router, Request, Response } from "express";
 const router = Router();
 const User = require('../models/User');
+const Post = require('../models/Post');
 
-
+//Obtener los favoritos 
 router.get("/:id", async (req: Request, res: Response) => {
     const { page = 1 }: { page?: number } = req.query;
     const { id } = req.params;
@@ -17,19 +18,26 @@ router.get("/:id", async (req: Request, res: Response) => {
         res.sendStatus(500);
     }
 })
+
+// Añadir/quitar favoritos
 router.put("/:idUser", async (req: Request, res: Response) => {
     const { idUser } = req.params;
     const { idPost } = req.body;
     try {
-        let user = await User.findById(idUser);
-        if (user.favourites.includes(idPost)) {
-            console.log("Entra 1");
-            await user.updateOne({ $pull: { favourites: idPost } })
-        } else {
-            console.log("Entra 2");
-            await user.updateOne({ $push: { favourites: idPost } })
+        const user = await User.findById(idUser);
+        const post = await Post.findById(idPost);
+        const objPost = { title: post.title, image: post.image, _id: post._id }
+
+        if (user.favouritesId.includes(idPost)) {
+            await user.updateOne({ $pull: {favourites: objPost }})
+            await user.updateOne({ $pull: {favouritesId: idPost }})
+            return res.send("Eliminado de favoritos");
+        } else { 
+            await user.updateOne({ $push: {favourites: objPost }})
+            await user.updateOne({ $push: {favouritesId: idPost }})
+            return res.send("Agregado a favoritos");
         }
-        res.send("realizado con éxito");
+        
     } catch (error) {
         res.sendStatus(500);
     }

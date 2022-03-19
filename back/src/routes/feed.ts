@@ -10,7 +10,11 @@ router.get('/:id', (req:Request, res:Response) => {
     try {
         const user = User.findById(id)
         const posts = Post.find({})
-        posts.filter(post => post.categories.includes(user.favouritesCategories.toString()))
+
+        for(let i = 0; i > user.favouritesCategories.length; i++) {
+            // posts.filter((post: object) => post.categories.inlcudes(user.favouritesCategories[i]))
+        }
+
         if(page) {
             const lastPage = page * 20
             const firstPage = lastPage - 20
