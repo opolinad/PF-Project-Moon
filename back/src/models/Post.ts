@@ -18,11 +18,7 @@ export interface Post {
 
 const UserSchema = new Schema<Post>(
     {
-<<<<<<< HEAD
-        userid: {type:String},
-=======
         userid: {type: String, required:true},
->>>>>>> d9c6f50b0ec380fc06ad30d9dbb44b359042bfff
         image: {type:String},
         title: {type:String},
         likes: {type: []},
