@@ -7,7 +7,7 @@ export default function App()
 {
   return(      
     <div id="appCont">
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <Routes>
           <Route path= '/'>
             <Route index element={<LandingPage/>}/>
@@ -17,8 +17,7 @@ export default function App()
             <Route path="*" element={<NotFound/>} />
           </Route>  
         </Routes>
-      </BrowserRouter> */}
-      <Navbar/>
+      </BrowserRouter>
     </div>
   )
 }
