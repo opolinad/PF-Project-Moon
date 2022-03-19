@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // import { postUsers, getUsers } from "../redux/actions/LandingPage";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { loginUser } from '../redux/apiCalls/loginCalls'
 // import CookiesPolicy from '../CookiesPolicy/CookiesPolicy';
 import styles from './landingPage.module.css'
+import { Toast } from "../helpers/alerts/alert";
 
 function validate(input) {
     let errors = {};
@@ -27,13 +28,11 @@ function validate(input) {
 export default function LandingPage() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user)
-    // const history = useNavigate();
+    const navigate = useNavigate();
     const clientId = "";
     const [showLoginButtom, setShowLoginButtom] = useState(true);
     const [showLogoutButtom, setShowLogoutButtom] = useState(false);
     const [errors, setErrors] = useState({});
-
-    console.log(user.error)
 
     const [input, setInput] = useState({
         email: "",
@@ -52,28 +51,11 @@ export default function LandingPage() {
         console.log("Login failed:", res);
     };
 
-    // function ls(input) {
-    //     localStorage.setItem('user', input)
-    // }
-
     const onSingoutSuccess = () => {
         alert("Has sido desconectado con éxito");
         setShowLoginButtom(true);
         setShowLogoutButtom(false);
     };
-
-    function handleSubmit(e) {
-        e.preventDefault();
-        // dispatch(postUsers(input))
-        // ls(input)
-        loginUser(dispatch, input)
-        // history('/login')
-    }
-    // function handleSubmit(e) {
-    //     e.preventDefault();
-    //     dispatch(postUsers(input));
-    //     history("/login");
-    // }
 
     function handleChange(e) {
         setInput({
@@ -88,7 +70,35 @@ export default function LandingPage() {
         );
     }
 
-    console.log(input)
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (input.email === '' || input.password === '') {
+            Toast.fire({
+                icon: 'info',
+                title: 'invalid credentials',
+            })
+            setInput({ email: '', password: '' })
+        } else {
+            loginUser(dispatch, input)
+            if (user.currentUser) {
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Login success',
+                })
+                navigate('/home')
+            }
+        }
+    }
+
+    useEffect(() => {
+        (() => {
+            user.error && Toast.fire({
+                icon: 'info',
+                title: 'invalid credentials',
+            });
+            user.error && setInput({ email: '', password: '' })
+        })()
+    }, [user.error])
 
     return (
         <div className={styles.landingContainer} >
@@ -132,7 +142,7 @@ export default function LandingPage() {
                     <h1>MOON PROTOCOL</h1>
                     <p>The passion of design in one place, we will make it to the moon</p>
                 </div> */}
-                <form className={styles.ladingFormCard} onSubmit={(e) => handleSubmit(e)}>
+                <form className={styles.ladingFormCard}>
                     <input
                         className={styles.ladingInput}
                         type="email"
@@ -161,13 +171,16 @@ export default function LandingPage() {
                             <small>{errors.password}</small>
                         </span>
                     )}
-                    <button>LOGIN</button>
+                    <button
+                        type="button"
+                        onClick={handleSubmit}
+                    >LOGIN</button>
                     <Link to={"/password_reset"}>Forgot password?</Link>
                     <Link to={"/register"}>
-                        <button>create a new account</button>
+                        <div>create a new account</div>
                     </Link>
                     <p>Publish your illustrations and discover others!</p>
-                    <div>
+                    {/* <div>
                         {showLoginButtom ? (
                             <GoogleLogin
                                 clientId={clientId}
@@ -184,7 +197,7 @@ export default function LandingPage() {
                                 onLogoutSuccess={onSingoutSuccess}
                             ></GoogleLogout>
                         ) : null}
-                    </div>
+                    </div> */}
                 </form>
 
             </div>
