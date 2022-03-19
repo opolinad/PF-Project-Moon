@@ -5,6 +5,7 @@
     padding: 5%;
     gap: 10px;
     height: 100vh;
+    color: white;
 }
 #card{
     background-color: rgba(68, 68, 68, 0.248);
