@@ -1,13 +1,13 @@
 #MenuCont{
     position: relative;
     left: -20vw;
-    top: -1vh;
+    top: -0.1vh;
     width: 20vw;
     height: 92vh;
 
-    background: linear-gradient(90deg, rgba(0,0,0,1) 24%, rgba(27,6,47,1) 60%);
+    background: linear-gradient(90deg, #040111 24%, #3F0071 60%);
 
-    box-shadow: 1vh 1vh 1vh #610094;
+    box-shadow: 1vh 1vh 1vh #6000947e;
 
     z-index: 1;
 }
@@ -34,7 +34,7 @@
     font-size: 2.5vh;
     font-weight: bolder;
 
-    color: #6001ae9c;
+    color: #F8F8F8;
 }
 .menuImg{
     width: 3vh;

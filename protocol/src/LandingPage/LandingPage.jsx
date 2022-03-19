@@ -194,6 +194,7 @@ export default function LandingPage() {
             <button>OK</button>
             <Link to={CookiesPolicy}><button>Cookies policy</button></Link> 
             </div>*/}
+
         </div>
     );
 }

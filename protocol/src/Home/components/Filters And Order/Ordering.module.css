@@ -1,0 +1,35 @@
+#orderingCont{
+    width: fit-content;
+    margin: 0 0.5vw 0 0.5vw;
+    
+    border-radius: 1vw;
+    border-bottom: 0.1vh solid #150050;
+    box-shadow: 0 0.2vh 0.2vh #150050;
+}
+
+#orderingSelect{
+    width: 8vw;
+    height: 4vh;
+
+    border: none;
+
+    color: #F8F8F8;
+    background-color: transparent;
+
+
+    text-align: center;
+    
+}
+#orderingSelect:focus{
+    outline: none;
+}
+#orderingSelect:hover{
+    cursor: pointer;
+    color: #F1D6AB;
+}
+
+.orderingOption{
+    border: none;
+    background-color: black;
+    color: #F8F8F8;
+}

@@ -2,6 +2,8 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import Actions from "../../../redux/actions/index.js";
 
+import OrderingCss from "./Ordering.module.css";
+
 export default function Ordering()
 {
     const dispatch= useDispatch();
@@ -13,12 +15,11 @@ export default function Ordering()
     }
 
     return(
-        <div id="orderingCont">
-            <h3>Ordering!</h3>
-            <select name="orderingSelect" id="orderingSelect" onChange={(e)=>ordering(e)}>  
-                <option value="" className="orderingOption"></option>
-                <option value="recent" className="orderingOption">Recent</option>
-                <option value="trending" className="orderingOption">Trending</option>
+        <div id={OrderingCss.orderingCont}>
+            <select name="orderingSelect" id={OrderingCss.orderingSelect} onChange={(e)=>ordering(e)}>  
+                <option value="" className={OrderingCss.orderingOption}> By Default</option>
+                <option value="recent" className={OrderingCss.orderingOption}>Recent</option>
+                <option value="trending" className={OrderingCss.orderingOption}>Trending</option>
             </select>
         </div>
     )

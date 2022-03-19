@@ -42,7 +42,7 @@
    }
    
 #card button:hover {
-    color: white;
+    color: #F8F8F8;
     box-shadow: inset 0 -100px 0 0 #725AC1;
 }
    
