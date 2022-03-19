@@ -18,7 +18,7 @@
     text-align: center;
 
     border-bottom: 0.2vh solid #1c0167;
-    color: white;
+    color: #F8F8F8;
 }
 .userPhoto{
     max-width: 4.8vh;
@@ -79,7 +79,7 @@
     margin: 0 2% 0 2%;
     margin-top: 2vh;
 
-    color: white;
+    color: #F8F8F8;
     border-top: 0.2vh solid #1c0167;
 }
 .likesShell,.sharesShell,.favoritesShell,.commentShell{

@@ -1,24 +1,32 @@
 #navbarShell{
+    position: sticky;
+    top: 0;
+
     display: flex;
     justify-content: space-between;
 
-    width: 60vw;
-    padding: 0 20vw 0 20vw;
+    width: 100%;
     height: 8vh;
 
-    background-color: #1b062f;
+    background-color: #3F0071;
+
+    box-shadow: 0vw 1vh 1vh #6000947b;
+    border-bottom: 0.2vh solid #6000945e;
 }
 
 #menuIcon{
     width: 4vh;
     height: 8vh;
-    color: white;
+    color: #F8F8F8;
 }
 #menuShell{
     width: 4vh;
     height: 4.1vh;
     margin: 2vh auto 2vh auto;
     font-size: 4.2vh;
+}
+#menuShell:hover{
+    cursor: pointer;
 }
 
 
@@ -47,7 +55,7 @@
     padding-left: 1vw;
 
     background-color: transparent;
-    color: white;
+    color: #F8F8F8;
 
     border: none;
 
@@ -69,7 +77,7 @@
     margin-top: 0.1vh;
 
     background-color: black;
-    color: white;
+    color: #F8F8F8;
 }
 #searchButton > p{
     margin: auto;
@@ -78,5 +86,31 @@
 #searchLink:hover{
     cursor: pointer;
     text-decoration: none;
-    color: white;
+    color: #F8F8F8;
+}
+
+#notificationIcon{
+    width: 3vh;
+    height: 3vh;
+    font-size: 3vh;
+}
+#notificationsShell{
+    width: 3vh;
+    height: 3.1vh;
+    margin: 2.5vh  2.5vh ;
+    font-size: 3.2vh;
+
+    color: #F8F8F8;
+}
+
+
+#paddingDer{
+    width: 20vw;
+    height: 8vh;
+    background: linear-gradient(90deg, #3F0071 40%, #040111 76%);
+}
+#paddingIzq{
+    width: 20vw;
+    height: 8vh;
+    background: linear-gradient(90deg, #040111 24%, #3F0071 60%);
 }

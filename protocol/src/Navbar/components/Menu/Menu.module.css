@@ -1,0 +1,46 @@
+#MenuCont{
+    position: relative;
+    left: -20vw;
+    top: -0.1vh;
+    width: 20vw;
+    height: 92vh;
+
+    background: linear-gradient(90deg, #040111 24%, #3F0071 60%);
+
+    box-shadow: 1vh 1vh 1vh #6000947e;
+
+    z-index: 1;
+}
+
+
+.menuOptionShell{
+    display: flex;
+    flex-direction: row;
+    height: 3vh;
+    width: 10vw;
+    margin: 0 2vw 0 2vw;
+    padding: 2.5vh 3vw 2.5vh 3vw;
+
+    border-bottom: 0.2vh solid #150050;
+}
+
+.menuOption{
+    height: 3vh;
+    width: 10vw;
+    margin: 0;
+    margin-top: 0.3vh;
+
+    text-align: center;
+    font-size: 2.5vh;
+    font-weight: bolder;
+
+    color: #F8F8F8;
+}
+.menuImg{
+    width: 3vh;
+    height: 3vh;
+    margin: 0;
+    font-size: 3vh;
+
+    color: #6001ae9c;
+}

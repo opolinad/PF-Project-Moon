@@ -12,7 +12,7 @@
 #menuIcon{
     width: 4vh;
     height: 8vh;
-    color: white;
+    color: #F8F8F8;
 }
 #menuShell{
     width: 4vh;
@@ -47,7 +47,7 @@
     padding-left: 1vw;
 
     background-color: transparent;
-    color: white;
+    color: #F8F8F8;
 
     border: none;
 
@@ -69,7 +69,7 @@
     margin-top: 0.1vh;
 
     background-color: black;
-    color: white;
+    color: #F8F8F8;
 }
 #searchButton > p{
     margin: auto;
@@ -78,5 +78,7 @@
 #searchLink:hover{
     cursor: pointer;
     text-decoration: none;
-    color: white;
+    color: #F8F8F8;
 }
+
+

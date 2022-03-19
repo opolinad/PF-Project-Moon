@@ -5,7 +5,7 @@ import Actions from "../redux/actions/index.js";
 import Menu from "./components/Menu/Menu.jsx";
 import Notifications from "./components/Notifications/Notifications.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faSearch, faBell } from "@fortawesome/free-solid-svg-icons";
 
 import NavbarCss from "./Navbar.module.css";
 
@@ -43,6 +43,7 @@ export default function Navbar()
     
     return(
         <div id={NavbarCss.navbarShell}>
+            <div id={NavbarCss.paddingIzq}></div>
             <div id={NavbarCss.menuIcon}>
                 <div id={NavbarCss.menuShell} onClick={()=>setShowMenu(!showMenu)}><FontAwesomeIcon icon={faBars}/></div>
                 {menu}
@@ -55,9 +56,10 @@ export default function Navbar()
             </div>
 
             <div id={NavbarCss.notificationsShell}>
-            <div id={NavbarCss.notificationIcon} onClick={showNotification}>Notis</div>
+            <div id={NavbarCss.notificationIcon} onClick={showNotification}><FontAwesomeIcon icon={faBell}/></div>
                 {notifications}
             </div>
+            <div id={NavbarCss.paddingDer}></div>
         </div>
     )
 }
