@@ -1,19 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import {postNewUser, getCategories} from "../redux/actions/Register.js"
 
 //validacion de errores
 function validar(input){
     let errors = {}
-
-    if(!input.firstName){
-        errors.firstName = "Debe ingresar un nombre"
-    }
-
-    if(!input.lastName){
-        errors.lastName = "Debe ingresar un apellido"
-    }
-
+    
     if(!input.email){
         errors.email = "Debe ingresar un email"
     } else if(!/\S+@\S+\.\S+/.test(input.email)){
@@ -40,17 +33,20 @@ function validar(input){
 
 
 export default function FormUser(){
-
+    const dispatch = useDispatch()
+    const categories = useSelector((state) => state.categories)
     const [errors, setErrors] = useState({})
 
     const [input, setInput] = useState({
-        firstName: "",
-        lastName: "",
         email: "",
         password: "",
-        confirmpassword: ""
+        confirmpassword: "",
+        categories: []
     })
 
+    useEffect(() => {
+        dispatch(getCategories())
+      }, [dispatch])
 
     function handleChange(e) {
         setInput({
@@ -68,13 +64,12 @@ export default function FormUser(){
 
     function handleSubmit(e) {
         e.preventDefault();
-        
+        dispatch(postNewUser(input))
         setInput({
-            firstName: "",
-            lastName: "",
             email: "",
             password: "",
-            confirmpassword: ""
+            confirmpassword: "",
+            categories: []
         })
     }
     console.log(input)
@@ -84,7 +79,7 @@ export default function FormUser(){
             <form onSubmit={e => handleSubmit(e)}>
                 <div>
                     <div>
-                        <label>Nombre:</label>
+                        {/* <label>Nombre:</label>
                         <input onChange={e => handleChange(e)} type="text" name="firstName" value={input.firstName}/>
                         {errors.firstName && (
                         <span className='error'>
@@ -99,11 +94,11 @@ export default function FormUser(){
                         <span className='error'>
                             <small>{errors.lastName}</small>
                         </span>
-                        )}
+                        )} */}
                     </div>
                     <div>
                         <label>Correo electrónico:</label>
-                        <input onChange={e => handleChange(e)} type="text" name="email" value={input.email}/>
+                        <input onChange={e => handleChange(e)} type="email" name="email" value={input.email}/>
                         {errors.email && (
                         <span className='error'>
                             <small>{errors.email}</small>
@@ -141,6 +136,22 @@ export default function FormUser(){
                         : true
                     }
                     />
+                    <div>
+                        <label>
+                            Categories:
+                        </label>
+                        <select
+                            id='categories'
+                            name='categories'
+                            onChange={(e) => handleSelect(e)}
+                            required
+                        >
+                        <option value='categories'>Categories...</option>
+                            {categories.map((c) => (
+                                <option value={c.name}>{c.name}</option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
             </form>
         </div>
