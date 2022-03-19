@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { postUsers, getUsers } from "../redux/actions/LandingPage";
-import { useNavigate } from "react-router";
+// import { postUsers, getUsers } from "../redux/actions/LandingPage";
+import { Navigate, useNavigate } from "react-router";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
+import { loginUser } from '../redux/apiCalls/loginCalls'
 // import CookiesPolicy from '../CookiesPolicy/CookiesPolicy';
 import styles from './landingPage.module.css'
 
@@ -24,9 +25,21 @@ function validate(input) {
 }
 
 export default function LandingPage() {
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.user)
+    // const history = useNavigate();
     const clientId = "";
     const [showLoginButtom, setShowLoginButtom] = useState(true);
     const [showLogoutButtom, setShowLogoutButtom] = useState(false);
+    const [errors, setErrors] = useState({});
+
+    console.log(user.error)
+
+    const [input, setInput] = useState({
+        email: "",
+        password: "",
+    });
+
 
     const onLoginSuccess = (res) => {
         console.log("Login success:", res.profileObj);
@@ -43,34 +56,24 @@ export default function LandingPage() {
     //     localStorage.setItem('user', input)
     // }
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        dispatch(postUsers(input))
-        // ls(input)
-        history('/login')
-    }
-
-
-
     const onSingoutSuccess = () => {
         alert("Has sido desconectado con éxito");
         setShowLoginButtom(true);
         setShowLogoutButtom(false);
     };
-    const dispatch = useDispatch();
-    const history = useNavigate();
-    const [errors, setErrors] = useState({});
-
-    const [input, setInput] = useState({
-        email: "",
-        password: "",
-    });
 
     function handleSubmit(e) {
         e.preventDefault();
-        dispatch(postUsers(input));
-        history("/login");
+        // dispatch(postUsers(input))
+        // ls(input)
+        loginUser(dispatch, input)
+        // history('/login')
     }
+    // function handleSubmit(e) {
+    //     e.preventDefault();
+    //     dispatch(postUsers(input));
+    //     history("/login");
+    // }
 
     function handleChange(e) {
         setInput({
@@ -84,6 +87,8 @@ export default function LandingPage() {
             })
         );
     }
+
+    console.log(input)
 
     return (
         <div className={styles.landingContainer} >
@@ -135,6 +140,7 @@ export default function LandingPage() {
                         name='email'
                         value={input.email}
                         onChange={(e) => handleChange(e)}
+                        required
                     />
                     {errors.email && (
                         <span className='error'>
@@ -148,6 +154,7 @@ export default function LandingPage() {
                         name='password'
                         value={input.password}
                         onChange={(e) => handleChange(e)}
+                        required
                     />
                     {errors.password && (
                         <span className='error'>
