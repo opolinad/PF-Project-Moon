@@ -1,6 +1,4 @@
 import {
-    GET_USERS,
-    POST_USERS,
     LOGIN_START,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
