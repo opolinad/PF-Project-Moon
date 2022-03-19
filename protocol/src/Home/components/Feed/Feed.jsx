@@ -68,8 +68,8 @@ export default function Feed(props)
 
     let postsArr;
 
-    if(feed.status===STARTING_STATUS || feed.status===LOADING_0){postsArr="Loading OwO..."}
-    else if(feed.status===NOT_FOUND_404){postsArr="error! OnO";}
+    if(feed.status===STARTING_STATUS || feed.status===LOADING_0){postsArr=<p className={FeedCss.feedStatus}>Loading the Sweet Sweet Posts</p>}
+    else if(feed.status===NOT_FOUND_404){postsArr=<p className={FeedCss.feedStatus}>Error! No Post Found</p>;}
     else if(feed.status===SUCCESS_200)postsArr=feed.posts.map((element,index)=>{<CardPost key={"post_"+element.id} title={element.title} description={element.description} imgs={element.imgs} shares={element.shares} likes={element.likes} saved={element.saved} id={element.id}/>})
     
     

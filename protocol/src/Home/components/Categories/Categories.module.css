@@ -56,14 +56,21 @@
 
 
 #categoriesArrCont{
-    width: 15vw;
+    width: 15.8vw;
+    height: 52vh;
     margin: 1vh auto auto auto;
 
     display: flex;
     flex-wrap: wrap;
 
-    
+    box-shadow: 0vh -3vh 2vh #150050a5 inset;
+
+    overflow-y: scroll;
 }
+#categoriesArrCont::-webkit-scrollbar{
+    display: none;
+}
+
 .category{
     width: fit-content;
     height: fit-content;
