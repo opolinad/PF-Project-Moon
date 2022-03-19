@@ -18,13 +18,13 @@ router.post('/', async (req:Request,res:Response) => {
         const hashedPassword = CryptoJS.AES.decrypt(user.password, process.env.HASH_CRYPTO)
         const originPassword = hashedPassword.toString(CryptoJS.enc.Utf8)
 
-        /* const accessToken = jwt.sign({
+        const accessToken = jwt.sign({
             id: user._id
         },process.env.JWT_KEY,
         {expiresIn: '1d'}
-        ) */
+        ) 
         
-        // const {...others} = user._doc
+        const {...others} = user._doc
 
 
         !user || originPassword !== req.body.password

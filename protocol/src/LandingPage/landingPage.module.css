@@ -1,0 +1,72 @@
+.landingContainer {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+/* Image fonds */
+
+/* Container left */
+.ladingLeft {
+  flex: 1;
+  height: 100vh;
+
+  position: relative;
+}
+
+.landingImg {
+  width: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.landingTitle {
+  width: 100%;
+  font-size: 3em;
+  color: #610094;
+  text-shadow: 1px 1px 1px white, 1px 1px 1px white, 1px 1px 1px white;
+  position: absolute;
+  margin: 0.5em 3em;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+.landingDesc {
+  padding: 3em;
+  font-size: 1.5em;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  letter-spacing: 2px;
+  text-align: center;
+  font-weight: 600;
+  text-shadow: 1px 1px 1px black, 1px 1px 1px black, 1px 1px 1px black;
+}
+
+/* Container left */
+.ladingRight {
+  flex: 1;
+}
+
+.ladingFormCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.ladingInput {
+  color: white;
+  width: 40%;
+  height: 5%;
+  background-color: transparent;
+  border: 1px solid gray;
+  padding: 0.5em;
+  margin-bottom: 1em;
+}
