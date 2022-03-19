@@ -1,12 +1,16 @@
 #navbarShell{
+    position: sticky;
+    top: 0;
+
     display: flex;
     justify-content: space-between;
 
-    width: 60vw;
-    padding: 0 20vw 0 20vw;
+    width: 100%;
     height: 8vh;
 
     background-color: #1b062f;
+
+    box-shadow: 0vw 1vh 1vh #610094;
 }
 
 #menuIcon{
@@ -19,6 +23,9 @@
     height: 4.1vh;
     margin: 2vh auto 2vh auto;
     font-size: 4.2vh;
+}
+#menuShell:hover{
+    cursor: pointer;
 }
 
 
@@ -79,4 +86,30 @@
     cursor: pointer;
     text-decoration: none;
     color: white;
+}
+
+#notificationIcon{
+    width: 3vh;
+    height: 3vh;
+    font-size: 3vh;
+}
+#notificationsShell{
+    width: 3vh;
+    height: 3.1vh;
+    margin: 2.5vh  2.5vh ;
+    font-size: 3.2vh;
+
+    color: white;
+}
+
+
+#paddingDer{
+    width: 20vw;
+    height: 8vh;
+    background: linear-gradient(90deg, rgba(27,6,47,1) 40%, rgba(0,0,0,1) 76%);
+}
+#paddingIzq{
+    width: 20vw;
+    height: 8vh;
+    background: linear-gradient(90deg, rgba(0,0,0,1) 24%, rgba(27,6,47,1) 60%);
 }
