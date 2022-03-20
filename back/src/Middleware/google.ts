@@ -25,7 +25,7 @@ passport.use(
           })
         }
       })
-      return done(null, profile);
+      done(null, profile);
     }
   )
 );

@@ -22,7 +22,7 @@ export const loginFailure = () => ({
     type: LOGIN_FAILURE
 })
 //ACTIONS LOGOUT
-export const logout = () => ({
+export const logoutStart = () => ({
     type: LOGOUT
 })
 
