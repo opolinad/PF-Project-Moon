@@ -10,15 +10,15 @@ import { loginUser } from '../redux/apiCalls/loginCalls'
 
 import HomeCss from "./Home.module.css";
 
-export default function Home(props) {
+export default function Home() {
     const dispatch = useDispatch();
-    const user = useSelector(state => state.user)
-    useEffect(()=>{
-        loginUser(dispatch, { platform: true });//¿debería ir entre un useEffect?
-    },[])
+    const user = useSelector(state => state.user.currentUser)
+    console.log(user)
+    const test = JSON.parse(localStorage.getItem('persist:root', "user"))
+    console.log(test.user);
     return (
         <div id={HomeCss.homeCont}>
-       {/*      <div id={HomeCss.filterOrderCont}>
+            {/*      <div id={HomeCss.filterOrderCont}>
                 <Filter />
                 <Ordering />
                 <button onClick={() => dispatch(Actions.resetOptions())} id={HomeCss.resetOption}>Reset</button>

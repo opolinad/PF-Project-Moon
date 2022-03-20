@@ -5,7 +5,6 @@ import {
     GET_USER_SUCCESS,
     GET_USER_FAILURE,
 } from "../consts.js";
-import { async } from "regenerator-runtime";
 
 
 const getUserStart = () => ({

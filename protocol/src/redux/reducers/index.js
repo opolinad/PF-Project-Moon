@@ -15,8 +15,8 @@ import userReducers from "./User";
 
 const rootReducer = combineReducers({
     user: landingPageReducers,
-    register: registerReducers
-
+    register: registerReducers,
+    userData: userReducers
 });
 // ...homeReducers,
 // ...landingPageReducers,
