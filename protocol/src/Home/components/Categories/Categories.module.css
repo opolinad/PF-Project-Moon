@@ -6,14 +6,14 @@
 
     border-radius: 0.5vw;
 
-    background-color: #15005050;
+    background-color: #1F1D36;
 }
 
 #categoriesH2{
     width: 14vw;
     margin: 1vw auto 1vw auto;
 
-    color: #F8F8F8;
+    color: #F0E9D2;
 
     font-size: 1.5vw;
     text-align: center;
@@ -32,7 +32,7 @@
     border-radius: 2.5vh;
 
     background-color: #3c3245;
-    color: #F8F8F8;
+    color: #F0E9D2;
 }
 #selectedCategory > p{
     height: 2vh;
@@ -49,21 +49,21 @@
     margin-top: 5vh;
     
 
-    color: #F8F8F8;
+    color: #F0E9D2;
     font-size: 1.4vw;
     text-align: center;
 }
 
 
 #categoriesArrCont{
-    width: 15.8vw;
-    height: 52vh;
-    margin: 1vh auto auto auto;
+    width: 16vw;
+    height: 54vh;
+    margin: 1vh auto 0 auto;
 
     display: flex;
     flex-wrap: wrap;
 
-    box-shadow: 0vh -3vh 2vh #150050a5 inset;
+    box-shadow: 0vh -2vh 2vh 0 #11101F inset;
 
     overflow-y: scroll;
 }

@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-// import * as homeReducers from "./Home.js";
+import * as homeReducers from "./Home.js";
 import landingPageReducers from "./LandingPage";
 // import * as messagesReducers from "./Messages.js";
 
@@ -16,6 +16,11 @@ import userReducers from "./User";
 const rootReducer = combineReducers({
     user: landingPageReducers,
     register: registerReducers,
+<<<<<<< HEAD
+=======
+    categories:homeReducers.categories,
+    selectedCategory:homeReducers.selectedCategory,
+>>>>>>> d2a956207542a9b6b953111982a02b26fa59c8bb
     userData: userReducers
 });
 // ...homeReducers,

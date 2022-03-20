@@ -139,11 +139,15 @@ const Register = () => {
 
 
     return (
-        <>
+        <div id={styles.registerCont}>
+            <div id={styles.decoCont}>
+                <img id={styles.landingImg} src="./logo.svg" alt="logo not found" />
+                <h1>Protocol Moon</h1>
+            </div>
             <form
-                className={styles.containerRegister}
+                id={styles.formRegister}
                 onSubmit={e => handleSubmit(e)}>
-                <div>
+
                     <div>
                         {/* <label>Nombre:</label>
                         <input onChange={e => handleChange(e)} type="text" name="firstName" value={input.firstName}/>
@@ -162,33 +166,52 @@ const Register = () => {
                         </span>
                         )} */}
                     </div>
-                    <div>
-                        <label style={{ color: 'white' }} >Correo electrónico:</label>
-                        <input onChange={e => handleChange(e)} type="email" name="email" value={input.email} />
+                    <div className={styles.inputTextCont}>
+                        <label>Correo electrónico:</label>
+                        <input className={styles.inputText} onChange={e => handleChange(e)} type="email" name="email" value={input.email} />
                         {errors.email && (
-                            <span className='error'>
+                            <span className={styles.error}>
                                 <small>{errors.email}</small>
                             </span>
                         )}
                     </div>
-                    <div>
-                        <label style={{ color: 'white' }} >Contraseña:</label>
-                        <input onChange={e => handleChange(e)} type="password" name="password" value={input.password} />
+                    <div className={styles.inputTextCont}>
+                        <label>Contraseña:</label>
+                        <input className={styles.inputText} onChange={e => handleChange(e)} type="password" name="password" value={input.password} />
                         {errors.password && (
-                            <span className='error'>
+                            <span className={styles.error}>
                                 <small>{errors.password}</small>
                             </span>
                         )}
                     </div>
-                    <div>
-                        <label style={{ color: 'white' }} >Repetir contraseña:</label>
-                        <input onChange={e => handleChange(e)} type="password" name="confirmpassword" value={input.confirmpassword} />
+                    <div className={styles.inputTextCont}>
+                        <label>Repetir contraseña:</label>
+                        <input className={styles.inputText} onChange={e => handleChange(e)} type="password" name="confirmpassword" value={input.confirmpassword} />
                         {errors.confirmpassword && (
-                            <span className='error'>
+                            <span className={styles.error}>
                                 <small>{errors.confirmpassword}</small>
                             </span>
                         )}
                     </div>
+
+                    <div className={styles.inputTextCont}>
+                        <label className={styles.labelText}>
+                            Categories:
+                        </label>
+                        <select 
+                            className={styles.selectCategories}
+                            id='categories'
+                            name='categories'
+                            onChange={(e) => handleSelect(e)}
+                            required
+                        >
+                            <option className={styles.categoriesOption} value='categories'> Choose some categories </option>
+                            {categoriesArray.map((c) => (
+                                <option className={styles.categoriesOption}  value={c}>{c}</option>
+                            ))}
+                        </select>
+                    </div>
+
                     <input
                         type='submit'
                         value='Crear cuenta'
@@ -201,26 +224,11 @@ const Register = () => {
                                 ? false
                                 : true
                         }
+                        id={styles.submitBut}
                     />
-                    <div>
-                        <label style={{ color: 'white' }} >
-                            Categories:
-                        </label>
-                        <select
-                            id='categories'
-                            name='categories'
-                            onChange={(e) => handleSelect(e)}
-                            required
-                        >
-                            <option value='categories'>Categories...</option>
-                            {categoriesArray.map((c) => (
-                                <option value={c}>{c}</option>
-                            ))}
-                        </select>
-                    </div>
-                </div>
+
             </form>
-        </>
+        </div>
     )
 }
 

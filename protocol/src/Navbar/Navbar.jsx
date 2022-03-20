@@ -39,7 +39,7 @@ export default function Navbar()
     let searchbut;
     if(showMenu) menu=<Menu/>
     if(showNotifications) notifications=<Notifications/>;
-    search.length>3 ? searchbut=<Link to={"/home?search="+search} onClick={searching} id={NavbarCss.searchLink}><FontAwesomeIcon icon={faSearch}/></Link> : searchbut=<p onClick={()=>setSearchErr("owo small, >3 pls uwu")}><FontAwesomeIcon icon={faSearch}/></p>;
+    search.length>3 ? searchbut=<Link to={"/home?search="+search} onClick={searching} id={NavbarCss.searchLink}><FontAwesomeIcon icon={faSearch}/></Link> : searchbut=<p onClick={()=>setSearchErr("owo small, >3 pls uwu")}></p>;
     
     return(
         <div id={NavbarCss.navbarShell}>
