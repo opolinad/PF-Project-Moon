@@ -17,7 +17,8 @@ const rootReducer = combineReducers({
     user: landingPageReducers,
     register: registerReducers,
     categories:homeReducers.categories,
-    selectedCategory:homeReducers.selectedCategory
+    selectedCategory:homeReducers.selectedCategory,
+    userData: userReducers
 });
 // ...homeReducers,
 // ...landingPageReducers,
