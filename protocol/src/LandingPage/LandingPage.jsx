@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // import { postUsers, getUsers } from "../redux/actions/LandingPage";
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { loginUser } from '../redux/apiCalls/loginCalls'
 // import CookiesPolicy from '../CookiesPolicy/CookiesPolicy';
 import styles from './landingPage.module.css'
@@ -82,6 +81,16 @@ export default function LandingPage() {
             loginUser(dispatch, input)
         }
     }
+    const handleClickPlatform = (e) => {
+        // let winWidth = 400;
+        // let winHeight = 600;
+        // let top = window.outerHeight / 2 + window.screenY - (winWidth / 2);
+        // let left = window.outerWidth / 2 + window.screenX - (winHeight / 2);
+        // window.open("http://localhost:3001/api/login/google", "Google log in", `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=${winWidth},height=${winHeight},left=${left},top=${top}`);
+        // window.open("http://localhost:3001/api/login/google");
+        window.location.href = `http://localhost:3001/api/login/${e.target.innerText.toLowerCase()}`;
+    }
+
 
     useEffect(() => {
         (() => {
@@ -182,33 +191,17 @@ export default function LandingPage() {
                     <Link to={"/register"}>
                         <div>create a new account</div>
                     </Link>
-                    <p>Publish your illustrations and discover others!</p>
-                    {/* <div>
-                        {showLoginButtom ? (
-                            <GoogleLogin
-                                clientId={clientId}
-                                buttonText="Login"
-                                onSuccess={onLoginSuccess}
-                                onFailure={onFailureSuccess}
-                                cookiePolicy={"single_host_origin"}
-                            />
-                        ) : null}
-                        {showLogoutButtom ? (
-                            <GoogleLogout
-                                clientId={clientId}
-                                buttonText="Logout"
-                                onLogoutSuccess={onSingoutSuccess}
-                            ></GoogleLogout>
-                        ) : null}
-                    </div> */}
+                    <p>Publish your illustrations and discover others!</p> {/* Esto no se deja ver porque la letra está negra */}
+                    <button onClick={handleClickPlatform}>Google</button> {/* falta estilo del botón. Se requiere modificar estilos porque no se deja renderizar fuera del form */}
+                    <button onClick={handleClickPlatform}>Microsoft</button>
                 </form>
 
             </div>
             {/* <div id="cookies-policy">
             <h3>Cookies</h3>
-            <p>Most mordern websites place small filles called "cookies" on your computer which improve your browsing experience and enable the website to function effectively.</p>    
+            <p>Most mordern websites place small filles called "cookies" on your computer which improve your browsing experience and enable the website to function effectively.</p>
             <button>OK</button>
-            <Link to={CookiesPolicy}><button>Cookies policy</button></Link> 
+            <Link to={CookiesPolicy}><button>Cookies policy</button></Link>
             </div>*/}
 
         </div>
