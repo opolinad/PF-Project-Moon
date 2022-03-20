@@ -7,8 +7,8 @@ import css from "./User.module.css"
 export default function User(){
     const dispatch = useDispatch()
     const {id} = useParams()
-    const userData = useSelector ((state) => state.userreducer)
-    useEffect (() => dispatch(getUser(dispatch, id)), [])
+    const userData = useSelector ((state) => state.userData)
+    useEffect (() => dispatch(getUser( id)), [])
     /* getUser(dispatch, id) */
 
     console.log("id", id)
@@ -43,8 +43,8 @@ export default function User(){
                         <h1>{couldBe.fullName}</h1>
                         <p>@{couldBe.username}</p>
                         <div>
-                            <Link to={"following"} id={css.followsLink}><button>{userData.following.length} following</button></Link>
-                            <Link to={"followers"} id={css.followsLink}><button>{userData.followers.length} followers</button></Link>
+                            <Link to={"following"} id={css.followsLink}><button>{userData.currentUser.following.length} following</button></Link>
+                            <Link to={"followers"} id={css.followsLink}><button>{userData.currentUser.followers.length} followers</button></Link>
                         </div>
                     </div>
                 </div>
