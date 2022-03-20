@@ -80,15 +80,18 @@ export default function LandingPage() {
             setInput({ email: '', password: '' })
         } else {
             loginUser(dispatch, input)
-            if (user.currentUser) {
-                Toast.fire({
-                    icon: 'success',
-                    title: 'Login success',
-                })
-                navigate('/home')
-            }
         }
     }
+
+    useEffect(() => {
+        (() => {
+            user.currentUser && Toast.fire({
+                icon: 'success',
+                title: 'Login success',
+            });
+            user.currentUser && navigate('/home')
+        })()
+    }, [user.currentUser])
 
     useEffect(() => {
         (() => {
