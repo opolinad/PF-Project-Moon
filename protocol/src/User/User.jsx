@@ -36,6 +36,8 @@ export default function User() {
   const changeDates = {
     profilePhoto:
       "https://pbs.twimg.com/profile_images/725013638411489280/4wx8EcIA_400x400.jpg",
+    backgroundPhoto:
+      "https://png.pngtree.com/thumb_back/fw800/back_our/20190628/ourmid/pngtree-blue-violet-line-banner-background-image_271519.jpg",
     username: "admin",
     fullName: "user admin",
   };
@@ -84,7 +86,12 @@ export default function User() {
       )}
       <form>
         <div>
-          <img src="./profile.svg" alt="logo not found" />
+          <img
+            src={changeDates.backgroundPhoto}
+            alt="backgroundPhoto not found"
+            id={css.banner}
+          />
+          <img src="./profile.svg" id={css.banner} alt="logo not found" />
           <h1>{changeDates.fullName}</h1>
           <p>{changeDates.username}</p>
           <Link to={"users/:id*/edit"} id={css.postsLink}>
