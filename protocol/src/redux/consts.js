@@ -93,6 +93,10 @@ export const LOGOUT = "LOGOUT"
 /*Landing Page */
 
 /*Register */
+export const REGISTER_START = "REGISTER_START"
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS"
+export const REGISTER_FAILURE = "REGISTER_FAILURE"
+export const REGISTER_CLEAR = "REGISTER_CLEAR"
 export const POST_NEWUSER = "NEW_USER"
 /*Register */
 
