@@ -2,6 +2,7 @@ import {Router, Request, Response} from 'express'
 
 const router = Router()
 const Post = require('../models/Post')
+const User = require('../models/User')
 
 import {verifyToken} from '../helpers/verifyToken'
 
@@ -42,16 +43,33 @@ router.get('/:id', async (req:Request, res:Response) => {
     }
 })
 
-//Borrar un comentario
-router.put('/deleteCommet/:id', async(req:Request, res:Response) => {
+// Editar post
+router.put('/:id',verifyToken, async (req:Request,res:Response) => {
     const { id } = req.params
-    const { comment } = req.body
+    
     try {
-        const post = await Post.findById(id)
-        await post.updateOne({$pull: { comments: comment}})
-        res.json("Se ha eliminado tu comentario")
+        const putPost = await Post.findByIdAndUpdate(
+            id, 
+            {
+                $set: req.body
+            },
+            { new: true }
+            )
+            res.json(putPost)
     } catch (error) {
-        res.status(400).json("No se pudo borrar el comentario... Vuelve a intenarlo")
+        res.status(404).json(error)
+    }
+})
+
+// Eliminar post
+router.delete('/:id', verifyToken, async (req:Request,res:Response) => {
+    const { id } = req.params
+    
+    try {
+        await Post.findByIdAndDelete(id)
+        res.json('The Post has been deleted...')
+    } catch (error) {
+        res.status(404).json(error)
     }
 })
 
@@ -65,6 +83,19 @@ router.put('/comment/:id', async(req:Request, res:Response) => {
         res.json("Se agrego el comentario")
     } catch (error) {
         res.status(400).json("Algo paso... Vuelve a intentarlo mas tarde")
+    }
+})
+
+//Borrar un comentario
+router.put('/deleteCommet/:id', async(req:Request, res:Response) => {
+    const { id } = req.params
+    const { comment } = req.body
+    try {
+        const post = await Post.findById(id)
+        await post.updateOne({$pull: { comments: comment}})
+        res.json("Se ha eliminado tu comentario")
+    } catch (error) {
+        res.status(400).json("No se pudo borrar el comentario... Vuelve a intenarlo")
     }
 })
 
@@ -84,35 +115,32 @@ router.put('/like/:id', verifyToken, async (req:Request, res:Response) => {
     }
 })
 
-
-// Editar post
-router.put('/:id',verifyToken, async (req:Request,res:Response) => {
+router.post('/share/:id', async (req:Request, res:Response) => {
     const { id } = req.params
-
+    const { userId } = req.body
     try {
-        const putPost = await Post.findByIdAndUpdate(
-            id, 
-            {
-                $set: req.body
-            },
-            { new: true }
-        )
-        res.json(putPost)
-    } catch (error) {
-        res.status(404).json(error)
-    }
-})
-
-
-// Eliminar post
-router.delete('/:id', verifyToken, async (req:Request,res:Response) => {
-    const { id } = req.params
-
-    try {
-        await Post.findByIdAndDelete(id)
-        res.json('The Post has been deleted...')
-    } catch (error) {
-        res.status(404).json(error)
+        const post = await Post.findById(id)
+        delete post._id
+        const user = await User.findById(userId)
+        if(!post.sharesId.includes(userId)) { 
+            const sharePost = new Post(post)
+            // await sharePost.updateOne({_id: post._id + "share"})
+            await sharePost.updateOne({sharesId: userId})
+            // sharePost.sharesId = userId
+            await sharePost.updateOne({sharename: user.username})
+            // sharePost.sharename = user.username
+            await sharePost.updateOne({share: true})
+            // sharePost.share = true
+            await sharePost.updateOne({sharePhoto: user.profilePhoto})
+            // sharePost.sharePhoto = user.profilePhoto
+            await post.updateOne({$push: {sharesId: userId}})
+            const savedPost = await sharePost.save()
+            res.json(savedPost)
+        } else {
+            res.status(400).json('Ya compartiste esta publicacion antes')
+        }
+    } catch(error) {
+        res.status(400).json(error)
     }
 })
 
