@@ -27,13 +27,13 @@ export default function User(){
 
     return(
         <div id={css.container}>
-            <img src={userData.backgroundPhoto} alt="backgroundPhoto not found" id={css.banner}/>
+            <div id={css.bannerCont}><img src={userData.backgroundPhoto} alt="backgroundPhoto not found" id={css.banner}/></div>
             <div id={css.profileSection}>
                 <img src={userData.profilePhoto} alt="profilePhoto not found" id={css.profilePhoto}/>
-                <div>
+                <div id={css.infoCont}>
                     <h1>{userData.fullName}</h1>
                     <p>@{userData.username}</p>
-                    <div>
+                    <div id={css.followsCont}>
                         <Link to={"following"} id={css.followsLink}><button>{userData.following.length} following</button></Link>
                         <Link to={"followers"} id={css.followsLink}><button>{userData.followers.length} followers</button></Link>
                     </div>

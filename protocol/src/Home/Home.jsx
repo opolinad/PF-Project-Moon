@@ -21,8 +21,8 @@ export default function Home(props)
                 <button onClick={()=>dispatch(Actions.resetOptions())} id={HomeCss.resetOption}>Reset</button>
             </div>
             <div id={HomeCss.InfoCont}>
-                <Feed/>  {/*Aca se mostrarian los posts de feed*/}
                 <Categories/> {/*Categorias varias a las que se pueden acceder por links*/}
+                <Feed/>  {/*Aca se mostrarian los posts de feed*/}
             </div>
             <button id={HomeCss.nextPageBut} onClick={() => dispatch(Actions.nextPageAction())} >Load More</button>
         </div>
