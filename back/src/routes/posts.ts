@@ -42,8 +42,34 @@ router.get('/:id', async (req:Request, res:Response) => {
     }
 })
 
+//Borrar un comentario
+router.put('/deleteCommet/:id', async(req:Request, res:Response) => {
+    const { id } = req.params
+    const { comment } = req.body
+    try {
+        const post = await Post.findById(id)
+        await post.updateOne({$pull: { comments: comment}})
+        res.json("Se ha eliminado tu comentario")
+    } catch (error) {
+        res.status(400).json("No se pudo borrar el comentario... Vuelve a intenarlo")
+    }
+})
+
+// Comentar un post
+router.put('/comment/:id', async(req:Request, res:Response) => {
+    const { id } = req.params
+    const { comment } = req.body
+    try {
+        const post = await Post.findById(id)
+        await post.updateOne({$push: {comments:  comment}})
+        res.json("Se agrego el comentario")
+    } catch (error) {
+        res.status(400).json("Algo paso... Vuelve a intentarlo mas tarde")
+    }
+})
+
 //Like / dislike a post
-router.put('/:id/like', verifyToken, async (req:Request, res:Response) => {
+router.put('/like/:id', verifyToken, async (req:Request, res:Response) => {
     try {
         const post = await Post.findById(req.params.id)
         if(!post.likes.includes(req.body.userId)){
@@ -57,6 +83,7 @@ router.put('/:id/like', verifyToken, async (req:Request, res:Response) => {
         res.status(500).json(error)
     }
 })
+
 
 // Editar post
 router.put('/:id',verifyToken, async (req:Request,res:Response) => {
