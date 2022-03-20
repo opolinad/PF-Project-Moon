@@ -79,13 +79,6 @@ export default function LandingPage() {
             setInput({ email: '', password: '' })
         } else {
             loginUser(dispatch, input)
-            if (user.currentUser) {
-                Toast.fire({
-                    icon: 'success',
-                    title: 'Login success',
-                })
-                navigate('/home')
-            }
         }
     }
     const handleClickPlatform = (e) => {
@@ -98,6 +91,16 @@ export default function LandingPage() {
         window.location.href = `http://localhost:3001/api/login/${e.target.innerText.toLowerCase()}`;
     }
 
+
+    useEffect(() => {
+        (() => {
+            user.currentUser && Toast.fire({
+                icon: 'success',
+                title: 'Login success',
+            });
+            user.currentUser && navigate('/home')
+        })()
+    }, [user.currentUser])
 
     useEffect(() => {
         (() => {

@@ -2,7 +2,8 @@ import axios from 'axios'
 import {
     loginStart,
     loginSuccess,
-    loginFailure
+    loginFailure,
+    logoutStart
 } from '../actions/LandingPage'
 
 //Call to API
@@ -19,4 +20,8 @@ export const loginUser = async (dispatch, user) => {
     } catch (error) {
         dispatch(loginFailure())
     }
+}
+
+export const logoutUser = (dispatch) => {
+    dispatch(logoutStart())
 }
