@@ -17,17 +17,19 @@ const getUserFailure = () => ({
   type: GET_USER_FAILURE,
 });
 
-export const getUser = async (dispatch, id) => {
-  console.log("getUser()");
-  dispatch(getUserStart());
-  try {
-    const res = await axios.get(`http://localhost:3001/api/users/${id}`);
-    console.log("res.data", res.data);
-    dispatch(getUserSuccess(res.data));
-  } catch (error) {
-    dispatch(getUserFailure());
-  }
-};
+export function getUser (id) {
+    return async (dispatch) => {
+        console.log("getUser()")
+        dispatch(getUserStart())
+        try {
+            const res = await axios.get(`http://localhost:3001/api/users/${id}`)
+            console.log("res.data", res.data)
+            dispatch(getUserSuccess(res.data))
+        } catch (error) {
+            dispatch(getUserFailure())
+        }
+    }
+}
 
 /* export function getUserData(payload){
     return async function(dispatch){

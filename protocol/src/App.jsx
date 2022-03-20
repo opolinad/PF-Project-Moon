@@ -12,36 +12,19 @@ import Navbar from "./Navbar/Navbar.jsx";
 import "./App.css";
 
 export default function App() {
-  return (
-    <div id="appCont">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/">
-            <Route index element={<LandingPage />} />
-            <Route path="register" element={<Register />} />
-            <Route
-              path="home"
-              element={
-                <>
-                  <Navbar />
-                  <Home />
-                </>
-              }
-            />
-            <Route
-              className={"routeCont"}
-              path={"users/:id*"}
-              element={
-                <Fragment>
-                  <User />
-                  <UserBoard />
-                </Fragment>
-              }
-            />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
+    return (
+        <div id="appCont">
+            <BrowserRouter>
+                <Routes>
+                    <Route path='/'>
+                        <Route index element={<LandingPage />} />
+                        <Route path='home' element={<><Navbar /><Home /></>} />
+                        <Route className={"routeCont"} path={"users/:id*"} element={<Fragment><User /><UserBoard /></Fragment>} />
+                        <Route path="*" element={<NotFound />} />
+                    </Route>
+                    <Route path='/register' element={<Register />} />
+                </Routes>
+            </BrowserRouter>
+        </div>
+    )
 }
