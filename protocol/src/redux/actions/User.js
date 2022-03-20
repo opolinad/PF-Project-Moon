@@ -1,35 +1,33 @@
 import "regenerator-runtime/runtime";
 import axios from "axios";
 import {
-    GET_USER_START,
-    GET_USER_SUCCESS,
-    GET_USER_FAILURE,
+  GET_USER_START,
+  GET_USER_SUCCESS,
+  GET_USER_FAILURE,
 } from "../consts.js";
-import { async } from "regenerator-runtime";
-
 
 const getUserStart = () => ({
-    type: GET_USER_START,
-})
+  type: GET_USER_START,
+});
 const getUserSuccess = (data) => ({
-    type: GET_USER_SUCCESS,
-    payload: data
-})
+  type: GET_USER_SUCCESS,
+  payload: data,
+});
 const getUserFailure = () => ({
-    type: GET_USER_FAILURE,
-})
+  type: GET_USER_FAILURE,
+});
 
 export const getUser = async (dispatch, id) => {
-    console.log("getUser()")
-    dispatch(getUserStart())
-    try {
-        const res = await axios.get(`http://localhost:3001/api/users/${id}`)
-        console.log("res.data", res.data)
-        dispatch(getUserSuccess(res.data))
-    } catch (error) {
-        dispatch(getUserFailure())
-    }
-}
+  console.log("getUser()");
+  dispatch(getUserStart());
+  try {
+    const res = await axios.get(`http://localhost:3001/api/users/${id}`);
+    console.log("res.data", res.data);
+    dispatch(getUserSuccess(res.data));
+  } catch (error) {
+    dispatch(getUserFailure());
+  }
+};
 
 /* export function getUserData(payload){
     return async function(dispatch){
