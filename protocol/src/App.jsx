@@ -21,7 +21,7 @@ export default function App()
             <Route index element={<LandingPage/>}/>
             <Route path= 'register' element={<Register/>}/>
             <Route path= 'home' element={<><Navbar/><Home/></>}/>
-            <Route className={"routeCont"} path={"user/*"} element={<Fragment><User/><UserBoard/></Fragment>}/>
+            <Route className={"routeCont"} path={"users/:id*"} element={<Fragment><User/><UserBoard/></Fragment>}/>
             <Route path="*" element={<NotFound/>} />
           </Route>  
         </Routes>

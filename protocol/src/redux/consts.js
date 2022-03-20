@@ -1,7 +1,10 @@
 export const DUMMY = "DUMMY";
 
 
-export const GET_USER_DATA = "GET_USER_DATA";
+export const GET_USER_START = "GET_USER_START";
+export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
+export const GET_USER_FAILURE = "GET_USER_FAILURE";
+
 export const GET_POST_DATA = "GET_POST_DATA";
 
 export const STARTING_STATUS = "STARTING_STATUS";

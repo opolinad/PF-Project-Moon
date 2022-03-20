@@ -1,9 +1,41 @@
-import { GET_USER_DATA, LOADING_0, NEXT_FAVORITES_PAGE, NEXT_USER_FAVORITES, NEXT_USER_PAGE, NEXT_USER_POSTS, RESET_USER_CARDS, RESET_USER_PAGES, STARTING_STATUS, SUCCESS_200 } from "../consts.js";
+import {
+    GET_USER_START,
+    GET_USER_SUCCESS,
+    GET_USER_FAILURE,
+} from "../consts.js";
 
 const initialState = {
-    userData: []
-};
+    currentUser: null,
+    isFetching: false,
+    error: false
+}
 
+export default function (state = initialState, action) {
+    switch (action.type) {
+        case GET_USER_START:
+            return {
+                currentUser: null,
+                isFetching: true,
+                error: false
+            }
+        case GET_USER_SUCCESS:
+            return {
+                currentUser: action.payload,
+                isFetching: false,
+                error: false
+            }
+        case GET_USER_FAILURE:
+            return {
+                currentUser: null,
+                isFetching: false,
+                error: true
+            }
+        default:
+            return { ...state }
+    }
+}
+
+/* 
 export function userData (state = initialState, action){
     switch(action.type) {
         case GET_USER_DATA:
@@ -80,4 +112,4 @@ export function userPosts(state={status:STARTING_STATUS,posts:[]},action)
         default:
         return state;
     }  
-}
+} */
