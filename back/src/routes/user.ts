@@ -28,19 +28,26 @@ router.put('/:id',verifyToken, async (req:Request,res:Response) => {
     }
 })
 
-//Follower and Following
+// Follow/Unfollow id por params del que va a seguir e userId por body de a quien vas a seguir
 router.put('/:id/follow', async (req: Request, res: Response) => {
     if(req.body.userId !== req.params.id) {
         try {
             const user = await User.findById(req.params.id)
             const currentUser = await User.findById(req.body.userId)
-            console.log(currentUser)
-            if(!user.followers.includes(req.body.userId)) {
-                await user.updateOne({$push: {followers: req.body.userId}})
-                await currentUser.updateOne({$push: {following: req.params.id}})
-                res.status(200).json('Esta siguiendo a este usuario')
+            const objUser = { username: user.username, profilePhoto: user.profilePhoto, _id: user._id}
+            const objCurrentUser = { username: currentUser.username, profilePhoto: currentUser.profilePhoto, _id: currentUser._id }
+            if(!user.followingId.includes(req.body.userId)) {
+                await user.updateOne({$push: {following: objCurrentUser}})
+                await user.updateOne({$push: {followingId: req.body.userId}})
+                await currentUser.updateOne({$push: {followers: objUser}})
+                await currentUser.updateOne({$push: {followersId: req.params.id}})
+                return res.status(200).json('Esta siguiendo a este usuario')
             }else {
-                res.status(404).json('Ya estas siguiendo a este usuario')
+                await user.updateOne({$pull: {following: objCurrentUser}})
+                await user.updateOne({$pull: {followingId: req.body.userId}})
+                await currentUser.updateOne({$pull: {followers: objUser}})
+                await currentUser.updateOne({$pull: {followersId: req.params.id}})
+                return res.status(200).json('Dejaste de seguir a este usuario')
             }
         } catch (error){
             res.status(500).json(error)
@@ -48,29 +55,6 @@ router.put('/:id/follow', async (req: Request, res: Response) => {
 
     } else{
         res.status(403).json('No te podes seguir a vos mismo')
-    }
-})
-
-// Unfollow
-router.put('/:id/unfollow', async (req: Request, res: Response) => {
-    if(req.body.userId !== req.params.id) {
-        try {
-            const user = await User.findById(req.params.id)
-            const currentUser = await User.findById(req.body.userId)
-            
-            if(user.followers.includes(req.body.userId)) {
-                await user.updateOne({$pull: {followers: req.body.userId}})
-                await currentUser.updateOne({$pull: {following: req.params.id}})
-                res.status(200).json('Dejo de seguir a este usuario')
-            }else {
-                res.status(404).json('Ya dejaste de seguir a este usuario')
-            }
-        } catch (error){
-            res.status(500).json(error)
-        }
-
-    } else{
-        res.status(403).json('No podes dejar de seguir a vos mismo')
     }
 })
 

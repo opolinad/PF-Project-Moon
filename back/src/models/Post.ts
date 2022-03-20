@@ -2,27 +2,28 @@ import {Schema,model} from 'mongoose'
 
 export interface Post {
 
-    userid: string
-    image?: string
+    userid: string //Dueño original del post
+    image?: string [] // Pueden ser varias imagenes
     description: string
-    likes?: string []
-    title?: string
+    likes?: object [] // Detalles de los usuarios que le dieron like en un objeto
+    title?: string 
     categories?: string []
-    comments?: object []
+    comments?: object [] // Detalles de los usuarios que comentaron, junto con una propiedad comment
     price?: string
-    premium?: boolean
-    share?: boolean
-    shareId?: string
+    premium?: boolean // Se pasa a true si el post esta solo para usuarios premium
+    shares?: object [] // Detalles de los usuarios que compartieron el post
+    share?: boolean // Sirve como flag para saber si el post es compartido
+    shareId?: string // Cuando se comparte se pone la id del usuario 
     
 }
 
 const UserSchema = new Schema<Post>(
     {
         userid: {type: String, required:true},
-        image: {type:String},
-        title: {type:String},
-        likes: {type: []},
+        image: {type: []},
         description: {type: String, required:true},
+        likes: {type: []},
+        title: {type:String},
         categories: {type: []},
         comments: {type: []},
         price: {type:String},

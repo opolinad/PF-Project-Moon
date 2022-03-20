@@ -1,8 +1,37 @@
 import "regenerator-runtime/runtime";
-import { GET_USER_DATA, NEXT_FAVORITES_PAGE, NEXT_USER_FAVORITES, NEXT_USER_PAGE, NEXT_USER_POSTS, NOT_FOUND_404, RESET_USER_CARDS, RESET_USER_PAGES, SUCCESS_200 } from "../consts.js";
-const axios = require("axios");
+import axios from "axios";
+import {
+    GET_USER_START,
+    GET_USER_SUCCESS,
+    GET_USER_FAILURE,
+} from "../consts.js";
+import { async } from "regenerator-runtime";
 
-export function getUserData(payload){
+
+const getUserStart = () => ({
+    type: GET_USER_START,
+})
+const getUserSuccess = (data) => ({
+    type: GET_USER_SUCCESS,
+    payload: data
+})
+const getUserFailure = () => ({
+    type: GET_USER_FAILURE,
+})
+
+export const getUser = async (dispatch, id) => {
+    console.log("getUser()")
+    dispatch(getUserStart())
+    try {
+        const res = await axios.get(`http://localhost:3001/api/users/${id}`)
+        console.log("res.data", res.data)
+        dispatch(getUserSuccess(res.data))
+    } catch (error) {
+        dispatch(getUserFailure())
+    }
+}
+
+/* export function getUserData(payload){
     return async function(dispatch){
         var json = await axios.get(`http://localhost:3001/user/${payload}`);
         return dispatch({
@@ -57,4 +86,4 @@ export function getNextUserfavorites(id,page)
         if(resp.data)status=SUCCESS_200;
         return({type:NEXT_USER_FAVORITES,payload:{status,posts:resp.data}})
     }
-}
+} */
