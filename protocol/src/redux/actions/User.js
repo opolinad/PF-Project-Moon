@@ -5,7 +5,6 @@ import {
     GET_USER_SUCCESS,
     GET_USER_FAILURE,
 } from "../consts.js";
-import { async } from "regenerator-runtime";
 
 
 const getUserStart = () => ({
@@ -19,15 +18,17 @@ const getUserFailure = () => ({
     type: GET_USER_FAILURE,
 })
 
-export const getUser = async (dispatch, id) => {
-    console.log("getUser()")
-    dispatch(getUserStart())
-    try {
-        const res = await axios.get(`http://localhost:3001/api/users/${id}`)
-        console.log("res.data", res.data)
-        dispatch(getUserSuccess(res.data))
-    } catch (error) {
-        dispatch(getUserFailure())
+export function getUser (id) {
+    return async (dispatch) => {
+        console.log("getUser()")
+        dispatch(getUserStart())
+        try {
+            const res = await axios.get(`http://localhost:3001/api/users/${id}`)
+            console.log("res.data", res.data)
+            dispatch(getUserSuccess(res.data))
+        } catch (error) {
+            dispatch(getUserFailure())
+        }
     }
 }
 
