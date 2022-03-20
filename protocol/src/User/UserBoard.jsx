@@ -4,10 +4,11 @@ import Follows from './UserFollows';
 import Messages from "../Messages/Messages.jsx"
 import Posts from './UserPosts';
 
+import css from "./User.module.css";
 
 export default function UserBoard() {
     return (
-        <div>
+        <div id={css.userBoardCont}>
             <Routes>
                 <Route path= 'favorites' element={<Posts/>}/>
                 <Route path= 'posts' element={<Posts/>}/>

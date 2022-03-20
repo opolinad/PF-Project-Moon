@@ -11,10 +11,11 @@ body {
   box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
 }
 
-#appCont {
-  width: 100%;
-  height: fit-content;
-  background-color: #3e007147;
+#appCont{
+    width: 100%;
+    height: fit-content;
+    background-color: #11101F;
+
 }
 
 #apprelleno {
