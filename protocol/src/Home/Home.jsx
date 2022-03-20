@@ -12,10 +12,6 @@ import HomeCss from "./Home.module.css";
 
 export default function Home() {
     const dispatch = useDispatch();
-    const user = useSelector(state => state.user.currentUser)
-    console.log(user)
-    const test = JSON.parse(localStorage.getItem('persist:root', "user"))
-    console.log(test.user);
     return (
         <div id={HomeCss.homeCont}>
             {/*      <div id={HomeCss.filterOrderCont}>

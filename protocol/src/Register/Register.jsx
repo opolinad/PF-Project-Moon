@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Toast } from "../helpers/alerts/alert.js";
-import { clearRegister, registerUser } from "../redux/apiCalls/registerCalls.js";
+import { clearRegister, registerUser } from "../ReduxToolkit/apiCalls/regsterCall";
 import styles from './register.module.css'
 
 //validacion de errores
