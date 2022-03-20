@@ -42,29 +42,29 @@ router.get('/:id', async (req:Request, res:Response) => {
     }
 })
 
-// Comentar un post
-router.put('/comment/:id', async(req:Request, res:Response) => {
-    const { id } = req.params
-    const comment = req.body
-    try {
-        const post = await Post.findById(id)
-        await post.updateOne({$push: { commets: comment}})
-        res.json("Se agrego el comentario")
-    } catch (error) {
-        res.status(400).json("Algo paso... Vuelve a intentarlo mas tarde")
-    }
-})
-
 //Borrar un comentario
-router.put('/commet/:id', async(req:Request, res:Response) => {
+router.put('/deleteCommet/:id', async(req:Request, res:Response) => {
     const { id } = req.params
-    const comment = req.body
+    const { comment } = req.body
     try {
         const post = await Post.findById(id)
         await post.updateOne({$pull: { comments: comment}})
         res.json("Se ha eliminado tu comentario")
     } catch (error) {
         res.status(400).json("No se pudo borrar el comentario... Vuelve a intenarlo")
+    }
+})
+
+// Comentar un post
+router.put('/comment/:id', async(req:Request, res:Response) => {
+    const { id } = req.params
+    const { comment } = req.body
+    try {
+        const post = await Post.findById(id)
+        await post.updateOne({$push: {comments:  comment}})
+        res.json("Se agrego el comentario")
+    } catch (error) {
+        res.status(400).json("Algo paso... Vuelve a intentarlo mas tarde")
     }
 })
 
