@@ -117,28 +117,34 @@ router.put('/like/:id', verifyToken, async (req:Request, res:Response) => {
 
 router.post('/share/:id', async (req:Request, res:Response) => {
     const { id } = req.params
-    const { userId } = req.body
+    const { post } = req.body
     try {
-        const post = await Post.findById(id)
-        delete post._id
-        const user = await User.findById(userId)
-        if(!post.sharesId.includes(userId)) { 
+        console.log(post)
+        // const post = await Post.findById(id)
+        // const user = await User.findById(userId)
+        // if(!post.sharesId.includes(userId)) { 
+            // post._id = post._id+"1"
+            // delete post._id
+            // post.sharesId = userId
+            // post.sharename = user.username
+            // post.sharePhoto = user.profilePhoto
+            // post.share = true
             const sharePost = new Post(post)
             // await sharePost.updateOne({_id: post._id + "share"})
-            await sharePost.updateOne({sharesId: userId})
+            // await sharePost.updateOne({sharesId: userId})
             // sharePost.sharesId = userId
-            await sharePost.updateOne({sharename: user.username})
+            // await sharePost.updateOne({sharename: user.username})
             // sharePost.sharename = user.username
-            await sharePost.updateOne({share: true})
+            // await sharePost.updateOne({share: true})
             // sharePost.share = true
-            await sharePost.updateOne({sharePhoto: user.profilePhoto})
+            // await sharePost.updateOne({sharePhoto: user.profilePhoto})
             // sharePost.sharePhoto = user.profilePhoto
-            await post.updateOne({$push: {sharesId: userId}})
             const savedPost = await sharePost.save()
+            // await post.updateOne({$push: {sharesId: post.shareId}})
             res.json(savedPost)
-        } else {
-            res.status(400).json('Ya compartiste esta publicacion antes')
-        }
+        // } else {
+            // res.status(400).json('Ya compartiste esta publicacion antes')
+        // }
     } catch(error) {
         res.status(400).json(error)
     }
