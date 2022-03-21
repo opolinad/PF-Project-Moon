@@ -4,7 +4,7 @@ import Home from "./Home/Home.jsx";
 import LandingPage from "./LandingPage/LandingPage.jsx";
 import Post from "./Post/Post.jsx";
 import Register from "./Register/Register.jsx";
-// import User from "./User/User";
+import User from "./User/User";
 import Messages from "./Messages/Messages.jsx";
 import UserBoard from "./User/UserBoard.jsx";
 import NotFound from "./NotFound/NotFound";
@@ -24,6 +24,7 @@ export default function App() {
                         <Route path='home' element={<><Navbar /><Home /></>} />
                         {/* <Route className={"routeCont"} path={"users/:id*"} element={<Fragment><User /><UserBoard /></Fragment>} /> */}
                         {/* <Route path="/post/*" element={<Post/>} /> */}
+                        <Route className={"routeCont"} path={"users/:id*"} element={<Fragment><User /><UserBoard /></Fragment>} />
                         <Route path="*" element={<NotFound />} />
                         {/* <Route path="CookiesPolicy" element={<CookiesPolicy />} /> */}
                     </Route>

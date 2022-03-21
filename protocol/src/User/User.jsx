@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { getUser } from "../redux/actions/User";
+import { getUser } from "../ReduxToolkit/apiCalls/userCall";
 import { useDispatch, useSelector } from "react-redux";
 import css from "./User.module.css";
 
@@ -9,7 +9,7 @@ export default function User() {
 
   const { id } = useParams();
   const userData = useSelector((state) => state.userData);
-  useEffect(() => dispatch(getUser(id)), []);
+  useEffect(() => getUser(dispatch, id), []);
   /* getUser(dispatch, id) */
 
   console.log("id", id);
@@ -23,17 +23,6 @@ export default function User() {
   //     following: []
   // }
 
-  const couldBe = {
-    backgroundPhoto:
-      "https://png.pngtree.com/thumb_back/fw800/back_our/20190628/ourmid/pngtree-blue-violet-line-banner-background-image_271519.jpg",
-    profilePhoto:
-      "https://pbs.twimg.com/profile_images/725013638411489280/4wx8EcIA_400x400.jpg",
-    username: "homerdona",
-    fullName: "homero simpson",
-    following: [],
-    followers: [],
-  };
-
   const changeDates = {
     profilePhoto:
       "https://pbs.twimg.com/profile_images/725013638411489280/4wx8EcIA_400x400.jpg",
@@ -42,50 +31,26 @@ export default function User() {
     username: "admin",
     fullName: "user admin",
   };
+
   return (
     <div id={css.container}>
-      <div id={css.bannerCont}>
-        <img
-          src={userData.backgroundPhoto}
-          alt="backgroundPhoto not found"
-          id={css.banner}
-        />
-      </div>
-      <div id={css.profileSection}>
-        <img
-          src={userData.profilePhoto}
-          alt="profilePhoto not found"
-          id={css.profilePhoto}
-        />
-        <div id={css.infoCont}>
-          <h1>{userData.fullName}</h1>
-          <p>@{userData.username}</p>
-          <div id={css.followsCont}>
-            <Link to={"following"} id={css.followsLink}>
-              <button>{userData.following.length} following</button>
-            </Link>
-            <Link to={"followers"} id={css.followsLink}>
-              <button>{userData.followers.length} followers</button>
-            </Link>
-          </div>
-        </div>
         <div>
-          {userData.currentUser ? (
+          {userData?.currentUser? (
             <div id={css.container}>
               <img
-                src={couldBe.backgroundPhoto}
+                src={userData.currentUser.backgroundPhoto? userData.currentUser.backgroundPhoto : "/default_banner_photo.svg"}
                 alt="backgroundPhoto not found"
                 id={css.banner}
               />
               <div id={css.profileSection}>
                 <img
-                  src={couldBe.profilePhoto}
+                  src={userData.currentUser.profilePhoto? userData.currentUser.profilePhoto: "/default_profile_photo.svg"}
                   alt="profilePhoto not found"
                   id={css.profilePhoto}
                 />
                 <div>
-                  <h1>{couldBe.fullName}</h1>
-                  <p>@{couldBe.username}</p>
+                  <h1>{userData.currentUser.fullName? userData.currentUser.fullName : userData.currentUser.email.split("@")[0]}</h1>
+                  <p>{userData.currentUser.username? userData.currentUser.username: userData.currentUser.email.split("@")[0]}</p>
                   <div>
                     <Link to={"following"} id={css.followsLink}>
                       <button>
@@ -111,49 +76,38 @@ export default function User() {
             </div>
           ) : (
             <div>
-              <h1>{couldBe.fullName}</h1>
-              <p>@{couldBe.username}</p>
+              {/* <h1>{userData.currentUser.fullName? userData.currentUser.fullName : userData.currentUser.email.split("@")[0]}</h1>
+              <p>@{userData.currentUser.username? userData.currentUser.username : userData.currentUser.email.split("@")[0]}</p>
               <div>
                 <Link to={"following"} id={css.followsLink}>
-                  <button>{userData.following.length} following</button>
+                  <button>{userData.currentUser.following.length} following</button>
                 </Link>
                 <Link to={"followers"} id={css.followsLink}>
-                  <button>{userData.followers.length} followers</button>
+                  <button>{userData.currentUser.followers.length} followers</button>
                 </Link>
-              </div>
+              </div> */}
+              <span>loading</span>
             </div>
           )}
         </div>
 
-        <div id={css.postsButtons}>
+        {/* <div id={css.postsButtons}>
           <Link to={"posts"} id={css.postsLink}>
             <button>POSTS</button>
           </Link>
           <Link to={"favorites"} id={css.postsLink}>
             <button>FAVORITES</button>
           </Link>
-        </div>
-      </div>
-      ) : (
-      <div>
-        <span>loading</span>
-      </div>
-      )
-      <form>
+        </div> */}
+
+        <form>
         <div>
-          <img
-            src={changeDates.backgroundPhoto}
-            alt="backgroundPhoto not found"
-            id={css.banner}
-          />
-          <img src="./profile.svg" id={css.banner} alt="logo not found" />
-          <h1>{changeDates.fullName}</h1>
-          <p>{changeDates.username}</p>
           <Link to={"users/:id*/edit"} id={css.postsLink}>
             <button>EDIT</button>
           </Link>
         </div>
       </form>
-    </div>
-  );
+      </div>
+
+      )
 }
