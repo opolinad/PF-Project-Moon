@@ -9,7 +9,7 @@ router.get('/:id', (req:Request, res:Response) => {
     console.log(typeof page)
     try {
         const user = User.findById(id)
-        const posts = Post.find({})
+        const posts = Post.find({categories: user.favouritesCategories})
 
         for(let i = 0; i > user.favouritesCategories.length; i++) {
             // posts.filter((post: object) => post.categories.inlcudes(user.favouritesCategories[i]))
