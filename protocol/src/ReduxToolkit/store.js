@@ -19,7 +19,10 @@ const persistConfig = {
     storage,
 };
 
-const rootReducer = combineReducers({ user: loginReducer, register: registerReducer });
+const rootReducer = combineReducers({
+    user: loginReducer,
+    register: registerReducer
+});
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

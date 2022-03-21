@@ -9,6 +9,7 @@ import Messages from "./Messages/Messages.jsx";
 import UserBoard from "./User/UserBoard.jsx";
 import NotFound from "./NotFound/NotFound";
 import Navbar from "./Navbar/Navbar.jsx";
+import CardPost from './CardPost/CardPost'
 import "./App.css";
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
                         <Route path="*" element={<NotFound />} />
                     </Route>
                     <Route path='/register' element={<Register />} />
+                    <Route path='/card' element={<CardPost />} />
                 </Routes>
             </BrowserRouter>
         </div>
