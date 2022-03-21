@@ -37,10 +37,9 @@ export default function Home() {
                 <button onClick={() => dispatch(Actions.resetOptions())} id={HomeCss.resetOption}>Reset</button>
             </div>
             <div id={HomeCss.InfoCont}>
-
-                <Categories />
-                <Feed />       
-
+            <Categories />     
+              <Feed />
+             
             </div>
             <button id={HomeCss.nextPageBut} onClick={() => dispatch(Actions.nextPageAction())} >Load More</button>
         </div>

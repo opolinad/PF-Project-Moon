@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const userSlice = createSlice({
+const postSlice = createSlice({
     name: "post",
     initialState: {
         categories: []
@@ -12,5 +12,5 @@ const userSlice = createSlice({
     }
 })
 
-export const { getCategories } = userSlice.actions;
+export const { getCategories } = postSlice.actions;
 export default postSlice.reducer;
