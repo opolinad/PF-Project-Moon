@@ -36,8 +36,6 @@ router.get("/session", async (req: Request, res: Response) => {
   const user = await User.findOne({ email });
   const { ...others } = user._doc;
   const accessToken = jwt.sign({ id: user._id }, process.env.JWT_KEY, { expiresIn: '1d' });
-  console.log(accessToken);
-  
   res.json({ ...others, accessToken });
 })
 
