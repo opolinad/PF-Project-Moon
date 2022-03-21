@@ -1,23 +1,23 @@
 import "regenerator-runtime/runtime";
 import axios from "axios";
 import {
-  GET_USER_START,
-  GET_USER_SUCCESS,
-  GET_USER_FAILURE,
+    GET_USER_START,
+    GET_USER_SUCCESS,
+    GET_USER_FAILURE,
 } from "../consts.js";
 
 const getUserStart = () => ({
-  type: GET_USER_START,
+    type: GET_USER_START,
 });
 const getUserSuccess = (data) => ({
-  type: GET_USER_SUCCESS,
-  payload: data,
+    type: GET_USER_SUCCESS,
+    payload: data,
 });
 const getUserFailure = () => ({
-  type: GET_USER_FAILURE,
+    type: GET_USER_FAILURE,
 });
 
-export function getUser (id) {
+export function getUser(id) {
     return async (dispatch) => {
         console.log("getUser()")
         dispatch(getUserStart())
