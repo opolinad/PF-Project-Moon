@@ -1,13 +1,17 @@
 #MenuCont{
-    position: relative;
-    left: -20vw;
-    top: -0.1vh;
-    width: 20vw;
-    height: 92vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 
-    background: linear-gradient(90deg, #131222 24%, rgb(31, 29, 54) 60%);
+    width: 60vw;
+    height: 6vh;
 
-    box-shadow: 0.2vw 0.2vh 0.5vh rgb(63, 51, 81);
+    background: #151425;
+
+    box-shadow: 0vw 0.3vh 0.3vh 0.2vh #6000947b;
+    border-bottom: 0.2vh solid #6000945e;
+    border-bottom-left-radius: 0.5vw;
+    border-bottom-right-radius: 0.5vw;
 
     z-index: 2;
 }
@@ -17,9 +21,9 @@
     display: flex;
     flex-direction: row;
     height: 3vh;
-    width: 10vw;
-    margin: 0 2vw 0 2vw;
-    padding: 2.5vh 3vw 2.5vh 3vw;
+    width: 20%;
+    margin: 0 2.5% 0 2.5%;
+    padding: 1.5vh 0 1.5vh 0;
 
     border-bottom: 0.2vh solid #150050;
 }

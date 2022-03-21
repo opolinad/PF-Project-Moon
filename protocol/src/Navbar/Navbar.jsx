@@ -32,41 +32,42 @@ export default function Navbar() {
         dispatch(Actions.getNotificationsAction());
     }
 
-    let menu;
+    let menu=[];
     let notifications;
     let searchbut;
-    if (showMenu) menu = <Menu />
+    showMenu ? menu = [NavbarCss.menuOpen,NavbarCss.menuShell] : menu = [NavbarCss.menuClosed,NavbarCss.movedMenuShell]
     if (showNotifications) notifications = <Notifications />;
-    search.length > 3 ? searchbut = <Link to={"/home?search=" + search} onClick={searching} id={NavbarCss.searchLink}><FontAwesomeIcon icon={faSearch} /></Link> : searchbut = <p onClick={() => setSearchErr("owo small, >3 pls uwu")}></p>;
+    search.length > 3 ? searchbut = <Link to={"/home?search=" + search} onClick={searching} id={NavbarCss.searchLink}><FontAwesomeIcon icon={faSearch} /></Link> : searchbut = <p id={NavbarCss.searchLink} onClick={() => setSearchErr("owo small, >3 pls uwu")}></p>;
 
     const handleLogout = () => {
         logoutUser(dispatch)
     }
 
     return (
-        <div id={NavbarCss.navbarShell}>
-            <div id={NavbarCss.paddingIzq}></div>
-            <div id={NavbarCss.menuIcon}>
-                <div id={NavbarCss.menuShell} onClick={() => setShowMenu(!showMenu)}><FontAwesomeIcon icon={faBars} /></div>
-                {menu}
-            </div>
+        <div id={NavbarCss.navbarCont}>
+            <div id={NavbarCss.navbarShell}>
+                <div id={NavbarCss.paddingIzq}/>
+                <div id={NavbarCss.menuIcon}>
+                    <div id={menu[1]} onClick={() => setShowMenu(!showMenu)}><FontAwesomeIcon icon={faBars} /></div>
 
-            <div id={NavbarCss.SearchContainer}>
-                <div id={NavbarCss.inputSearchShell}><input type="text" value={search} name="searchInput" id={NavbarCss.searchInput} onChange={(e) => setSearch(e.target.value)} placeholder={"Search"} /></div>
-                <div id={NavbarCss.inputButtonShell}><button id={NavbarCss.searchButton}>{searchbut}</button></div>
-                <small>{searchErr}</small>
-            </div>
+                </div>
 
-            <div id={NavbarCss.notificationsShell}>
-                <div id={NavbarCss.notificationIcon} onClick={showNotification}><FontAwesomeIcon icon={faBell} /></div>
-                {notifications}
+                <div id={NavbarCss.SearchContainer}>
+                    <div id={NavbarCss.inputSearchShell}><input type="text" value={search} name="searchInput" id={NavbarCss.searchInput} onChange={(e) => setSearch(e.target.value)} placeholder={"Search"} /></div>
+                    <div id={NavbarCss.inputButtonShell}><button id={NavbarCss.searchButton}>{searchbut}</button></div>
+                    <small>{searchErr}</small>
+                </div>
+
+                <div id={NavbarCss.notificationsShell}>
+                    <div id={NavbarCss.notificationIcon} onClick={showNotification}><FontAwesomeIcon icon={faBell} /></div>
+                    {notifications}
+                </div>
+                <div  id={NavbarCss.paddingDer}>
+                    <button id={NavbarCss.logoutBut} onClick={() => handleLogout()}>LOGOUT</button> 
+                </div>
             </div>
-            <div
-                onClick={() => handleLogout()}
-                style={{ color: 'white' }}
-                id={NavbarCss.paddingDer}>
-                LOGOUT
-            </div>
+            <div id={menu[0]}><Menu /></div>
         </div>
+
     )
 }
