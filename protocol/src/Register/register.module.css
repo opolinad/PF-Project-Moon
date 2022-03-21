@@ -66,6 +66,8 @@
 .inputText{
   height: 4vh;
   margin-bottom: 1vh;
+  padding-left: 1vw;
+  padding-right: 1vw;
 
   border-radius: 0.5vw;
   border: 0.1vw solid #864879;
@@ -73,7 +75,7 @@
   color: #F0E9D2;
   background-color: transparent;
 
-  font-size: 1.4vw;
+  font-size: 1.2vw;
 
   transition: 1s;
 }

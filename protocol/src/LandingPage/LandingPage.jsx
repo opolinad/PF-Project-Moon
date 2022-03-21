@@ -8,6 +8,7 @@ import { loginUser } from '../ReduxToolkit/apiCalls/loginCall'
 import styles from './landingPage.module.css'
 import { Toast } from "../helpers/alerts/alert";
 
+
 function validate(input) {
     let errors = {};
 
@@ -116,7 +117,7 @@ export default function LandingPage() {
         <div className={styles.landingContainer} >
             <div className={styles.ladingLeft} >
                 <img className={styles.landingImg} src="./logo.svg" alt="logo not found" />
-                <h1 className={styles.landingTitle} >MOON PROTOCOL</h1>
+                <h1 className={styles.landingTitle} >PROTOCOL MOON</h1>
                 <p className={styles.landingDesc}>The passion of design in one place, we will make it to the moon</p>
             </div>
             <div className={styles.ladingRight}>
@@ -155,45 +156,59 @@ export default function LandingPage() {
                     <p>The passion of design in one place, we will make it to the moon</p>
                 </div> */}
                 <form className={styles.ladingFormCard}>
-                    <input
-                        className={styles.ladingInput}
-                        type="email"
-                        placeholder='email'
-                        name='email'
-                        value={input.email}
-                        onChange={(e) => handleChange(e)}
-                        required
-                    />
-                    {errors.email && (
-                        <span className='error'>
-                            <small>{errors.email}</small>
-                        </span>
-                    )}
-                    <input
-                        className={styles.ladingInput}
-                        type="password"
-                        placeholder='password'
-                        name='password'
-                        value={input.password}
-                        onChange={(e) => handleChange(e)}
-                        required
-                    />
-                    {errors.password && (
-                        <span className='error'>
-                            <small>{errors.password}</small>
-                        </span>
-                    )}
+                    <div className={styles.landingInputCont}>
+                        <input
+                            className={styles.ladingInput}
+                            type="email"
+                            placeholder='E-mail'
+                            name='email'
+                            value={input.email}
+                            onChange={(e) => handleChange(e)}
+                            required
+                        />
+                        {errors.email && (
+                            <span className={styles.landingInputError}>
+                                <small>{errors.email}</small>
+                            </span>
+                        )}
+                    </div>
+
+                    <div className={styles.landingInputCont}>
+                        <input
+                            className={styles.ladingInput}
+                            type="password"
+                            placeholder='Password'
+                            name='password'
+                            value={input.password}
+                            onChange={(e) => handleChange(e)}
+                            required
+                        />
+                        {errors.password && (
+                            <span className={styles.landingInputError}>
+                                <small>{errors.password}</small>
+                            </span>
+                        )}
+                    </div>
+
                     <button
                         type="button"
+                        id={styles.loginBut}
                         onClick={handleSubmit}
                     >LOGIN</button>
-                    <Link to={"/password_reset"}>Forgot password?</Link>
-                    <Link to={"/register"}>
-                        <div>create a new account</div>
-                    </Link>
-                    <p>Publish your illustrations and discover others!</p> {/* Esto no se deja ver porque la letra está negra */}
-                    <button onClick={handleClickPlatform}>Google</button> {/* falta estilo del botón. Se requiere modificar estilos porque no se deja renderizar fuera del form */}
-                    <button onClick={handleClickPlatform}>Microsoft</button>
+
+                    <div id={styles.landingLinksCont}>
+                        <Link to={"/password_reset"}>Forgot password?</Link>
+                        <Link to={"/register"}>create a new account</Link>
+                    </div>
+
+
+                    <p style={{color:"#F0E9D2"}}>Publish your illustrations and discover others!</p> {/* Esto no se deja ver porque la letra está negra */}
+                    
+                    <div id={styles.emailAccesCont}>
+                        <button onClick={handleClickPlatform}>Google</button> {/* falta estilo del botón. Se requiere modificar estilos porque no se deja renderizar fuera del form */}
+                        <button onClick={handleClickPlatform}>Microsoft</button>
+                    </div>
+                        
                 </form>
 
             </div>
