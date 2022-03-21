@@ -103,3 +103,8 @@ export const REGISTER_CLEAR = "REGISTER_CLEAR"
 export const POST_NEWUSER = "NEW_USER"
 /*Register */
 
+/* Post post */
+export const GET_CAT ="GET_CAT";
+export const POST_POST ="POST_POST";
+/*Post post */
+
