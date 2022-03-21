@@ -1,42 +1,44 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { STARTING_STATUS } from "../redux/consts.js";
 import Categories from "./components/Categories/Categories.jsx";
 import Feed from "./components/Feed/Feed.jsx";
 import Actions from "../redux/actions/index.js";
 import Filter from "./components/Filters And Order/Filter.jsx";
 import Ordering from "./components/Filters And Order/Ordering.jsx";
-import { loginUser } from '../redux/apiCalls/loginCalls'
 import { useNavigate } from "react-router-dom";
 
 import HomeCss from "./Home.module.css";
+import { useEffect } from "react";
+import { loginUser } from "../ReduxToolkit/apiCalls/loginCall.js";
 
 export default function Home() {
     const dispatch = useDispatch();
-<<<<<<< HEAD
-    return (
-        <div id={HomeCss.homeCont}>
-            {/*      <div id={HomeCss.filterOrderCont}>
-=======
-    const user = useSelector(state => state.user)
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+    const user = useSelector(state => state.user.currentUser)
+
     useEffect(() => {
         loginUser(dispatch, { platform: true });
-        if (!user.currentUser) {
+        if (!user) {
             navigate("/");
         }
     }, [])
+
+    useEffect(() => {
+        !user && navigate("/");
+    }, [user])
+
+
+
     return (
         <div id={HomeCss.homeCont}>
             <div id={HomeCss.filterOrderCont}>
->>>>>>> d2a956207542a9b6b953111982a02b26fa59c8bb
                 <Filter />
                 <Ordering />
                 <button onClick={() => dispatch(Actions.resetOptions())} id={HomeCss.resetOption}>Reset</button>
             </div>
             <div id={HomeCss.InfoCont}>
                 {/* <Feed /> */}
-                <Categories />
+                {/* <Categories /> */}
             </div>
             <button id={HomeCss.nextPageBut} onClick={() => dispatch(Actions.nextPageAction())} >Load More</button>
         </div>
