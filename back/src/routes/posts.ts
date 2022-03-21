@@ -24,8 +24,21 @@ router.post('/:id',verifyToken ,async (req:Request, res:Response) => {
 
 // Obtener todos los posts
 router.get('/', async(req:Request, res:Response) => {
+    const { page = 1 } : { page?: number }= req.query
     try { 
         const posts = await Post.find({})
+        if (posts.length > 20) {
+            res.send(posts.slice((page - 1) * 20, (page * 20)));
+        }
+        if(page) {
+            const lastPage = page * 20
+            const firstPage = lastPage - 20
+            const postsShow = posts.slice(firstPage, lastPage)
+            return res.json(postsShow)
+        } else {
+            const postsShow = posts.splice(0,20)
+            res.json(postsShow)
+        }
         res.json(posts)
     } catch (err) {
         res.status(500).json(err)
@@ -115,37 +128,39 @@ router.put('/like/:id', verifyToken, async (req:Request, res:Response) => {
     }
 })
 
+// Compartir publicacion
 router.post('/share/:id', async (req:Request, res:Response) => {
     const { id } = req.params
-    const { post } = req.body
+    const { userId } = req.body
     try {
-        console.log(post)
-        // const post = await Post.findById(id)
-        // const user = await User.findById(userId)
-        // if(!post.sharesId.includes(userId)) { 
-            // post._id = post._id+"1"
-            // delete post._id
-            // post.sharesId = userId
-            // post.sharename = user.username
-            // post.sharePhoto = user.profilePhoto
-            // post.share = true
-            const sharePost = new Post(post)
-            // await sharePost.updateOne({_id: post._id + "share"})
-            // await sharePost.updateOne({sharesId: userId})
-            // sharePost.sharesId = userId
-            // await sharePost.updateOne({sharename: user.username})
-            // sharePost.sharename = user.username
-            // await sharePost.updateOne({share: true})
-            // sharePost.share = true
-            // await sharePost.updateOne({sharePhoto: user.profilePhoto})
-            // sharePost.sharePhoto = user.profilePhoto
+        let post = await Post.findById(id)
+        if(!post.sharesId.includes(userId)) { 
+            
+        const user = await User.findById(userId)
+        const share = {
+            userid: post.userid,
+            images: post.images,
+            description: post.description,
+            likes: [],
+            categories: post.categories,
+            comments: [],
+            shares: post.shares,
+            sharesId: [],
+            share: true,
+            shareId: userId,
+            sharename: user.username,
+            sharePhoto: user.profilePhoto,
+        }
+
+            const sharePost = new Post(share)
             const savedPost = await sharePost.save()
-            // await post.updateOne({$push: {sharesId: post.shareId}})
+            await post.updateOne({$push: {sharesId: id}})
             res.json(savedPost)
-        // } else {
-            // res.status(400).json('Ya compartiste esta publicacion antes')
-        // }
+        } else {
+            res.status(400).json('Ya compartiste esta publicacion antes')
+        }
     } catch(error) {
+        console.log(error)
         res.status(400).json(error)
     }
 })

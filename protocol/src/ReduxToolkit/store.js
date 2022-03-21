@@ -2,7 +2,10 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import loginReducer from "./reducers/loginSlice";
 import registerReducer from "./reducers/registerSlice"
 import userReducer from "./reducers/userSlice"
-import { feedReducer, categoriesReducer, selectedCategoryReducer, filterAndOrderReducer } from "./reducers/homeSlice"
+
+import postSlice from "./reducers/postSlice";
+import {feedReducer, categoriesReducer, selectedCategoryReducer, filterAndOrderReducer} from "./reducers/homeSlice"
+
 import {
     persistStore,
     persistReducer,
@@ -21,7 +24,8 @@ const persistConfig = {
     storage,
 };
 
-const rootReducer = combineReducers({ user: loginReducer, register: registerReducer, feed: feedReducer, categories: categoriesReducer, selectedCategory: selectedCategoryReducer, filterAndOrder: filterAndOrderReducer, userData: userReducer });
+
+const rootReducer = combineReducers({ user: loginReducer, register: registerReducer, feed:feedReducer, categories:categoriesReducer, selectedCategory:selectedCategoryReducer, filterAndOrder: filterAndOrderReducer, userData: userReducer});
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

@@ -3,7 +3,7 @@ import "regenerator-runtime/runtime";
 import axios from 'axios';
 
 
-export function postPost(userId){
+export function postPost(userId, payload){
     return async function(dispatch) {
         const res = await axios.post(`http://localhost:3001/api/posts/${userId}`, payload)
         dispatch({ 

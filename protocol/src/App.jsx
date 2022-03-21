@@ -10,12 +10,14 @@ import UserBoard from "./User/UserBoard.jsx";
 import NotFound from "./NotFound/NotFound";
 import Navbar from "./Navbar/Navbar.jsx";
 import CookiesPolicy from "./CookiesPolicy/CookiesPolicy.jsx";
+import PostPost from "./PostPost/PostPost"
 
 
 import "./App.css";
 import UserEdit from "./User/UserEdit.jsx";
 
 export default function App() {
+
     return (
         <div id="appCont">
             <BrowserRouter>
@@ -49,4 +51,5 @@ export default function App() {
             </BrowserRouter>
         </div>
     );
+
 }
