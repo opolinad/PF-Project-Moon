@@ -22,7 +22,6 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({ user: loginReducer, register: registerReducer, feed:feedReducer, categories:categoriesReducer, selectedCategory:selectedCategoryReducer, filterAndOrder: filterAndOrderReducer, userData: userReducer});
-
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({

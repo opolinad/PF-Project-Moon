@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { SEARCH_RESET_OPTIONS_CATEGORY, FEED_DATABASE, FEED_NEXT_PAGE_DATABASE, GET_CATEGORIES, GET_CATEGORIES_LOADING, LOADING_0, NEXT_PAGE, RESET_OPTIONS, RESET_PAGE, RESET_SELECTED_CATEGORY, SEARCHING_DATABASE, SET_FEED_TO_LOADING, SET_FILTER, SET_ORDERING, SET_SEARCHING_TO_LOADING, SET_SELECTED_CATEGORY, STARTING_STATUS } from "../../redux/consts";
+import axios from 'axios';
+import { GET_CATEGORIES, LOADING_0, STARTING_STATUS, NOT_FOUND_404, SUCCESS_200 } from "../../redux/consts";
+import { loginFailure } from './loginSlice';
 
 const feedSlice = createSlice({
     name: "feed",
@@ -37,51 +39,54 @@ const categoriesSlice = createSlice({
             state.status = STARTING_STATUS;
         },
         getCategories: (state, action) => {
-            state = action.payload;
+            state.status = action.payload.status;
+            state.posts=action.payload.post;
         }
     }
 });
 
 const selectedCategorySlice = createSlice({
-    name:"selectedCategories",
-    initialState:"",
-    reducers:{
-        setSelectedCategory: (state, action)=>{
-            state=action.payload;
+    name: "selectedCategories",
+    initialState: "",
+    reducers: {
+        setSelectedCategory: (state, action) => {
+            console.log(state);
+            console.log("action payload",action.payload);
+            return state = action.payload;
         },
-        resetSelectedCategory: (state,action)=>{
-            state=action.payload;
+        resetSelectedCategory: (state, action) => {
+            state = action.payload;
         },
-        searchResetOptionsCategory: (state)=>{
-            state="";
+        searchResetOptionsCategory: (state) => {
+            state = "";
         }
     }
 });
 
 const filterAndOrderSlice = createSlice({
-    name:"filterAndOrder",
-    initialState:{},
-    reducers:{
-        resetOptions:(state,action)=>{
-            state={};
+    name: "filterAndOrder",
+    initialState: {},
+    reducers: {
+        resetOptions: (state, action) => {
+            state = {};
         },
-        searchResetOptionsCategoryFAO:(state,action)=>{
-            state={}
+        searchResetOptionsCategoryFAO: (state, action) => {
+            state = {}
         },
-        setFilter:(state,action)=>{
-            state={...state, filter:action.payload};
+        setFilter: (state, action) => {
+            state = { ...state, filter: action.payload };
         },
-        setOrdering:(state,action)=>{
-            state={...state, ordering:action.payload};
+        setOrdering: (state, action) => {
+            state = { ...state, ordering: action.payload };
         }
     }
 });
 
-export const { searchingDatabase, feedDatabase, setSearchingToLoading, setFeedToLoading,  feedNextPageDatabase} = feedSlice.actions;
-export const feedReducer = feedSlice.reducer;
+// export const { searchingDatabase, feedDatabase, setSearchingToLoading, setFeedToLoading, feedNextPageDatabase } = feedSlice.actions;
+// export const feedReducer = feedSlice.reducer;
 export const { getCategoriesLoading, getCategories } = categoriesSlice.actions;
-export const categoriesReducer = categoriesSlice.reducer;
-export const { setSelectedCategory, resetSelectedCategory, searchResetOptionsCategory} = selectedCategorySlice.actions;
+export const categoriesReducer=categoriesSlice.reducer;
+export const { setSelectedCategory, resetSelectedCategory, searchResetOptionsCategory } = selectedCategorySlice.actions;
 export const selectedCategoryReducer = selectedCategorySlice.reducer;
-export const { resetOptions, searchResetOptionsCategoryFAO, setFilter, setOrdering} = filterAndOrderSlice.actions;
-export const filterAndOrderReducer = filterAndOrderSlice.reducer;
+// export const { resetOptions, searchResetOptionsCategoryFAO, setFilter, setOrdering } = filterAndOrderSlice.actions;
+// export const filterAndOrderReducer = filterAndOrderSlice.reducer;
