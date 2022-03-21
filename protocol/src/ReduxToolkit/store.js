@@ -1,6 +1,7 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import loginReducer from "./reducers/loginSlice";
 import registerReducer from "./reducers/registerSlice"
+import { feedReducer, categoriesReducer, selectedCategoryReducer, filterAndOrderReducer } from "./reducers/homeSlice"
 import {
     persistStore,
     persistReducer,
@@ -19,10 +20,7 @@ const persistConfig = {
     storage,
 };
 
-const rootReducer = combineReducers({
-    user: loginReducer,
-    register: registerReducer
-});
+const rootReducer = combineReducers({ user: loginReducer, register: registerReducer, feed: feedReducer, categories: categoriesReducer, selectedCategory: selectedCategoryReducer, filterAndOrder: filterAndOrderReducer });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

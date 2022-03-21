@@ -20,4 +20,14 @@ router.get('/', (req:Request, res:Response) => {
         'wallpaper']})
 })
 
+router.get('/:category', async (req:Request, res:Response) => {
+    let { category } = req.params
+    try { 
+        const posts = await Post.find({ categories: category})
+        res.json(posts)
+    } catch (err) {
+        res.status(400).json(err)
+    }
+})
+
 module.exports =  router;
