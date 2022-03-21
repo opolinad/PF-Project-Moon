@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { Toast } from "../helpers/alerts/alert.js";
 import { clearRegister, registerUser } from "../ReduxToolkit/apiCalls/regsterCall";
 import styles from './register.module.css'
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 //validacion de errores
 function validar(input) {
@@ -140,6 +143,10 @@ const Register = () => {
 
     return (
         <div id={styles.registerCont}>
+            <Link to={"/"}>
+                <button id={styles.backBut}><FontAwesomeIcon icon={ faAngleLeft }/> Back</button>
+            </Link>
+
             <div id={styles.decoCont}>
                 <img id={styles.landingImg} src="./logo.svg" alt="logo not found" />
                 <h1>Protocol Moon</h1>
