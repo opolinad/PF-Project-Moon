@@ -9,7 +9,16 @@ router.get('/:id', async(req:Request, res:Response) => {
     try {
         const posts = await Post.find({ userid: id}) // || shareId : id
         const shares = await Post.find({ shareId: id})
-        res.json(posts.concat(shares))
+        const profile = posts.concat(shares).sort(function (a:any, b:any) {
+            if (a.createdAt < b.createdAt) {
+              return 1;
+            }
+            if (a.createdAt > b.createdAt) {
+              return -1;
+            }
+            return 0;
+          })
+        res.json(profile)
     } catch (error) {
         res.status(400).json(error)
     }
