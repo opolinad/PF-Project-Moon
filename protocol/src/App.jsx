@@ -46,6 +46,7 @@ export default function App() {
               path={"users/:id*"}
               element={
                 <Fragment>
+                  <Navbar/>
                   <User />
                   <UserBoard />
                 </Fragment>
@@ -56,6 +57,7 @@ export default function App() {
               path={"users/:id*/edit"}
               element={
                 <Fragment>
+                  <Navbar/>
                   <User />
                   <UserBoard />
                 </Fragment>

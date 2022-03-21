@@ -2,7 +2,7 @@ import React from "react";
 import Cardpost from "./CardPost.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from "react-router-dom";
-import {faHeart,faShareSquare} from "@fortawesome/free-solid-svg-icons";
+import {faHeart,faShareSquare, faCommentAlt} from "@fortawesome/free-solid-svg-icons";
 /*
     title: string,
     description: string,
@@ -43,7 +43,7 @@ export default function CardPost(props)
                 <div className={Cardpost.likesShell} onClick={()=>{}}>{cardValues.likeImg}{cardValues.likes}</div>
                 <div className={Cardpost.sharesShell} onClick={()=>{}}>{cardValues.sharedImg}{cardValues.shares}</div>
                 <div className={Cardpost.favoritesShell}>{cardValues.favorite}</div>
-                <div className={Cardpost.commentShell}><Link to={"http://localhost:3000/post/"+props.postId}>Commentaries</Link></div>
+                <div className={Cardpost.commentShell}><Link to={"http://localhost:3000/post/"+props.postId}><FontAwesomeIcon icon={faCommentAlt}/>  Commentaries</Link></div>
             </div>
         </div>
     )
