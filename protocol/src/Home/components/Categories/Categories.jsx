@@ -9,7 +9,6 @@ import CategoriesCss from "./Categories.module.css";
 
 export default function Categories(props) {
     const categories = useSelector(state => state.categories);
-    console.log("Categories", categories);
     const selectedCategory = useSelector(state => state.selectedCategory)
     const dispatch = useDispatch();
     let categoriesArr;

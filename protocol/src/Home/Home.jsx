@@ -38,7 +38,7 @@ export default function Home() {
             </div>
             <div id={HomeCss.InfoCont}>
                 {/* <Feed /> */}
-                {/* <Categories /> */}
+                <Categories />
             </div>
             <button id={HomeCss.nextPageBut} onClick={() => dispatch(Actions.nextPageAction())} >Load More</button>
         </div>
