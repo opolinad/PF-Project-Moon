@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { STARTING_STATUS } from "../../../redux/consts.js";
-import CardPost from "../../../CardPost/CardPost.jsx";
-import Actions from "../../../redux/actions/index.js";
-import { LOADING_0,NOT_FOUND_404,SUCCESS_200 } from "../../../redux/consts.js";
+import React from "react";
+// import { useLocation } from "react-router-dom";
+// import { useDispatch, useSelector } from "react-redux";
+// import { STARTING_STATUS } from "../../../redux/consts.js";
+// import CardPost from "../../../CardPost/CardPost.jsx";
+// import Actions from "../../../redux/actions/index.js";
+// import { LOADING_0, NOT_FOUND_404, SUCCESS_200 } from "../../../redux/consts.js";
 
 import FeedCss from "./Feed.module.css";
 /*
@@ -24,49 +24,43 @@ import FeedCss from "./Feed.module.css";
     - funcionalidad de cargar mas posts (limitarnos con 20 a la vez o tal, como paginacion oculta)
 */
 
-const dummy=[];
-export default function Feed(props)
-{
+// const dummy = [];
+export default function Feed(props) {
 
-    const dispatch = useDispatch();
-    const feed = useSelector(state=>state.feed);
-    const query = useLocation();//.search.split("=")[1]
-    const filterAndOrder = useSelector(state=>state.filterAndOrder);
-    const selectedCategory = useSelector(state=>state.selectedCategory);
-    const search = useSelector(state=>state.search);
-    const homePage = useSelector(state=>state.homePage)
+    // const dispatch = useDispatch();
+    // const feed = useSelector(state => state.feed);
+    // const query = useLocation();//.search.split("=")[1]
+    // const filterAndOrder = useSelector(state => state.filterAndOrder);
+    // const selectedCategory = useSelector(state => state.selectedCategory);
+    // const search = useSelector(state => state.search);
+    // const homePage = useSelector(state => state.homePage)
 
-    useEffect(()=>
-    {
-        if(feed.status===STARTING_STATUS)
-        {
-            dispatch(Actions.setFeedToLoading())
-            if(query.search)
-            {
-                dispatch(Actions.feedDataBaseAction(query.search.split("=")[1])) 
-                dispatch(Actions.searchingAction(query.search.split("=")[1]))
-            }
-            else
-            {
-                dispatch(Actions.feedDataBaseAction())
-                dispatch(Actions.searchingAction(""))
-            }
-        }
-    },[]);  //Primera vez que cargue feed, vera si hay un search para pedir search al back
+    // useEffect(() => {
+    //     if (feed.status === STARTING_STATUS) {
+    //         dispatch(Actions.setFeedToLoading())
+    //         if (query.search) {
+    //             dispatch(Actions.feedDataBaseAction(query.search.split("=")[1]))
+    //             dispatch(Actions.searchingAction(query.search.split("=")[1]))
+    //         }
+    //         else {
+    //             dispatch(Actions.feedDataBaseAction())
+    //             dispatch(Actions.searchingAction(""))
+    //         }
+    //     }
+    // }, []);  //Primera vez que cargue feed, vera si hay un search para pedir search al back
 
-    useEffect(()=>
-    {
-        dispatch(Actions.setFeedToLoading()) 
-        dispatch(Actions.resetPageAction()); 
-    },[filterAndOrder,selectedCategory,search]); //reseteo page cuando detecto cambios en filtro, categoria o search
+    // useEffect(() => {
+    //     dispatch(Actions.setFeedToLoading())
+    //     dispatch(Actions.resetPageAction());
+    // }, [filterAndOrder, selectedCategory, search]); //reseteo page cuando detecto cambios en filtro, categoria o search
 
-    useEffect(()=>
-    {
-        if(homePage===0) dispatch(Actions.feedDataBaseAction(search,selectedCategory,filterAndOrder.filter,filterAndOrder.ordering,0)); //cuando es primera pagina (cambios dee filter etc).
-        else dispatch(Actions.feedNextPageAction(search,selectedCategory,filterAndOrder.filter,filterAndOrder.ordering,homePage)); //Cada cambio de page  
-    },[homePage]);
+    // useEffect(() => {
+    //     if (homePage === 0) dispatch(Actions.feedDataBaseAction(search, selectedCategory, filterAndOrder.filter, filterAndOrder.ordering, 0)); //cuando es primera pagina (cambios dee filter etc).
+    //     else dispatch(Actions.feedNextPageAction(search, selectedCategory, filterAndOrder.filter, filterAndOrder.ordering, homePage)); //Cada cambio de page  
+    // }, [homePage]);
 
-    let postsArr;
+    // let postsArr;
+
 
     if(feed.status===STARTING_STATUS || feed.status===LOADING_0){postsArr=<p className={FeedCss.feedStatus}>Loading the Sweet Sweet Posts</p>}
     else if(feed.status===NOT_FOUND_404){postsArr=<p className={FeedCss.feedStatus}>Error! No Post Found</p>;}
@@ -76,7 +70,8 @@ export default function Feed(props)
     return(
         <div id={FeedCss.FeedContainer}>
             {postsArr}
+
         </div>
-        
+
     )
 }
