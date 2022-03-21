@@ -39,7 +39,7 @@ const categoriesSlice = createSlice({
         },
         getCategories: (state, action) => {
             state.status = action.payload.status;
-            state.posts=action.payload.post;
+            state.posts = action.payload.post;
         }
     }
 });
@@ -56,6 +56,19 @@ const selectedCategorySlice = createSlice({
         },
         searchResetOptionsCategory: (state) => {
             state = "";
+        }
+    }
+});
+
+const homePageSlicer = createSlice({
+    name: "homePage",
+    initialState: 0,
+    reducers: {
+        resetPage: (state) => {
+            return state = 0;
+        },
+        nextPage: (state) => {
+            return state++;
         }
     }
 });
@@ -82,8 +95,10 @@ const filterAndOrderSlice = createSlice({
 export const { searchingDatabase, feedDatabase, setSearchingToLoading, setFeedToLoading, feedNextPageDatabase } = feedSlice.actions;
 export const feedReducer = feedSlice.reducer;
 export const { getCategoriesLoading, getCategories } = categoriesSlice.actions;
-export const categoriesReducer=categoriesSlice.reducer;
+export const categoriesReducer = categoriesSlice.reducer;
 export const { setSelectedCategory, resetSelectedCategory, searchResetOptionsCategory } = selectedCategorySlice.actions;
 export const selectedCategoryReducer = selectedCategorySlice.reducer;
 export const { resetOptions, searchResetOptionsCategoryFAO, setFilter, setOrdering } = filterAndOrderSlice.actions;
 export const filterAndOrderReducer = filterAndOrderSlice.reducer;
+export const {resetPage, nextPage} = homePageSlicer.actions;
+export const homePageReducer = homePageSlicer.reducer;
