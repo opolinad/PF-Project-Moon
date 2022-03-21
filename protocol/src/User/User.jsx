@@ -42,7 +42,19 @@ export default function User(){
     fullName: "user admin",
   };
     return(
-        <div>
+
+        <div id={css.container}>
+            <div id={css.bannerCont}><img src={userData.backgroundPhoto} alt="backgroundPhoto not found" id={css.banner}/></div>
+            <div id={css.profileSection}>
+                <img src={userData.profilePhoto} alt="profilePhoto not found" id={css.profilePhoto}/>
+                <div id={css.infoCont}>
+                    <h1>{userData.fullName}</h1>
+                    <p>@{userData.username}</p>
+                    <div id={css.followsCont}>
+                        <Link to={"following"} id={css.followsLink}><button>{userData.following.length} following</button></Link>
+                        <Link to={"followers"} id={css.followsLink}><button>{userData.followers.length} followers</button></Link>
+
+            {/*<div>
             {
             userData.currentUser?
             <div id={css.container}>
@@ -55,7 +67,8 @@ export default function User(){
                         <div>
                             <Link to={"following"} id={css.followsLink}><button>{userData.currentUser.following.length} following</button></Link>
                             <Link to={"followers"} id={css.followsLink}><button>{userData.currentUser.followers.length} followers</button></Link>
-                        </div>
+                        </div>*/}
+
                     </div>
                 </div>
                 <div id={css.postsButtons}>

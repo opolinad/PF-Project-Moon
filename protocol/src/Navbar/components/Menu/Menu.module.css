@@ -5,11 +5,11 @@
     width: 20vw;
     height: 92vh;
 
-    background: linear-gradient(90deg, #040111 24%, #3F0071 60%);
+    background: linear-gradient(90deg, #131222 24%, rgb(31, 29, 54) 60%);
 
-    box-shadow: 1vh 1vh 1vh #6000947e;
+    box-shadow: 0.2vw 0.2vh 0.5vh rgb(63, 51, 81);
 
-    z-index: 1;
+    z-index: 2;
 }
 
 
@@ -34,7 +34,7 @@
     font-size: 2.5vh;
     font-weight: bolder;
 
-    color: #F8F8F8;
+    color: #F0E9D2;
 }
 .menuImg{
     width: 3vh;
