@@ -25,9 +25,6 @@ router.get('/:category', async (req:Request, res:Response) => {
     const { page = 1 } : { page?: number }= req.query
     try { 
         const posts = await Post.find({ categories: category})
-        if (posts.length > 20) {
-            res.send(posts.slice((page - 1) * 20, (page * 20)));
-        }
         if(page) {
             const lastPage = page * 20
             const firstPage = lastPage - 20
