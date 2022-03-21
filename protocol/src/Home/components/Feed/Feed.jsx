@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -71,4 +72,3 @@ export default function Feed(props) {
      </div>
 
  )
-}

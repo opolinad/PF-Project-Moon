@@ -1,11 +1,7 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import loginReducer from "./reducers/loginSlice";
-import registerReducer from "./reducers/registerSlice"
-import userReducer from "./reducers/userSlice"
-import postReducer from "./reducers/postSlice";
-import searchReducer from "./reducers/navBarSlice";
-import {feedReducer, categoriesReducer, selectedCategoryReducer, filterAndOrderReducer, homePageReducer} from "./reducers/homeSlice"
-import postSlice from "./reducers/postSlice";
+import cartReducer from "./cartRedux";
+import userReducer from "./userRedux";
+import favoriteReducer from "./favoriteRedux";
 import {
     persistStore,
     persistReducer,
@@ -24,8 +20,8 @@ const persistConfig = {
     storage,
 };
 
+const rootReducer = combineReducers({ user: userReducer, cart: cartReducer, favorites: favoriteReducer });
 
-const rootReducer = combineReducers({ user: loginReducer, register: registerReducer, feed:feedReducer, categories:categoriesReducer, selectedCategory:selectedCategoryReducer, filterAndOrder: filterAndOrderReducer, userData: userReducer, search: searchReducer, homePage:homePageReducer});
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
