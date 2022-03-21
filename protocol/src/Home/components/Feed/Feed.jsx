@@ -70,5 +70,5 @@ export default function Feed(props) {
      <div id={FeedCss.FeedContainer}>
          {postsArr}
      </div>
-
  )
+}
