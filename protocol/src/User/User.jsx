@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getUser } from "../ReduxToolkit/apiCalls/userCall";
 import { useDispatch, useSelector } from "react-redux";
 import css from "./User.module.css";
@@ -23,60 +23,76 @@ export default function User() {
   //     following: []
   // }
 
-  const changeDates = {
-    profilePhoto:
-      "https://pbs.twimg.com/profile_images/725013638411489280/4wx8EcIA_400x400.jpg",
-    backgroundPhoto:
-      "https://png.pngtree.com/thumb_back/fw800/back_our/20190628/ourmid/pngtree-blue-violet-line-banner-background-image_271519.jpg",
-    username: "admin",
-    fullName: "user admin",
-  };
+  // const changeDates = {
+  //   profilePhoto:
+  //     "https://pbs.twimg.com/profile_images/725013638411489280/4wx8EcIA_400x400.jpg",
+  //   backgroundPhoto:
+  //     "https://png.pngtree.com/thumb_back/fw800/back_our/20190628/ourmid/pngtree-blue-violet-line-banner-background-image_271519.jpg",
+  //   username: "admin",
+  //   fullName: "user admin",
+  // };
 
   return (
     <div id={css.container}>
-        <div>
-          {userData?.currentUser? (
-            <div id={css.container}>
+      <div>
+        {userData?.currentUser ? (
+          <div id={css.container}>
+            <img
+              src={
+                userData.currentUser.backgroundPhoto
+                  ? userData.currentUser.backgroundPhoto
+                  : "/default_banner_photo.svg"
+              }
+              alt="backgroundPhoto not found"
+              id={css.banner}
+            />
+            <div id={css.profileSection}>
               <img
-                src={userData.currentUser.backgroundPhoto? userData.currentUser.backgroundPhoto : "/default_banner_photo.svg"}
-                alt="backgroundPhoto not found"
-                id={css.banner}
+                src={
+                  userData.currentUser.profilePhoto
+                    ? userData.currentUser.profilePhoto
+                    : "/default_profile_photo.svg"
+                }
+                alt="profilePhoto not found"
+                id={css.profilePhoto}
               />
-              <div id={css.profileSection}>
-                <img
-                  src={userData.currentUser.profilePhoto? userData.currentUser.profilePhoto: "/default_profile_photo.svg"}
-                  alt="profilePhoto not found"
-                  id={css.profilePhoto}
-                />
+              <div>
+                <h1>
+                  {userData.currentUser.fullName
+                    ? userData.currentUser.fullName
+                    : userData.currentUser.email.split("@")[0]}
+                </h1>
+                <p>
+                  {userData.currentUser.username
+                    ? userData.currentUser.username
+                    : userData.currentUser.email.split("@")[0]}
+                </p>
                 <div>
-                  <h1>{userData.currentUser.fullName? userData.currentUser.fullName : userData.currentUser.email.split("@")[0]}</h1>
-                  <p>{userData.currentUser.username? userData.currentUser.username: userData.currentUser.email.split("@")[0]}</p>
-                  <div>
-                    <Link to={"following"} id={css.followsLink}>
-                      <button>
-                        {userData.currentUser.following.length} following
-                      </button>
-                    </Link>
-                    <Link to={"followers"} id={css.followsLink}>
-                      <button>
-                        {userData.currentUser.followers.length} followers
-                      </button>
-                    </Link>
-                  </div>
+                  <Link to={"following"} id={css.followsLink}>
+                    <button>
+                      {userData.currentUser.following.length} following
+                    </button>
+                  </Link>
+                  <Link to={"followers"} id={css.followsLink}>
+                    <button>
+                      {userData.currentUser.followers.length} followers
+                    </button>
+                  </Link>
                 </div>
               </div>
-              <div id={css.postsButtons}>
-                <Link to={"posts"} id={css.postsLink}>
-                  <button>POSTS</button>
-                </Link>
-                <Link to={"favorites"} id={css.postsLink}>
-                  <button>FAVORITES</button>
-                </Link>
-              </div>
             </div>
-          ) : (
-            <div>
-              {/* <h1>{userData.currentUser.fullName? userData.currentUser.fullName : userData.currentUser.email.split("@")[0]}</h1>
+            <div id={css.postsButtons}>
+              <Link to={"posts"} id={css.postsLink}>
+                <button>POSTS</button>
+              </Link>
+              <Link to={"favorites"} id={css.postsLink}>
+                <button>FAVORITES</button>
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <div>
+            {/* <h1>{userData.currentUser.fullName? userData.currentUser.fullName : userData.currentUser.email.split("@")[0]}</h1>
               <p>@{userData.currentUser.username? userData.currentUser.username : userData.currentUser.email.split("@")[0]}</p>
               <div>
                 <Link to={"following"} id={css.followsLink}>
@@ -86,12 +102,12 @@ export default function User() {
                   <button>{userData.currentUser.followers.length} followers</button>
                 </Link>
               </div> */}
-              <span>loading</span>
-            </div>
-          )}
-        </div>
+            <span>loading</span>
+          </div>
+        )}
+      </div>
 
-        {/* <div id={css.postsButtons}>
+      {/* <div id={css.postsButtons}>
           <Link to={"posts"} id={css.postsLink}>
             <button>POSTS</button>
           </Link>
@@ -100,14 +116,13 @@ export default function User() {
           </Link>
         </div> */}
 
-        <form>
+      <form>
         <div>
           <Link to={"users/:id*/edit"} id={css.postsLink}>
             <button>EDIT</button>
           </Link>
         </div>
       </form>
-      </div>
-
-      )
+    </div>
+  );
 }
