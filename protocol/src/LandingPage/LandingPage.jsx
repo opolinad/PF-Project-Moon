@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // import { postUsers, getUsers } from "../redux/actions/LandingPage";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from '../redux/apiCalls/loginCalls'
+import { loginUser } from '../ReduxToolkit/apiCalls/loginCall'
 // import CookiesPolicy from '../CookiesPolicy/CookiesPolicy';
 import styles from './landingPage.module.css'
 import { Toast } from "../helpers/alerts/alert";
