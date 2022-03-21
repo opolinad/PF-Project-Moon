@@ -2,6 +2,7 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import loginReducer from "./reducers/loginSlice";
 import registerReducer from "./reducers/registerSlice"
 import userReducer from "./reducers/userSlice"
+import postSlice from "./reducers/postSlice";
 import {feedReducer, categoriesReducer, selectedCategoryReducer, filterAndOrderReducer} from "./reducers/homeSlice"
 import {
     persistStore,

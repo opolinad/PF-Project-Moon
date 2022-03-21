@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { postPost, getCategories } from "../redux/actions/ImgPost.js"
+import { useDispatch, useSelector } from "react-redux";
+import { postPost, getCategories } from "../redux/actions/PostPost"
 import { useParams } from "react-router-dom"
+
 
 function validate(input){
     let errors = {}
@@ -21,7 +22,7 @@ export default function PostPost() {
     const { id } = useParams()
     // const history = useNavigate()
     const [errors, setErrors] = useState({})
-    const categories = useSelector((state) => state.categories)
+    const categories = useSelector((state) => state.categories.posts)
 
     const [input, setInput] = useState({
         userid: id,
@@ -70,10 +71,8 @@ export default function PostPost() {
             ...input,
             [e.target.name]: e.target.value,
           }))
-        dispatch(postPost(input))
+        dispatch(postPost(id, input))
     }
-
-
     return (
         <form onSubmit={(e) => handleSubmit(e)}>
             <div>
