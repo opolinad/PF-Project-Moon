@@ -9,6 +9,9 @@ import Messages from "./Messages/Messages.jsx";
 import UserBoard from "./User/UserBoard.jsx";
 import NotFound from "./NotFound/NotFound";
 import Navbar from "./Navbar/Navbar.jsx";
+import CookiesPolicy from "./CookiesPolicy/CookiesPolicy.jsx";
+import User from "./User/User.jsx";
+
 import "./App.css";
 
 export default function App() {
@@ -20,7 +23,9 @@ export default function App() {
                         <Route index element={<LandingPage />} />
                         <Route path='home' element={<><Navbar /><Home /></>} />
                         {/* <Route className={"routeCont"} path={"users/:id*"} element={<Fragment><User /><UserBoard /></Fragment>} /> */}
+                        {/* <Route path="/post/*" element={<Post/>} /> */}
                         <Route path="*" element={<NotFound />} />
+                        {/* <Route path="CookiesPolicy" element={<CookiesPolicy />} /> */}
                     </Route>
                     <Route path='/register' element={<Register />} />
                 </Routes>
