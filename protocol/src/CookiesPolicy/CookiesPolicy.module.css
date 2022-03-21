@@ -1,0 +1,62 @@
+#backBut{
+    position: sticky;
+    top: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    width: 10vw;
+    height: 4vh;
+
+    border: 0.2vw solid #864879;
+    border-top: none;
+    border-left: none;
+    border-bottom-right-radius: 1vw;
+
+    color: #F0E9D2;
+    background-color: #11101F;
+
+
+    font-size: 1.3vw;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: 0.5s;
+
+}
+#backBut:hover{
+    box-shadow: -10vw 0vh 0 0 #864876 inset;
+
+    transition: 0.5s;
+}
+#backBut > svg{
+    position: relative;
+    left: -0vw;
+    transition: 0.5s;
+}
+#backBut:hover > svg{
+    position: relative;
+    left: -2vw;
+
+    transition: 0.5s;
+}
+
+#cookiesCont > a{
+    text-decoration: none;
+}
+
+
+.infoCont{
+    width: 79vw;
+    height: fit-content;
+    margin: 1vh auto 1vh auto;
+}
+.infoCont > p{
+
+    font-size: 1vw;
+    color: #f0e9d297;
+}
+.infoCont > h1,.infoCont > h2{
+    color: #864879;
+}
