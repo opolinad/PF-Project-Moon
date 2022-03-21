@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-import axios from 'axios';
 import { GET_CATEGORIES, LOADING_0, STARTING_STATUS, NOT_FOUND_404, SUCCESS_200 } from "../../redux/consts";
-import { loginFailure } from './loginSlice';
+
 
 const feedSlice = createSlice({
     name: "feed",
