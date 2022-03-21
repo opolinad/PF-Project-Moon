@@ -17,7 +17,7 @@ export default function Home() {
     const user = useSelector(state => state.user.currentUser)
 
     useEffect(() => {
-        loginUser(dispatch, { platform: true });
+        if (!user?.password ) loginUser(dispatch, { platform: true });
         if (!user) {
             navigate("/");
         }
