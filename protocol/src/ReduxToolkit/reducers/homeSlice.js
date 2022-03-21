@@ -13,7 +13,7 @@ const feedSlice = createSlice({
             state = action.payload;
         },
         feedDatabase: (state, action) => {
-            state = action.payload;
+            return state = action.payload;
         },
         setSearchingToLoading: (state) => {
             state.status = LOADING_0;
@@ -22,7 +22,7 @@ const feedSlice = createSlice({
             state.status = LOADING_0;
         },
         feedNextPageDatabase: (state, action) => {
-            state.posts = [...state.posts, action.payload.posts];
+            state.posts = action.payload;
         }
     }
 });
