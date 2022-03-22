@@ -34,18 +34,20 @@ export default function User() {
 
     return (
         <div id={css.container}>
-            <div>
+            <div id={css.upperCont}>
                 {userData?.currentUser ? (
                     <div id={css.container}>
-                        <img
-                            src={
-                                userData.currentUser.backgroundPhoto
-                                    ? userData.currentUser.backgroundPhoto
-                                    : "/default_banner_photo.svg"
-                            }
-                            alt="backgroundPhoto not found"
-                            id={css.banner}
-                        />
+                        <div id={css.bannerCont}>   
+                            <img
+                                src={
+                                    userData.currentUser.backgroundPhoto
+                                        ? userData.currentUser.backgroundPhoto
+                                        : "/default_banner_photo.svg"
+                                }
+                                alt="backgroundPhoto not found"
+                                id={css.banner}
+                            />
+                        </div> 
                         <div id={css.profileSection}>
                             <img
                                 src={
