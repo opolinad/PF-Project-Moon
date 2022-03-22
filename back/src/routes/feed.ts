@@ -3,30 +3,34 @@ const User = require('../models/User')
 const Post = require('../models/Post')
 const router = Router()
 
-router.get('/:id', (req:Request, res:Response) => {
+router.get('/:id', async (req:Request, res:Response) => {
     const { id } = req.params
     const { page } : {page?: number}= req.query
-    console.log(typeof page)
-    try {
-        const user = User.findById(id)
-        let posts:any
 
-        if(user.favouritesCategories.length > 0) {
-            for(let i = 0; i > user.favouritesCategories.length; i++) {
-                let postsAux = Post.find({})
+    try {
+        const user = await User.findById(id)
+        let posts : any = []
+        if(user.favouritesCategories.length) {
+            for(let i = 0; i < user.favouritesCategories.length; i++) {
+                let postsAux = await Post.find({})
+                console.log(postsAux)
                 postsAux.filter((post: any) => post.categories.inlcudes(user.favouritesCategories[i]))
+                console.log(postsAux)
                 posts.concat(postsAux)
             }
+            console.log(posts)
         }
 
-        if(user.followingId.length > 0) { 
-            for(let j =0; j > user.followingId.length; j++){
-                let postsFollow = Post.find({})
+        if(user.followingId.length) { 
+            for(let j =0; j < user.followingId.length; j++){
+                let postsFollow = await Post.find({})
                 postsFollow.filter((post: any) => post.userid === user.followingId[j] || post.shareId === user.followingId)
                 posts.concat(postsFollow)
             }
+            console.log(posts)
         }
 
+        if(posts.length) { 
         posts.sort((function (a:any, b:any) {
             if (a.createdAt < b.createdAt) {
               return 1;
@@ -36,6 +40,8 @@ router.get('/:id', (req:Request, res:Response) => {
             }
             return 0;
           }))
+          console.log(posts)
+        }
 
         if(page) {
             const lastPage = page * 20
