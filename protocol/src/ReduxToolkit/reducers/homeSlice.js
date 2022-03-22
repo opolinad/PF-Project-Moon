@@ -52,23 +52,23 @@ const selectedCategorySlice = createSlice({
             return state = action.payload;
         },
         resetSelectedCategory: (state, action) => {
-            state = action.payload;
+            return state = "";
         },
         searchResetOptionsCategory: (state) => {
-            state = "";
+            return state = "";
         }
     }
 });
 
 const homePageSlicer = createSlice({
     name: "homePage",
-    initialState: 0,
+    initialState: {page:0},
     reducers: {
         resetPage: (state) => {
-            return state = 0;
+            return state = {...state,page:0};
         },
         nextPage: (state) => {
-            return state++;
+            return {...state,page:state.page+1};
         }
     }
 });
