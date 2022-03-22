@@ -5,8 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight, faHeart, faShareSquare } from '@fortawesome/free-solid-svg-icons';
 
-import { getPostData } from '../redux/actions/Post.js'
-
 import PostCss from "./Post.module.css"
 
 const dummy = {
@@ -48,7 +46,7 @@ export default function Post()
     const {username, postId} = useParams()
     // const dummy = useSelector ((state) => state.postData)
     const dummyA = useSelector ((state) => state.postData)
-    useEffect (() => dispatch(getPostData(username, postId)), [])
+    //useEffect (() => dispatch(getPostData(username, postId)), [])
 
     const [newComment,setNewComment] = useState("");
     const [imgNum,setImgNum]= useState(0);

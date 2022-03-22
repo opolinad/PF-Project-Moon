@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_CATEGORIES, LOADING_0, STARTING_STATUS, NOT_FOUND_404, SUCCESS_200 } from "../../redux/consts";
+import { NOT_FOUND_404, SUCCESS_200 } from "../consts";
 import { getCategories } from "../reducers/homeSlice";
 
 export let getCategoriesAsync = async (dispatch) => {

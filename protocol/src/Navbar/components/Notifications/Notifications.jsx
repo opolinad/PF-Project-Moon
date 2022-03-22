@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getNotificationsAction, setNotificationsToLoading } from "../../../redux/actions/Navbar";
-import { STARTING_STATUS } from "../../../redux/consts";
+import { STARTING_STATUS } from "../../../ReduxToolkit/consts";
 
 
 export default function Notifications(props)
@@ -13,8 +12,8 @@ export default function Notifications(props)
     {
         if(notifications.status===STARTING_STATUS)
         {
-            setNotificationsToLoading();
-            getNotificationsAction();
+            //setNotificationsToLoading();
+            //getNotificationsAction();
         }
     },[]);
 

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postPost } from "../redux/actions/PostPost"
 import app from '../Firebase/Firebase'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
 import { getCategoriesAsync } from "../ReduxToolkit/apiCalls/categoriesCall.js"
@@ -130,7 +129,7 @@ export default function PostPost() {
             ...input,
             [e.target.name]: e.target.value,
           }))
-        postPost(dispatch(id, input))
+        //postPost(dispatch(id, input))
     }
     console.log(profile)
     return (

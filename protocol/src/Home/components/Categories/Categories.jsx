@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { LOADING_0, NOT_FOUND_404, STARTING_STATUS, SUCCESS_200 } from "../../../redux/consts";
 import { getCategoriesLoading, setSelectedCategory, resetSelectedCategory } from "../../../ReduxToolkit/reducers/homeSlice";
 import { getCategoriesAsync } from "../../../ReduxToolkit/apiCalls/categoriesCall";
+import { STARTING_STATUS, LOADING_0, NOT_FOUND_404, SUCCESS_200 } from "../../../ReduxToolkit/consts";
 
 import CategoriesCss from "./Categories.module.css";
 

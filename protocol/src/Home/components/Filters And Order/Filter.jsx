@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import Actions from "../../../redux/actions/index.js";
 
 import FilterCss from "./Filter.module.css";
 
@@ -10,8 +9,8 @@ export default function Filter()
 
     function filtering(e)
     {
-        dispatch(Actions.setFeedToLoading())
-        dispatch(Actions.changeFilter(e.target.value))
+        //dispatch(Actions.setFeedToLoading())
+        //dispatch(Actions.changeFilter(e.target.value))
     }
 
     return(
