@@ -15,5 +15,4 @@ export const allPostById = async (dispatch, id) => {
     } catch (error) {
         dispatch(userPostsFailure())
     }
-
 }

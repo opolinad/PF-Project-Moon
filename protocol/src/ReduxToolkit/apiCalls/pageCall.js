@@ -1,5 +1,5 @@
 import axios from "axios";
-import {  NOT_FOUND_404, SUCCESS_200} from "../../redux/consts";
+import {  NOT_FOUND_404, SUCCESS_200} from "../consts";
 import { feedNextPageDatabase } from '../reducers/homeSlice';
 
 export const findNextPage = async (dispatch, search = "", selectedCategory = "", filter = "", order = "", page = 1) => {

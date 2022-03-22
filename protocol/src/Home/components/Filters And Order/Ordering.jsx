@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import Actions from "../../../redux/actions/index.js";
 
 import OrderingCss from "./Ordering.module.css";
 
@@ -10,8 +9,8 @@ export default function Ordering()
 
     function ordering(e)
     {
-        dispatch(Actions.setFeedToLoading())
-        dispatch(Actions.changeOrdering(e.target.value))
+        //dispatch(Actions.setFeedToLoading())
+        //dispatch(Actions.changeOrdering(e.target.value))
     }
 
     return(

@@ -2,14 +2,13 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { STARTING_STATUS } from "../../../redux/consts.js";
 import CardPost from "../../../CardPost/CardPost.jsx";
-import { LOADING_0, NOT_FOUND_404, SUCCESS_200 } from "../../../redux/consts.js";
 import { setFeedToLoading, resetPage, feedNextPageDatabase } from "../../../ReduxToolkit/reducers/homeSlice.js";
 import { searchingAction } from "../../../ReduxToolkit/reducers/navBarSlice.js";
 import { getSearchResults } from "../../../ReduxToolkit/apiCalls/searchCall.js";
 import FeedCss from "./Feed.module.css";
 import { findNextPage } from "../../../ReduxToolkit/apiCalls/pageCall.js";
+import { STARTING_STATUS, LOADING_0, NOT_FOUND_404, SUCCESS_200 } from "../../../ReduxToolkit/consts.js";
 /*
     Estoy asumiendo nombres, cambiar cuando lleguen las conexiones del back
     ademas, cuando se entra al detalle del CardPost y pasa a aser Post, se piden los comentarios!

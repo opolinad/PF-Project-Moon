@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FEED_DATABASE, NOT_FOUND_404, SUCCESS_200} from "../../redux/consts";
+import { FEED_DATABASE, NOT_FOUND_404, SUCCESS_200} from "../consts";
 import { feedDatabase } from '../reducers/homeSlice';
 export const getSearchResults = async (dispatch, search="",selectedCategory,filter,order, page=1) => {
     let q = "";
