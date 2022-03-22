@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postPost, getCategories } from "../redux/actions/PostPost"
+import { postPost } from "../redux/actions/PostPost"
+import { getCategoriesAsync } from "../ReduxToolkit/apiCalls/categoriesCall.js"
 import { useParams } from "react-router-dom"
 
 
@@ -33,7 +34,7 @@ export default function PostPost() {
     })
 
     useEffect(() => {
-        dispatch(getCategories())
+        dispatch(getCategoriesAsync())
     }, [dispatch])
 
     function handleImgChange(e) {
