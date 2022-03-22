@@ -38,6 +38,7 @@ export default function Feed(props) {
     const homePage = useSelector(state => state.homePage)
     useEffect(() => {
         if (feed.status === STARTING_STATUS) {
+            console.log("41")
             dispatch(setFeedToLoading())
             if (query.search) {
                 getSearchResults(dispatch, query.search.split("=")[1]);
@@ -51,13 +52,15 @@ export default function Feed(props) {
     }, []);  //Primera vez que cargue feed, vera si hay un search para pedir search al back
 
     useEffect(() => {
+        console.log("55")
         dispatch(setFeedToLoading());
         dispatch(resetPage());
     }, [filterAndOrder, selectedCategory, search]); //reseteo page cuando detecto cambios en filtro, categoria o search
 
     useEffect(() => {
-        if (homePage === 0) getSearchResults(dispatch, search, selectedCategory, filterAndOrder.filter, filterAndOrder.ordering, 0); //cuando es primera pagina (cambios dee filter etc).
-        else findNextPage(dispatch, search, selectedCategory, filterAndOrder.filter, filterAndOrder.ordering, homePage); //Cada cambio de page
+        console.log("60")
+        if (homePage.page === 0) getSearchResults(dispatch, search, selectedCategory, filterAndOrder.filter, filterAndOrder.ordering, 0); //cuando es primera pagina (cambios dee filter etc).
+        else findNextPage(dispatch, search, selectedCategory, filterAndOrder.filter, filterAndOrder.ordering, homePage.page); //Cada cambio de page
     }, [homePage]);
 
     let postsArr;

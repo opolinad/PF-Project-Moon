@@ -4,6 +4,7 @@ import registerReducer from "./reducers/registerSlice"
 import userReducer from "./reducers/userSlice"
 import postReducer from "./reducers/postSlice";
 import searchReducer from "./reducers/navBarSlice";
+import userPostsById from "./reducers/usersPosts";
 
 import {feedReducer, categoriesReducer, selectedCategoryReducer, filterAndOrderReducer, homePageReducer} from "./reducers/homeSlice"
 
