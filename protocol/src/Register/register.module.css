@@ -136,21 +136,24 @@
 }
 
 
+#backLink{
+  text-decoration: none;
+}
 #backBut{
-  position: sticky;
-  top: 0;
+  /* position: relative;
+  top: -45vh;
+  left: -5vw; */
 
   display: flex;
   align-items: center;
   justify-content: space-evenly;
 
   width: 10vw;
-  height: 4vh;
+  height: 5vh;
 
-  border: 0.2vw solid #864879;
-  border-top: none;
-  border-left: none;
-  border-bottom-right-radius: 1vw;
+  border: none;
+  border-bottom: 0.2vw solid #864879;
+  border-radius: 1vw;
 
   color: #F0E9D2;
   background-color: #11101F;
@@ -158,6 +161,7 @@
 
   font-size: 1.3vw;
   font-weight: bold;
+  text-decoration: none;
 
   cursor: pointer;
   transition: 0.5s;
