@@ -35,7 +35,7 @@ export default function App() {
                         {/* <Route path="/post/*" element={<Post/>} /> */}
                         <Route
                             className={"routeCont"}
-                            path={"users/:id*"}
+                            path={"/home/users/:id*"}
                             element={
                                 <Fragment>
                                     <User />
