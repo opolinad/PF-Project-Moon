@@ -1,0 +1,64 @@
+#homeCont{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: fit-content;
+    margin-top: 3vh;
+
+}
+
+#filterOrderCont{
+    display: flex;
+    flex-direction: row-reverse;
+    width: 88vw;
+    height: 4vh;
+    padding: 3vh 0 3vh 0;
+}
+
+#resetOption{
+    height: 4vh;
+
+    border: none;
+    border-radius: 1vw;
+    border-bottom: 0.2vh solid #150050;
+    box-shadow: 0 0.3vh 0.3vh #150050;
+
+    color: #F0E9D2;
+    background-color: transparent;
+}
+#resetOption:hover{
+    cursor: pointer;
+    color: #F1D6AB;
+}
+
+
+#InfoCont{
+    display: flex;
+    flex-direction: row;
+
+    width: 80%;
+    margin-right: 20%;
+}
+
+
+#nextPageBut{
+    height: 10vh;
+    width: 100%;
+
+    border: none;
+    box-shadow: inset 0vw 0.2vh 0.5vh rgb(63, 51, 81);
+    border-top: 0.1vh solid rgb(63, 51, 81);
+    color: rgb(54, 0, 96);
+    background: #00000045;
+
+    font-size: 1.2vw;
+    font-weight: bolder;
+    text-align: center;
+}
+#nextPageBut:hover{
+    cursor: pointer; 
+    
+}

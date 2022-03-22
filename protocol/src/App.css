@@ -1,0 +1,50 @@
+body {
+  background-color: black;
+  width: 100%;
+  height: fit-content;
+  margin: 0;
+  padding: 0;
+}
+
+#appCont::-webkit-scrollbar-thumb:hover {
+  background: #b3b3b3;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+#appCont{
+    width: 100%;
+    height: fit-content;
+    background-color: #11101F;
+
+}
+
+#apprelleno {
+  width: 100%;
+  height: 200vh;
+}
+
+/*Scrollbar*/
+/* width */
+::-webkit-scrollbar {
+  width: 0.5vw;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #3e007147;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #150050;
+  border-radius: 0.5vw;
+
+  transition: 0.5s;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #3f0071;
+  transition: 0.5s;
+}
+/*Scrollbar*/

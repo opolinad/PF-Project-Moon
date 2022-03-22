@@ -1,0 +1,100 @@
+.CardPostCont{
+    width: 40vw;
+    height: fit-content;
+    margin: 5vh auto 5vh auto;
+
+    box-shadow: 0 0 2vh 2vh #150050;
+}
+
+.userInfoCont{
+    display: flex;
+    flex-direction: row;
+    
+    width: 96%;
+    height: 5vh;
+    margin: 0 2% 0 2%;
+
+
+    text-align: center;
+
+    border-bottom: 0.2vh solid #1c0167;
+    color: #F8F8F8;
+}
+.userPhoto{
+    max-width: 4.8vh;
+    max-height: 4.8vh;
+    border-radius: 5vh; 
+}
+.userName{
+    height: 3vh;
+    width: 15vw;
+    margin: auto 0 auto 0;
+
+    text-decoration: none;
+    font-weight: bolder;
+    font-size: 3vh;
+}
+
+
+.cardPostTitle{
+    height: 4vh;
+    width: fit-content;
+    margin: 1vh auto 1vh auto;
+
+    font-size: 4vh;
+}
+
+.descriptionCont{
+    width: 36vw;
+    margin: 1vh auto 1vh auto;
+}
+.cardPostDescription{
+    font-size: 2vh;
+}
+
+
+.imgsCont{
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+
+    height: 20vw;
+    width: 30vw;
+    margin: auto;
+}
+.cardpostImg{
+    width: auto;
+    height: auto;
+    max-height: 20vw;
+    margin: 0 2vw 0 2vw;
+}
+
+.analiticsCont{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    width: 96%;
+    height: 5vh;
+    margin: 0 2% 0 2%;
+    margin-top: 2vh;
+
+    color: #F8F8F8;
+    border-top: 0.2vh solid #1c0167;
+}
+.likesShell,.sharesShell,.favoritesShell,.commentShell{
+    display: flex;
+    justify-content: space-between;
+    width: 3vw;
+    height: 3vh;
+    margin: auto 0 auto 0;
+    padding:1vh 0 1vh 0;
+}
+
+.commentShell{
+    width: fit-content;
+    
+}
+.commentShell > p{
+    margin: 0;
+}

@@ -1,0 +1,21 @@
+#container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#message {
+    padding: 0px;
+    font-size: 50px;
+    color: #ffffff;
+}
+
+#link {
+    color: #ffffff;
+    font-size: 30px;
+    transition: color 1.5s, text-decoration 1.5s
+}
+#link:hover{
+    color: #610094;
+    text-decoration: underline #610094;
+}

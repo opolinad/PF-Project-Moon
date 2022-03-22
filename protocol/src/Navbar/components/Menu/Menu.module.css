@@ -1,0 +1,57 @@
+#MenuCont{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    width: 60vw;
+    height: 6vh;
+
+    background: #151425;
+
+    box-shadow: 0vw 0.3vh 0.3vh 0.2vh #6000947b;
+    border-bottom: 0.2vh solid #6000945e;
+    border-bottom-left-radius: 0.5vw;
+    border-bottom-right-radius: 0.5vw;
+
+    z-index: 2;
+}
+
+
+.menuOptionShell{
+    display: flex;
+    flex-direction: row;
+    height: 3vh;
+    width: 20%;
+    margin: 0 2.5% 0 2.5%;
+    padding: 1.5vh 0 1.5vh 0;
+
+    border-bottom: 0.2vh solid #150050;
+}
+
+.menuOption{
+    display: flex;
+    flex-direction: row;
+
+    height: 3vh;
+    width: 10vw;
+    margin: 0;
+    margin-top: 0.3vh;
+
+    text-align: center;
+    font-size: 2.5vh;
+    font-weight: bolder;
+    text-decoration: none;
+
+    color: #F0E9D2;
+
+    cursor: pointer;
+}
+.menuImg{
+    width: 3vh;
+    height: 3vh;
+    margin: 0;
+    margin-right: 3vw;
+    font-size: 3vh;
+
+    color: #6001ae9c;
+}

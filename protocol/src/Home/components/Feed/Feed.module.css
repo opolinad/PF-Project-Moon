@@ -1,0 +1,20 @@
+#FeedContainer{
+    display: flex;
+    flex-direction: column;
+    width: 60vw;
+    min-height: 78vh;
+
+    border-radius: 0.5vw;
+    border-left: 2px solid rgb(50, 50, 50);
+    border-right: 2px solid rgb(50, 50, 50);
+}
+
+
+.feedStatus{
+    margin: auto;
+
+    color: #F0E9D2;
+
+    font-size: 3vw;
+    text-align: center;
+}

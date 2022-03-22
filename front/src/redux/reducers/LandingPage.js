@@ -1,7 +1,27 @@
-import * as consts from "../consts.js";
+import {GET_USERS, POST_USERS} from "../consts.js"
 
-export function dummyLPreducer(state=" ",action)
-{
-    if(action.type===consts.DUMMY)return consts.DUMMY;
-    else return state;
+
+const initialState = {
+    loggedIn: false,
+    users: [],
 }
+
+export default function(state = initialState, action){
+    switch(action.type){
+        case GET_USERS:
+            return{
+                ...state,
+                    users: action.payload
+            }
+
+        case POST_USERS:
+            return{
+                ...state,
+                users: action.payload
+            }
+
+        default:
+            return state
+    }
+}
+

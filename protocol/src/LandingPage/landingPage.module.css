@@ -1,0 +1,201 @@
+.landingContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  min-height: 100vh;
+
+  overflow: hidden;
+
+
+}
+/* Image fonds */
+
+/* Container left */
+.ladingLeft {
+  flex: 1;
+  height: 100vh;
+
+  position: relative;
+}
+
+.landingImg {
+  width: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.landingTitle {
+  width: 100%;
+  font-size: 3em;
+  color: #610094;
+  text-shadow: 1px 1px 1px white, 1px 1px 1px white, 1px 1px 1px white;
+  position: absolute;
+  margin: 0.5em 3em;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+.landingDesc {
+  padding: 3em;
+  font-size: 1.5em;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  letter-spacing: 2px;
+  text-align: center;
+  font-weight: 600;
+  text-shadow: 1px 1px 1px black, 1px 1px 1px black, 1px 1px 1px black;
+}
+
+/* Container left */
+
+
+
+.ladingRight {
+  flex: 1;
+}
+
+.ladingFormCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: fit-content;
+  height: fit-content;
+  margin: auto;
+  padding: 3vw;
+
+  border-radius: 1vw;
+  box-shadow: 0vw 0vh 1vh 1vh #6000947b;
+  border-bottom: 0.2vh solid #6000945e;
+
+  background-color: #1F1D36;
+}
+
+
+.landingInputCont{
+  display: flex;
+  flex-direction: column;
+
+  height: 10vh;
+}
+
+
+.ladingInput{
+  height: 4vh;
+  width: 18vw;
+  margin-bottom: 1vh;
+  padding-left: 1vw;
+  padding-right: 1vw;
+
+  border-radius: 0.5vw;
+  border: 0.1vw solid #864879;
+
+  color: #F0E9D2;
+  background-color: transparent;
+
+  font-size: 1.2vw;
+
+  transition: 1s;
+}
+.ladingInput:focus{
+  outline: none;
+  border: 0.1vw solid #E9A6A6;
+
+  transition: 1s;
+}
+.ladingInput::placeholder{
+  text-align: center;
+  color: #f0e9d2ba;
+}
+
+
+.landingInputError{
+  color: #E9A6A6;
+}
+
+
+
+#loginBut{
+  width: 20vw;
+  height: 4vh;
+  margin-bottom: 2vh;
+
+  border: 0.1vw solid #864879;
+  border-bottom-left-radius: 0.5vw;
+  border-bottom-right-radius: 0.5vw;
+
+  box-shadow: 0 0vh 0 0 #864876 inset;
+  background-color: transparent;
+  color: #F0E9D2;
+
+  transition: 0.5s;
+}
+#loginBut:hover{
+  box-shadow: 0 5vh 0 0 #864876 inset;
+  color: #F8F8F8;
+
+  cursor: pointer;
+
+  transition: 0.5s;
+}
+
+
+#landingLinksCont{
+  display: flex;
+  justify-content: space-evenly;
+
+  width: 18vw;
+  height: 3vh;
+}
+#landingLinksCont > a{
+  color: #864879;
+
+  transition: 0.2s;
+}
+#landingLinksCont > a:hover{
+  color: #E9A6A6;
+
+  transition: 0.2s;
+}
+
+
+#emailAccesCont{
+  display: flex;
+  justify-content: space-evenly;
+  
+  width: 24vw;
+  margin: 0 auto 0 auto;
+}
+#emailAccesCont > button{
+  width: 10vw;
+  height: 3vh;
+
+  box-shadow: 0vw 1vh 1vh 1vh #6000947b;
+  border: none;
+  border-bottom-left-radius: 1vw;
+  border-bottom-right-radius: 1vw;
+
+  color: #F0E9D2;
+  background-color: #864879;
+
+  font-size: 1vw;
+
+  transition: 0.5s;
+}
+#emailAccesCont > button:hover{
+  height: 4vh;
+  width: 11vw;
+  font-size: 1.1vw;
+
+  cursor: pointer;
+
+  transition: 0.5s;
+}
