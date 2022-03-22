@@ -4,9 +4,9 @@ import registerReducer from "./reducers/registerSlice"
 import userReducer from "./reducers/userSlice"
 import postReducer from "./reducers/postSlice";
 import searchReducer from "./reducers/navBarSlice";
-import userPostsById from './reducers/usersPosts'
-import { feedReducer, categoriesReducer, selectedCategoryReducer, filterAndOrderReducer, homePageReducer } from "./reducers/homeSlice"
-import postSlice from "./reducers/postSlice";
+
+import {feedReducer, categoriesReducer, selectedCategoryReducer, filterAndOrderReducer, homePageReducer} from "./reducers/homeSlice"
+
 import {
     persistStore,
     persistReducer,
@@ -26,6 +26,7 @@ const persistConfig = {
 };
 
 
+
 const rootReducer = combineReducers({
     user: loginReducer,
     register: registerReducer,
@@ -36,9 +37,9 @@ const rootReducer = combineReducers({
     userData: userReducer,
     search: searchReducer,
     homePage: homePageReducer,
-    userPostsById: userPostsById
+    userPostsById: userPostsById,
+    createPost: postReducer
 });
-
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
