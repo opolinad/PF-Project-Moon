@@ -31,9 +31,15 @@ router.post('/', async (req: Request, res: Response) => {
 })
 
 router.get("/session", async (req: Request, res: Response) => {
+  let userEmail;
   let infoUser: any = req.user;
+  console.log(req.user)
   const { email } = infoUser._json;
-  const user = await User.findOne({ email });
+  const { mail } = infoUser._json;
+  const { emails } = infoUser;
+  mail?userEmail=mail:(email?userEmail=email:userEmail=emails[0].value)
+  const user = await User.findOne({ email:userEmail });
+
   const { ...others } = user._doc;
   const accessToken = jwt.sign({ id: user._id }, process.env.JWT_KEY, { expiresIn: '1d' });
   res.json({ ...others, accessToken });
