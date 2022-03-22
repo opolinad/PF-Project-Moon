@@ -202,14 +202,14 @@ export default function LandingPage() {
                     </div>
 
 
-                    <p style={{color:"#F0E9D2"}}>Publish your illustrations and discover others!</p> {/* Esto no se deja ver porque la letra está negra */}
-                    
-                    <div id={styles.emailAccesCont}>
-                        <button onClick={handleClickPlatform}>Google</button> {/* falta estilo del botón. Se requiere modificar estilos porque no se deja renderizar fuera del form */}
-                        <button onClick={handleClickPlatform}>Microsoft</button>
-                    </div>
-                        
+                    <p style={{ color: "#F0E9D2" }}>Publish your illustrations and discover others!</p> {/* Esto no se deja ver porque la letra está negra */}
+
                 </form>
+                <div id={styles.emailAccesCont}>
+                    <button onClick={handleClickPlatform}>Google</button> {/* falta estilo del botón. Se requiere modificar estilos porque no se deja renderizar fuera del form */}
+                    <button onClick={handleClickPlatform}>Microsoft</button>
+                </div>
+
 
             </div>
             {/* <div id="cookies-policy">
