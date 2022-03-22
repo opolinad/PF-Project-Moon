@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import app from '../Firebase/Firebase'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
 import { updateUsers } from "../ReduxToolkit/apiCalls/updateUserCall";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+
+import styles from "./UserEdit.module.css";
 
 export default function UserEdit() {
     const dispatch = useDispatch()
@@ -102,20 +104,22 @@ export default function UserEdit() {
         });
     }
     return (
-        <div style={{ background: 'white', width: '100%', height: '100vh' }}>
-            <form onSubmit={(e) => handleSubmit(e)}>
-                <div>
-                    <label>Username: </label>
+        <div id={styles.editCont}>
+            <form id={styles.editForm} onSubmit={(e) => handleSubmit(e)}>
+                <div className={styles.editShell}>
+                    <label className={styles.editLabel} >Username: </label>
                     <input
+                        className={styles.editInput}
                         name="username"
                         type="text"
                         placeholder="username"
                         onChange={handleInputChange}
                     />
                 </div>
-                <div>
-                    <label>FullName: </label>
+                <div className={styles.editShell}>
+                    <label className={styles.editLabel}>FullName: </label>
                     <input
+                        className={styles.editInput}
                         name="fullName"
                         type="text"
                         placeholder="fullName"
@@ -132,9 +136,10 @@ export default function UserEdit() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div> */}
-                <div>
-                    <label>profilePhoto: </label>
+                <div className={styles.editShell}>
+                    <label className={styles.editLabel}>Profile Photo: </label>
                     <input
+                        className={styles.editInput}
                         type="file"
                         id="file1"
                         onChange={handleFile}
@@ -150,13 +155,13 @@ export default function UserEdit() {
                 </div> */}
                 {
                     !active ? (
-                        <button type="submit" >SUBMIT</button>
+                        <button id={styles.editSubmit} type="submit" >SUBMIT</button>
                     ) : (
-                        <><p>Imagen subiendo</p></>
+                        <><p id={styles.editSubiendo}>Imagen subiendo</p></>
                     )
                 }
             </form>
-            <button onClick={(e) => upImage(e)}>UPLOAD IMAGE</button>
+            <div id={styles.editUploadCont}><button id={styles.editUpload} onClick={(e) => upImage(e)}>UPLOAD IMAGE</button></div>
         </div>
     );
 }
