@@ -53,6 +53,18 @@ router.get('/:id', async (req:Request, res:Response) => {
     }
 })
 
+// Obtener un post
+router.get('/:id/posts', async (req:Request, res:Response) => {
+    const { id } = req.params
+    try {
+        const post = await Post.find()
+        const result = post.filter((f:any) => f.userid === id)
+        res.status(200).json(result)
+    } catch (err) {
+        res.status(400).json(err)
+    }
+})
+
 // Editar post
 router.put('/:id',verifyToken, async (req:Request,res:Response) => {
     const { id } = req.params
