@@ -93,15 +93,19 @@ export default function UserEdit() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        updateUsers(dispatch, user._id, inputs, user.accessToken)
-            .then(res => {
-                navigate('/home')
-            })
-        setInputs({
-            username: "",
-            fullName: "",
-            profilePhoto: ""
-        });
+        if (inputs.username === '' && inputs.fullName === '') {
+            alert("No puede enviar el formulario vacio")
+        } else {
+            updateUsers(dispatch, user._id, inputs, user.accessToken)
+                .then(res => {
+                    navigate('/home')
+                })
+            setInputs({
+                username: "",
+                fullName: "",
+                profilePhoto: ""
+            });
+        }
     }
     return (
         <div id={styles.editCont}>
@@ -157,7 +161,7 @@ export default function UserEdit() {
                     !active ? (
                         <button id={styles.editSubmit} type="submit" >SUBMIT</button>
                     ) : (
-                        <><p id={styles.editSubiendo}>Imagen subiendo</p></>
+                        <><p id={styles.editSubiendo}>Presiona UPLOAD para cargar la imagen</p></>
                     )
                 }
             </form>
