@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getUser } from "../ReduxToolkit/apiCalls/userCall";
 import { useDispatch, useSelector } from "react-redux";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+
 import css from "./User.module.css";
 
 export default function User() {
@@ -108,7 +111,6 @@ export default function User() {
                     </div>
                 )}
             </div>
-
             {/* <div id={css.postsButtons}>
           <Link to={"posts"} id={css.postsLink}>
             <button>POSTS</button>
@@ -125,6 +127,9 @@ export default function User() {
                     </Link>
                 </div>
             </form>
+            <Link id={css.backLink} to={"/home"}>
+                <button id={css.backBut}><FontAwesomeIcon icon={ faAngleLeft }/> Home</button>
+            </Link>
         </div>
     );
 }

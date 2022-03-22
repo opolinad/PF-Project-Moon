@@ -143,7 +143,7 @@ const Register = () => {
 
     return (
         <div id={styles.registerCont}>
-            <Link to={"/"}>
+            <Link id={styles.backLink} to={"/"}>
                 <button id={styles.backBut}><FontAwesomeIcon icon={ faAngleLeft }/> Back</button>
             </Link>
 
