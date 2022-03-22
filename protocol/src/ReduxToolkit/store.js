@@ -4,7 +4,9 @@ import registerReducer from "./reducers/registerSlice"
 import userReducer from "./reducers/userSlice"
 import postReducer from "./reducers/postSlice";
 import searchReducer from "./reducers/navBarSlice";
+
 import {feedReducer, categoriesReducer, selectedCategoryReducer, filterAndOrderReducer, homePageReducer} from "./reducers/homeSlice"
+
 import {
     persistStore,
     persistReducer,
@@ -24,7 +26,21 @@ const persistConfig = {
 };
 
 
-const rootReducer = combineReducers({ user: loginReducer, register: registerReducer, feed:feedReducer, categories:categoriesReducer, selectedCategory:selectedCategoryReducer, filterAndOrder: filterAndOrderReducer, userData: userReducer, search: searchReducer, homePage:homePageReducer, createPost: postReducer});
+
+const rootReducer = combineReducers({
+    user: loginReducer,
+    register: registerReducer,
+    feed: feedReducer,
+    categories: categoriesReducer,
+    selectedCategory: selectedCategoryReducer,
+    filterAndOrder: filterAndOrderReducer,
+    userData: userReducer,
+    search: searchReducer,
+    homePage: homePageReducer,
+    userPostsById: userPostsById,
+    createPost: postReducer
+});
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({

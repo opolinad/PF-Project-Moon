@@ -68,16 +68,17 @@
 
 #categoriesArrCont{
     width: 16vw;
-    height: 54vh;
-    margin: 1vh auto 0 auto;
+    height: 55vh;
+    margin: 0vh auto 0 auto;
 
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     box-shadow: 0vh -2vh 2vh 0 #11101F inset;
     background-color: #19182D;
 
-    overflow-y: scroll;
 }
 #categoriesArrCont::-webkit-scrollbar{
     display: none;
@@ -87,7 +88,7 @@
     width: fit-content;
     height: fit-content;
 
-    padding: 1vh;
+    padding: 0.6vh;
 
     border: none;
 
@@ -95,4 +96,5 @@
     background-color: transparent;
 
     text-decoration: underline;
+    font-size: 1.3vw;
 }

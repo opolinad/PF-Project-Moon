@@ -9,11 +9,33 @@ router.get('/:id', (req:Request, res:Response) => {
     console.log(typeof page)
     try {
         const user = User.findById(id)
-        const posts = Post.find({categories: user.favouritesCategories})
+        let posts:any
 
-        for(let i = 0; i > user.favouritesCategories.length; i++) {
-            // posts.filter((post: object) => post.categories.inlcudes(user.favouritesCategories[i]))
+        if(user.favouritesCategories.length > 0) {
+            for(let i = 0; i > user.favouritesCategories.length; i++) {
+                let postsAux = Post.find({})
+                postsAux.filter((post: any) => post.categories.inlcudes(user.favouritesCategories[i]))
+                posts.concat(postsAux)
+            }
         }
+
+        if(user.followingId.length > 0) { 
+            for(let j =0; j > user.followingId.length; j++){
+                let postsFollow = Post.find({})
+                postsFollow.filter((post: any) => post.userid === user.followingId[j] || post.shareId === user.followingId)
+                posts.concat(postsFollow)
+            }
+        }
+
+        posts.sort((function (a:any, b:any) {
+            if (a.createdAt < b.createdAt) {
+              return 1;
+            }
+            if (a.createdAt > b.createdAt) {
+              return -1;
+            }
+            return 0;
+          }))
 
         if(page) {
             const lastPage = page * 20
@@ -25,6 +47,7 @@ router.get('/:id', (req:Request, res:Response) => {
             res.json(postsShow)
         }
     } catch (err) {
+        console.log(err)
         res.status(400).json(err)
     }
 })
