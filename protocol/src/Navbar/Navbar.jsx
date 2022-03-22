@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import Actions from "../redux/actions/index.js";
 import Menu from "./components/Menu/Menu.jsx";
 import Notifications from "./components/Notifications/Notifications.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,16 +19,16 @@ export default function Navbar() {
 
     function searching() {
 
-        dispatch(Actions.resetForSearch());  //resetea filter, order y selectedCategory cuando se hace search 
-        dispatch(Actions.searchingAction(search)); //setea search en redux
-        dispatch(Actions.setSearchingToLoading()); //setea feed a loading
-        dispatch(Actions.searchingDataBaseAction(search)); //envia pedido a back
+        //dispatch(Actions.resetForSearch());  //resetea filter, order y selectedCategory cuando se hace search 
+        //dispatch(Actions.searchingAction(search)); //setea search en redux
+        //dispatch(Actions.setSearchingToLoading()); //setea feed a loading
+        //dispatch(Actions.searchingDataBaseAction(search)); //envia pedido a back
     }
 
     function showNotification() {
         setShowNotifications(!showNotifications);
-        dispatch(Actions.setNotificationsToLoading());
-        dispatch(Actions.getNotificationsAction());
+        //dispatch(Actions.setNotificationsToLoading());
+        //dispatch(Actions.getNotificationsAction());
     }
 
     let menu=[];

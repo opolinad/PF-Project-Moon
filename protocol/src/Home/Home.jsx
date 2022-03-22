@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Categories from "./components/Categories/Categories.jsx";
 import Feed from "./components/Feed/Feed.jsx";
-import Actions from "../redux/actions/index.js";
 import Filter from "./components/Filters And Order/Filter.jsx";
 import Ordering from "./components/Filters And Order/Ordering.jsx";
 import { useNavigate } from "react-router-dom";
@@ -34,14 +33,14 @@ export default function Home() {
             <div id={HomeCss.filterOrderCont}>
                 <Filter />
                 <Ordering />
-                <button onClick={() => dispatch(Actions.resetOptions())} id={HomeCss.resetOption}>Reset</button>
+                {/* <button onClick={() => dispatch(Actions.resetOptions())} id={HomeCss.resetOption}>Reset</button> */}
             </div>
             <div id={HomeCss.InfoCont}>
             <Categories />     
               <Feed />
              
             </div>
-            <button id={HomeCss.nextPageBut} onClick={() => dispatch(Actions.nextPageAction())} >Load More</button>
+            {/* <button id={HomeCss.nextPageBut} onClick={() => dispatch(Actions.nextPageAction())} >Load More</button> */}
         </div>
     )
 }
