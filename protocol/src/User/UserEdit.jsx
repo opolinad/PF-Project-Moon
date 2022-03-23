@@ -4,23 +4,24 @@ import app from '../Firebase/Firebase'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
 import { updateUsers } from "../ReduxToolkit/apiCalls/updateUserCall";
 import { useNavigate } from 'react-router-dom';
+import DefaultProfile from '../assets/default_profile_photo.svg'
 
 import styles from "./UserEdit.module.css";
 
 export default function UserEdit() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    // const [error, setError] = useState({});
-    const user = useSelector(state => state.user.currentUser)
-    // const [password, setPassword] = useState("")
+    const currentUser = useSelector(state => state.user.currentUser)
+    const user = useSelector(state => state.userData.currentUser)
     const [profile, setProfile] = useState(null)
     const [active, setActive] = useState(false)
     // const [background, setBackground] = useState(null)
+    const [loading, setLoading] = useState(true)
 
     const [inputs, setInputs] = useState({
-        username: "",
-        fullName: "",
-        profilePhoto: ""
+        username: user?.username,
+        fullName: user?.fullName,
+        profilePhoto: user?.profilePhoto || ''
     });
 
     function handleInputChange(e) {
@@ -34,6 +35,16 @@ export default function UserEdit() {
         setProfile(e.target.files[0])
         setActive(true)
     }
+
+    const handleDeleteImage = () => {
+        setInputs({
+            ...inputs,
+            profilePhoto: user?.profilePhoto
+        })
+        setProfile(null)
+        setActive(false)
+    }
+
 
     //NO TOCAR!!! PLISSS
     const upImage = (e) => {
@@ -78,6 +89,7 @@ export default function UserEdit() {
                         ...inputs,
                         profilePhoto: downloadURL
                     })
+                    setProfile(downloadURL)
                     setActive(false)
                     // const updateUser = { ...inputs, profilePhoto: downloadURL };
                     // console.log(updateUser);
@@ -93,20 +105,17 @@ export default function UserEdit() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        if (inputs.username === '' && inputs.fullName === '') {
-            alert("No puede enviar el formulario vacio")
-        } else {
-            updateUsers(dispatch, user._id, inputs, user.accessToken)
-                .then(res => {
-                    navigate('/home')
-                })
-            setInputs({
-                username: "",
-                fullName: "",
-                profilePhoto: ""
-            });
-        }
+        updateUsers(dispatch, currentUser._id, inputs, currentUser.accessToken)
+            .then(res => {
+                navigate(`/home/users/${currentUser._id}`)
+            })
+        setInputs({
+            username: "",
+            fullName: "",
+            profilePhoto: ""
+        });
     }
+
     return (
         <div id={styles.editCont}>
             <form id={styles.editForm} onSubmit={(e) => handleSubmit(e)}>
@@ -116,7 +125,7 @@ export default function UserEdit() {
                         className={styles.editInput}
                         name="username"
                         type="text"
-                        placeholder="username"
+                        placeholder={user?.username}
                         onChange={handleInputChange}
                     />
                 </div>
@@ -126,7 +135,7 @@ export default function UserEdit() {
                         className={styles.editInput}
                         name="fullName"
                         type="text"
-                        placeholder="fullName"
+                        placeholder={user?.fullName}
                         onChange={handleInputChange}
                     />
                 </div>
@@ -142,6 +151,10 @@ export default function UserEdit() {
                 </div> */}
                 <div className={styles.editShell}>
                     <label className={styles.editLabel}>Profile Photo: </label>
+                    <div style={{ width: '150px', height: '150px', position: 'relative' }} >
+                        <div onClick={() => handleDeleteImage()} style={{ width: '100%', height: '100%', color: '#000', fontSize: '2rem', position: 'absolute', top: '0', right: '0', zIndex: '10' }} >X</div>
+                        <img src={inputs?.profilePhoto ? inputs?.profilePhoto : DefaultProfile} alt="profile" style={{ width: "100%", height: '100%', objectFit: 'cover' }} />
+                    </div>
                     <input
                         className={styles.editInput}
                         type="file"

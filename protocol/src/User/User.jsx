@@ -13,7 +13,9 @@ export default function User() {
 
     const { id } = useParams();
     const userData = useSelector((state) => state.userData);
-    useEffect(() => getUser(dispatch, id), []);
+    useEffect(() => {
+        getUser(dispatch, id)
+    }, []);
     /* getUser(dispatch, id) */
 
     //   console.log("id", id);
@@ -41,22 +43,22 @@ export default function User() {
             <div id={css.upperCont}>
                 {userData?.currentUser ? (
                     <div id={css.container}>
-                        <div id={css.bannerCont}>   
+                        <div id={css.bannerCont}>
                             <img
                                 src={
-                                    userData.currentUser.backgroundPhoto
-                                        ? userData.currentUser.backgroundPhoto
+                                    userData.currentUser?.backgroundPhoto
+                                        ? userData.currentUser?.backgroundPhoto
                                         : "/default_banner_photo.svg"
                                 }
                                 alt="backgroundPhoto not found"
                                 id={css.banner}
                             />
-                        </div> 
+                        </div>
                         <div id={css.profileSection}>
                             <img
                                 src={
-                                    userData.currentUser.profilePhoto
-                                        ? userData.currentUser.profilePhoto
+                                    userData.currentUser?.profilePhoto
+                                        ? userData.currentUser?.profilePhoto
                                         : "/default_profile_photo.svg"
                                 }
                                 alt="profilePhoto not found"
@@ -64,24 +66,24 @@ export default function User() {
                             />
                             <div>
                                 <h1>
-                                    {userData.currentUser.fullName
-                                        ? userData.currentUser.fullName
-                                        : userData.currentUser.email.split("@")[0]}
+                                    {userData.currentUser?.fullName
+                                        ? userData.currentUser?.fullName
+                                        : userData.currentUser?.email.split("@")[0]}
                                 </h1>
                                 <p>@
                                     {userData.currentUser.username
-                                        ? userData.currentUser.username
-                                        : userData.currentUser.email.split("@")[0]}
+                                        ? userData.currentUser?.username
+                                        : userData.currentUser?.email.split("@")[0]}
                                 </p>
                                 <div>
                                     <Link to={"following"} id={css.followsLink}>
                                         <button>
-                                            {userData.currentUser.following.length} following
+                                            {userData.currentUser?.following.length} following
                                         </button>
                                     </Link>
                                     <Link to={"followers"} id={css.followsLink}>
                                         <button>
-                                            {userData.currentUser.followers.length} followers
+                                            {userData.currentUser?.followers.length} followers
                                         </button>
                                     </Link>
                                 </div>
@@ -129,9 +131,9 @@ export default function User() {
 
                 </div>
             </form>
-            <div id={css.backLink} onClick={()=>navigate(-1)}>
-                <button id={css.backBut}><FontAwesomeIcon icon={ faAngleLeft }/>Back</button>
-            </div>
+            <Link id={css.backLink} to={"/home"}>
+                <button id={css.backBut}><FontAwesomeIcon icon={faAngleLeft} /> Home</button>
+            </Link>
         </div>
     );
 }
