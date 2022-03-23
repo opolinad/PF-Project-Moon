@@ -90,6 +90,29 @@
     margin: 0 2vw 0 2vw;
 }
 
+#imgPreviewCont{
+    display: flex;
+    flex-wrap: wrap;
+
+    width: 30vw;
+    margin: auto;
+
+    border-radius: 4vw;
+
+    overflow: hidden;
+}
+.imgSingleCont{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0.5%;
+
+    overflow: hidden;
+    cursor: pointer;
+}
+
+
 #categoriesCont{
     display: flex;
     flex-wrap: wrap;
@@ -138,6 +161,7 @@
     height: fit-content;
     margin: auto 0 auto 0;
     
+    cursor: pointer;
 }
 
 

@@ -32,7 +32,7 @@ export default function App() {
                         }
                         />
                         {/* <Route className={"routeCont"} path={"users/:id*"} element={<Fragment><User /><UserBoard /></Fragment>} /> */}
-                        {/* <Route path="/post/*" element={<Post/>} /> */}
+                        <Route path="/post/*" element={<Post/>} /> 
                         <Route
                             className={"routeCont"}
                             path={"/home/users/:id*"}
