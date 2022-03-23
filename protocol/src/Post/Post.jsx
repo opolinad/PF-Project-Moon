@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useParams, useRoutes } from 'react-router';
+import { useLocation, useNavigate, useParams, useRoutes } from 'react-router';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -49,6 +49,7 @@ export default function Post()
     const user = useSelector(state=>state.user);
     console.log(detailedPost)
     const {id} = useParams();
+    const navigate = useNavigate();
 
     useEffect (() => 
     {
@@ -92,7 +93,7 @@ export default function Post()
     if(cardValues.imgs.length)
     {
         cardValues.showImgs=<div id={PostCss.bigImgsCont}>
-                                <Link id={PostCss.backLink} to={"/home"}><button id={PostCss.backBut}><FontAwesomeIcon icon={ faAngleLeft }/> Home</button></Link>
+                                <div id={PostCss.backLink} onClick={()=>navigate(-1)}><button id={PostCss.backBut}><FontAwesomeIcon icon={ faAngleLeft }/>Back</button></div>
 
                                 <div id={PostCss.indexImg}> <p id={PostCss.leftIndex}>{imgNum+1}</p> | <p>{cardValues.imgs.length}</p> </div>
                                 <button onClick={()=>{handleImgNum("back")}} id={PostCss.CarouselButLeft}><FontAwesomeIcon icon={ faAngleLeft }/></button>

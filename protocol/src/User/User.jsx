@@ -4,11 +4,12 @@ import { getUser } from "../ReduxToolkit/apiCalls/userCall";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
-
+import { useNavigate } from "react-router";
 import css from "./User.module.css";
 
 export default function User() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const { id } = useParams();
     const userData = useSelector((state) => state.userData);
@@ -67,7 +68,7 @@ export default function User() {
                                         ? userData.currentUser.fullName
                                         : userData.currentUser.email.split("@")[0]}
                                 </h1>
-                                <p>
+                                <p>@
                                     {userData.currentUser.username
                                         ? userData.currentUser.username
                                         : userData.currentUser.email.split("@")[0]}
@@ -92,6 +93,9 @@ export default function User() {
                             </Link>
                             <Link to={"favorites"} id={css.postsLink}>
                                 <button>FAVORITES</button>
+                            </Link>
+                            <Link to={`edit`} id={css.postsLink}>
+                                <button>EDIT</button>
                             </Link>
                         </div>
                     </div>
@@ -122,14 +126,12 @@ export default function User() {
 
             <form>
                 <div>
-                    <Link to={`edit`} id={css.postsLink}>
-                        <button>EDIT</button>
-                    </Link>
+
                 </div>
             </form>
-            <Link id={css.backLink} to={"/home"}>
-                <button id={css.backBut}><FontAwesomeIcon icon={ faAngleLeft }/> Home</button>
-            </Link>
+            <div id={css.backLink} onClick={()=>navigate(-1)}>
+                <button id={css.backBut}><FontAwesomeIcon icon={ faAngleLeft }/>Back</button>
+            </div>
         </div>
     );
 }
