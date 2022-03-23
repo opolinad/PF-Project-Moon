@@ -2,7 +2,7 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import loginReducer from "./reducers/loginSlice";
 import registerReducer from "./reducers/registerSlice"
 import userReducer from "./reducers/userSlice"
-import postReducer from "./reducers/postSlice";
+import { postReducer, detailedPostReducer} from "./reducers/postSlice";
 import searchReducer from "./reducers/navBarSlice";
 import userPostsById from "./reducers/usersPosts";
 
@@ -39,7 +39,8 @@ const rootReducer = combineReducers({
     search: searchReducer,
     homePage: homePageReducer,
     userPostsById: userPostsById,
-    createPost: postReducer
+    createPost: postReducer,
+    detailedPost:detailedPostReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
