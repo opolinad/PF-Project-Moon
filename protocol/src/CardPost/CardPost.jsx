@@ -25,16 +25,20 @@ function ImgPreviews({imgs,id})
     if(imgs.length)
     {
         cardValues.testing=[];
-        for(let i=0;i<imgs.length && i<4;i++)
+        for(let i=0;i<imgs.length && i<3;i++)
         {
             let raw={}
-            if(i==0 && imgs.length<2)raw={width:"99%",height:"99%"};
-            else if(i==0 && imgs.length>=2)raw={width:"49%",height:"99%"};
-            else if(imgs.length<3)raw={width:"49%",height:"99%"};
-            else if(imgs.length<4)raw={width:"49%",height:"49%"};
-            else if(imgs.length<5)raw={width:"49%",height:"32%"};
+            if(i==0 && imgs.length==1)raw=Cardpost.singleImg; //Cardpost.singleImg
+            else if(i==0 && imgs.length==2)raw=Cardpost.halfImg; //Cardpost.halfImg
+            else if(i==0 && imgs.length>2)raw=Cardpost.quarterImg; //Cardpost.halfImg
 
-            cardValues.testing.push(<div key={"img_"+i+"_id_"+id} onClick={()=>navigate("/post/"+id)} style={raw} className={Cardpost.imgSingleCont}><img   className={Cardpost.cardpostImg} src={imgs[i]} alt={"nu existe :c"}/></div>)
+
+            else if(i==1 && imgs.length==2)raw=Cardpost.halfImg; //Cardpost.quarterImg
+            else if(i==1 && imgs.length>=3)raw=Cardpost.quarterImg; //Cardpost.quarterImg
+
+            if(i>0 && imgs.length==5)console.log(raw,i)
+
+            cardValues.testing.push(<div key={"img_"+i+"_id_"+id} onClick={()=>navigate("/post/"+id)} className={`${Cardpost.imgSingleCont} ${raw}`}><img className={Cardpost.cardpostImg} src={imgs[i]} alt={"nu existe :c"}/></div>)
         }
     }
 
