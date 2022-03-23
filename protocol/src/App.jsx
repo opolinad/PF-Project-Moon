@@ -21,32 +21,22 @@ export default function App() {
     return (
         <div id="appCont">
             <BrowserRouter>
+                <Navbar/>
                 <Routes>
                     <Route path="/">
+                        <Route  element={<LandingPage />} />
                         <Route index element={<LandingPage />} />
-                        <Route path="home" element={
-                            <>
-                                <Navbar />
-                                <Home />
-                            </>
-                        }
-                        />
+                        <Route path="register" element={<Register />} />
+                        <Route path="home" element={ <> <Home /> </> }/>
                         {/* <Route className={"routeCont"} path={"users/:id*"} element={<Fragment><User /><UserBoard /></Fragment>} /> */}
+
                         <Route path="/post/*" element={<Post/>} /> 
-                        <Route
-                            className={"routeCont"}
-                            path={"/home/users/:id*"}
-                            element={
-                                <Fragment>
-                                    <User />
-                                    <UserBoard />
-                                </Fragment>
-                            }
-                        />
+
+                        <Route className={"routeCont"} path={"users/:id*"} element={ <> <User /> <UserBoard /> </> } />
+
                         <Route path="*" element={<NotFound />} />
                         {/* <Route path="CookiesPolicy" element={<CookiesPolicy />} /> */}
                     </Route>
-                    <Route path="/register" element={<Register />} />
                 </Routes>
             </BrowserRouter>
         </div>

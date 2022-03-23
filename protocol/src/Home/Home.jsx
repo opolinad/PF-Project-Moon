@@ -16,7 +16,7 @@ export default function Home() {
     const user = useSelector(state => state.user.currentUser)
 
     useEffect(() => {
-        if (!user?.password && user) loginUser(dispatch, { platform: true }); 
+        if (!user?.password) loginUser(dispatch, { platform: true });
         if (!user) {
             navigate("/");
         }
@@ -36,9 +36,9 @@ export default function Home() {
                 {/* <button onClick={() => dispatch(Actions.resetOptions())} id={HomeCss.resetOption}>Reset</button> */}
             </div>
             <div id={HomeCss.InfoCont}>
-            <Categories />     
+            <Categories />
               <Feed />
-             
+
             </div>
             {/* <button id={HomeCss.nextPageBut} onClick={() => dispatch(Actions.nextPageAction())} >Load More</button> */}
         </div>
