@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CardPost from "../../../CardPost/CardPost.jsx";
-import { setFeedToLoading, resetPage, feedNextPageDatabase } from "../../../ReduxToolkit/reducers/homeSlice.js";
+import { setFeedToLoading, resetPage } from "../../../ReduxToolkit/reducers/homeSlice.js";
 import { searchingAction } from "../../../ReduxToolkit/reducers/navBarSlice.js";
 import { getSearchResults } from "../../../ReduxToolkit/apiCalls/searchCall.js";
 import FeedCss from "./Feed.module.css";

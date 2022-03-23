@@ -9,8 +9,8 @@ export default function Filter()
 
     function filtering(e)
     {
-        dispatch(setFeedToLoading())
-        dispatch(setFilter(e.target.options[e.target.selectedIndex].value))
+        dispatch(setFeedToLoading());
+        dispatch(setFilter(e.target.value));
     }
 
     return(
