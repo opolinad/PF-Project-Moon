@@ -53,8 +53,8 @@
 }
 
 .cardPostTitle{
-    height: 4vh;
-    width: fit-content;
+    height: fit-content;
+    width: 36vw;
     margin: 1vh auto 1vh auto;
 
     color: #F0E9D2;
@@ -94,7 +94,7 @@
     display: flex;
     flex-wrap: wrap;
 
-    width: 30vw;
+    width: 36vw;
     margin: auto;
 
     border-radius: 4vw;
@@ -111,6 +111,20 @@
     overflow: hidden;
     cursor: pointer;
 }
+
+.singleImg{
+    width:99%;
+    height:99%;
+}
+.halfImg{
+    width:49%;
+    height:99%;
+}
+.quarterImg{
+    width:49%;
+    height:49%;
+}
+
 
 
 #categoriesCont{
