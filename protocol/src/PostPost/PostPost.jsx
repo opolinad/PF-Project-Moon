@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import app from '../Firebase/Firebase'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
 import { getCategoriesAsync } from "../ReduxToolkit/apiCalls/categoriesCall.js"
+import { postPost } from "../ReduxToolkit/apiCalls/postCall.js"
 import { useParams } from "react-router-dom"
 
 
@@ -26,11 +27,12 @@ export default function PostPost() {
     const [profile, setProfile] = useState(null)
     const [active, setActive] = useState(false)
     const [errors, setErrors] = useState({})
+    const user = useSelector(state => state.user.currentUser)
     const categories = useSelector((state) => state.categories.posts.categories)
 
     const [input, setInput] = useState({
         userid: id,
-        image: profile,
+        image: "",
         title: "",
         description: "",
         categories: []
@@ -77,7 +79,7 @@ export default function PostPost() {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                     setInput({
                         ...input,
-                        profilePhoto: downloadURL
+                        image: downloadURL
                     })
                     // setActive(false)
                     // const updateUser = { ...inputs, profilePhoto: downloadURL };
@@ -128,8 +130,9 @@ export default function PostPost() {
         setErrors(validate({
             ...input,
             [e.target.name]: e.target.value,
-          }))
-        //postPost(dispatch(id, input))
+        }))
+        upImage(e)
+        postPost(dispatch, user._id, input, user.accessToken)
     }
     console.log(profile)
     return (
@@ -143,14 +146,7 @@ export default function PostPost() {
                         name="image" 
                     />
                     </div>
-                    {
-                    !active ? (
-                        <button  type="submit" >SUBMIT</button>
-                    ) : (
-                        <><p >Imagen subiendo</p></>
-                    )
-                    }
-                    <div><button onClick={(e) => upImage(e)}>UPLOAD IMAGE</button></div>
+                    {/* <div><button onClick={(e) => upImage(e)}>UPLOAD IMAGE</button></div> */}
                     <div>
                         <label>Title:</label>
                         <input onChange={e => handleChange(e)} type="text" name="title" value={input.title}/>
@@ -186,8 +182,13 @@ export default function PostPost() {
                         </select>
                     </div>
                 </div>
-
-            <button type='submit'>Publish</button>
+                {
+                    active ? (
+                        <button  type="submit" >SUBMIT</button>
+                    ) : (
+                        <><p >Imagen subiendo</p></>
+                    )
+                    }
         </form>
     )
 }
