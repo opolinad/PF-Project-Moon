@@ -13,7 +13,6 @@ export const getSearchResults = async (dispatch, search="",selectedCategory,filt
     q = q + "&page=" + page;
 
     const resp = await axios.get("http://localhost:3001/api/posts");//Se tiene que cambiar la ruta a feed
-    console.log(resp.data)
     let status = NOT_FOUND_404;
     if (resp.data.length) { status = SUCCESS_200 }
     dispatch(feedDatabase({ status, posts: resp.data }))
