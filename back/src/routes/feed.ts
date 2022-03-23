@@ -6,41 +6,41 @@ const router = Router()
 router.get('/:id', async (req:Request, res:Response) => {
     const { id } = req.params
     const { page } : {page?: number}= req.query
-
+    const { type, order } =req.query // type = designsOnly || textOnly
+    
     try {
         const user = await User.findById(id)
-        let posts : any = []
+        let posts : object [] = []
         if(user.favouritesCategories.length) {
-            for(let i = 0; i < user.favouritesCategories.length; i++) {
-                let postsAux = await Post.find({})
-                console.log(postsAux)
-                postsAux.filter((post: any) => post.categories.inlcudes(user.favouritesCategories[i]))
-                console.log(postsAux)
-                posts.concat(postsAux)
-            }
-            console.log(posts)
+            
+            let postsAux = await Post.find({})
+            
+            posts = postsAux.filter((post:any) => post.categories.some((category: any) => user.favouritesCategories.includes(category)))
         }
 
         if(user.followingId.length) { 
-            for(let j =0; j < user.followingId.length; j++){
-                let postsFollow = await Post.find({})
-                postsFollow.filter((post: any) => post.userid === user.followingId[j] || post.shareId === user.followingId)
-                posts.concat(postsFollow)
-            }
-            console.log(posts)
-        }
+            let postsFollow = await Post.find({})
 
-        if(posts.length) { 
-        posts.sort((function (a:any, b:any) {
-            if (a.createdAt < b.createdAt) {
-              return 1;
+            posts = postsFollow.filter((post: any) => user.followingId.includes(post.userid) || user.followingId.includes(post.shareId))
+            // console.log(posts.length)
+        } 
+        if(order && order !== "Trending") {
+            if(posts.length) { 
+            posts.sort((function (a:any, b:any) {
+                if (a.createdAt < b.createdAt) return 1;
+                if (a.createdAt > b.createdAt) return -1;
+                return 0;
+             }))
             }
-            if (a.createdAt > b.createdAt) {
-              return -1;
+        }
+        if(order && order !== "Trending") {
+            if(posts.length) { 
+            posts.sort((function (a:any, b:any) {
+                if (a.createdAt < b.createdAt) return 1;
+                if (a.createdAt > b.createdAt) return -1;
+                return 0;
+             }))
             }
-            return 0;
-          }))
-          console.log(posts)
         }
 
         if(page) {
@@ -53,9 +53,35 @@ router.get('/:id', async (req:Request, res:Response) => {
             res.json(postsShow)
         }
     } catch (err) {
-        console.log(err)
         res.status(400).json(err)
     }
+})
+
+router.get('/newForYou/:id', async(req:Request, res:Response) => {
+    const { id } = req.params
+    const { page } : {page?: number}= req.query
+    
+    try {
+        const user = await User.findById(id)
+        let posts : object [] = []
+        if(user.favouritesCategories.length) {
+            
+            let postsAux = await Post.find({})
+            
+            posts = postsAux.filter((post:any) => post.categories.some((category: any) => user.favouritesCategories.includes(category)))
+        }
+            if(posts.length) { 
+            posts.sort((function (a:any, b:any) {
+                if (a.createdAt < b.createdAt) return 1;
+                if (a.createdAt > b.createdAt) return -1;
+                return 0;
+             }))
+            }
+
+    } catch (error) {
+        res.status(400).json(error)
+    }
+
 })
 
 module.exports =  router;
