@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +8,8 @@ import { getSearchResults } from "../../../ReduxToolkit/apiCalls/searchCall.js";
 import FeedCss from "./Feed.module.css";
 import { findNextPage } from "../../../ReduxToolkit/apiCalls/pageCall.js";
 import { STARTING_STATUS, LOADING_0, NOT_FOUND_404, SUCCESS_200 } from "../../../ReduxToolkit/consts.js";
+import { setDetailedLoading } from "../../../ReduxToolkit/reducers/postSlice.js";
+
 /*
     Estoy asumiendo nombres, cambiar cuando lleguen las conexiones del back
     ademas, cuando se entra al detalle del CardPost y pasa a aser Post, se piden los comentarios!
@@ -48,6 +49,7 @@ export default function Feed(props) {
                 dispatch(searchingAction(""));
             }
         }
+        dispatch(setDetailedLoading())
     }, []);  //Primera vez que cargue feed, vera si hay un search para pedir search al back
 
     useEffect(() => {
