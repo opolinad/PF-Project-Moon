@@ -7,6 +7,9 @@
     border-radius: 1vw;
 
     background-color: #19182D;
+
+    border-left: 0.1vw solid rgba(255, 217, 0, 0.5);
+    border-right: 0.1vw solid rgba(255, 217, 0, 0.5);       
 }
 
 .userInfoCont{
@@ -49,8 +52,6 @@
     color: #864879;
 }
 
-
-
 .cardPostTitle{
     height: 4vh;
     width: fit-content;
@@ -89,6 +90,49 @@
     margin: 0 2vw 0 2vw;
 }
 
+#imgPreviewCont{
+    display: flex;
+    flex-wrap: wrap;
+
+    width: 30vw;
+    margin: auto;
+
+    border-radius: 4vw;
+
+    overflow: hidden;
+}
+.imgSingleCont{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0.5%;
+
+    overflow: hidden;
+    cursor: pointer;
+}
+
+
+#categoriesCont{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    width: 30vw;
+    height: fit-content;
+    margin: 1vh auto 1vh auto;
+
+}
+.category{
+    width: fit-content;
+    margin: 0 0.5vw 0 0.5vw;
+    color: #E3B04B;
+    background-color: transparent;
+
+    text-decoration: underline;
+    font-size: 1.3vw;
+}
+
 .analiticsCont{
     position: relative;
     left: -1%;
@@ -114,10 +158,29 @@
     display: flex;
     justify-content: space-between;
     width: 3vw;
-    height: 3vh;
+    height: fit-content;
     margin: auto 0 auto 0;
-    padding:1vh 0 1vh 0;
+    
+    cursor: pointer;
 }
+
+
+.notLikedImg ,.notSharedImg{
+    color: #F0E9D2;
+
+    transition: 0.5s;
+}
+.sharedImg >svg{
+    color: #E9A6A6;
+
+    transition: 0.5s;
+}
+.likedImg > svg{
+    color: #864879;
+
+    transition: 0.5s;
+}
+
 
 .commentShell{
     width: fit-content;

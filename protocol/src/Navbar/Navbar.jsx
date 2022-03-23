@@ -5,7 +5,8 @@ import Menu from "./components/Menu/Menu.jsx";
 import Notifications from "./components/Notifications/Notifications.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faSearch, faBell } from "@fortawesome/free-solid-svg-icons";
-import { logoutUser } from '../ReduxToolkit/apiCalls/loginCall'
+import { logoutUser } from '../ReduxToolkit/apiCalls/loginCall';
+import { useLocation } from "react-router";
 
 import NavbarCss from "./Navbar.module.css";
 
@@ -16,6 +17,9 @@ export default function Navbar() {
     const [search, setSearch] = useState("");
     const [searchErr, setSearchErr] = useState("");
     const dispatch = useDispatch();
+    const location=useLocation();
+    console.log(location.pathname.substring(1,5)!="home")
+    if(location.pathname.substring(1,5)!="home"){return ""}
 
     function searching() {
 

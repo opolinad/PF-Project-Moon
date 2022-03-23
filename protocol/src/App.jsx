@@ -29,8 +29,11 @@ export default function App() {
                         <Route path="register" element={<Register />} />
                         <Route path="home" element={ <> <Home /> </> }/>
                         {/* <Route className={"routeCont"} path={"users/:id*"} element={<Fragment><User /><UserBoard /></Fragment>} /> */}
-                        {/* <Route path="/post/*" element={<Post/>} /> */}
+
+                        <Route path="/post/*" element={<Post/>} /> 
+
                         <Route className={"routeCont"} path={"users/:id*"} element={ <> <User /> <UserBoard /> </> } />
+
                         <Route path="*" element={<NotFound />} />
                         {/* <Route path="CookiesPolicy" element={<CookiesPolicy />} /> */}
                     </Route>
