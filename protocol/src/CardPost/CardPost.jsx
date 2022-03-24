@@ -16,7 +16,7 @@ import {faHeart,faShareSquare, faCommentAlt} from "@fortawesome/free-solid-svg-i
 //Likes y shares: son arrays de ids, tengo que usar .length para la cantidad y buscar la id de user para saber si le dio like xd.
 export default function CardPost(props)
 {
-
+console.log(props)
     let cardValues={}
     
     props.description? cardValues.description=props.description : cardValues.description="";
@@ -26,8 +26,8 @@ export default function CardPost(props)
     props.liked ? cardValues.likeImg=<FontAwesomeIcon className={Cardpost.notLikedImg} icon={faHeart}/> : cardValues.likeImg=<FontAwesomeIcon className={Cardpost.likedImg} icon={faHeart} /> ; 
     props.shared ? cardValues.sharedImg=<FontAwesomeIcon className={Cardpost.notSharedImg} icon={faShareSquare} /> : cardValues.sharedImg=<FontAwesomeIcon className={Cardpost.sharedImg}  icon={faShareSquare} /> ; 
     
-    cardValues.likes=props.likes;
-    cardValues.shares=props.shares;
+    cardValues.likes=props.likes.length;
+    cardValues.shares=props.shares.length;
     cardValues.favorite=props.favorite;
 
     return(
