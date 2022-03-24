@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+
 import { Link } from "react-router-dom";
 import Menu from "./components/Menu/Menu.jsx";
 import Notifications from "./components/Notifications/Notifications.jsx";
@@ -22,9 +23,11 @@ export default function Navbar() {
 
   const dispatch = useDispatch();
   const location = useLocation();
-  const testingUse= useTabName();
 
-  useEffect(()=>{},[location])
+  const currentUser = useSelector((state) => state.userData.currentUser);
+  console.log(location.pathname.substring(1, 5) !== "home");
+
+  const testingUse= useTabName();
 
   if (location.pathname.substring(1, 5) !== "home") {
     return "";
@@ -72,7 +75,7 @@ export default function Navbar() {
   };
 
   const onClickHandler = () => {
-    dispatch(getSearchResults(state));
+    dispatch(getSearchResults(currentUser._id, dispatch, state));
   };
 
   return (
