@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Menu from "./components/Menu/Menu.jsx";
 import Notifications from "./components/Notifications/Notifications.jsx";
@@ -19,6 +19,7 @@ export default function Navbar() {
   const [searchErr, setSearchErr] = useState("");
   const dispatch = useDispatch();
   const location = useLocation();
+  const currentUser = useSelector((state) => state.userData.currentUser);
   console.log(location.pathname.substring(1, 5) !== "home");
   if (location.pathname.substring(1, 5) !== "home") {
     return "";
@@ -66,7 +67,7 @@ export default function Navbar() {
   };
 
   const onClickHandler = () => {
-    dispatch(getSearchResults(state));
+    dispatch(getSearchResults(currentUser._id, dispatch, state));
   };
 
   return (
