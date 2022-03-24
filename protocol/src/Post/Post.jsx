@@ -47,7 +47,7 @@ export default function Post()
     
     const detailedPost = useSelector ((state) => state.detailedPost);
     const user = useSelector(state=>state.user);
-    console.log(detailedPost)
+
     const {id} = useParams();
     const navigate = useNavigate();
 
@@ -140,7 +140,6 @@ export default function Post()
                 </div>
 
                 <div className={PostCss.commentSection}>
-                    {console.log(commentArr)}
                     {commentArr}
                 </div>
             </div>
