@@ -35,7 +35,6 @@ export default function Posts() {
 
     // const URL = useLocation();
     // let displaying = userData.posts
-    // console.log(URL.pathname.includes("favorites"))
     // if(URL.pathname.includes("favorites")) displaying = userData.favorites;
 
     return (

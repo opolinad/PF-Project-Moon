@@ -106,7 +106,7 @@ const Register = () => {
         }
     }
 
-    console.log(currentRegister.registerUser)
+    //console.log(currentRegister.registerUser)
 
     useEffect(() => {
         (() => {
