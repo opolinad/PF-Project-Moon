@@ -12,14 +12,17 @@ const feedSlice = createSlice({
         searchingDatabase: (state, action) => {
             state = action.payload;
         },
-        feedDatabase: (state, action) => {
-            return state = action.payload;
+        feedDatabase: (state, action) => {   
+            state.posts = action.payload.posts;
+            state.status = action.payload.status;
         },
         setSearchingToLoading: (state) => {
+            console.log("setting to load feed")
             state.status = LOADING_0;
         },
         setFeedToLoading: (state) => {
             state.status = LOADING_0;
+            state.posts = [];
         },
         feedNextPageDatabase: (state, action) => {
             state.posts = action.payload;

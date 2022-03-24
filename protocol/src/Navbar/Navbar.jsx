@@ -10,8 +10,9 @@ import { logoutUser } from "../ReduxToolkit/apiCalls/loginCall";
 import { useLocation } from "react-router";
 
 import NavbarCss from "./Navbar.module.css";
-import { getSearchResults } from "../ReduxToolkit/apiCalls/searchCall.js";
 import useTabName from "../helpers/CustomHooks/useTabName.js";
+import { nextPage, resetPage, setFeedToLoading } from "../ReduxToolkit/reducers/homeSlice.js";
+import { searchingAction } from "../ReduxToolkit/reducers/navBarSlice.js";
 
 export default function Navbar() {
   
@@ -53,7 +54,7 @@ export default function Navbar() {
     ? (menu = [NavbarCss.menuOpen, NavbarCss.menuShell])
     : (menu = [NavbarCss.menuClosed, NavbarCss.movedMenuShell]);
   if (showNotifications) notifications = <Notifications />;
-  search.length > 3
+  search.length > 3 || search.length === 0
     ? (searchbut = (
         <Link
           to={"/home?search=" + search}
@@ -75,13 +76,16 @@ export default function Navbar() {
   };
 
   const onClickHandler = () => {
-    dispatch(getSearchResults(currentUser._id, dispatch, state));
+    dispatch(setFeedToLoading());
+    dispatch(searchingAction(search));
   };
 
   return (
     <div id={NavbarCss.navbarCont}>
       <div id={NavbarCss.navbarShell}>
+
         <div id={NavbarCss.paddingIzq} />
+
         <div id={NavbarCss.menuIcon}>
           <div id={menu[1]} onClick={() => setShowMenu(!showMenu)}>
             <FontAwesomeIcon icon={faBars} />
@@ -90,22 +94,10 @@ export default function Navbar() {
 
         <div id={NavbarCss.SearchContainer}>
           <div id={NavbarCss.inputSearchShell}>
-            <input
-              type="text"
-              value={search}
-              name="searchInput"
-              id={NavbarCss.searchInput}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder={"Search"}
-            />
+            <input type="text" value={search} name="searchInput" id={NavbarCss.searchInput} onChange={(e) => setSearch(e.target.value)} placeholder={"Search"}/>
           </div>
           <div id={NavbarCss.inputButtonShell}>
-            <button
-              onClick={(e) => onClickHandler(e)}
-              id={NavbarCss.searchButton}
-            >
-              {searchbut}
-            </button>
+            <button onClick={(e) => onClickHandler(e)} id={NavbarCss.searchButton}>{searchbut}</button>
           </div>
           <small>{searchErr}</small>
         </div>

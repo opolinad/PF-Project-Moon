@@ -1,4 +1,7 @@
 #CategoriesContainer{
+    position: sticky;
+    top: 14.5vw;
+    
     width: 16vw;
     height: 60vh;
 

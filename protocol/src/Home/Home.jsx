@@ -9,12 +9,19 @@ import { useEffect } from "react";
 import { loginUser } from "../ReduxToolkit/apiCalls/loginCall.js";
 
 import HomeCss from "./Home.module.css";
+import { findNextPage } from "../ReduxToolkit/apiCalls/pageCall.js";
 
 
 export default function Home() {
     const dispatch = useDispatch();
-    const navigate = useNavigate()
-    const user = useSelector(state => state.user.currentUser)
+    
+    const navigate = useNavigate();
+
+    const user = useSelector(state => state.user.currentUser);
+    const filterAndOrder = useSelector(state => state.filterAndOrder);
+    const selectedCategory = useSelector(state => state.selectedCategory);
+    const search = useSelector(state => state.search);
+    const homePage = useSelector(state => state.homePage);
 
     useEffect(() => {
         if (!user?.password) loginUser(dispatch, { platform: true });
@@ -28,21 +35,23 @@ export default function Home() {
         !user && navigate("/");
     }, [user])
 
-
+    function handleButton()
+    {
+        findNextPage(dispatch, search, selectedCategory, filterAndOrder.filter, filterAndOrder.ordering, homePage.page);
+    }
 
     return (
         <div id={HomeCss.homeCont}>
             <div id={HomeCss.filterOrderCont}>
                 <Filter />
                 <Ordering />
-                {/* <button onClick={() => dispatch(Actions.resetOptions())} id={HomeCss.resetOption}>Reset</button> */}
             </div>
             <div id={HomeCss.InfoCont}>
             <Categories />
               <Feed />
 
             </div>
-            {/* <button id={HomeCss.nextPageBut} onClick={() => dispatch(Actions.nextPageAction())} >Load More</button> */}
+            <button id={HomeCss.nextPageBut} onClick={() => handleButton()} >Load More</button>
         </div>
     )
 }

@@ -85,7 +85,7 @@ export default function CardPost(props)
         <div className={Cardpost.CardPostCont}>
 
             <div className={Cardpost.userInfoCont}>
-                <img className={Cardpost.userPhoto} src={props.userPhoto? props.userPhoto : "./default_profile_photo.svg"} alt="not_found" />
+                <img className={Cardpost.userPhoto} src={props.userPhoto? props.userPhoto : "http://localhost:4000/default_profile_photo.svg"} alt="not_found" />
                 <Link to={"http://localhost:3000/user/"+props.userId} className={Cardpost.userName}>{props.userName}</Link>
             </div>
 

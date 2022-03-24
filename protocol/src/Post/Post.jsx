@@ -64,10 +64,9 @@ export default function Post()
     function sendComment()
     {
         let input={}
-        input.username=user.currentUser.fullName;
-        input.userId=user.currentUser._id;
-        input.photoProfile=user.currentUser.profilePhoto;
-        input.content=newComment;
+        input.user=user.currentUser._id;
+        input.comment=newComment;
+        input.score=-1;
 
         console.log(input)
         sendBackComment(id, input, dispatch);
