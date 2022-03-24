@@ -131,10 +131,10 @@ export default function User() {
 
                 </div>
             </form>
+            <Link id={css.backLink} to={"/home"}>
+                <button id={css.backBut}><FontAwesomeIcon icon={faAngleLeft} /> Home</button>
+            </Link>
 
-            <div id={css.backLink} onClick={()=>navigate(-1)}>
-                <button id={css.backBut}><FontAwesomeIcon icon={ faAngleLeft }/>Back</button>
-            </div>
         </div>
     );
 }
