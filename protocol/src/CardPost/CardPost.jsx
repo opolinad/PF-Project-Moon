@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Cardpost from "./CardPost.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from "react-router-dom";
 import {faHeart,faShareSquare, faCommentAlt} from "@fortawesome/free-solid-svg-icons";
+
+import { useDispatch, useSelector } from "react-redux";
+import { likeAction, shareAction } from "../ReduxToolkit/apiCalls/cardPostCall";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 /*
@@ -51,6 +54,10 @@ function ImgPreviews({imgs,id})
 
 export default function CardPost(props)
 {
+    const dispatch = useDispatch();
+    const userData = useSelector((state) => state.user.currentUser);
+
+    let feed = useSelector((state) => state.feed.posts);
     const user = useSelector(state=>state.user);
     const navigate = useNavigate()
 
@@ -67,23 +74,56 @@ export default function CardPost(props)
     cardValues.likes=props.likes.length;
     cardValues.shares=props.shares.length;
     cardValues.favorite=props.favorite;
-    
+
+    function handleLike() {
+        let index
+        for (let i = 0; i < feed.length; i++) {
+            if(feed[i]._id === props.id) index = i
+        }
+        likeAction (dispatch, props.id, {userId: userData._id}, userData.accessToken, index)
+    }
+
+    function handleShare() {
+        shareAction (dispatch, props.id, {userId: userData._id}, userData.accessToken)
+    }
     return(
         <div className={Cardpost.CardPostCont}>
+
             <div className={Cardpost.userInfoCont}>
                 <img className={Cardpost.userPhoto} src={props.userPhoto? props.userPhoto : "./default_profile_photo.svg"} alt="not_found" />
                 <Link to={"http://localhost:3000/user/"+props.userId} className={Cardpost.userName}>{props.userName}</Link>
             </div>
+
+            {/* title */}
             <h2 className={Cardpost.cardPostTitle}>{props.title}</h2>
-            <div className={Cardpost.descriptionCont}><p className={Cardpost.cardPostDescription}>{cardValues.description}</p></div>
-            {/* {cardValues.imgs} */}
-            <ImgPreviews imgs={props.imgs} id={props.id}/>
-            {cardValues.categories}
+
+            {/* description */}
+            <div className={Cardpost.descriptionCont}>
+                <p className={Cardpost.cardPostDescription}>{cardValues.description}</p>
+            </div>
+            
+            {/* images */}
+            <div className={Cardpost.imgsCont}>{cardValues.imgs}</div>
+
             <div className={Cardpost.analiticsCont}>
-                <div className={Cardpost.likesShell} onClick={()=>{}}> <FontAwesomeIcon className={Cardpost.notLikedImg} icon={faHeart}/> {cardValues.likes}</div>
-                <div className={Cardpost.sharesShell} onClick={()=>{}}> <FontAwesomeIcon className={Cardpost.notSharedImg} icon={faShareSquare} /> {cardValues.shares}</div>
-                <div className={Cardpost.favoritesShell}>{cardValues.favorite}</div>
-                <div className={Cardpost.commentShell}><div onClick={()=>navigate("/post/"+props.id)} ><FontAwesomeIcon icon={faCommentAlt}/>  Commentaries</div></div>
+                {/* likes */}
+                <div className={Cardpost.likesShell} onClick={() => handleLike()}>
+                    {cardValues.likeImg}
+                    {props.likes.length}
+                </div>
+                {/* shares */}
+                <div className={Cardpost.sharesShell} onClick={()=>{}}>
+                    {cardValues.sharedImg}{props.shares.length}
+                </div>
+                {/* favorites */}
+                <div className={Cardpost.favoritesShell}>
+                    <button>{cardValues.favorite}</button>
+                </div>
+                <div className={Cardpost.commentShell}>
+                    <Link to={"http://localhost:3000/post/"+props.postId}><FontAwesomeIcon icon={faCommentAlt}/>  
+                        Commentaries
+                    </Link>
+                </div>
             </div>
         </div>
     )
