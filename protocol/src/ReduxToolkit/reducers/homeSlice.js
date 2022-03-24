@@ -24,7 +24,7 @@ const feedSlice = createSlice({
         feedNextPageDatabase: (state, action) => {
             state.posts = action.payload;
         },
-        uploadFeed: (state, action) => {
+        updateFeed: (state, action) => {
             state.posts[action.payload.index] = action.payload.data;
         }
     }
@@ -95,7 +95,7 @@ const filterAndOrderSlice = createSlice({
     }
 });
 
-export const { searchingDatabase, feedDatabase, setSearchingToLoading, setFeedToLoading, feedNextPageDatabase, uploadFeed } = feedSlice.actions;
+export const { searchingDatabase, feedDatabase, setSearchingToLoading, setFeedToLoading, feedNextPageDatabase, updateFeed } = feedSlice.actions;
 export const feedReducer = feedSlice.reducer;
 export const { getCategoriesLoading, getCategories } = categoriesSlice.actions;
 export const categoriesReducer = categoriesSlice.reducer;

@@ -1,5 +1,6 @@
 import axios from "axios";
-import { uploadFeed } from "../reducers/homeSlice";
+import { updateFeed } from "../reducers/homeSlice";
+import { updatePosts } from "../reducers/usersPosts";
 
 export const likeAction = async (dispatch, id, user, token, index) => {
     try {
@@ -8,7 +9,7 @@ export const likeAction = async (dispatch, id, user, token, index) => {
                 token
             }
         })
-        dispatch(uploadFeed({data: res.data, index: index}))
+        dispatch(updateFeed({data: res.data, index: index}))
     } catch (error) {
         console.log("cannot run likeAction", error)
     }
@@ -21,6 +22,7 @@ export const shareAction = async (dispatch, id, user, token) => {
                 token
             }
         })
+        dispatch(updatePosts(res.data))
     } catch (error) {
         console.log("cannot run shareAction", error)
     }
