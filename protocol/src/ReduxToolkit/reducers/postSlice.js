@@ -22,14 +22,17 @@ const detailedPost = createSlice({
             //state = {loading:false, ...action.payload}
         },
         setDetailedLoading:(state)=>{
-            console.log("en set loading")
             state.detailed={};
             state.loading=true;
+        },
+        setNewComment:(state,action)=>{
+            console.log(action.payload)
+            state.detailed={...state.detailed,comments:[action.payload,...state.detailed.comments]}
         }
     }
 })
 
 export const { getCategories } = postSlice.actions;
-export const { setDetailedPost, setDetailedLoading } = detailedPost.actions;
+export const { setDetailedPost, setDetailedLoading , setNewComment } = detailedPost.actions;
 export const postReducer = postSlice.reducer;
 export const detailedPostReducer = detailedPost.reducer;

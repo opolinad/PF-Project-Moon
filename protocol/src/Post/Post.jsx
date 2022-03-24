@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight, faHeart, faShareSquare } from '@fortawesome/free-solid-svg-icons'; 
 import PostCss from "./Post.module.css"
-import { getDetailedPost } from '../ReduxToolkit/apiCalls/postCall';
+import { getDetailedPost, sendBackComment } from '../ReduxToolkit/apiCalls/postCall';
 import { setDetailedLoading, setDetailedPost } from '../ReduxToolkit/reducers/postSlice';
 
 // const detailedPost = {
@@ -32,7 +32,7 @@ function Comment(props)
     return(
         <div className={PostCss.commentCont}>
             <div className={PostCss.commentUser}>
-                <img src={props.photo} alt="no foto :c" />
+                <img src={props.photo ? props.photo : "http://localhost:4000/default_profile_photo.svg"} alt="no foto :c" />
                 <Link className={PostCss.commentName} to={"/user/"+props.id}>{props.name}</Link>
             </div>
 
@@ -46,10 +46,13 @@ export default function Post()
     const dispatch = useDispatch()
     
     const detailedPost = useSelector ((state) => state.detailedPost);
-    const user = useSelector(state=>state.user);
+    const user = useSelector(state=>state.userData);
 
     const {id} = useParams();
     const navigate = useNavigate();
+
+    const [newComment,setNewComment] = useState("");
+    const [imgNum,setImgNum] = useState(0);
 
     useEffect (() => 
     {
@@ -57,12 +60,19 @@ export default function Post()
         return dispatch(setDetailedLoading());
     }, []);
 
-    const [newComment,setNewComment] = useState("");
-    const [imgNum,setImgNum]= useState(0);
-
+    //Functions
     function sendComment()
     {
-        
+        let input={}
+        input.username=user.currentUser.fullName;
+        input.userId=user.currentUser._id;
+        input.photoProfile=user.currentUser.profilePhoto;
+        input.content=newComment;
+
+        console.log(input)
+        sendBackComment(id, input, dispatch);
+
+        setNewComment("");
     }
 
     function handleImgNum(action)
@@ -79,8 +89,10 @@ export default function Post()
         }
     }
 
-    if(!detailedPost.detailed.hasOwnProperty("_id")){ return <div id={PostCss.statusText}>Error!_404</div> }
-    else if(detailedPost.loading){ return <div id={PostCss.statusText}>Loading...</div> }
+    //Status!
+    if(detailedPost.loading){ return <div id={PostCss.statusText}>Loading...</div>}
+    else if(!detailedPost.detailed.hasOwnProperty("_id")){ return <div id={PostCss.statusText}>Error!_404</div> }
+    
 
     let cardValues={};
     
@@ -113,7 +125,7 @@ export default function Post()
     cardValues.saved=detailedPost.detailed.favorite;
 
     //Comentarios
-    let commentArr=detailedPost.detailed.comments.map((element,index)=> {return <Comment key={"comment_"+element.id} comment={element.comment} photo={element.photo} id={element.id} name={element.name}/>})
+    let commentArr=detailedPost.detailed.comments.map((element,index)=> {return <Comment key={"comment_"+element.id} comment={element.content} photo={element.photoProfile} id={element.userId} name={element.username}/>})
 
     return(
         <div id={PostCss.bigPostCont}>
