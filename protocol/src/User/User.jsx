@@ -134,6 +134,7 @@ export default function User() {
             <Link id={css.backLink} to={"/home"}>
                 <button id={css.backBut}><FontAwesomeIcon icon={faAngleLeft} /> Home</button>
             </Link>
+
         </div>
     );
 }

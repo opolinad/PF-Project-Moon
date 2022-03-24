@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateUsers } from "../ReduxToolkit/apiCalls/updateUserCall";
 import { useNavigate } from 'react-router-dom';
 import DefaultProfile from '../assets/default_profile_photo.svg'
+
 import { useImage } from "../hooks/useImage";
+
 
 import styles from "./UserEdit.module.css";
 
@@ -15,11 +17,18 @@ export default function UserEdit() {
     const { type: type1, value: image1, loading: loading1, onChange: onChange1 } = useImage({ type: 'file' })
     const { type: type2, value: image2, loading: loading2, onChange: onChange2 } = useImage({ type: 'file' })
 
+    const [profile, setProfile] = useState(null)
+    const [active, setActive] = useState(false)
+    // const [background, setBackground] = useState(null)
+    const [loading, setLoading] = useState(true)
+
+
     const [inputs, setInputs] = useState({
         username: user?.username,
         fullName: user?.fullName,
         profilePhoto: user?.profilePhoto || '',
         backgroundPhoto: user?.backgroundPhoto || '',
+
     });
 
     function handleInputChange(e) {
@@ -29,12 +38,14 @@ export default function UserEdit() {
         });
     }
 
+
     useEffect(() => {
         image1 && setInputs({
             ...inputs,
             profilePhoto: image1,
         });
     }, [image1])
+
 
     useEffect(() => {
         image2 && setInputs({
@@ -47,13 +58,17 @@ export default function UserEdit() {
         e.preventDefault();
         updateUsers(dispatch, currentUser._id, inputs, currentUser.accessToken)
             .then(res => {
+
                 navigate(`/users/${currentUser._id}`)
+
             })
         setInputs({
             username: "",
             fullName: "",
+
             profilePhoto: "",
             backgroundPhoto: ""
+
         });
     }
 
@@ -88,6 +103,7 @@ export default function UserEdit() {
                                 <img src="https://acegif.com/wp-content/uploads/loading-25.gif" style={{ width: "100%", height: '100%', objectFit: 'cover' }} /> :
                                 <img src={!image1 ? inputs?.profilePhoto || DefaultProfile : image1} alt="profile" style={{ width: "100%", height: '100%', objectFit: 'cover', borderRadius: '100%', border: "5px solid #864879" }} />
                         }
+
                     </div>
                     <input
                         className={styles.editInput}
