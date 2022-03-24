@@ -26,14 +26,14 @@ router.post('/', async (req: Request, res: Response) => {
       ? res.status(404).json('Wrong credentials')
       : res.json({ ...others, accessToken })
   } catch (error) {
-    res.status(404).json(error)
+    res.status(500).json({error: error})
   }
 })
 
 router.get("/session", async (req: Request, res: Response) => {
   let userEmail;
   let infoUser: any = req.user;
-  console.log(req.user)
+
   const { email } = infoUser._json;
   const { mail } = infoUser._json;
   const { emails } = infoUser;

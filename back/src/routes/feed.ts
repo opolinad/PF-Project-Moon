@@ -3,29 +3,37 @@ const User = require('../models/User')
 const Post = require('../models/Post')
 const router = Router()
 
-router.get('/:id', async (req:Request, res:Response) => {
-    const { id } = req.params
+router.get('/:idUser', async (req:Request, res:Response) => {
+    const { idUser } = req.params
     const { page } : {page?: number}= req.query
-    const { filter, order, category, search } =req.query // type = designsOnly || textOnly
+    const { filter, order, category, search } : {filter?: string, order?: string, category?: string, search?: string }=req.query // type = designsOnly || textOnly
     // let searchString : = search.toString()
     try {
-        const user = await User.findById(id)
         let posts : object [] = []
 
         if(search) {
             
             let postSearch = await Post.find({})
+            .populate('user',{username: 1, profilePhoto:1})
+            .populate('likes',{username: 1, profilePhoto:1})
+            .populate({ path:'comments', populate: { path: 'user', model:'User', select: 'username profilePhoto'}})
+            .populate('shares',{username: 1, profilePhoto:1})
+            .populate('shareUser',{username: 1, profilePhoto:1})
+            .populate('soldUser',{username: 1, profilePhoto:1})
 
-            postSearch = postSearch.filter((post : any) => post.title?.includes(search))
+            postSearch = postSearch.filter((post : any) => post.title?.toLowerCase().includes(search.toLowerCase()))
 
-            let userSearch = await User.find().where({})
+            let userSearch = await User.find({})
 
-            userSearch = userSearch.filter((user : any) => user.username?.includes(search))
+            userSearch = userSearch.filter((user : any) => user.username?.toLowerCase().includes(search.toLocaleLowerCase()))
         
 
             if (filter) {
-                if(filter === "designsOnly") postSearch = postSearch.filter((post : any) => post.images.length > 0)
+                if(filter === "designsOnly") {
+                    postSearch = postSearch.filter((post : any) => post.images.length > 0)
+                } else { 
                 postSearch = postSearch.filter((post : any) => post.images.length === 0)
+                }
             }
 
             if (category) { 
@@ -63,13 +71,28 @@ router.get('/:id', async (req:Request, res:Response) => {
 
         if (category) {
             posts = await Post.find({ categories: category})
+            .populate('user',{username: 1, profilePhoto:1})
+            .populate('likes',{username: 1, profilePhoto:1})
+            .populate({ path:'comments', populate: { path: 'user', model:'User', select: 'username profilePhoto'}})
+            .populate('shares',{username: 1, profilePhoto:1})
+            .populate('shareUser',{username: 1, profilePhoto:1})
+            .populate('soldUser',{username: 1, profilePhoto:1})
         } else {
             posts = await Post.find({})
+            .populate('user',{username: 1, profilePhoto:1})
+            .populate('likes',{username: 1, profilePhoto:1})
+            .populate({ path:'comments', populate: { path: 'user', model:'User', select: 'username profilePhoto'}})
+            .populate('shares',{username: 1, profilePhoto:1})
+            .populate('shareUser',{username: 1, profilePhoto:1})
+            .populate('soldUser',{username: 1, profilePhoto:1})
         }
 
         if (filter) {
-            if(filter === "designsOnly") posts = posts.filter((post : any) => post.images.length > 0)
+            if(filter === "designsOnly") {
+                posts = posts.filter((post : any) => post.images.length > 0)
+            } else { 
             posts = posts.filter((post : any) => post.images.length === 0)
+            }
         }
 
 

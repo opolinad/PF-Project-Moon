@@ -48,7 +48,8 @@ export default function Posts() {
                     <>
                         {
                             posts && posts?.map(data => (
-                                <CardPost key={data._id} categories={data.categories} title={data.title} description={data.description} imgs={data.images} shares={data.shares} likes={data.likes} id={data._id} />
+                                <CardPost key={data._id} title={data.title} description={data.description} imgs={data.images} shares={data.shares} likes={data.likes} id={data._id} userName={data.user.username} userPhoto={data.user.profilePhoto} userId={data.user._id}/>
+
                             ))
                         }
                     </>
