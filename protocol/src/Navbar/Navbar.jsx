@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import Menu from "./components/Menu/Menu.jsx";
@@ -10,16 +10,22 @@ import { useLocation } from "react-router";
 
 import NavbarCss from "./Navbar.module.css";
 import { getSearchResults } from "../ReduxToolkit/apiCalls/searchCall.js";
+import useTabName from "../helpers/CustomHooks/useTabName.js";
 
 export default function Navbar() {
-  const [state] = useState("");
+  
   const [showMenu, setShowMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [state] = useState("");
   const [search, setSearch] = useState("");
   const [searchErr, setSearchErr] = useState("");
+
   const dispatch = useDispatch();
   const location = useLocation();
-  console.log(location.pathname.substring(1, 5) !== "home");
+  const testingUse= useTabName();
+
+  useEffect(()=>{},[location])
+
   if (location.pathname.substring(1, 5) !== "home") {
     return "";
   }

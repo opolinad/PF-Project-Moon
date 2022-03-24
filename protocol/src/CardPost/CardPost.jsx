@@ -39,8 +39,6 @@ function ImgPreviews({imgs,id})
             else if(i==1 && imgs.length==2)raw=Cardpost.halfImg; //Cardpost.quarterImg
             else if(i==1 && imgs.length>=3)raw=Cardpost.quarterImg; //Cardpost.quarterImg
 
-            if(i>0 && imgs.length==5)console.log(raw,i)
-
             cardValues.testing.push(<div key={"img_"+i+"_id_"+id} onClick={()=>navigate("/post/"+id)} className={`${Cardpost.imgSingleCont} ${raw}`}><img className={Cardpost.cardpostImg} src={imgs[i]} alt={"nu existe :c"}/></div>)
         }
     }
