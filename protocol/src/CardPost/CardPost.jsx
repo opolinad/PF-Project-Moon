@@ -34,7 +34,7 @@ function ImgPreviews({imgs,id})
         cardValues.testing=[];
         for(let i=0;i<imgs.length && i<3;i++)
         {
-            let raw={}
+            let raw={};
             if(i==0 && imgs.length==1)raw=Cardpost.singleImg; //Cardpost.singleImg
             else if(i==0 && imgs.length==2)raw=Cardpost.halfImg; //Cardpost.halfImg
             else if(i==0 && imgs.length>2)raw=Cardpost.quarterImg; //Cardpost.halfImg
@@ -46,10 +46,10 @@ function ImgPreviews({imgs,id})
             cardValues.testing.push(<div key={"img_"+i+"_id_"+id} onClick={()=>navigate("/post/"+id)} className={`${Cardpost.imgSingleCont} ${raw}`}><img className={Cardpost.cardpostImg} src={imgs[i]} alt={"nu existe :c"}/></div>)
         }
     }
-  }
-
-  return <div id={Cardpost.imgPreviewCont}>{cardValues.testing}</div>;
+    return <div id={Cardpost.imgPreviewCont}>{cardValues.testing}</div>;
 }
+
+  
 
 export default function CardPost(props) {
   const dispatch = useDispatch();
