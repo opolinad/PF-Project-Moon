@@ -56,16 +56,16 @@ export default function CardPost(props)
     const user = useSelector(state=>state.user);
 
     let cardValues={}
-    
+
     props.description? cardValues.description=props.description : cardValues.description="";
-    
-    
-    
-    props.likes.includes(user.currentUser?._id)?   cardValues.likeImg=Cardpost.likedImg : cardValues.likeImg=Cardpost.notLikedImg; 
-    props.shares.includes(user.currentUser?._id) ? cardValues.sharedImg=Cardpost.sharedImg : cardValues.sharedImg=Cardpost.notSharedImg; 
-    
-    cardValues.categories=<div id={Cardpost.categoriesCont}>{props.categories.map((element,index)=><p key={"cardpost_"+props._id+"_category"+index} className={Cardpost.category}>{element}</p>)}</div>
-    
+
+
+
+    props.likes.includes(user.currentUser?._id)?   cardValues.likeImg=Cardpost.likedImg : cardValues.likeImg=Cardpost.notLikedImg;
+    props.shares.includes(user.currentUser?._id) ? cardValues.sharedImg=Cardpost.sharedImg : cardValues.sharedImg=Cardpost.notSharedImg;
+
+    cardValues.categories=<div id={Cardpost.categoriesCont}>{props.categories?.map((element,index)=><p key={"cardpost_"+props._id+"_category"+index} className={Cardpost.category}>{element}</p>)}</div>
+
     cardValues.likes=props.likes.length;
     cardValues.shares=props.shares.length;
     cardValues.favorite=props.favorite;
@@ -94,20 +94,20 @@ export default function CardPost(props)
 
             {/* description */}
             <div className={Cardpost.descriptionCont}><p className={Cardpost.cardPostDescription}>{cardValues.description}</p></div>
-            
+
             {/* {cardValues.imgs} */}
             <ImgPreviews imgs={props.imgs} id={props.id}/>
             {cardValues.categories}
 
             <div className={Cardpost.analiticsCont}>
                 {/* likes */}
-                <div className={Cardpost.likesShell} onClick={() => handleLike()}> 
-                    <FontAwesomeIcon className={cardValues.likeImg} icon={faHeart}/> 
+                <div className={Cardpost.likesShell} onClick={() => handleLike()}>
+                    <FontAwesomeIcon className={cardValues.likeImg} icon={faHeart}/>
                     {props.likes.length}
                 </div>
                 {/* shares */}
-                <div className={Cardpost.sharesShell} onClick={()=>handleShare()}> 
-                    <FontAwesomeIcon className={cardValues.sharedImg} icon={faShareSquare} /> 
+                <div className={Cardpost.sharesShell} onClick={()=>handleShare()}>
+                    <FontAwesomeIcon className={cardValues.sharedImg} icon={faShareSquare} />
                     {props.shares.length}
                 </div>
                 {/* favorites */}
@@ -116,7 +116,7 @@ export default function CardPost(props)
                 </div>
                 <div className={Cardpost.commentShell}>
                     <div onClick={()=>navigate("/post/"+props.id)} >
-                        <FontAwesomeIcon icon={faCommentAlt}/>  
+                        <FontAwesomeIcon icon={faCommentAlt}/>
                         Commentaries
                     </div>
                 </div>

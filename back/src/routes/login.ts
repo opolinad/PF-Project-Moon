@@ -52,9 +52,9 @@ router.get('/google',
   }
   )
 );
-router.get('/google/callback', passport.authenticate('google', { failureRedirect: 'http://localhost:4001/', successRedirect: 'http://localhost:4001/home' }));
+router.get('/google/callback', passport.authenticate('google', { failureRedirect: 'http://localhost:4000/', successRedirect: 'http://localhost:4000/home' }));
 router.get('/microsoft', passport.authenticate('microsoft'));
 router.get('/microsoft/callback',
-  passport.authenticate('microsoft', { failureRedirect: 'http://localhost:4001/', successRedirect: 'http://localhost:4001/home' }));
+  passport.authenticate('microsoft', { failureRedirect: 'http://localhost:4000/', successRedirect: 'http://localhost:4000/home' }));
 
 module.exports = router;

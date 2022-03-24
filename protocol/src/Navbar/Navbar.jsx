@@ -14,7 +14,7 @@ import { getSearchResults } from "../ReduxToolkit/apiCalls/searchCall.js";
 import useTabName from "../helpers/CustomHooks/useTabName.js";
 
 export default function Navbar() {
-  
+
   const [showMenu, setShowMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [state] = useState("");
@@ -24,7 +24,7 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const currentUser = useSelector((state) => state.userData.currentUser);
+  const currentUser = useSelector((state) => state.user.currentUser);
   console.log(location.pathname.substring(1, 5) !== "home");
 
   const testingUse= useTabName();
@@ -75,7 +75,7 @@ export default function Navbar() {
   };
 
   const onClickHandler = () => {
-    dispatch(getSearchResults(currentUser._id, dispatch, state));
+    getSearchResults(currentUser._id, dispatch, state);
   };
 
   return (
