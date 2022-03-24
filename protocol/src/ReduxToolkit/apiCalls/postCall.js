@@ -1,7 +1,7 @@
 import "regenerator-runtime/runtime";
 import axios from "axios";
 
-import { setDetailedPost } from "../reducers/postSlice";
+import { setDetailedPost,setNewComment } from "../reducers/postSlice";
 
 export const getCategories = async (dispatch) => {
     var json = await axios.get('http://localhost:3001/api/categories')
@@ -25,6 +25,18 @@ export const postPost = async (dispatch, userId, input, token) => {
         })
         dispatch(postPost(res.data))
         console.log("SE ENVIO EL POST CORRECTAMENTE")
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+
+export const sendBackComment = async (id,comment,dispatch) => {
+    try {
+        //const res = await axios.post(`http://localhost:3001/api/posts/comment/${id} `, comment)
+        console.log("PostCall")
+        dispatch(setNewComment(comment))
+        
     } catch (error) {
         console.log(error)
     }
