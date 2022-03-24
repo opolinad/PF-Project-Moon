@@ -20,31 +20,42 @@ import { useNavigate } from "react-router";
 //let props={shared:false,liked:false,userName:"Username",title:"Title",postId:0,userId:0,userPhoto:"./img/project_moon_logo.jpeg",favorite:true,likes:3,shares:3,description:"owowowowwowowowowowowo",imgs:["./img/project_moon_logo.jpeg","./img/project_moon_logo.jpeg"]}
 //Likes y shares: son arrays de ids, tengo que usar .length para la cantidad y buscar la id de user para saber si le dio like xd.
 
+function ImgPreviews({ imgs, id }) {
+  const navigate = useNavigate();
 
-function ImgPreviews({imgs,id})
-{
-    const navigate = useNavigate()
+  let cardValues = {};
+  if (imgs.length) {
+    cardValues.testing = [];
+    for (let i = 0; i < imgs.length && i < 3; i++) {
+      let raw = {};
+      if (i === 0 && imgs.length === 1) raw = Cardpost.singleImg;
+      //Cardpost.singleImg
+      else if (i === 0 && imgs.length === 2) raw = Cardpost.halfImg;
+      //Cardpost.halfImg
+      else if (i === 0 && imgs.length > 2) raw = Cardpost.quarterImg;
+      //Cardpost.halfImg
+      else if (i === 1 && imgs.length === 2) raw = Cardpost.halfImg;
+      //Cardpost.quarterImg
+      else if (i === 1 && imgs.length >= 3) raw = Cardpost.quarterImg; //Cardpost.quarterImg
 
-    let cardValues = {};
-    if(imgs.length)
-    {
-        cardValues.testing=[];
-        for(let i=0;i<imgs.length && i<3;i++)
-        {
-            let raw={};
-            if(i==0 && imgs.length==1)raw=Cardpost.singleImg; //Cardpost.singleImg
-            else if(i==0 && imgs.length==2)raw=Cardpost.halfImg; //Cardpost.halfImg
-            else if(i==0 && imgs.length>2)raw=Cardpost.quarterImg; //Cardpost.halfImg
-
-
-            else if(i==1 && imgs.length==2)raw=Cardpost.halfImg; //Cardpost.quarterImg
-            else if(i==1 && imgs.length>=3)raw=Cardpost.quarterImg; //Cardpost.quarterImg
-
-            cardValues.testing.push(<div key={"img_"+i+"_id_"+id} onClick={()=>navigate("/post/"+id)} className={`${Cardpost.imgSingleCont} ${raw}`}><img className={Cardpost.cardpostImg} src={imgs[i]} alt={"nu existe :c"}/></div>)
-        }
+      cardValues.testing.push(
+        <div
+          key={"img_" + i + "_id_" + id}
+          onClick={() => navigate("/post/" + id)}
+          className={`${Cardpost.imgSingleCont} ${raw}`}
+        >
+          <img
+            className={Cardpost.cardpostImg}
+            src={imgs[i]}
+            alt={"nu existe :c"}
+          />
+        </div>
+      );
     }
-    return <div id={Cardpost.imgPreviewCont}>{cardValues.testing}</div>;
+  }
+  return <div id={Cardpost.imgPreviewCont}>{cardValues.testing}</div>;
 }
+
 
 export default function CardPost(props)
 {
