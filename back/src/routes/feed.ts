@@ -6,7 +6,7 @@ const router = Router()
 router.get('/:id', async (req:Request, res:Response) => {
     const { id } = req.params
     const { page } : {page?: number}= req.query
-    const { filter, order, category, search } =req.query // type = designsOnly || textOnly
+    const { filter, order, category, search } : {filter?: string, order?: string, category?: string, search?: string }=req.query // type = designsOnly || textOnly
     // let searchString : = search.toString()
     try {
         const user = await User.findById(id)
@@ -16,11 +16,11 @@ router.get('/:id', async (req:Request, res:Response) => {
             
             let postSearch = await Post.find({})
 
-            postSearch = postSearch.filter((post : any) => post.title?.includes(search))
+            postSearch = postSearch.filter((post : any) => post.title?.toLowerCase().includes(search.toLowerCase()))
 
             let userSearch = await User.find().where({})
 
-            userSearch = userSearch.filter((user : any) => user.username?.includes(search))
+            userSearch = userSearch.filter((user : any) => user.username?.toLowerCase().includes(search.toLocaleLowerCase()))
         
 
             if (filter) {
