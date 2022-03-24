@@ -3,10 +3,8 @@ import Cardpost from "./CardPost.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from "react-router-dom";
 import {faHeart,faShareSquare, faCommentAlt} from "@fortawesome/free-solid-svg-icons";
-
 import { useDispatch, useSelector } from "react-redux";
 import { likeAction, shareAction } from "../ReduxToolkit/apiCalls/cardPostCall";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 /*
     title: string,
@@ -54,12 +52,12 @@ function ImgPreviews({imgs,id})
 
 export default function CardPost(props)
 {
+    const navigate = useNavigate()
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.user.currentUser);
 
     let feed = useSelector((state) => state.feed.posts);
     const user = useSelector(state=>state.user);
-    const navigate = useNavigate()
 
     let cardValues={}
     
@@ -98,33 +96,54 @@ export default function CardPost(props)
             <h2 className={Cardpost.cardPostTitle}>{props.title}</h2>
 
             {/* description */}
-            <div className={Cardpost.descriptionCont}>
-                <p className={Cardpost.cardPostDescription}>{cardValues.description}</p>
-            </div>
+            <div className={Cardpost.descriptionCont}><p className={Cardpost.cardPostDescription}>{cardValues.description}</p></div>
             
-            {/* images */}
-            <div className={Cardpost.imgsCont}>{cardValues.imgs}</div>
+            {/* {cardValues.imgs} */}
+            <ImgPreviews imgs={props.imgs} id={props.id}/>
+            {cardValues.categories}
 
             <div className={Cardpost.analiticsCont}>
                 {/* likes */}
-                <div className={Cardpost.likesShell} onClick={() => handleLike()}>
-                    {cardValues.likeImg}
+                <div className={Cardpost.likesShell} onClick={() => handleLike()}> 
+                    <FontAwesomeIcon className={Cardpost.notLikedImg} icon={faHeart}/> 
                     {props.likes.length}
                 </div>
                 {/* shares */}
-                <div className={Cardpost.sharesShell} onClick={()=>{}}>
-                    {cardValues.sharedImg}{props.shares.length}
+                <div className={Cardpost.sharesShell} onClick={()=>handleShare()}> 
+                    <FontAwesomeIcon className={Cardpost.notSharedImg} icon={faShareSquare} /> 
+                    {props.shares.length}
                 </div>
                 {/* favorites */}
                 <div className={Cardpost.favoritesShell}>
-                    <button>{cardValues.favorite}</button>
+                    {"fav"}
                 </div>
                 <div className={Cardpost.commentShell}>
-                    <Link to={"http://localhost:3000/post/"+props.postId}><FontAwesomeIcon icon={faCommentAlt}/>  
+                    <div onClick={()=>navigate("/post/"+props.id)} >
+                        <FontAwesomeIcon icon={faCommentAlt}/>  
                         Commentaries
-                    </Link>
+                    </div>
                 </div>
             </div>
         </div>
     )
 }
+
+/* return(
+    <div className={Cardpost.CardPostCont}>
+        <div className={Cardpost.userInfoCont}>
+            <img className={Cardpost.userPhoto} src={props.userPhoto? props.userPhoto : "./default_profile_photo.svg"} alt="not_found" />
+            <Link to={"http://localhost:3000/user/"+props.userId} className={Cardpost.userName}>{props.userName}</Link>
+        </div>
+        <h2 className={Cardpost.cardPostTitle}>{props.title}</h2>
+        <div className={Cardpost.descriptionCont}><p className={Cardpost.cardPostDescription}>{cardValues.description}</p></div>
+
+        <ImgPreviews imgs={props.imgs} id={props.id}/>
+        {cardValues.categories}
+        <div className={Cardpost.analiticsCont}>
+            <div className={Cardpost.likesShell} onClick={()=>{}}> <FontAwesomeIcon className={Cardpost.notLikedImg} icon={faHeart}/> {cardValues.likes}</div>
+            <div className={Cardpost.sharesShell} onClick={()=>{}}> <FontAwesomeIcon className={Cardpost.notSharedImg} icon={faShareSquare} /> {cardValues.shares}</div>
+            <div className={Cardpost.favoritesShell}>{cardValues.favorite}</div>
+            <div className={Cardpost.commentShell}><div onClick={()=>navigate("/post/"+props.id)} ><FontAwesomeIcon icon={faCommentAlt}/>  Commentaries</div></div>
+        </div>
+    </div>
+) */

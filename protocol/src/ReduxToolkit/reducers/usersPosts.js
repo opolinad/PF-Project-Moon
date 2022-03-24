@@ -21,6 +21,9 @@ const userPostsSlice = createSlice({
             state.isFetching = true
             state.error = true
         },
+        updatePosts: (state, action) => {
+            state.posts = [action.payload, ...state.posts]
+        },
     }
 })
 
@@ -28,6 +31,7 @@ export const {
     userPostsStart,
     userPostsSuccess,
     userPostsFailure,
+    updatePosts,
 } = userPostsSlice.actions;
 
 export default userPostsSlice.reducer;
