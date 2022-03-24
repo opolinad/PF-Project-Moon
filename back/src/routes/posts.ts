@@ -3,19 +3,20 @@ import {Router, Request, Response} from 'express'
 const router = Router()
 const Post = require('../models/Post')
 const User = require('../models/User')
+const Comment = require('../models/Comment')
 
 import {verifyToken} from '../helpers/verifyToken'
 
 //Create Post
-router.post('/:id',verifyToken ,async (req:Request, res:Response) => {
-    const { id } = req.params
-    if(id === req.body.userid) { 
+router.post('/:idUser',verifyToken ,async (req:Request, res:Response) => {
+    const { idUser } = req.params
+    if(idUser === req.body.user) { 
     const newPost = new Post(req.body)
     try {
         const savedPost = await newPost.save()
         res.status(200).json(savedPost)
     } catch (error) {
-        res.status(500).json(error)
+        res.status(500).json({error: error})
     }
     } else {
         res.status(400).json('El id del usuario no coincide')
@@ -27,6 +28,18 @@ router.get('/', async(req:Request, res:Response) => {
     const { page = 1 } : { page?: number }= req.query
     try { 
         const posts = await Post.find({})
+        .populate('user',{username: 1, profilePhoto:1})
+        .populate('likes',{username: 1, profilePhoto:1})
+        .populate('comments',{user: 1, comment: 1})
+        .populate('shares',{username: 1, profilePhoto:1})
+        .populate('shareUser',{username: 1, profilePhoto:1})
+        .populate('soldUser',{username: 1, profilePhoto:1})
+        posts.sort((a:any, b:any) => {
+            if (a.createdAt < b.createdAt) return 1
+            if (a.createdAt > b.createdAt) return -1
+            return 0;
+          })
+
         if(page) {
             const lastPage = page * 20
             const firstPage = lastPage - 20
@@ -38,127 +51,149 @@ router.get('/', async(req:Request, res:Response) => {
         }
         res.json(posts)
     } catch (err) {
+        console.log(err)
         res.status(500).json(err)
     }
 })
 
 // Obtener un post
-router.get('/:id', async (req:Request, res:Response) => {
-    const { id } = req.params
+router.get('/:idPost', async (req:Request, res:Response) => {
+    const { idPost } = req.params
     try {
-        const post = await Post.findById(id)
+        const post = await Post.findById(idPost)
+        .populate('user',{username: 1, profilePhoto:1})
+        .populate('likes',{username: 1, profilePhoto:1})
+        .populate('comments',{user: 1, comment: 1})
+        .populate('shares',{username: 1, profilePhoto:1})
+        .populate('shareUser',{username: 1, profilePhoto:1})
+        .populate('soldUser',{username: 1, profilePhoto:1})
         res.json(post)
     } catch (err) {
-        res.status(400).json(err)
+        res.status(500).json({error: err})
     }
 })
 
 // Editar post
-router.put('/:id',verifyToken, async (req:Request,res:Response) => {
-    const { id } = req.params
+router.put('/:idPost',verifyToken, async (req:Request,res:Response) => {
+    const { idPost } = req.params
     
     try {
         const putPost = await Post.findByIdAndUpdate(
-            id, 
+            idPost, 
             {
                 $set: req.body
             },
             { new: true }
-            )
+            ).populate('user',{username: 1, profilePhoto:1})
+            .populate('likes',{username: 1, profilePhoto:1})
+            .populate('comments',{user: 1, comment: 1})
+            .populate('shares',{username: 1, profilePhoto:1})
+            .populate('shareUser',{username: 1, profilePhoto:1})
+            .populate('soldUser',{username: 1, profilePhoto:1})
             res.json(putPost)
     } catch (error) {
-        res.status(404).json(error)
+        res.status(500).json({error: error})
     }
 })
 
 // Eliminar post
-router.delete('/:id', verifyToken, async (req:Request,res:Response) => {
-    const { id } = req.params
+router.delete('/:idPost', verifyToken, async (req:Request,res:Response) => {
+    const { idPost } = req.params
     
     try {
-        await Post.findByIdAndDelete(id)
+        await Post.findByIdAndDelete(idPost)
         res.json('The Post has been deleted...')
     } catch (error) {
-        res.status(404).json(error)
+        res.status(500).json({error: error})
     }
 })
 
 // Comentar un post
-router.put('/comment/:id', async(req:Request, res:Response) => {
-    const { id } = req.params
-    const { comment } = req.body
+router.put('/comment/:idPost', async(req:Request, res:Response) => {
+    const { idPost } = req.params
+
     try {
-        const post = await Post.findById(id)
-        await post.updateOne({$push: {comments:  comment}})
-        res.json("Se agrego el comentario")
+        const post = await Post.findById(idPost)
+        const newComment = new Comment(req.body)
+        const saveComment = await newComment.save()
+        await post.updateOne({$push: {comments:  saveComment._id}})
+        const returnPost = await Post.findById(idPost,{comments:1})
+        .populate('comments',{username: 1, profilePhoto:1, comment: 1})
+        res.json(returnPost.comments)
     } catch (error) {
+        console.log(error)
         res.status(400).json("Algo paso... Vuelve a intentarlo mas tarde")
     }
 })
 
 //Borrar un comentario
-router.put('/deleteCommet/:id', async(req:Request, res:Response) => {
-    const { id } = req.params
-    const { comment } = req.body
+router.put('/deleteCommet/:idPost', async(req:Request, res:Response) => {
+    const { idPost } = req.params
+    const { idComment } = req.body
     try {
-        const post = await Post.findById(id)
-        await post.updateOne({$pull: { comments: comment}})
-        res.json("Se ha eliminado tu comentario")
+        const post = await Post.findById(idPost)
+        await post.updateOne({$pull: { comments: idComment}})
+        await Comment.findByIdAndDelete(idComment)
+        const returnPost = await Post.findById(idPost, {comments: 1})
+        .populate('comments',{username: 1, profilePhoto:1, comment: 1})
+        res.json(returnPost.comments)
     } catch (error) {
         res.status(400).json("No se pudo borrar el comentario... Vuelve a intenarlo")
     }
 })
 
 //Like / dislike a post
-router.put('/like/:id', verifyToken, async (req:Request, res:Response) => {
+router.put('/like/:idPost', verifyToken, async (req:Request, res:Response) => {
+    const { idPost } = req.params
+    const { idUser } = req.body
     try {
-        const post = await Post.findById(req.params.id)
-        if(!post.likes.includes(req.body.userId)){
-        await post.updateOne({$push: {likes: req.body.userId}})
-        res.status(200).json("The post has been liked")
+        const post = await Post.findById(idPost, {likes: 1})
+        if(!post.likes.includes(idUser)){
+            await post.updateOne({$push: {likes: idUser}})
+            const returnPost = await Post.findById(idPost, {likes: 1})
+            .populate('likes',{username: 1, profilePhoto:1})
+            res.status(200).json(returnPost)
         }else {
-            await post.updateOne({$pull: {likes: req.body.userId}})
-            res.status(200).json("The post has been disliked")
+            await post.updateOne({$pull: {likes: idUser}})
+            const returnPost = await Post.findById(idPost, {likes: 1})
+            .populate('likes',{username: 1, profilePhoto:1})
+            res.status(200).json(returnPost)
         }
     } catch (error) {
-        res.status(500).json(error)
+        console.log(error)
+        res.status(500).json({error: error})
     }
 })
 
 // Compartir publicacion
-router.post('/share/:id', async (req:Request, res:Response) => {
-    const { id } = req.params
-    const { userId } = req.body
+router.post('/share/:idPost', async (req:Request, res:Response) => {
+    const { idPost } = req.params
+    const { idUser } = req.body
     try {
-        let post = await Post.findById(id)
-        if(!post.sharesId.includes(userId)) { 
+        let post = await Post.findById(idPost)
+        if(!post.shares.includes(idUser)) { 
             
-        const user = await User.findById(userId)
         const share = {
-            userid: post.userid,
+            user: post.user,
             images: post.images,
             description: post.description,
             likes: [],
             categories: post.categories,
             comments: [],
-            shares: post.shares,
-            sharesId: [],
+            shares: [],
             share: true,
-            shareId: userId,
-            sharename: user.username,
-            sharePhoto: user.profilePhoto,
+            shareUser: idUser,
         }
 
             const sharePost = new Post(share)
             const savedPost = await sharePost.save()
-            await post.updateOne({$push: {sharesId: id}})
+            await post.updateOne({$push: {shares: idUser}})
             res.json(savedPost)
         } else {
             res.status(400).json('Ya compartiste esta publicacion antes')
         }
     } catch(error) {
-        console.log(error)
-        res.status(400).json(error)
+        res.status(500).json({error: error})
     }
 })
 
