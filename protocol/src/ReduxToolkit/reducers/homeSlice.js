@@ -81,16 +81,16 @@ const filterAndOrderSlice = createSlice({
     initialState: {},
     reducers: {
         resetOptions: (state, action) => {
-            state = {};
+            return state = {};
         },
         searchResetOptionsCategoryFAO: (state, action) => {
-            state = {}
+            return state = {}
         },
         setFilter: (state, action) => {
-            state = { ...state, filter: action.payload };
+            return state = { ...state, filter: action.payload };
         },
         setOrdering: (state, action) => {
-            state = { ...state, ordering: action.payload };
+            return state = { ...state, ordering: action.payload };
         }
     }
 });

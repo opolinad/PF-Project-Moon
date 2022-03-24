@@ -3,8 +3,11 @@ import Cardpost from "./CardPost.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from "react-router-dom";
 import {faHeart,faShareSquare, faCommentAlt} from "@fortawesome/free-solid-svg-icons";
+
 import { useDispatch, useSelector } from "react-redux";
 import { likeAction, shareAction } from "../ReduxToolkit/apiCalls/cardPostCall";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 /*
     title: string,
     description: string,
@@ -16,24 +19,60 @@ import { likeAction, shareAction } from "../ReduxToolkit/apiCalls/cardPostCall";
 */
 //let props={shared:false,liked:false,userName:"Username",title:"Title",postId:0,userId:0,userPhoto:"./img/project_moon_logo.jpeg",favorite:true,likes:3,shares:3,description:"owowowowwowowowowowowo",imgs:["./img/project_moon_logo.jpeg","./img/project_moon_logo.jpeg"]}
 //Likes y shares: son arrays de ids, tengo que usar .length para la cantidad y buscar la id de user para saber si le dio like xd.
+
+function ImgPreviews({imgs,id})
+{
+    const navigate = useNavigate()
+
+    let cardValues = {};
+    if(imgs.length)
+    {
+        cardValues.testing=[];
+        for(let i=0;i<imgs.length && i<3;i++)
+        {
+            let raw={}
+            if(i==0 && imgs.length==1)raw=Cardpost.singleImg; //Cardpost.singleImg
+            else if(i==0 && imgs.length==2)raw=Cardpost.halfImg; //Cardpost.halfImg
+            else if(i==0 && imgs.length>2)raw=Cardpost.quarterImg; //Cardpost.halfImg
+
+
+            else if(i==1 && imgs.length==2)raw=Cardpost.halfImg; //Cardpost.quarterImg
+            else if(i==1 && imgs.length>=3)raw=Cardpost.quarterImg; //Cardpost.quarterImg
+
+            if(i>0 && imgs.length==5)console.log(raw,i)
+
+            cardValues.testing.push(<div key={"img_"+i+"_id_"+id} onClick={()=>navigate("/post/"+id)} className={`${Cardpost.imgSingleCont} ${raw}`}><img className={Cardpost.cardpostImg} src={imgs[i]} alt={"nu existe :c"}/></div>)
+        }
+    }
+
+    return(
+        <div id={Cardpost.imgPreviewCont}>
+            {cardValues.testing}
+        </div>
+    )
+}
+
 export default function CardPost(props)
 {
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.user.currentUser);
 
     let feed = useSelector((state) => state.feed.posts);
+    const user = useSelector(state=>state.user);
+    const navigate = useNavigate()
 
     let cardValues={}
     
     props.description? cardValues.description=props.description : cardValues.description="";
     
-    if(props.imgs){cardValues.imgs=props.imgs.map((element,index)=><img key={"img_"+index} className={Cardpost.cardpostImg} src={element} alt={"nu existe :c"}/>)}
     
-    props.liked ? cardValues.likeImg=<FontAwesomeIcon className={Cardpost.notLikedImg} icon={faHeart}/> : cardValues.likeImg=<FontAwesomeIcon className={Cardpost.likedImg} icon={faHeart} /> ; 
-    props.shared ? cardValues.sharedImg=<FontAwesomeIcon className={Cardpost.notSharedImg} icon={faShareSquare} /> : cardValues.sharedImg=<FontAwesomeIcon className={Cardpost.sharedImg}  icon={faShareSquare} /> ; 
     
-    cardValues.likes=props.likes;
-    cardValues.shares=props.shares;
+    props.likes.includes(user.currentUser?._id)?   cardValues.likeImg=Cardpost.likedImg : cardValues.likeImg=Cardpost.notLikedImg; 
+    props.shares.includes(user.currentUser?._id) ? cardValues.sharedImg=Cardpost.sharedImg : cardValues.sharedImg=Cardpost.notSharedImg; 
+    
+    cardValues.categories=<div id={Cardpost.categoriesCont}>{props.categories.map((element,index)=><p key={"cardpost_"+props._id+"_category"+index} className={Cardpost.category}>{element}</p>)}</div>
+    cardValues.likes=props.likes.length;
+    cardValues.shares=props.shares.length;
     cardValues.favorite=props.favorite;
 
     function handleLike() {
@@ -47,12 +86,11 @@ export default function CardPost(props)
     function handleShare() {
         shareAction (dispatch, props.id, {userId: userData._id}, userData.accessToken)
     }
-
     return(
         <div className={Cardpost.CardPostCont}>
 
             <div className={Cardpost.userInfoCont}>
-                <img className={Cardpost.userPhoto} src={props.userPhoto} alt=":c" />
+                <img className={Cardpost.userPhoto} src={props.userPhoto? props.userPhoto : "./default_profile_photo.svg"} alt="not_found" />
                 <Link to={"http://localhost:3000/user/"+props.userId} className={Cardpost.userName}>{props.userName}</Link>
             </div>
 
