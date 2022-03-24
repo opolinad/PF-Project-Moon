@@ -65,6 +65,7 @@ export default function CardPost(props)
     props.shares.includes(user.currentUser?._id) ? cardValues.sharedImg=Cardpost.sharedImg : cardValues.sharedImg=Cardpost.notSharedImg; 
     
     cardValues.categories=<div id={Cardpost.categoriesCont}>{props.categories.map((element,index)=><p key={"cardpost_"+props._id+"_category"+index} className={Cardpost.category}>{element}</p>)}</div>
+    
     cardValues.likes=props.likes.length;
     cardValues.shares=props.shares.length;
     cardValues.favorite=props.favorite;

@@ -20,11 +20,23 @@ router.get('/', (req:Request, res:Response) => {
         'wallpaper']})
 })
 
+// Obtener los posts de una categoria
 router.get('/:category', async (req:Request, res:Response) => {
     let { category } = req.params
     const { page = 1 } : { page?: number }= req.query
     try { 
         const posts = await Post.find({ categories: category})
+        .populate('user',{username: 1, profilePhoto:1})
+        .populate('likes',{username: 1, profilePhoto:1})
+        .populate({ path:'comments', populate: { path: 'user', model:'User', select: 'username profilePhoto'}})
+        .populate('shares',{username: 1, profilePhoto:1})
+        .populate('shareUser',{username: 1, profilePhoto:1})
+        .populate('soldUser',{username: 1, profilePhoto:1})
+        posts.sort((a:any, b:any) => {
+            if (a.createdAt < b.createdAt) return 1
+            if (a.createdAt > b.createdAt) return -1
+            return 0;
+          })
         if(page) {
             const lastPage = page * 20
             const firstPage = lastPage - 20
@@ -36,7 +48,8 @@ router.get('/:category', async (req:Request, res:Response) => {
         }
         res.json(posts)
     } catch (err) {
-        res.status(400).json(err)
+        console.log(err)
+        res.status(500).json({error: err})
     }
 })
 
