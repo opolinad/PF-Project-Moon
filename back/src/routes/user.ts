@@ -25,7 +25,9 @@ router.put('/:idUser',verifyToken, async (req:Request,res:Response) => {
         .populate('followers', {username: 1, profilePhoto: 1})
         .populate('followings', {username: 1, profilePhoto: 1})
         .populate('favourites', {title: 1, images:1})
-        .populate('comments', {user: 1, comment: 1, score: 1})
+        .populate({ path:'comments', populate: { path: 'user', model:'User', select: 'username profilePhoto'}})
+        .populate('premium', {username: 1, profilePhoto: 1})
+        .populate('myPremium', {username: 1, profilePhoto: 1})
         res.json(putUser)
     } catch (error) {
         res.status(500).json({error: error})

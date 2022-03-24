@@ -28,7 +28,7 @@ router.get('/:category', async (req:Request, res:Response) => {
         const posts = await Post.find({ categories: category})
         .populate('user',{username: 1, profilePhoto:1})
         .populate('likes',{username: 1, profilePhoto:1})
-        .populate('comments',{user: 1, comment: 1})
+        .populate({ path:'comments', populate: { path: 'user', model:'User', select: 'username profilePhoto'}})
         .populate('shares',{username: 1, profilePhoto:1})
         .populate('shareUser',{username: 1, profilePhoto:1})
         .populate('soldUser',{username: 1, profilePhoto:1})
