@@ -35,7 +35,8 @@ export default function Feed(props) {
     const filterAndOrder = useSelector(state => state.filterAndOrder);
     const selectedCategory = useSelector(state => state.selectedCategory);
     const search = useSelector(state => state.search);
-    const homePage = useSelector(state => state.homePage)
+    const homePage = useSelector(state => state.homePage);
+    
     useEffect(() => {
         if (feed.status === STARTING_STATUS) {
             dispatch(setFeedToLoading())

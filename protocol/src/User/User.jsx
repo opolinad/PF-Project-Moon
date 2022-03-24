@@ -18,9 +18,6 @@ export default function User() {
     }, []);
     /* getUser(dispatch, id) */
 
-    //   console.log("id", id);
-    //   console.log("userData", userData);
-
     // const userdata = {
     //     _id: '6236268600ef79423f81a729',
     //     email: 'tester@gmail.com',
