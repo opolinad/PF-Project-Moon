@@ -6,7 +6,6 @@ import {faHeart,faShareSquare, faCommentAlt} from "@fortawesome/free-solid-svg-i
 
 import { useDispatch, useSelector } from "react-redux";
 import { likeAction, shareAction } from "../ReduxToolkit/apiCalls/cardPostCall";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 /*
     title: string,
