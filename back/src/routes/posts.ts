@@ -73,6 +73,18 @@ router.get('/:idPost', async (req:Request, res:Response) => {
     }
 })
 
+// Obtener un post
+router.get('/:id/posts', async (req:Request, res:Response) => {
+    const { id } = req.params
+    try {
+        const post = await Post.find()
+        const result = post.filter((f:any) => f.userid === id)
+        res.status(200).json(result)
+    } catch (err) {
+        res.status(400).json(err)
+    }
+})
+
 // Editar post
 router.put('/:idPost',verifyToken, async (req:Request,res:Response) => {
     const { idPost } = req.params
@@ -147,6 +159,7 @@ router.put('/like/:idPost', verifyToken, async (req:Request, res:Response) => {
     const { idPost } = req.params
     const { idUser } = req.body
     try {
+
         const post = await Post.findById(idPost, {likes: 1})
         if(!post.likes.includes(idUser)){
             await post.updateOne({$push: {likes: idUser}})
@@ -187,6 +200,7 @@ router.post('/share/:idPost', async (req:Request, res:Response) => {
 
             const sharePost = new Post(share)
             const savedPost = await sharePost.save()
+
             await post.updateOne({$push: {shares: idUser}})
             res.json(savedPost)
         } else {

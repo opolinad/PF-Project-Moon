@@ -23,6 +23,9 @@ const feedSlice = createSlice({
         },
         feedNextPageDatabase: (state, action) => {
             state.posts = action.payload;
+        },
+        updateFeed: (state, action) => {
+            state.posts[action.payload.index] = action.payload.data;
         }
     }
 });
@@ -78,21 +81,21 @@ const filterAndOrderSlice = createSlice({
     initialState: {},
     reducers: {
         resetOptions: (state, action) => {
-            state = {};
+            return state = {};
         },
         searchResetOptionsCategoryFAO: (state, action) => {
-            state = {}
+            return state = {}
         },
         setFilter: (state, action) => {
-            state = { ...state, filter: action.payload };
+            return state = { ...state, filter: action.payload };
         },
         setOrdering: (state, action) => {
-            state = { ...state, ordering: action.payload };
+            return state = { ...state, ordering: action.payload };
         }
     }
 });
 
-export const { searchingDatabase, feedDatabase, setSearchingToLoading, setFeedToLoading, feedNextPageDatabase } = feedSlice.actions;
+export const { searchingDatabase, feedDatabase, setSearchingToLoading, setFeedToLoading, feedNextPageDatabase, updateFeed } = feedSlice.actions;
 export const feedReducer = feedSlice.reducer;
 export const { getCategoriesLoading, getCategories } = categoriesSlice.actions;
 export const categoriesReducer = categoriesSlice.reducer;

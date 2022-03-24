@@ -5,10 +5,11 @@ import Feed from "./components/Feed/Feed.jsx";
 import Filter from "./components/Filters And Order/Filter.jsx";
 import Ordering from "./components/Filters And Order/Ordering.jsx";
 import { useNavigate } from "react-router-dom";
-
-import HomeCss from "./Home.module.css";
 import { useEffect } from "react";
 import { loginUser } from "../ReduxToolkit/apiCalls/loginCall.js";
+
+import HomeCss from "./Home.module.css";
+
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -16,10 +17,11 @@ export default function Home() {
     const user = useSelector(state => state.user.currentUser)
 
     useEffect(() => {
-        if (!user?.password && user) loginUser(dispatch, { platform: true }); 
+        if (!user?.password) loginUser(dispatch, { platform: true });
         if (!user) {
             navigate("/");
         }
+        
     }, [])
 
     useEffect(() => {
@@ -36,9 +38,9 @@ export default function Home() {
                 {/* <button onClick={() => dispatch(Actions.resetOptions())} id={HomeCss.resetOption}>Reset</button> */}
             </div>
             <div id={HomeCss.InfoCont}>
-            <Categories />     
+            <Categories />
               <Feed />
-             
+
             </div>
             {/* <button id={HomeCss.nextPageBut} onClick={() => dispatch(Actions.nextPageAction())} >Load More</button> */}
         </div>
