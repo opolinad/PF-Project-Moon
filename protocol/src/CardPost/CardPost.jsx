@@ -20,7 +20,6 @@ import { useNavigate } from "react-router";
 //let props={shared:false,liked:false,userName:"Username",title:"Title",postId:0,userId:0,userPhoto:"./img/project_moon_logo.jpeg",favorite:true,likes:3,shares:3,description:"owowowowwowowowowowowo",imgs:["./img/project_moon_logo.jpeg","./img/project_moon_logo.jpeg"]}
 //Likes y shares: son arrays de ids, tengo que usar .length para la cantidad y buscar la id de user para saber si le dio like xd.
 
-
 function ImgPreviews({ imgs, id }) {
     const navigate = useNavigate()
 
@@ -39,11 +38,14 @@ function ImgPreviews({ imgs, id }) {
 
             cardValues.testing.push(<div key={"img_" + i + "_id_" + id} onClick={() => navigate("/post/" + id)} className={`${Cardpost.imgSingleCont} ${raw}`}><img className={Cardpost.cardpostImg} src={imgs[i]} alt={"nu existe :c"} /></div>)
         }
+
     }
-    return <div id={Cardpost.imgPreviewCont}>{cardValues.testing}</div>;
+  }
+  return <div id={Cardpost.imgPreviewCont}>{cardValues.testing}</div>;
 }
 
 export default function CardPost(props) {
+
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.user.currentUser);
