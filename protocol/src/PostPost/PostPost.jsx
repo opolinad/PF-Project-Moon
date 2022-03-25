@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import app from '../Firebase/Firebase'
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
 import { getCategoriesAsync } from "../ReduxToolkit/apiCalls/categoriesCall.js"
 import { postPost } from "../ReduxToolkit/apiCalls/postCall.js"
-import { useParams } from "react-router-dom"
+import { useImage } from "../hooks/useImage";
+import style from "./PostPost.module.css"
 
 
 function validate(input){
@@ -22,16 +21,17 @@ return errors
 
 export default function PostPost() {
     const dispatch = useDispatch()
-    const { id } = useParams()
+    // const { id } = useParams()
     // const history = useNavigate()
     const [profile, setProfile] = useState(null)
-    const [active, setActive] = useState(false)
+    const [active, setActive] = useState(true)
     const [errors, setErrors] = useState({})
+    const { type: type1, value: image1, loading: loading1, onChange: onChange1 } = useImage({ type: 'file' })
     const user = useSelector(state => state.user.currentUser)
     const categories = useSelector((state) => state.categories.posts.categories)
 
     const [input, setInput] = useState({
-        userid: id,
+        user: user._id,
         image: "",
         title: "",
         description: "",
@@ -39,58 +39,58 @@ export default function PostPost() {
     })
 
 
-    const upImage = (e) => {
-        e.preventDefault()
-        //Para que las imagen con el mismo nombre no se pisen
-        const fileName = new Date().getTime() + profile.name
-        //Traer del storage los datos
-        const storage = getStorage(app)
-        //Referencia
-        const sotorageRef = ref(storage, fileName)
-        //COnfiguracion de Firebase para los File y conseguir la URL
-        const uploadTask = uploadBytesResumable(sotorageRef, profile);
+    // const upImage = (e) => {
+    //     e.preventDefault()
+    //     //Para que las imagen con el mismo nombre no se pisen
+    //     const fileName = new Date().getTime() + profile.name
+    //     //Traer del storage los datos
+    //     const storage = getStorage(app)
+    //     //Referencia
+    //     const sotorageRef = ref(storage, fileName)
+    //     //COnfiguracion de Firebase para los File y conseguir la URL
+    //     const uploadTask = uploadBytesResumable(sotorageRef, profile);
 
-        // Register three observers:
-        // 1. 'state_changed' observer, called any time the state changes
-        // 2. Error observer, called on failure
-        // 3. Completion observer, called on successful completion
-        uploadTask.on('state_changed',
-            (snapshot) => {
-                // Observe state change events such as progress, pause, and resume
-                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log('Upload is ' + progress + '% done');
-                switch (snapshot.state) {
-                    case 'paused':
-                        console.log('Upload is paused');
-                        break;
-                    case 'running':
-                        console.log('Upload is running');
-                        break;
-                    default:
-                }
-            },
-            (error) => {
-                // Handle unsuccessful uploads
-            },
-            () => {
-                // Handle successful uploads on complete
-                // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    setInput({
-                        ...input,
-                        image: downloadURL
-                    })
-                    // setActive(false)
-                    // const updateUser = { ...inputs, profilePhoto: downloadURL };
-                    // console.log(updateUser);
-                    // addProduct(product, dispatch).then(response => {
-                    //     history.push('/products')
-                    // })
-                });
-            }
-        );
-    }
+    //     // Register three observers:
+    //     // 1. 'state_changed' observer, called any time the state changes
+    //     // 2. Error observer, called on failure
+    //     // 3. Completion observer, called on successful completion
+    //     uploadTask.on('state_changed',
+    //         (snapshot) => {
+    //             // Observe state change events such as progress, pause, and resume
+    //             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+    //             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    //             console.log('Upload is ' + progress + '% done');
+    //             switch (snapshot.state) {
+    //                 case 'paused':
+    //                     console.log('Upload is paused');
+    //                     break;
+    //                 case 'running':
+    //                     console.log('Upload is running');
+    //                     break;
+    //                 default:
+    //             }
+    //         },
+    //         (error) => {
+    //             // Handle unsuccessful uploads
+    //         },
+    //         () => {
+    //             // Handle successful uploads on complete
+    //             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+    //             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+    //                 setInput({
+    //                     ...input,
+    //                     image: downloadURL
+    //                 })
+    //                 // setActive(false)
+    //                 // const updateUser = { ...inputs, profilePhoto: downloadURL };
+    //                 // console.log(updateUser);
+    //                 // addProduct(product, dispatch).then(response => {
+    //                 //     history.push('/products')
+    //                 // })
+    //             });
+    //         }
+    //     );
+    // }
 
     useEffect(() => {
         getCategoriesAsync(dispatch)
@@ -98,10 +98,10 @@ export default function PostPost() {
 
 
 
-    function handleImgChange(e) {
-        setProfile(e.target.files[0])
-        setActive(true)
-    }
+    // function handleImgChange(e) {
+    //     setProfile(e.target.files[0])
+    //     setActive(true)
+    // }
 
     function handleChange(e) {
         setInput({
@@ -131,21 +131,44 @@ export default function PostPost() {
             ...input,
             [e.target.name]: e.target.value,
         }))
-        upImage(e)
         postPost(dispatch, user._id, input, user.accessToken)
+        setInput({
+            user: user._id,
+            image: "",
+            title: "",
+            description: "",
+            categories: []
+        })
     }
-    console.log(profile)
+
     return (
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form className={style.color} onSubmit={(e) => handleSubmit(e)}>
             <div>
-                    <div>
+                    {/* <div>
                         <label>Image:</label>
                         <input 
                         onChange={e => handleImgChange(e)} 
                         type="file" 
                         name="image" 
                     />
-                    </div>
+                    </div> */}
+                    <div>
+                    <label>Image: </label>
+                        
+                        <div style={{ width: '150px', height: '150px', position: 'relative', margin: '20px' }} >
+                            {
+                                input?.image && loading1 ?
+                                    <img src="https://acegif.com/wp-content/uploads/loading-25.gif" style={{ width: "100%", height: '100%', objectFit: 'cover' }} /> :
+                                    <img src={!image1 ? input?.image : image1} alt="Img" style={{ width: "100%", height: '100%', objectFit: 'cover' }} />
+                            }
+
+                        </div>
+                    <input
+                        type={type1}
+                        id="file1"
+                        onChange={onChange1}
+                    />
+                </div>
                     {/* <div><button onClick={(e) => upImage(e)}>UPLOAD IMAGE</button></div> */}
                     <div>
                         <label>Title:</label>
@@ -182,13 +205,7 @@ export default function PostPost() {
                         </select>
                     </div>
                 </div>
-                {
-                    active ? (
-                        <button  type="submit" >SUBMIT</button>
-                    ) : (
-                        <><p >Imagen subiendo</p></>
-                    )
-                    }
+                <button  type="submit" >SUBMIT</button>
         </form>
     )
 }
