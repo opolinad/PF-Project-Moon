@@ -82,7 +82,7 @@ export default function CardPost(props) {
 
             <div className={Cardpost.userInfoCont}>
                 <img className={Cardpost.userPhoto} src={props.userPhoto ? props.userPhoto : "./default_profile_photo.svg"} alt="not_found" />
-                <Link to={"http://localhost:3000/user/" + props.userId} className={Cardpost.userName}>{props.userName}</Link>
+                <Link to={"user/" + props.userId} className={Cardpost.userName}>{props.userName}</Link>
                 { props.userId===userData._id && <span onClick={() => handleDelete(props.id)}><FontAwesomeIcon icon={faTrashAlt} /></span>}
             </div>
 
