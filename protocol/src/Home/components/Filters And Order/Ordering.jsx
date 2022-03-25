@@ -7,7 +7,6 @@ export default function Ordering() {
     const dispatch = useDispatch();
 
     function ordering(e) {
-        console.log("Orden",e.target.value);
         dispatch(setFeedToLoading());
         dispatch(setOrdering(e.target.value))
     }
