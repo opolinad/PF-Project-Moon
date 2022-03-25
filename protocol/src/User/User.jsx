@@ -75,7 +75,7 @@ export default function User() {
                                 <div>
                                     <Link to={"following"} id={css.followsLink}>
                                         <button>
-                                            {userData.currentUser?.following.length} following
+                                            {userData.currentUser?.followings.length} following
                                         </button>
                                     </Link>
                                     <Link to={"followers"} id={css.followsLink}>
