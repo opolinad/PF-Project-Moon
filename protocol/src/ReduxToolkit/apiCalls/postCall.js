@@ -2,6 +2,9 @@ import "regenerator-runtime/runtime";
 import axios from "axios";
 
 import { setDetailedPost,setNewComment } from "../reducers/postSlice";
+import { feedDatabase } from "../reducers/homeSlice";
+import { SUCCESS_200 } from "../consts";
+import { userPostsSuccess } from "../reducers/usersPosts";
 
 export const getCategories = async (dispatch) => {
     var json = await axios.get('http://localhost:3001/api/categories')
@@ -30,9 +33,14 @@ export const postPost = async (dispatch, userId, input, token) => {
     }
 
 }
-export const deletePost=async(dispatch, postId, token)=>{
+export const deletePost=async(dispatch, postId, token, postArray, father)=>{
     try {
-        let res = await axios.delete(`http://localhost:3001/api/posts/${postId}`, { headers:{token}})
+        let pos = postArray.indexOf(postArray.filter(post=>post._id===postId)[0]);
+        await axios.delete(`http://localhost:3001/api/posts/${postId}`, { headers:{token}})
+        let newArr=[...postArray];
+        newArr.splice(pos,1)
+        father==="Feed" && dispatch(feedDatabase({status:SUCCESS_200, posts:newArr }))
+        father==="UserPost" && dispatch(userPostsSuccess(newArr))
     } catch (err) {
         console.log(err)
     }
