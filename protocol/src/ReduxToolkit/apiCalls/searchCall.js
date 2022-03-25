@@ -2,16 +2,16 @@ import axios from "axios";
 import { FEED_DATABASE, NOT_FOUND_404, SUCCESS_200 } from "../consts";
 import { feedDatabase, resetPage, setFeedToLoading } from "../reducers/homeSlice";
 
-export const getSearchResults = async (id=null,dispatch,search = "",selectedCategory = "",filter = "",order = "") => 
+export const getSearchResults = async (id=null,dispatch,search = "",selectedCategory = "",filter = "",order = "") =>
 {
   let q = "";
-  
+
   //dispatch(setFeedToLoading());
 
   q = q + "&order=" + order;
-  q = q + "page=" + 1;
+  q = q + "&page=" + 1;
   if (search !== "") {
-    q = "?search=" + search;
+    q = "search=" + search;
   }
   if (selectedCategory !== "") {
     q = q + "&category=" + selectedCategory;
@@ -21,8 +21,6 @@ export const getSearchResults = async (id=null,dispatch,search = "",selectedCate
   }
   if (order !== "") {
   }
-
-  console.log(q);
 
   const resp = await axios.get(`http://localhost:3001/api/feed/${id}?${q}`); //Se tiene que cambiar la ruta a feed
   let status = NOT_FOUND_404;
