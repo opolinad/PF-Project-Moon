@@ -15,7 +15,7 @@ export default function UserBoard() {
                 <Route path="posts" element={<Posts />} />
                 <Route path="following" element={<Follows />} />
                 <Route path="followers" element={<Follows />} />
-                <Route path="messages" element={<Messages />} />
+                {/* <Route path="messages" element={<Messages />} /> */}
                 <Route path="edit" element={<UserEdit />} />
             </Routes>
         </div>

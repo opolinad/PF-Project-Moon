@@ -213,8 +213,8 @@ const Register = () => {
                             required
                         >
                             <option className={styles.categoriesOption} value='categories'> Choose some categories </option>
-                            {categoriesArray.map((c) => (
-                                <option className={styles.categoriesOption}  value={c}>{c}</option>
+                            {categoriesArray.map((c,i) => (
+                                <option key={"option_category_"+i} className={styles.categoriesOption}  value={c}>{c}</option>
                             ))}
                         </select>
                     </div>

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CardPost from "../../../CardPost/CardPost.jsx";
-import { setFeedToLoading, resetPage } from "../../../ReduxToolkit/reducers/homeSlice.js";
+import { setFeedToLoading, resetPage, resetOptions, resetSelectedCategory } from "../../../ReduxToolkit/reducers/homeSlice.js";
 import { searchingAction } from "../../../ReduxToolkit/reducers/navBarSlice.js";
 import { getSearchResults } from "../../../ReduxToolkit/apiCalls/searchCall.js";
 import FeedCss from "./Feed.module.css";
@@ -39,20 +39,26 @@ export default function Feed(props) {
     const selectedCategory = useSelector(state => state.selectedCategory);
     const search = useSelector(state => state.search);
     const homePage = useSelector(state => state.homePage);
-
+    const currentUser = useSelector((state) => state.user.currentUser);
+    
     useEffect(()=>
     {
         if(flag_1Carga)
         {
             if(!query.search && search!=="")dispatch(searchingAction(""));
             else if(query.search && search!==query.search.split("=")[1])dispatch(searchingAction(query.search.split("=")[1]));
-            getSearchResults(user.currentUser._id, dispatch, query.search.split("=")[1], selectedCategory, filterAndOrder.filter, filterAndOrder.ordering, 1);
+            getSearchResults(user.currentUser?._id, dispatch, query.search.split("=")[1], "", "", "recent", 1);
+            dispatch(resetOptions());
+            dispatch(resetSelectedCategory());
+            dispatch(resetPage());
         }
         else if(!flag_1Carga)
         {
-            getSearchResults(user.currentUser._id, dispatch, search, selectedCategory, filterAndOrder.filter, filterAndOrder.ordering, homePage.page);
+            getSearchResults(user.currentUser?._id, dispatch, search, selectedCategory, filterAndOrder.filter, filterAndOrder.ordering, homePage.page);
+            /* SI HAY UN HOMEPAGE DEBERIA NO ENVIAR NADA Y DEBERIA VER ALGO DEL SEARCH POR ACA OWO */
         }
         flag_1Carga=false;
+        dispatch(setDetailedLoading());
     },[filterAndOrder,search,selectedCategory]);
     let postsArr;
     if (feed.status === STARTING_STATUS || feed.status === LOADING_0) { postsArr = <p className={FeedCss.feedStatus}>Loading the Sweet Sweet Posts</p> }

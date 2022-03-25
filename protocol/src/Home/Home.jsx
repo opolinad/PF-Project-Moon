@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Categories from "./components/Categories/Categories.jsx";
 import Feed from "./components/Feed/Feed.jsx";
@@ -10,6 +10,7 @@ import { loginUser } from "../ReduxToolkit/apiCalls/loginCall.js";
 
 import HomeCss from "./Home.module.css";
 import { findNextPage } from "../ReduxToolkit/apiCalls/pageCall.js";
+import PostPost from "../PostPost/PostPost.jsx";
 
 
 export default function Home() {
@@ -22,6 +23,8 @@ export default function Home() {
     const selectedCategory = useSelector(state => state.selectedCategory);
     const search = useSelector(state => state.search);
     const homePage = useSelector(state => state.homePage);
+
+    const [showCreate,setShowCreate] = useState(false);
 
     useEffect(() => {
         if (!user?.password) loginUser(dispatch, { platform: true });
@@ -40,6 +43,8 @@ export default function Home() {
         findNextPage(dispatch, search, selectedCategory, filterAndOrder.filter, filterAndOrder.ordering, homePage.page);
     }
 
+  
+
     return (
         <div id={HomeCss.homeCont}>
             <div id={HomeCss.filterOrderCont}>
@@ -47,9 +52,9 @@ export default function Home() {
                 <Ordering />
             </div>
             <div id={HomeCss.InfoCont}>
-            <Categories />
-              <Feed />
-
+                <Categories />
+                <Feed />
+                <PostPost/>
             </div>
             <button id={HomeCss.nextPageBut} onClick={() => handleButton()} >Load More</button>
         </div>

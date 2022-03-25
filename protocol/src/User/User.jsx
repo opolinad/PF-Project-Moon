@@ -16,25 +16,17 @@ export default function User() {
     useEffect(() => {
         getUser(dispatch, id)
     }, []);
-    /* getUser(dispatch, id) */
 
-    // const userdata = {
-    //     _id: '6236268600ef79423f81a729',
-    //     email: 'tester@gmail.com',
-    //     password: 'U2FsdGVkX1+eu40intuwCUcoDxLk4h2o6gPABXweRP8=',
-    //     followers: [],
-    //     following: []
-    // }
+    console.log(userData.error, userData.isFetching)
+    if(userData.isFetching)return(<div id={css.userStatus}>Loading Fuel, be patient!</div>)
+    else if(userData.error)
+    {   console.log("24");
+        return(<div id={css.userStatus}>Error!_Rocket Lost</div>);
+        console.log("26")
+    }
 
-    // const changeDates = {
-    //   profilePhoto:
-    //     "https://pbs.twimg.com/profile_images/725013638411489280/4wx8EcIA_400x400.jpg",
-    //   backgroundPhoto:
-    //     "https://png.pngtree.com/thumb_back/fw800/back_our/20190628/ourmid/pngtree-blue-violet-line-banner-background-image_271519.jpg",
-    //   username: "admin",
-    //   fullName: "user admin",
-    // };
 
+    console.log("25")
     return (
         <div id={css.container}>
             <div id={css.upperCont}>
