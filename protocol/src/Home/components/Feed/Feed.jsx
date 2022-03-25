@@ -26,22 +26,20 @@ import { setDetailedLoading } from "../../../ReduxToolkit/reducers/postSlice.js"
 */
 
 let flag_1Carga = true;
- 
+
 export default function Feed(props) {
 
     const dispatch = useDispatch();
 
     const query = useLocation();
-    
+
     const feed = useSelector(state => state.feed);
     const user = useSelector(state=> state.user)
     const filterAndOrder = useSelector(state => state.filterAndOrder);
     const selectedCategory = useSelector(state => state.selectedCategory);
     const search = useSelector(state => state.search);
     const homePage = useSelector(state => state.homePage);
-    const currentUser = useSelector((state) => state.user.currentUser);
 
-    
     useEffect(()=>
     {
         if(flag_1Carga)
@@ -56,12 +54,11 @@ export default function Feed(props) {
         }
         flag_1Carga=false;
     },[filterAndOrder,search,selectedCategory]);
-    
     let postsArr;
     if (feed.status === STARTING_STATUS || feed.status === LOADING_0) { postsArr = <p className={FeedCss.feedStatus}>Loading the Sweet Sweet Posts</p> }
     else if (feed.status === NOT_FOUND_404) { postsArr = <p className={FeedCss.feedStatus}>Error! No Post Found</p>; }
-    else if (feed.status === SUCCESS_200) postsArr = feed.posts.map((element, index) =>{ 
-        return <CardPost key={"post_" + element._id} title={element.title} description={element.description} imgs={element.images} shares={element.shares} likes={element.likes} id={element._id} userName={element.user.username} userPhoto={element.user.profilePhoto} userId={element.user._id} categories={element.categories   } /> })
+    else if (feed.status === SUCCESS_200) postsArr = feed.posts.map((element, index) =>{
+        return <CardPost key={"post_" + element._id} title={element.title} description={element.description} imgs={element.images} shares={element.shares} likes={element.likes} id={element._id} userName={element.user.username} userPhoto={element.user.profilePhoto} userId={element.user._id} categories={element.categories} componentFather={"Feed"} /> })
 
     return (
      <div id={FeedCss.FeedContainer}>

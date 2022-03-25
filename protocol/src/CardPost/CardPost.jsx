@@ -48,7 +48,7 @@ export default function CardPost(props) {
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.user.currentUser);
-
+    const userPosts = useSelector(state => state.userPostsById.posts);
     let feed = useSelector((state) => state.feed.posts);
     const user = useSelector(state => state.user);
 
@@ -75,7 +75,8 @@ export default function CardPost(props) {
         shareAction(dispatch, props.id, { userId: userData._id }, userData.accessToken)
     }
     function handleDelete(postId) {
-        deletePost(dispatch, postId, userData.accessToken, feed);
+        let arr = props.componentFather==="Feed"?feed:userPosts
+        deletePost(dispatch, postId, userData.accessToken, arr, props.componentFather);
     }
     return (
         <div className={Cardpost.CardPostCont}>
