@@ -14,7 +14,7 @@ export default function Ordering() {
     return (
         <div id={OrderingCss.orderingCont}>
             <select name="orderingSelect" id={OrderingCss.orderingSelect} onChange={ordering}>
-                <option value="" className={OrderingCss.orderingOption}> By Default</option>
+                {/* <option value="" className={OrderingCss.orderingOption}> By Default</option> */}
                 <option value="recent" className={OrderingCss.orderingOption}>Recent</option>
                 <option value="trending" className={OrderingCss.orderingOption}>Trending</option>
             </select>
