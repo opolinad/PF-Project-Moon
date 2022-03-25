@@ -34,13 +34,6 @@ export default function Navbar() {
     return "";
   }
 
-  function searching() {
-    //dispatch(Actions.resetForSearch());  //resetea filter, order y selectedCategory cuando se hace search
-    //dispatch(Actions.searchingAction(search)); //setea search en redux
-    //dispatch(Actions.setSearchingToLoading()); //setea feed a loading
-    //dispatch(Actions.searchingDataBaseAction(search)); //envia pedido a back
-  }
-
   function showNotification() {
     setShowNotifications(!showNotifications);
     //dispatch(Actions.setNotificationsToLoading());
@@ -58,7 +51,6 @@ export default function Navbar() {
     ? (searchbut = (
         <Link
           to={"/home?search=" + search}
-          onClick={searching}
           id={NavbarCss.searchLink}
         >
           <FontAwesomeIcon icon={faSearch} />
@@ -76,12 +68,8 @@ export default function Navbar() {
   };
 
   const onClickHandler = () => {
-// <<<<<<< postDelete
-    getSearchResults(currentUser._id, dispatch, state);
-// =======
     dispatch(setFeedToLoading());
     dispatch(searchingAction(search));
-// >>>>>>> dev
   };
 
   return (
