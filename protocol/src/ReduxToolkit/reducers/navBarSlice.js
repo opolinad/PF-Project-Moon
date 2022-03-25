@@ -5,6 +5,7 @@ const searchSlice = createSlice({
     initialState:"",
     reducers:{
         searchingAction:(state, action)=>{
+            console.log("searchingAction")
             return state=action.payload;
         }
     }
