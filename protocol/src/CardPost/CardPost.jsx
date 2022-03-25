@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import Cardpost from "./CardPost.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-
-import {faHeart,faShareSquare, faCommentAlt} from "@fortawesome/free-solid-svg-icons";
+import { deletePost } from "../ReduxToolkit/apiCalls/postCall";
+import { faHeart, faShareSquare, faCommentAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 import { useDispatch, useSelector } from "react-redux";
 import { likeAction, shareAction } from "../ReduxToolkit/apiCalls/cardPostCall";
@@ -21,72 +21,68 @@ import { useNavigate } from "react-router";
 //Likes y shares: son arrays de ids, tengo que usar .length para la cantidad y buscar la id de user para saber si le dio like xd.
 
 
-function ImgPreviews({imgs,id})
-{
+function ImgPreviews({ imgs, id }) {
     const navigate = useNavigate()
 
     let cardValues = {};
-    if(imgs.length)
-    {
-        cardValues.testing=[];
-        for(let i=0;i<imgs.length && i<3;i++)
-        {
-            let raw={};
-            if(i==0 && imgs.length==1)raw=Cardpost.singleImg; //Cardpost.singleImg
-            else if(i==0 && imgs.length==2)raw=Cardpost.halfImg; //Cardpost.halfImg
-            else if(i==0 && imgs.length>2)raw=Cardpost.quarterImg; //Cardpost.halfImg
+    if (imgs.length) {
+        cardValues.testing = [];
+        for (let i = 0; i < imgs.length && i < 3; i++) {
+            let raw = {};
+            if (i == 0 && imgs.length == 1) raw = Cardpost.singleImg; //Cardpost.singleImg
+            else if (i == 0 && imgs.length == 2) raw = Cardpost.halfImg; //Cardpost.halfImg
+            else if (i == 0 && imgs.length > 2) raw = Cardpost.quarterImg; //Cardpost.halfImg
 
 
-            else if(i==1 && imgs.length==2)raw=Cardpost.halfImg; //Cardpost.quarterImg
-            else if(i==1 && imgs.length>=3)raw=Cardpost.quarterImg; //Cardpost.quarterImg
+            else if (i == 1 && imgs.length == 2) raw = Cardpost.halfImg; //Cardpost.quarterImg
+            else if (i == 1 && imgs.length >= 3) raw = Cardpost.quarterImg; //Cardpost.quarterImg
 
-            cardValues.testing.push(<div key={"img_"+i+"_id_"+id} onClick={()=>navigate("/post/"+id)} className={`${Cardpost.imgSingleCont} ${raw}`}><img className={Cardpost.cardpostImg} src={imgs[i]} alt={"nu existe :c"}/></div>)
+            cardValues.testing.push(<div key={"img_" + i + "_id_" + id} onClick={() => navigate("/post/" + id)} className={`${Cardpost.imgSingleCont} ${raw}`}><img className={Cardpost.cardpostImg} src={imgs[i]} alt={"nu existe :c"} /></div>)
         }
     }
     return <div id={Cardpost.imgPreviewCont}>{cardValues.testing}</div>;
 }
 
-export default function CardPost(props)
-{
+export default function CardPost(props) {
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.user.currentUser);
 
     let feed = useSelector((state) => state.feed.posts);
-    const user = useSelector(state=>state.user);
+    const user = useSelector(state => state.user);
 
-    let cardValues={}
+    let cardValues = {}
+    props.description ? cardValues.description = props.description : cardValues.description = "";
+    props.likes.includes(user.currentUser?._id) ? cardValues.likeImg = Cardpost.likedImg : cardValues.likeImg = Cardpost.notLikedImg;
+    props.shares.includes(user.currentUser?._id) ? cardValues.sharedImg = Cardpost.sharedImg : cardValues.sharedImg = Cardpost.notSharedImg;
 
-    props.description? cardValues.description=props.description : cardValues.description="";
+    cardValues.categories = <div id={Cardpost.categoriesCont}>{props.categories?.map((element, index) => <p key={"cardpost_" + props._id + "_category" + index} className={Cardpost.category}>{element}</p>)}</div>
 
-
-
-    props.likes.includes(user.currentUser?._id)?   cardValues.likeImg=Cardpost.likedImg : cardValues.likeImg=Cardpost.notLikedImg;
-    props.shares.includes(user.currentUser?._id) ? cardValues.sharedImg=Cardpost.sharedImg : cardValues.sharedImg=Cardpost.notSharedImg;
-
-    cardValues.categories=<div id={Cardpost.categoriesCont}>{props.categories?.map((element,index)=><p key={"cardpost_"+props._id+"_category"+index} className={Cardpost.category}>{element}</p>)}</div>
-
-    cardValues.likes=props.likes.length;
-    cardValues.shares=props.shares.length;
-    cardValues.favorite=props.favorite;
+    cardValues.likes = props.likes.length;
+    cardValues.shares = props.shares.length;
+    cardValues.favorite = props.favorite;
 
     function handleLike() {
         let index
         for (let i = 0; i < feed.length; i++) {
-            if(feed[i]._id === props.id) index = i
+            if (feed[i]._id === props.id) index = i
         }
-        likeAction (dispatch, props.id, {userId: userData._id}, userData.accessToken, index)
+        likeAction(dispatch, props.id, { userId: userData._id }, userData.accessToken, index)
     }
 
     function handleShare() {
-        shareAction (dispatch, props.id, {userId: userData._id}, userData.accessToken)
+        shareAction(dispatch, props.id, { userId: userData._id }, userData.accessToken)
     }
-    return(
+    function handleDelete(postId) {
+        deletePost(dispatch, postId, userData.accessToken);
+    }
+    return (
         <div className={Cardpost.CardPostCont}>
 
             <div className={Cardpost.userInfoCont}>
-                <img className={Cardpost.userPhoto} src={props.userPhoto? props.userPhoto : "./default_profile_photo.svg"} alt="not_found" />
-                <Link to={"http://localhost:3000/user/"+props.userId} className={Cardpost.userName}>{props.userName}</Link>
+                <img className={Cardpost.userPhoto} src={props.userPhoto ? props.userPhoto : "./default_profile_photo.svg"} alt="not_found" />
+                <Link to={"http://localhost:3000/user/" + props.userId} className={Cardpost.userName}>{props.userName}</Link>
+                {/* props.userId===userData._id && */ <span onClick={() => handleDelete(props.id)}><FontAwesomeIcon icon={faTrashAlt} /></span>}
             </div>
 
             {/* title */}
@@ -96,17 +92,17 @@ export default function CardPost(props)
             <div className={Cardpost.descriptionCont}><p className={Cardpost.cardPostDescription}>{cardValues.description}</p></div>
 
             {/* {cardValues.imgs} */}
-            <ImgPreviews imgs={props.imgs} id={props.id}/>
+            <ImgPreviews imgs={props.imgs} id={props.id} />
             {cardValues.categories}
 
             <div className={Cardpost.analiticsCont}>
                 {/* likes */}
                 <div className={Cardpost.likesShell} onClick={() => handleLike()}>
-                    <FontAwesomeIcon className={cardValues.likeImg} icon={faHeart}/>
+                    <FontAwesomeIcon className={cardValues.likeImg} icon={faHeart} />
                     {props.likes.length}
                 </div>
                 {/* shares */}
-                <div className={Cardpost.sharesShell} onClick={()=>handleShare()}>
+                <div className={Cardpost.sharesShell} onClick={() => handleShare()}>
                     <FontAwesomeIcon className={cardValues.sharedImg} icon={faShareSquare} />
                     {props.shares.length}
                 </div>
@@ -115,8 +111,8 @@ export default function CardPost(props)
                     {"fav"}
                 </div>
                 <div className={Cardpost.commentShell}>
-                    <div onClick={()=>navigate("/post/"+props.id)} >
-                        <FontAwesomeIcon icon={faCommentAlt}/>
+                    <div onClick={() => navigate("/post/" + props.id)} >
+                        <FontAwesomeIcon icon={faCommentAlt} />
                         Commentaries
                     </div>
                 </div>

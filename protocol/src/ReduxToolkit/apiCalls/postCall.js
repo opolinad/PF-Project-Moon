@@ -30,13 +30,20 @@ export const postPost = async (dispatch, userId, input, token) => {
     }
 
 }
+export const deletePost=async(dispatch, postId, token)=>{
+    try {
+        let res = await axios.delete(`http://localhost:3001/api/posts/${postId}`, { headers:{token}})
+    } catch (err) {
+        console.log(err)
+    }
+}
 
 export const sendBackComment = async (id,comment,dispatch) => {
     try {
         //const res = await axios.post(`http://localhost:3001/api/posts/comment/${id} `, comment)
         console.log("PostCall")
         dispatch(setNewComment(comment))
-        
+
     } catch (error) {
         console.log(error)
     }
