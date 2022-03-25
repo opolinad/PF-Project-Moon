@@ -47,6 +47,7 @@ export default function CardPost(props) {
 
     const navigate = useNavigate()
     const dispatch = useDispatch();
+    const [ liked, setLiked] = (false)
     const userData = useSelector((state) => state.user.currentUser);
     const userPosts = useSelector(state => state.userPostsById.posts);
     let feed = useSelector((state) => state.feed.posts);
@@ -63,21 +64,38 @@ export default function CardPost(props) {
     cardValues.shares = props.shares.length;
     cardValues.favorite = props.favorite;
 
+    function handleNotifications(type) {
+        setLiked(true)
+        socket.emit("sendNotification", {
+            senderName: user,
+            receiverName: post.username,
+            type
+        })
+    }
+
     function handleLike() {
         let index;
         for (let i = 0; i < feed.length; i++) {
             if (feed[i]._id === props.id) index = i
         }
+        handleNotifications(1)
         likeAction(dispatch, props.id, { userId: userData._id }, userData.accessToken, index)
     }
 
     function handleShare() {
+        handleNotifications(2)
         shareAction(dispatch, props.id, { userId: userData._id }, userData.accessToken)
     }
     function handleDelete(postId) {
         let arr = props.componentFather==="Feed"?feed:userPosts
         deletePost(dispatch, postId, userData.accessToken, arr, props.componentFather);
     }
+
+    function handleComment() {
+        handleNotifications(3)
+        navigate("/post/" + props.id)
+    }
+
     return (
         <div className={Cardpost.CardPostCont}>
 
@@ -115,7 +133,7 @@ export default function CardPost(props) {
                     {"fav"}
                 </div>
                 <div className={Cardpost.commentShell}>
-                    <div onClick={() => navigate("/post/" + props.id)} >
+                    <div onClick={() => handleComment()} >
                         <FontAwesomeIcon icon={faCommentAlt} />
                         Commentaries
                     </div>
