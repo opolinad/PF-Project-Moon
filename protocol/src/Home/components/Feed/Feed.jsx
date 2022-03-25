@@ -46,11 +46,11 @@ export default function Feed(props) {
         {
             if(!query.search && search!=="")dispatch(searchingAction(""));
             else if(query.search && search!==query.search.split("=")[1])dispatch(searchingAction(query.search.split("=")[1]));
-            getSearchResults(user.currentUser._id, dispatch, query.search.split("=")[1], selectedCategory, filterAndOrder.filter, filterAndOrder.ordering, 1);
+            getSearchResults(user.currentUser?._id, dispatch, query.search.split("=")[1], selectedCategory, filterAndOrder.filter, filterAndOrder.ordering, 1);
         }
         else if(!flag_1Carga)
         {
-            getSearchResults(user.currentUser._id, dispatch, search, selectedCategory, filterAndOrder.filter, filterAndOrder.ordering, homePage.page);
+            getSearchResults(user.currentUser?._id, dispatch, search, selectedCategory, filterAndOrder.filter, filterAndOrder.ordering, homePage.page);
         }
         flag_1Carga=false;
     },[filterAndOrder,search,selectedCategory]);
