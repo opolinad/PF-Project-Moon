@@ -42,7 +42,7 @@
 }
 .userName{
     height: 3vh;
-    width: 15vw;
+    width: 30vw;
     margin: auto 0 auto 0;
 
     text-decoration: none;
@@ -50,6 +50,17 @@
     font-size: 3vh;
 
     color: #864879;
+
+    overflow: hidden;
+}
+.deleteBut{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width:5vh;
+
+    font-size: 1.2vw;
 }
 
 .cardPostTitle{
