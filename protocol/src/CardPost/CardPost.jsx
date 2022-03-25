@@ -20,12 +20,12 @@ import { useNavigate } from "react-router";
 //let props={shared:false,liked:false,userName:"Username",title:"Title",postId:0,userId:0,userPhoto:"./img/project_moon_logo.jpeg",favorite:true,likes:3,shares:3,description:"owowowowwowowowowowowo",imgs:["./img/project_moon_logo.jpeg","./img/project_moon_logo.jpeg"]}
 //Likes y shares: son arrays de ids, tengo que usar .length para la cantidad y buscar la id de user para saber si le dio like xd.
 
-function ImgPreviews({ imgs, id }) 
+function ImgPreviews({ imgs, id })
 {
     const navigate = useNavigate()
 
     let cardValues = {};
-    if (imgs.length) 
+    if (imgs.length)
     {
         cardValues.testing = [];
         for (let i = 0; i < imgs.length && i < 3; i++) {
@@ -41,7 +41,7 @@ function ImgPreviews({ imgs, id })
     }
     return <div id={Cardpost.imgPreviewCont}>{cardValues.testing}</div>;
 }
-  
+
 
 export default function CardPost(props) {
 
@@ -75,7 +75,7 @@ export default function CardPost(props) {
         shareAction(dispatch, props.id, { userId: userData._id }, userData.accessToken)
     }
     function handleDelete(postId) {
-        deletePost(dispatch, postId, userData.accessToken);
+        deletePost(dispatch, postId, userData.accessToken, feed);
     }
     return (
         <div className={Cardpost.CardPostCont}>
@@ -83,7 +83,7 @@ export default function CardPost(props) {
             <div className={Cardpost.userInfoCont}>
                 <img className={Cardpost.userPhoto} src={props.userPhoto ? props.userPhoto : "./default_profile_photo.svg"} alt="not_found" />
                 <Link to={"http://localhost:3000/user/" + props.userId} className={Cardpost.userName}>{props.userName}</Link>
-                {/* props.userId===userData._id && */ <span onClick={() => handleDelete(props.id)}><FontAwesomeIcon icon={faTrashAlt} /></span>}
+                { props.userId===userData?._id && <span onClick={() => handleDelete(props.id)}><FontAwesomeIcon icon={faTrashAlt} /></span>}
             </div>
 
             {/* title */}
