@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { deletePost } from "../ReduxToolkit/apiCalls/postCall";
 import { faHeart, faShareSquare, faCommentAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import socket from "../socket/socket"
 
 import { useDispatch, useSelector } from "react-redux";
 import { likeAction, shareAction } from "../ReduxToolkit/apiCalls/cardPostCall";
@@ -68,7 +69,7 @@ export default function CardPost(props) {
         setLiked(true)
         socket.emit("sendNotification", {
             senderName: user,
-            receiverName: post.username,
+            receiverName: userPosts,
             type
         })
     }
