@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faSearch, faBell } from "@fortawesome/free-solid-svg-icons";
 import { logoutUser } from "../ReduxToolkit/apiCalls/loginCall";
 import { useLocation } from "react-router";
+import socket from "../socket/socket"
 
 import NavbarCss from "./Navbar.module.css";
 import useTabName from "../helpers/CustomHooks/useTabName.js";
@@ -35,11 +36,11 @@ export default function Navbar() {
     return "";
   }
 
-  useEffect(()=> {
-    socket.on("getNotification", (data) => {
-        setNotifications((prev) => [...prev, data])
-    })
-  }, [socket])
+  // useEffect(()=> {
+  //   socket.on("getNotification", (data) => {
+  //       setNotifications((prev) => [...prev, data])
+  //   })
+  // }, [socket])
 
   function displayNotifications({ senderName, type }) {
     let action;

@@ -24,11 +24,10 @@ function validate(input){
 return errors
 }
 
-export default function PostPost(
-    const { id } = useParams()
+export default function PostPost(){
     // const history = useNavigate()
+    const dispatch = useDispatch()
     const [profile, setProfile] = useState(null)
-    const [active, setActive] = useState(true)
     const [errors, setErrors] = useState({})
     const { type: type1, value: image1, loading: loading1, onChange: onChange1 } = useImage({ type: 'file' })
     const user = useSelector(state => state.user.currentUser)
