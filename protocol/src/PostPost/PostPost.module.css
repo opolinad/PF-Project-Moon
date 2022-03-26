@@ -167,6 +167,14 @@
 
     cursor: pointer;
 }
+.categorySelected::after{
+    position: relative;
+    top: -10px;
+    width: 100%;
+    height: 10px;
+    background-color: #864879;
+    z-index: 3;
+}
 .categorySelected > svg{
     color: #E9A6A6;
 }
