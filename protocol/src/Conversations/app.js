@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Chat from "./chat";
+import Chat from "./Bandeja";
 import socket from "./socket";
 
 export default function App() {
