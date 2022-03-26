@@ -176,7 +176,7 @@ export default function PostPost(){
                         name="image" 
                     />
                     </div> */}
-                    <div>
+                    
                     <label>Image: </label>
                         
                         <div style={{ width: '150px', height: '150px', position: 'relative', margin: '20px' }} >
@@ -203,6 +203,7 @@ export default function PostPost(){
                         </span>
                         )}
                     </div>
+
                     <div>
                         <label>Description:</label>
                         <input onChange={e => handleChange(e)} type="text" name="description" value={input.description}/>
@@ -212,6 +213,7 @@ export default function PostPost(){
                         </span>
                         )}
                     </div>
+
                         <div className={css.infoContCat}>
                             <select className={css.labelInputCat} id='categories' name='categories' onChange={(e) => handleSelect(e)} required>
                                 <option value='categories'> Choose the categories </option>
