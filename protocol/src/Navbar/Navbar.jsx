@@ -17,10 +17,11 @@ import { searchingAction } from "../ReduxToolkit/reducers/navBarSlice.js";
 export default function Navbar() {
 
   const [showMenu, setShowMenu] = useState(false);
-  const [showNotifications, setShowNotifications] = useState(false);
+  const [notifications, setNotifications] = useState([]);
   const [state] = useState("");
   const [search, setSearch] = useState("");
   const [searchErr, setSearchErr] = useState("");
+  const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -34,19 +35,34 @@ export default function Navbar() {
     return "";
   }
 
-  function showNotification() {
-    setShowNotifications(!showNotifications);
-    //dispatch(Actions.setNotificationsToLoading());
-    //dispatch(Actions.getNotificationsAction());
-  }
+  useEffect(()=> {
+    socket.on("getNotification", (data) => {
+        setNotifications((prev) => [...prev, data])
+    })
+  }, [socket])
+
+  function displayNotifications({ senderName, type }) {
+    let action;
+
+    if (type === 1) {
+        action= "liked"
+    } else if (type === 2) {
+        action= "shared"
+    } else if (type === 3) {
+        action= "commented"
+    }
+
+    return (
+        <span>{`${senderName} ${action} your post!`}</span>
+    )
+}
 
   let menu = [];
-  let notifications;
   let searchbut;
   showMenu
     ? (menu = [NavbarCss.menuOpen, NavbarCss.menuShell])
     : (menu = [NavbarCss.menuClosed, NavbarCss.movedMenuShell]);
-  if (showNotifications) notifications = <Notifications />;
+  // if (showNotifications) notifications = <Notifications />;
   search.length > 3 || search.length === 0
     ? (searchbut = (
         <Link
@@ -72,6 +88,11 @@ export default function Navbar() {
     dispatch(searchingAction(search));
   };
 
+  function handleRead() {
+    setNotifications([])
+    setOpen(false)
+}
+
   return (
     <div id={NavbarCss.navbarCont}>
       <div id={NavbarCss.navbarShell}>
@@ -95,11 +116,17 @@ export default function Navbar() {
         </div>
 
         <div id={NavbarCss.notificationsShell}>
-          <div id={NavbarCss.notificationIcon} onClick={showNotification}>
-            <FontAwesomeIcon icon={faBell} />
-          </div>
-          {notifications}
+          <div id={NavbarCss.notificationIcon} onClick={setOpen(!open)}><FontAwesomeIcon icon={faBell} /></div>
+            { notifications.length > 0 &&
+              <div>{notifications.length}</div>
+            }
         </div>
+        {notifications && (
+                <div>
+                    {notifications.map((n)=> displayNotifications(n))}    
+                    <button onClick={handleRead}>Delete notifications</button>
+                </div> 
+                )}
         <div id={NavbarCss.paddingDer}>
           <button id={NavbarCss.logoutBut} onClick={() => handleLogout()}>
             LOGOUT
