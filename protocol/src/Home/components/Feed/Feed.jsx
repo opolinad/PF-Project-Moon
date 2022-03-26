@@ -51,6 +51,7 @@ export default function Feed(props) {
             dispatch(resetOptions());
             dispatch(resetSelectedCategory());
             dispatch(resetPage());
+
         }
         else if(!flag_1Carga)
         {

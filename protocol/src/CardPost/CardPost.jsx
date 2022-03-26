@@ -1,24 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Cardpost from "./CardPost.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { deletePost } from "../ReduxToolkit/apiCalls/postCall";
 import { faHeart, faShareSquare, faCommentAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import socket from "../socket/socket"
 
 import { useDispatch, useSelector } from "react-redux";
 import { likeAction, shareAction } from "../ReduxToolkit/apiCalls/cardPostCall";
 import { useNavigate } from "react-router";
-/*
-    title: string,
-    description: string,
-    imgs: array de urls,
-    shares:int,
-    likes:int,
-    favorite:int,
-    id:string,
-*/
-//let props={shared:false,liked:false,userName:"Username",title:"Title",postId:0,userId:0,userPhoto:"./img/project_moon_logo.jpeg",favorite:true,likes:3,shares:3,description:"owowowowwowowowowowowo",imgs:["./img/project_moon_logo.jpeg","./img/project_moon_logo.jpeg"]}
-//Likes y shares: son arrays de ids, tengo que usar .length para la cantidad y buscar la id de user para saber si le dio like xd.
 
 function ImgPreviews({ imgs, id })
 {
@@ -47,6 +37,7 @@ export default function CardPost(props) {
 
     const navigate = useNavigate()
     const dispatch = useDispatch();
+    const [ liked, setLiked] = useState(false)
     const userData = useSelector((state) => state.user.currentUser);
     const userPosts = useSelector(state => state.userPostsById.posts);
     let feed = useSelector((state) => state.feed.posts);
@@ -63,21 +54,39 @@ export default function CardPost(props) {
     cardValues.shares = props.shares.length;
     cardValues.favorite = props.favorite;
 
+    function handleNotifications(type) {
+        setLiked(true)
+        socket.emit("sendNotification", {
+            senderName: user,
+            receiverName: userPosts,
+            type
+        })
+    }
+
     function handleLike() {
         let index;
         for (let i = 0; i < feed.length; i++) {
             if (feed[i]._id === props.id) index = i
         }
+        handleNotifications(1)
         likeAction(dispatch, props.id, { userId: userData._id }, userData.accessToken, index)
     }
 
     function handleShare() {
+        handleNotifications(2)
         shareAction(dispatch, props.id, { userId: userData._id }, userData.accessToken)
     }
+
     function handleDelete(postId) {
         let arr = props.componentFather==="Feed"?feed:userPosts
         deletePost(dispatch, postId, userData.accessToken, arr, props.componentFather);
     }
+
+    function handleComment() {
+        handleNotifications(3)
+        navigate("/post/" + props.id)
+    }
+
     return (
         <div className={Cardpost.CardPostCont}>
 
@@ -114,12 +123,7 @@ export default function CardPost(props) {
                 <div className={Cardpost.favoritesShell}>
                     {"fav"}
                 </div>
-                <div className={Cardpost.commentShell}>
-                    <div onClick={() => navigate("/post/" + props.id)} >
-                        <FontAwesomeIcon icon={faCommentAlt} />
-                        Commentaries
-                    </div>
-                </div>
+                <div className={Cardpost.commentShell}><div onClick={()=>navigate("/post/"+props.id)} ><FontAwesomeIcon icon={faCommentAlt}/>  Commentaries</div></div>
             </div>
         </div>
     )
