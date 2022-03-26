@@ -12,14 +12,14 @@
  #openCreate{
     position: relative;
     left: -60.6vw;
-    top: -5vh;
+    top: -25vh;
 
     transition: 0.5s;
 
     width: 50vw;
     height: 80vh;
 
-    padding: 0vh 5vw 8vh 5vw;
+    padding: 20vh 5vw 8vh 5vw;
     border-radius: 5vh;
     
     background-color: #11101F;
