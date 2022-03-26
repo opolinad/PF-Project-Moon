@@ -157,147 +157,69 @@ export default function PostPost(){
         })
     }
 
-      
-    console.log(profile)
+   console.log(profile)
 
-    let CreateCss= showCreate? css.openCreate : css.closeCreate;
+   let CreateCss= showCreate? css.openCreate : css.closeCreate;
 
-    return (
-      <div id={css.createCont}>
-            <button onClick={()=>setShowCreate(!showCreate)} id={css.CreateButShow}> <FontAwesomeIcon id={css.rocketUp} icon={faRocket}/><FontAwesomeIcon id={css.AngleUpUp} icon={faAngleUp}/><FontAwesomeIcon id={css.chevronUp} icon={faChevronCircleUp}/><FontAwesomeIcon id={css.AngleUpDown} icon={faAngleUp}/></button>
-            
-        <form className={style.color} onSubmit={(e) => handleSubmit(e)}>
-            <div>
-                    {/* <div>
-                        <label>Image:</label>
-                        <input 
-                        onChange={e => handleImgChange(e)} 
-                        type="file" 
-                        name="image" 
-                    />
-                    </div> */}
-                    
-                    <label>Image: </label>
-                        
-                        <div style={{ width: '150px', height: '150px', position: 'relative', margin: '20px' }} >
-                            {
-                                input?.image && loading1 ?
-                                    <img src="https://acegif.com/wp-content/uploads/loading-25.gif" style={{ width: "100%", height: '100%', objectFit: 'cover' }} /> :
-                                    <img src={!image1 ? input?.image : image1} alt="Img" style={{ width: "100%", height: '100%', objectFit: 'cover' }} />
-                            }
+   return (
+       <div id={css.createCont}>
+           <button onClick={()=>setShowCreate(!showCreate)} id={css.CreateButShow}> <FontAwesomeIcon id={css.rocketUp} icon={faRocket}/><FontAwesomeIcon id={css.AngleUpUp} icon={faAngleUp}/><FontAwesomeIcon id={css.chevronUp} icon={faChevronCircleUp}/><FontAwesomeIcon id={css.AngleUpDown} icon={faAngleUp}/></button>
+           
+           <form id={CreateCss} onSubmit={(e) => handleSubmit(e)}>
+               <div id={css.innerCreateCont}>
 
+                       {/* <div><button onClick={(e) => upImage(e)}>UPLOAD IMAGE</button></div> */}
+                       <div className={css.infoCont}>
+                           <input className={css.labelInputTitle} onChange={e => handleChange(e)} placeholder="Title" type="text" name="title" value={input.title}/>
+                           {errors.title && (
+                           <span className={css.labelSpan}>
+                               <small>{errors.title}</small>
+                           </span>
+                           )}
+                       </div>
 
-                    <input
-                        type={type1}
-                        id="file1"
-                        onChange={onChange1}
-                    />
-                </div>
-                    {/* <div><button onClick={(e) => upImage(e)}>UPLOAD IMAGE</button></div> */}
-                    <div>
-                        <label>Title:</label>
-                        <input onChange={e => handleChange(e)} type="text" name="title" value={input.title}/>
-                        {errors.title && (
-                        <span className='error'>
-                            <small>{errors.title}</small>
-                        </span>
-                        )}
-                    </div>
+                       <div className={css.infoCont}>
+                           <textarea className={css.labelInputDescription} onChange={e => handleChange(e)} placeholder="Description" type="text" name="description" value={input.description}/>
+                           {errors.description && (
+                           <span className={css.labelSpan}>
+                               <small>{errors.description}</small>
+                           </span>
+                           )}
+                       </div>
 
-                    <div>
-                        <label>Description:</label>
-                        <input onChange={e => handleChange(e)} type="text" name="description" value={input.description}/>
-                        {errors.description && (
-                        <span className='error'>
-                            <small>{errors.description}</small>
-                        </span>
-                        )}
-                    </div>
+                       <div id={css.imgUpCont}>
 
-                        <div className={css.infoContCat}>
-                            <select className={css.labelInputCat} id='categories' name='categories' onChange={(e) => handleSelect(e)} required>
-                                <option value='categories'> Choose the categories </option>
-                                {categories.map((c,i) => (
-                                    <option key={"category_option_"+i} className={css.optionCat} value={c}>{c}</option>
-                                ))}
-                            </select>
-                            <div className={css.selectedCont}>
-                                {input.categories.map((element,index)=><button onClick={(e)=>handleDeSelect(e)} className={css.categorySelected} key={"selected_cat_"+index} value={element}>{element} <FontAwesomeIcon icon={faTimes}/></button>)}
-                            </div>
-                        </div>
-                {/* <div>
-                        <label>
-                            Categories:
-                        </label>
-                        <select 
-                            id='categories'
-                            name='categories'
-                            onChange={(e) => handleSelect(e)}
-                            required
-                        >
-                            <option value='categories'> Choose some categories </option>
-                            {categories.map((c,i) => (
-                                <option key={"categories_Post"+i} value={c}>{c}</option>
-                            ))}
-                        </select>
-                    </div>*/}
-                </div>
-                <button  type="submit" >SUBMIT</button>
-        </form>
-    </div>
+                           <div id={css.imgUpHidden}>
+                                {
+                                    input?.image && loading1 ?
+                                        <img src="https://acegif.com/wp-content/uploads/loading-25.gif" id={css.imgUploaded}/> 
+                                        :
+                                        <img src={!image1 ? input?.image : image1} id={css.imgUploaded}/>
+                                }
+                           </div>
+
+                           <div className={css.labelImgUpload}>Upload Images</div>
+                           <input className={css.labelInputImg} type={type1} id="file1" onChange={onChange1}/>
+                           
+                       </div>
+
+                       <div className={css.infoContCat}>
+                       <select className={css.labelInputCat} id='categories' name='categories' onChange={(e) => handleSelect(e)} required>
+                           <option value='categories'> Choose the categories </option>
+                           {categories.map((c,i) => (
+                               <option key={"category_option_"+i} className={css.optionCat} value={c}>{c}</option>
+                           ))}
+                       </select>
+                       <div className={css.selectedCont}>
+                           {input.categories.map((element,index)=><button onClick={(e)=>handleDeSelect(e)} className={css.categorySelected} key={"selected_cat_"+index} value={element}>{element} <FontAwesomeIcon icon={faTimes}/></button>)}
+                       </div>
+                       </div>
+                       <button id={css.submitButPost}  type="submit" >Launch!</button>
+                   </div>
+                   
+           </form>
 
 
-
-//    console.log(profile)
-//
-//    let CreateCss= showCreate? css.openCreate : css.closeCreate;
-//
-//    return (
-//        <div id={css.createCont}>
-//            <button onClick={()=>setShowCreate(!showCreate)} id={css.CreateButShow}> <FontAwesomeIcon id={css.rocketUp} icon={faRocket}/><FontAwesomeIcon id={css.AngleUpUp} icon={faAngleUp}/><FontAwesomeIcon id={css.chevronUp} icon={faChevronCircleUp}/><FontAwesomeIcon id={css.AngleUpDown} icon={faAngleUp}/></button>
-//            
-//            <form id={CreateCss} onSubmit={(e) => handleSubmit(e)}>
-//                <div id={css.innerCreateCont}>
-//
-//                        {/* <div><button onClick={(e) => upImage(e)}>UPLOAD IMAGE</button></div> */}
-//                        <div className={css.infoCont}>
-//                            <input className={css.labelInputTitle} onChange={e => handleChange(e)} placeholder="Title" type="text" name="title" value={input.title}/>
-//                            {errors.title && (
-//                            <span className={css.labelSpan}>
-//                                <small>{errors.title}</small>
-//                            </span>
-//                            )}
-//                        </div>
-//
-//                        <div className={css.infoCont}>
-//                            <textarea className={css.labelInputDescription} onChange={e => handleChange(e)} placeholder="Description" type="text" name="description" value={input.description}/>
-//                            {errors.description && (
-//                            <span className={css.labelSpan}>
-//                                <small>{errors.description}</small>
-//                            </span>
-//                            )}
-//                        </div>
-//
-//                        <div id={css.imgUpCont}>
-//                            <div className={css.labelImgUpload}>Upload Images</div>
-//                            <input className={css.labelInputImg} onChange={e => handleImgChange(e)} type="file" title=" " name="image"/>
-//                        </div>
-//
-//                        <div className={css.infoCont}>
-//                            <label className={css.labelInfo}>Categories:</label>
-//                            <select className={css.labelInput} id='categories' name='categories' onChange={(e) => handleSelect(e)} required>
-//                                <option value='categories'> Choose the categories </option>
-//                                {categories.map((c) => (
-//                                    <option value={c}>{c}</option>
-//                                ))}
-//                            </select>
-//                        </div>
-//
-//                    </div>
-//                    {active ? (<button id={css.submitBut}  type="submit" >SUBMIT</button>) : (<><p >Imagen subiendo</p></>)}
-//            </form>
-//
-//
-//        </div>
+       </div>
     )
 }
