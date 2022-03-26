@@ -37,6 +37,9 @@
     background-color: #19182D;
 }
 
+
+
+
 .infoCont{
     display: flex;
     flex-direction: column;
@@ -47,7 +50,6 @@
     height: 10vh;
     margin: 1vh auto 1vh auto;
 }
-
 .labelInputTitle{
     width: 36vw;
     margin: 1vh auto 1vh auto;
@@ -55,15 +57,25 @@
     color: #F0E9D2;
     background-color: transparent;
 
+    box-shadow: 0 0 inset #864879;
+
     border: none;
 
     font-size: 4vh;
     text-align: center;
+
+    transition: 0.2s;
 }
 .labelInputTitle:focus{
     outline: none;
+
     border-bottom: 0.2vh solid #E9A6A6;
+
+    box-shadow: 0 -2vh inset #864879;
+    transition: 0.2s;
 }
+
+
 
 
 .labelInputDescription{
@@ -73,9 +85,13 @@
 
     color: #F0E9D2;
     background-color: transparent;
+    box-shadow: 0 -0vh inset #864879;
 
     border: none;
+
     resize: none;
+
+    transition: 0.2s;
 }
 .labelInputDescription::placeholder{
     text-align: center;
@@ -84,6 +100,75 @@
 .labelInputDescription:focus{
     outline: none;
     border-bottom: 0.2vh solid #E9A6A6;
+
+    box-shadow: 0 -2vh inset #864879;
+
+    transition: 0.2s;
+}
+
+.infoContCat{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 38vw;
+    height: fit-content;
+    margin: 1vh auto 1vh auto;
+
+    color: #F0E9D2;
+    
+    transition: 0.2s;
+}
+.labelInputCat{
+    width: 20vw;
+    height: 4vh;
+    margin: 1vh auto 1vh auto;
+
+    color: #F0E9D2;
+    background-color: transparent;
+    box-shadow: 0 -0vh inset #864879;
+
+    border: none;
+    border-bottom: 0.2vh solid #E9A6A6;
+
+    font-size: 1.2vw;
+    text-align: center;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+.labelInputCat:focus{
+    outline: none;
+    box-shadow: 0 -2vh inset #864879;
+}
+.optionCat{
+    background-color: #19182D;
+}
+.selectedCont{
+    display: flex;
+    justify-content: space-evenly;
+
+    width: 36vw;
+    height: fit-content;
+    padding: 1vh 0 1vh 0;
+}
+.categorySelected{
+    border: none;
+
+    background-color: transparent;
+    
+    color: #E3B04B;
+    background-color: transparent;
+
+    text-decoration: underline;
+    font-size: 1.2vw;
+
+    cursor: pointer;
+}
+.categorySelected > svg{
+    color: #E9A6A6;
 }
 
 
@@ -115,8 +200,6 @@
     text-align: center;
     font-size: 1.4vw;
     font-weight: bolder;
-
-    cursor: pointer;
 }
 
 .labelInputImg{
@@ -127,7 +210,10 @@
     height: 5vh;
 
     opacity: 0;
+    cursor: pointer;
 }
+
+
 
 
 

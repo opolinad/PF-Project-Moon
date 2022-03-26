@@ -6,7 +6,7 @@ import { getCategoriesAsync } from "../ReduxToolkit/apiCalls/categoriesCall.js"
 import { postPost } from "../ReduxToolkit/apiCalls/postCall.js"
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronCircleUp,faAngleUp, faRocket } from "@fortawesome/free-solid-svg-icons";
+import { faChevronCircleUp,faAngleUp, faRocket, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import css from "./PostPost.module.css";
 
@@ -106,7 +106,17 @@ export default function PostPost() {
         getCategoriesAsync(dispatch)
     }, [dispatch])
 
-
+    function handleDeSelect(e)
+    {
+        setInput({
+            ...input,
+            categories: input.categories.filter(element => element!=e.target.value)
+          })
+          setErrors(validate({
+                ...input,
+                [e.target.name]: e.target.value,
+              }))
+    }
 
     function handleImgChange(e) {
         setProfile(e.target.files[0])
@@ -179,14 +189,16 @@ export default function PostPost() {
                             <input className={css.labelInputImg} onChange={e => handleImgChange(e)} type="file" title=" " name="image"/>
                         </div>
 
-                        <div className={css.infoCont}>
-                            <label className={css.labelInfo}>Categories:</label>
-                            <select className={css.labelInput} id='categories' name='categories' onChange={(e) => handleSelect(e)} required>
+                        <div className={css.infoContCat}>
+                            <select className={css.labelInputCat} id='categories' name='categories' onChange={(e) => handleSelect(e)} required>
                                 <option value='categories'> Choose the categories </option>
-                                {categories.map((c) => (
-                                    <option value={c}>{c}</option>
+                                {categories.map((c,i) => (
+                                    <option key={"category_option_"+i} className={css.optionCat} value={c}>{c}</option>
                                 ))}
                             </select>
+                            <div className={css.selectedCont}>
+                                {input.categories.map((element,index)=><button onClick={(e)=>handleDeSelect(e)} className={css.categorySelected} key={"selected_cat_"+index} value={element}>{element} <FontAwesomeIcon icon={faTimes}/></button>)}
+                            </div>
                         </div>
 
                     </div>
