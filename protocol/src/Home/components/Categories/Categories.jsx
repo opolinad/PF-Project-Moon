@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getCategoriesLoading, setSelectedCategory, resetSelectedCategory, setFeedToLoading } from "../../../ReduxToolkit/reducers/homeSlice";
+import { getCategoriesLoading, setSelectedCategory, resetSelectedCategory, setFeedToLoading, resetPage } from "../../../ReduxToolkit/reducers/homeSlice";
 import { getCategoriesAsync } from "../../../ReduxToolkit/apiCalls/categoriesCall";
 import { STARTING_STATUS, LOADING_0, NOT_FOUND_404, SUCCESS_200 } from "../../../ReduxToolkit/consts";
 
@@ -15,10 +15,12 @@ export default function Categories(props) {
     let selectedCategoryCont = "";
     useEffect(() => {
         // if (categories?.status === STARTING_STATUS) {
+            dispatch(resetPage())
             getCategoriesAsync(dispatch);
         // }
     }, []);  //busco las categorias al back
     function handleCategoryClick(name) {
+        dispatch(resetPage())
         dispatch(setFeedToLoading());
         dispatch(setSelectedCategory(name));
     }

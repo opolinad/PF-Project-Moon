@@ -2,7 +2,7 @@ import axios from "axios";
 import {  NOT_FOUND_404, SUCCESS_200} from "../consts";
 import { feedNextPageDatabase, nextPage } from '../reducers/homeSlice';
 
-export const findNextPage = async (dispatch, search = "", selectedCategory = "", filter = "", order = "", page = 0) => {
+export const findNextPage = async (dispatch, search = "", selectedCategory = "", filter = "", order = "", page = 1) => {
     let q = "";
     
 
@@ -18,5 +18,5 @@ export const findNextPage = async (dispatch, search = "", selectedCategory = "",
     let status = NOT_FOUND_404;
     if (resp.data.length) { status = SUCCESS_200 }
     dispatch(feedNextPageDatabase(resp.data)); //envia los 20 post
-    dispatch(nextPage()) //update de page a page+1
+    dispatch(nextPage(page+1)) //update de page a page+1
 }

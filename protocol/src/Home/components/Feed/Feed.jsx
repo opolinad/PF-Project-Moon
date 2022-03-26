@@ -49,7 +49,7 @@ export default function Feed(props) {
     },[filterAndOrder,search,selectedCategory]);
 
     
-
+    console.log(homePage.page)
     let postsArr;
     if (feed.status === STARTING_STATUS || feed.status === LOADING_0) { postsArr = <p className={FeedCss.feedStatus}>Loading the Sweet Sweet Posts</p> }
     else if (feed.status === NOT_FOUND_404) { postsArr = <p className={FeedCss.feedStatus}>Error! No Post Found</p>; }
