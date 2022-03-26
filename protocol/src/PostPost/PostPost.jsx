@@ -6,7 +6,7 @@ import { useImage } from "../hooks/useImage";
 import style from "./PostPost.module.css"
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronCircleUp,faAngleUp, faRocket } from "@fortawesome/free-solid-svg-icons";
+import { faChevronCircleUp,faAngleUp, faRocket, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import css from "./PostPost.module.css";
 
@@ -102,7 +102,17 @@ export default function PostPost(){
         getCategoriesAsync(dispatch)
     }, [dispatch])
 
-
+    function handleDeSelect(e)
+    {
+        setInput({
+            ...input,
+            categories: input.categories.filter(element => element!=e.target.value)
+          })
+          setErrors(validate({
+                ...input,
+                [e.target.name]: e.target.value,
+              }))
+    }
 
     // function handleImgChange(e) {
     //     setProfile(e.target.files[0])
@@ -176,7 +186,7 @@ export default function PostPost(){
                                     <img src={!image1 ? input?.image : image1} alt="Img" style={{ width: "100%", height: '100%', objectFit: 'cover' }} />
                             }
 
-                        </div>
+
                     <input
                         type={type1}
                         id="file1"
@@ -202,7 +212,18 @@ export default function PostPost(){
                         </span>
                         )}
                     </div>
-                    <div>
+                        <div className={css.infoContCat}>
+                            <select className={css.labelInputCat} id='categories' name='categories' onChange={(e) => handleSelect(e)} required>
+                                <option value='categories'> Choose the categories </option>
+                                {categories.map((c,i) => (
+                                    <option key={"category_option_"+i} className={css.optionCat} value={c}>{c}</option>
+                                ))}
+                            </select>
+                            <div className={css.selectedCont}>
+                                {input.categories.map((element,index)=><button onClick={(e)=>handleDeSelect(e)} className={css.categorySelected} key={"selected_cat_"+index} value={element}>{element} <FontAwesomeIcon icon={faTimes}/></button>)}
+                            </div>
+                        </div>
+                {/* <div>
                         <label>
                             Categories:
                         </label>
@@ -217,7 +238,7 @@ export default function PostPost(){
                                 <option key={"categories_Post"+i} value={c}>{c}</option>
                             ))}
                         </select>
-                    </div>
+                    </div>*/}
                 </div>
                 <button  type="submit" >SUBMIT</button>
         </form>
