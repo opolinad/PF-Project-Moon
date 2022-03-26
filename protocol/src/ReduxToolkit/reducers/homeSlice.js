@@ -13,6 +13,7 @@ const feedSlice = createSlice({
             state = action.payload;
         },
         feedDatabase: (state, action) => {   
+            console.log(action.payload)
             state.posts = action.payload.posts;
             state.status = action.payload.status;
         },
@@ -81,7 +82,7 @@ const homePageSlicer = createSlice({
 
 const filterAndOrderSlice = createSlice({
     name: "filterAndOrder",
-    initialState: {},
+    initialState: {ordering:"recent",filter:""},
     reducers: {
         resetOptions: (state, action) => {
             return state = {};

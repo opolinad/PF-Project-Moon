@@ -157,8 +157,6 @@ export default function PostPost(){
         })
     }
 
-   console.log(profile)
-
    let CreateCss= showCreate? css.openCreate : css.closeCreate;
 
    return (
