@@ -15,7 +15,6 @@ export default function Categories(props) {
     let selectedCategoryCont = "";
     useEffect(() => {
         // if (categories?.status === STARTING_STATUS) {
-            dispatch(resetPage())
             getCategoriesAsync(dispatch);
         // }
     }, []);  //busco las categorias al back
@@ -27,6 +26,7 @@ export default function Categories(props) {
 
     function handleResetCategory()
     {
+        dispatch(resetPage())
         dispatch(setFeedToLoading());
         dispatch(resetSelectedCategory())
     }
