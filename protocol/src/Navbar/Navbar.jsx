@@ -19,7 +19,7 @@ export default function Navbar() {
 
   const [showMenu, setShowMenu] = useState(false);
   const [notifications, setNotifications] = useState([]);
-  const [state] = useState("");
+  //const [state] = useState("");
   const [search, setSearch] = useState("");
   const [searchErr, setSearchErr] = useState("");
   const [open, setOpen] = useState(false);
@@ -28,9 +28,11 @@ export default function Navbar() {
   const location = useLocation();
 
   const currentUser = useSelector((state) => state.user.currentUser);
-  console.log(location.pathname.substring(1, 5) !== "home");
+ 
 
-  const testingUse= useTabName();
+  
+
+  //const testingUse= useTabName();
 
   if (location.pathname.substring(1, 5) !== "home") {
     return "";
@@ -60,25 +62,12 @@ export default function Navbar() {
 
   let menu = [];
   let searchbut;
-  showMenu
-    ? (menu = [NavbarCss.menuOpen, NavbarCss.menuShell])
-    : (menu = [NavbarCss.menuClosed, NavbarCss.movedMenuShell]);
+  showMenu ? (menu = [NavbarCss.menuOpen, NavbarCss.menuShell]) : (menu = [NavbarCss.menuClosed, NavbarCss.movedMenuShell]);
   // if (showNotifications) notifications = <Notifications />;
-  search.length > 3 || search.length === 0
-    ? (searchbut = (
-        <Link
-          to={"/home?search=" + search}
-          id={NavbarCss.searchLink}
-        >
-          <FontAwesomeIcon icon={faSearch} />
-        </Link>
-      ))
-    : (searchbut = (
-        <p
-          id={NavbarCss.searchLink}
-          onClick={() => setSearchErr("owo small, >3 pls uwu")}
-        ></p>
-      ));
+  search.length > 3 || search.length === 0 ? 
+  (searchbut = ( <Link to={"/home?search=" + search} id={NavbarCss.searchLink}> <FontAwesomeIcon icon={faSearch} /></Link>))
+  : 
+  (searchbut = (<p id={NavbarCss.searchLink} onClick={() => setSearchErr("owo small, >3 pls uwu")}></p>));
 
   const handleLogout = () => {
     logoutUser(dispatch);
@@ -96,6 +85,7 @@ export default function Navbar() {
 
   return (
     <div id={NavbarCss.navbarCont}>
+      {console.log(showMenu,notifications,search,searchErr,open)}
       <div id={NavbarCss.navbarShell}>
 
         <div id={NavbarCss.paddingIzq} />
@@ -117,7 +107,7 @@ export default function Navbar() {
         </div>
 
         <div id={NavbarCss.notificationsShell}>
-          <div id={NavbarCss.notificationIcon} onClick={setOpen(!open)}><FontAwesomeIcon icon={faBell} /></div>
+          <div id={NavbarCss.notificationIcon} onClick={()=>setOpen(!open)}><FontAwesomeIcon icon={faBell} /></div>
             { notifications.length > 0 &&
               <div>{notifications.length}</div>
             }
@@ -127,7 +117,7 @@ export default function Navbar() {
                     {notifications.map((n)=> displayNotifications(n))}    
                     <button onClick={handleRead}>Delete notifications</button>
                 </div> 
-                )}
+          )}
         <div id={NavbarCss.paddingDer}>
           <button id={NavbarCss.logoutBut} onClick={() => handleLogout()}>
             LOGOUT

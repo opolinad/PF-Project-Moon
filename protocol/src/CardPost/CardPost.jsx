@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Cardpost from "./CardPost.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
@@ -9,17 +9,6 @@ import socket from "../socket/socket"
 import { useDispatch, useSelector } from "react-redux";
 import { likeAction, shareAction } from "../ReduxToolkit/apiCalls/cardPostCall";
 import { useNavigate } from "react-router";
-/*
-    title: string,
-    description: string,
-    imgs: array de urls,
-    shares:int,
-    likes:int,
-    favorite:int,
-    id:string,
-*/
-//let props={shared:false,liked:false,userName:"Username",title:"Title",postId:0,userId:0,userPhoto:"./img/project_moon_logo.jpeg",favorite:true,likes:3,shares:3,description:"owowowowwowowowowowowo",imgs:["./img/project_moon_logo.jpeg","./img/project_moon_logo.jpeg"]}
-//Likes y shares: son arrays de ids, tengo que usar .length para la cantidad y buscar la id de user para saber si le dio like xd.
 
 function ImgPreviews({ imgs, id })
 {
@@ -48,7 +37,7 @@ export default function CardPost(props) {
 
     const navigate = useNavigate()
     const dispatch = useDispatch();
-    const [ liked, setLiked] = (false)
+    const [ liked, setLiked] = useState(false)
     const userData = useSelector((state) => state.user.currentUser);
     const userPosts = useSelector(state => state.userPostsById.posts);
     let feed = useSelector((state) => state.feed.posts);
@@ -87,6 +76,7 @@ export default function CardPost(props) {
         handleNotifications(2)
         shareAction(dispatch, props.id, { userId: userData._id }, userData.accessToken)
     }
+
     function handleDelete(postId) {
         let arr = props.componentFather==="Feed"?feed:userPosts
         deletePost(dispatch, postId, userData.accessToken, arr, props.componentFather);
@@ -133,12 +123,7 @@ export default function CardPost(props) {
                 <div className={Cardpost.favoritesShell}>
                     {"fav"}
                 </div>
-                <div className={Cardpost.commentShell}>
-                    <div onClick={() => handleComment()} >
-                        <FontAwesomeIcon icon={faCommentAlt} />
-                        Commentaries
-                    </div>
-                </div>
+                <div className={Cardpost.commentShell}><div onClick={()=>navigate("/post/"+props.id)} ><FontAwesomeIcon icon={faCommentAlt}/>  Commentaries</div></div>
             </div>
         </div>
     )

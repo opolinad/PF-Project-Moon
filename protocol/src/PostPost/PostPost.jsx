@@ -213,8 +213,8 @@ export default function PostPost(){
                             required
                         >
                             <option value='categories'> Choose some categories </option>
-                            {categories.map((c) => (
-                                <option value={c}>{c}</option>
+                            {categories.map((c,i) => (
+                                <option key={"categories_Post"+i} value={c}>{c}</option>
                             ))}
                         </select>
                     </div>
