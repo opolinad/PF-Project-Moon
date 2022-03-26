@@ -175,3 +175,15 @@
     box-shadow: inset 0vw 0.2vh 0.5vh rgb(63, 51, 81);
     background-color: #11101F;
 }
+
+#userStatus{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100wv;
+    height: 100vh;
+
+    font-size: 5vw;
+    text-align: center;
+    color: #E9A6A6;
+}

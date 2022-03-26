@@ -124,7 +124,7 @@ export default function Post()
     cardValues.saved=detailedPost.detailed.favorite;
 
     //Comentarios
-    let commentArr=detailedPost.detailed.comments.map((element,index)=> {return <Comment key={"comment_"+element.id} comment={element.content} photo={element.photoProfile} id={element.userId} name={element.username}/>})
+    let commentArr=detailedPost.detailed.comments.map((element,index)=> {return <Comment key={"comment_"+index+"_user_"+element._id} comment={element.content} photo={element.user.profilePhoto} id={element.user._id} name={element.user.username}/>})
 
     return(
         <div id={PostCss.bigPostCont}>

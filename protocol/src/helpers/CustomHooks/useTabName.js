@@ -31,7 +31,8 @@ export default function useTabName()
         let out="Protocol Moon | ";
         if(raw[1]==="users")
         {
-            out = out + raw[1] + " | " + userData.currentUser.fullName;
+            console.log(userData.currentUser)
+            out = out + raw[1] + " | " + userData.currentUser?.fullname;
             if(raw.length>3)
             {
                 out = out + " | " + raw[3];

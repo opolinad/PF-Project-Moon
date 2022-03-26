@@ -4,6 +4,11 @@ import { getCategoriesAsync } from "../ReduxToolkit/apiCalls/categoriesCall.js"
 import { postPost } from "../ReduxToolkit/apiCalls/postCall.js"
 import { useImage } from "../hooks/useImage";
 import style from "./PostPost.module.css"
+import { useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronCircleUp,faAngleUp, faRocket } from "@fortawesome/free-solid-svg-icons";
+
+import css from "./PostPost.module.css";
 
 
 function validate(input){
@@ -19,9 +24,8 @@ function validate(input){
 return errors
 }
 
-export default function PostPost() {
-    const dispatch = useDispatch()
-    // const { id } = useParams()
+export default function PostPost(
+    const { id } = useParams()
     // const history = useNavigate()
     const [profile, setProfile] = useState(null)
     const [active, setActive] = useState(true)
@@ -29,6 +33,9 @@ export default function PostPost() {
     const { type: type1, value: image1, loading: loading1, onChange: onChange1 } = useImage({ type: 'file' })
     const user = useSelector(state => state.user.currentUser)
     const categories = useSelector((state) => state.categories.posts.categories)
+
+    const [showCreate,setShowCreate] = useState(false);
+
 
     const [input, setInput] = useState({
         user: user._id,
@@ -141,7 +148,15 @@ export default function PostPost() {
         })
     }
 
+      
+    console.log(profile)
+
+    let CreateCss= showCreate? css.openCreate : css.closeCreate;
+
     return (
+      <div id={css.createCont}>
+            <button onClick={()=>setShowCreate(!showCreate)} id={css.CreateButShow}> <FontAwesomeIcon id={css.rocketUp} icon={faRocket}/><FontAwesomeIcon id={css.AngleUpUp} icon={faAngleUp}/><FontAwesomeIcon id={css.chevronUp} icon={faChevronCircleUp}/><FontAwesomeIcon id={css.AngleUpDown} icon={faAngleUp}/></button>
+            
         <form className={style.color} onSubmit={(e) => handleSubmit(e)}>
             <div>
                     {/* <div>
@@ -207,5 +222,60 @@ export default function PostPost() {
                 </div>
                 <button  type="submit" >SUBMIT</button>
         </form>
+    </div>
+
+
+
+//    console.log(profile)
+//
+//    let CreateCss= showCreate? css.openCreate : css.closeCreate;
+//
+//    return (
+//        <div id={css.createCont}>
+//            <button onClick={()=>setShowCreate(!showCreate)} id={css.CreateButShow}> <FontAwesomeIcon id={css.rocketUp} icon={faRocket}/><FontAwesomeIcon id={css.AngleUpUp} icon={faAngleUp}/><FontAwesomeIcon id={css.chevronUp} icon={faChevronCircleUp}/><FontAwesomeIcon id={css.AngleUpDown} icon={faAngleUp}/></button>
+//            
+//            <form id={CreateCss} onSubmit={(e) => handleSubmit(e)}>
+//                <div id={css.innerCreateCont}>
+//
+//                        {/* <div><button onClick={(e) => upImage(e)}>UPLOAD IMAGE</button></div> */}
+//                        <div className={css.infoCont}>
+//                            <input className={css.labelInputTitle} onChange={e => handleChange(e)} placeholder="Title" type="text" name="title" value={input.title}/>
+//                            {errors.title && (
+//                            <span className={css.labelSpan}>
+//                                <small>{errors.title}</small>
+//                            </span>
+//                            )}
+//                        </div>
+//
+//                        <div className={css.infoCont}>
+//                            <textarea className={css.labelInputDescription} onChange={e => handleChange(e)} placeholder="Description" type="text" name="description" value={input.description}/>
+//                            {errors.description && (
+//                            <span className={css.labelSpan}>
+//                                <small>{errors.description}</small>
+//                            </span>
+//                            )}
+//                        </div>
+//
+//                        <div id={css.imgUpCont}>
+//                            <div className={css.labelImgUpload}>Upload Images</div>
+//                            <input className={css.labelInputImg} onChange={e => handleImgChange(e)} type="file" title=" " name="image"/>
+//                        </div>
+//
+//                        <div className={css.infoCont}>
+//                            <label className={css.labelInfo}>Categories:</label>
+//                            <select className={css.labelInput} id='categories' name='categories' onChange={(e) => handleSelect(e)} required>
+//                                <option value='categories'> Choose the categories </option>
+//                                {categories.map((c) => (
+//                                    <option value={c}>{c}</option>
+//                                ))}
+//                            </select>
+//                        </div>
+//
+//                    </div>
+//                    {active ? (<button id={css.submitBut}  type="submit" >SUBMIT</button>) : (<><p >Imagen subiendo</p></>)}
+//            </form>
+//
+//
+//        </div>
     )
 }
