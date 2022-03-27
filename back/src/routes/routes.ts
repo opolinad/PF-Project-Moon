@@ -10,6 +10,8 @@ const favoritesRoute = require('./favourites')
 const feedRoute = require('./feed')
 const categoriesRoute = require('./categories')
 const profileRoute = require('./profile')
+const messagesRoutes = require('./messages')
+const conversationsRoutes = require('./conversations')
 
 router.use('/register', registerRoute)
 router.use('/login', loginRoute)
@@ -20,5 +22,7 @@ router.use('/favourites', favoritesRoute)
 router.use('/feed', feedRoute)
 router.use('/categories', categoriesRoute)
 router.use('/profile', profileRoute)
+router.use('/messages', messagesRoutes)
+router.use('/conversations', conversationsRoutes)
 
 module.exports = router;

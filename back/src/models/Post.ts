@@ -1,6 +1,6 @@
 import {Schema,model} from 'mongoose'
 
-const UserSchema = new Schema(
+const PostSchema = new Schema(
     {
         user: {type: Schema.Types.ObjectId, ref:'User'},
         images: {type: []},
@@ -20,4 +20,4 @@ const UserSchema = new Schema(
     {timestamps:true}
     )
 
-module.exports = model('Post', UserSchema)
+module.exports = model('Post', PostSchema)
