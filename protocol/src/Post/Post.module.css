@@ -24,7 +24,7 @@
     grid-column: 1/4;
     grid-row: 1/2;
   }
-#backBut{
+#backBut,#backButWoImgs{
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -50,22 +50,27 @@
   transition: 0.5s;
 
 }
-#backBut:hover{
+#backBut:hover,#backButWoImgs:hover{
   box-shadow: -12vw 0vh 0 0 #864876 inset;
 
   transition: 0.5s;
 }
-#backBut > svg{
+#backBut > svg ,#backButWoImgs > svg{
   position: relative;
   left: -0vw;
   transition: 0.5s;
 }
-#backBut:hover > svg{
+#backBut:hover > svg,#backButWoImgs:hover > svg{
   position: relative;
   left: -2vw;
 
   transition: 0.5s;
 }
+#backButWoImgs{
+    background-color: transparent;
+}
+
+
 
 #CarouselButLeft{
     grid-column: 1/2;

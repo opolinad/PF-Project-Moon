@@ -113,6 +113,9 @@ export default function Post()
                             </div>
         cardValues.styleInfo=PostCss.infoCont;
     }
+    else{
+        cardValues.backWoImgs= <div id={PostCss.backLinkWoImg} onClick={()=>navigate(-1)}><button id={PostCss.backButWoImgs}><FontAwesomeIcon icon={ faAngleLeft }/>Back</button></div>
+    }
 
     //css de likes 
     detailedPost.detailed.likes.includes(user.currentUser?._id) ? cardValues.likeImg=PostCss.likedImg : cardValues.likeImg=PostCss.notLikedImg; 
@@ -143,6 +146,8 @@ export default function Post()
                     <div id={PostCss.sharesShell} onClick={()=>{}}> <FontAwesomeIcon className={cardValues.sharedImg} icon={faShareSquare} /> {cardValues.shares}</div>
 
                     <div id={PostCss.favoritesShell}>{cardValues.saved}</div>
+
+                    {cardValues.backWoImgs}
                 </div>
 
                 <div id={PostCss.newCommentaryCont}>
