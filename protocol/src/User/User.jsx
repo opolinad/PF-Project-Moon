@@ -34,63 +34,30 @@ export default function User() {
         {userData?.currentUser ? (
           <div id={css.container}>
             <div id={css.bannerCont}>
-              <img
-                src={
-                  userData.currentUser?.backgroundPhoto
-                    ? userData.currentUser?.backgroundPhoto
-                    : "/default_banner_photo.svg"
-                }
-                alt="backgroundPhoto not found"
-                id={css.banner}
-              />
+              <img src={ userData.currentUser?.backgroundPhoto ? userData.currentUser?.backgroundPhoto : "/default_banner_photo.svg"} alt="backgroundPhoto not found" id={css.banner}/>
             </div>
+
             <Donation />
+            
             <div id={css.profileSection}>
-              <img
-                src={
-                  userData.currentUser?.profilePhoto
-                    ? userData.currentUser?.profilePhoto
-                    : "/default_profile_photo.svg"
-                }
-                alt="profilePhoto not found"
-                id={css.profilePhoto}
-              />
+              <img src={ userData.currentUser?.profilePhoto ? userData.currentUser?.profilePhoto : "/default_profile_photo.svg"} alt="profilePhoto not found" id={css.profilePhoto}/>
+              
               <div>
-                <h1>
-                  {userData.currentUser?.fullName
-                    ? userData.currentUser?.fullName
-                    : userData.currentUser?.email.split("@")[0]}
-                </h1>
-                <p>
-                  @
-                  {userData.currentUser.username
-                    ? userData.currentUser?.username
-                    : userData.currentUser?.email.split("@")[0]}
-                </p>
+                <h1> {userData.currentUser?.fullName ? userData.currentUser?.fullName : userData.currentUser?.email.split("@")[0]}</h1>
+                <p>@{userData.currentUser.username ? userData.currentUser?.username : userData.currentUser?.email.split("@")[0]} </p>
+
                 <div>
-                  <Link to={"following"} id={css.followsLink}>
-                    <button>
-                      {userData.currentUser?.followings.length} following
-                    </button>
-                  </Link>
-                  <Link to={"followers"} id={css.followsLink}>
-                    <button>
-                      {userData.currentUser?.followers.length} followers
-                    </button>
-                  </Link>
+                  <Link to={"following"} id={css.followsLink}> <button> {userData.currentUser?.followings.length} following </button></Link>
+                  <Link to={"followers"} id={css.followsLink}> <button> {userData.currentUser?.followers.length} followers </button> </Link>
                 </div>
               </div>
+
             </div>
+
             <div id={css.postsButtons}>
-              <Link to={"posts"} id={css.postsLink}>
-                <button>POSTS</button>
-              </Link>
-              {/* <Link to={"favorites"} id={css.postsLink}>
-                <button>FAVORITES</button>
-              </Link> */}
-              <Link to={`edit`} id={css.postsLink}>
-                <button>EDIT</button>
-              </Link>
+              <Link to={"posts"} id={css.postsLink}> <button>POSTS</button> </Link>
+              <Link to={"favorites"} id={css.postsLink}> <button>FAVORITES</button> </Link>
+              <Link to={`edit`} id={css.postsLink}> <button>EDIT</button> </Link>
             </div>
           </div>
         ) : (

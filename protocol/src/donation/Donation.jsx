@@ -42,26 +42,9 @@ const Donation = () => {
   };
 
   return (
-    <div
-      style={{
-        width: "300px",
-        height: "300px",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        backdropFilter: "white",
-      }}
-    >
-      <input
-        type="number"
-        placeholder="USD"
-        value={amount}
-        onChange={(e) => setAmount(parseInt(e.target.value))}
-      />
-      <StripeCheckout {...stripeOptions} billingAddress shippingAddress>
-        <button>Submit</button>
-      </StripeCheckout>
+    <div >
+      <input type="number" placeholder="USD" value={amount} onChange={(e) => setAmount(parseInt(e.target.value))}/>
+      <StripeCheckout {...stripeOptions} billingAddress shippingAddress> <button>Submit</button> </StripeCheckout>
     </div>
   );
 };
