@@ -114,7 +114,7 @@ export default function Navbar() {
         {notifications && (
                 <div>
                     {notifications.map((n)=> displayNotifications(n))}    
-                    <button onClick={handleRead}>Delete notifications</button>
+                    <button id={NavbarCss.deletNotisBut} onClick={handleRead}>Delete notifications</button>
                 </div> 
           )}
         <div id={NavbarCss.paddingDer}>
