@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Logo from "../assets/default_profile_photo.svg";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleLeft, faAngleRight, faSeedling } from "@fortawesome/free-solid-svg-icons";
 
 import css from "./Donation.module.css"
 
@@ -46,8 +48,8 @@ const Donation = () => {
 
   return (
     <div id={css.donationCont}>
-      <input type="number" placeholder="USD" value={amount} onChange={(e) => setAmount(parseInt(e.target.value))}/>
-      <StripeCheckout {...stripeOptions} billingAddress shippingAddress> <button id={css.submitBut}>Submit</button> </StripeCheckout>
+      <input id={css.donationInput} type="number" placeholder="USD" value={amount} onChange={(e) => setAmount(parseInt(e.target.value))}/>
+      <StripeCheckout {...stripeOptions} billingAddress shippingAddress> <button id={css.submitBut}><FontAwesomeIcon icon={faSeedling}/></button> </StripeCheckout>
     </div>
   );
 };

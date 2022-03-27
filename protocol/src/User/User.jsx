@@ -52,7 +52,7 @@ export default function User() {
 
               <div id={css.donationCont}>
                 <Donation />
-                <button onClick={()=>setDonationShow(!donationShow)} id={donateLength}>Donate to Artist</button>        
+                <button onClick={()=>setDonationShow(!donationShow)} id={donateLength}><FontAwesomeIcon id={css.butSvgDecoLeft} icon={faAngleLeft}/> <p>{donationShow?"Donate to Artist":""}</p>  <FontAwesomeIcon id={css.butSvgDecoRight} icon={faAngleRight}/></button>        
               </div>
               
 
