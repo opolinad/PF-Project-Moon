@@ -28,7 +28,7 @@ const feedSlice = createSlice({
             state.posts = action.payload;
         },
         updateFeed: (state, action) => {
-            state.posts[action.payload.index] = action.payload.data;
+            state.posts[action.payload.index].likes = action.payload.data.likes;
         }
     }
 });
