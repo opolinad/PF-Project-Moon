@@ -179,7 +179,7 @@ export default function CardPost(props) {
             {props.shares.length}
           </div>
           {/* favorites */}
-          <div className={Cardpost.favoritesShell}>{"fav"}</div>
+          {/* <div className={Cardpost.favoritesShell}>{"fav"}</div> */}
           <div className={Cardpost.commentShell}>
             <div style={{cursor:"pointer"}} onClick={() => navigate("/post/" + props.id)}>
               <FontAwesomeIcon icon={faCommentAlt} /> Commentaries

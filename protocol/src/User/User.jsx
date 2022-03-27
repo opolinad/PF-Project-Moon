@@ -56,7 +56,7 @@ export default function User() {
 
             <div id={css.postsButtons}>
               <Link to={"posts"} id={css.postsLink}> <button>POSTS</button> </Link>
-              <Link to={"favorites"} id={css.postsLink}> <button>FAVORITES</button> </Link>
+              {/* <Link to={"favorites"} id={css.postsLink}> <button>FAVORITES</button> </Link> */}
               <Link to={`edit`} id={css.postsLink}> <button>EDIT</button> </Link>
             </div>
           </div>
