@@ -1,5 +1,5 @@
 import axios from "axios";
-import { updateFeed } from "../reducers/homeSlice";
+import { updateFeedLikes, updateFeedShares } from "../reducers/homeSlice";
 import { updatePosts } from "../reducers/usersPosts";
 
 export const likeAction = async (dispatch, id, user, token, index) => {
@@ -9,13 +9,13 @@ export const likeAction = async (dispatch, id, user, token, index) => {
         token,
       },
     });
-    dispatch(updateFeed({data: res.data, index: index}))
+    dispatch(updateFeedLikes({data: res.data, index: index}))
   } catch (error) {
     console.log("cannot run likeAction", error);
   }
 };
 
-export const shareAction = async (dispatch, id, user, token) => {
+export const shareAction = async (dispatch, id, user, token, index) => {
   try {
     console.log("id", id)
     console.log("user", user)
@@ -29,7 +29,8 @@ export const shareAction = async (dispatch, id, user, token) => {
         },
       }
     );
-    dispatch(updatePosts(res.data));
+    console.log("res", res.data)
+    dispatch(updateFeedShares({data: res.data, index: index}));
   } catch (error) {
     console.log("cannot run shareAction", error);
   }

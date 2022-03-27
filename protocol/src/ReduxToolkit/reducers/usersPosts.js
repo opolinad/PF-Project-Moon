@@ -22,7 +22,7 @@ const userPostsSlice = createSlice({
             state.error = true
         },
         updatePosts: (state, action) => {
-            state.posts = [action.payload, ...state.posts]
+            console.log(action.payload.data.shares)
         },
     }
 })
