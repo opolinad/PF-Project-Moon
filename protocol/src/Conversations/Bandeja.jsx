@@ -5,7 +5,9 @@ import axios from "axios";
 import Conversation from "./Conversation";
 import Message from "./Message";
 import ChatOnline from "./ChatOnline";
-import BandejaCss from './Bandeja.module.css'
+import BandejaCss from './Bandeja.module.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 
 const Bandeja = () => {
   const user = useSelector(state => state.user.currentUser);
@@ -112,12 +114,13 @@ const Bandeja = () => {
             {currentChat ? (
               <Fragment>
                 <div id={BandejaCss.chatBoxTop}>
-                  {messages.map((message) => ( <Message message={message} own={message.sender === user._id} /> ))}
+                  {console.log(messages)}
+                  {messages.map((message,index) => ( <Message key={"conversation_"+index} message={message} own={message.sender === user.currentUser?._id} /> ))}
                 </div>
 
                 <div id={BandejaCss.chatFin}>
                   <textarea id={BandejaCss.textArea} placeholder="Enviar un mensaje..." onChange={(e) => setNewMessage(e.target.value)} value={newMessage}></textarea>
-                  <button id={BandejaCss.button} onClick={(e) => handleSubmit(e)}> Send </button>
+                  <button id={BandejaCss.button} onClick={(e) => handleSubmit(e)}> Send <FontAwesomeIcon icon={faPaperPlane}/> </button>
                 </div>
               </Fragment>
             ) : ( <span id={BandejaCss.sinConversacion}> Abre un chat para empezar </span>)}
