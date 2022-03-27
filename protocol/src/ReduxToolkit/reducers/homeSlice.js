@@ -13,7 +13,6 @@ const feedSlice = createSlice({
             state = action.payload;
         },
         feedDatabase: (state, action) => {   
-            console.log(action.payload)
             state.posts = action.payload.posts;
             state.status = action.payload.status;
         },
@@ -69,13 +68,13 @@ const selectedCategorySlice = createSlice({
 
 const homePageSlicer = createSlice({
     name: "homePage",
-    initialState: {page:0},
+    initialState: {page:1},
     reducers: {
         resetPage: (state) => {
-            return state = {...state,page:0};
+             state.page = 1;
         },
-        nextPage: (state) => {
-            return {...state,page:state.page+1};
+        nextPage: (state,action) => {
+            state.page = action.payload;
         }
     }
 });

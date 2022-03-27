@@ -13,9 +13,10 @@
 #filterOrderCont{
     display: flex;
     flex-direction: row;
-    width: 97.6vw;
+
+    width: 93.1vw;
     height: 4vh;
-    padding: 3vh 0 3vh 0;
+    padding: 3vh 0 3vh 3.5vw;
 }
 
 #resetOption{

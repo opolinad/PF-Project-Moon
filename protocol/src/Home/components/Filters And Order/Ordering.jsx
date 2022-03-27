@@ -1,12 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setFeedToLoading, setOrdering } from "../../../ReduxToolkit/reducers/homeSlice.js";
+import { resetPage, setFeedToLoading, setOrdering } from "../../../ReduxToolkit/reducers/homeSlice.js";
 import OrderingCss from "./Ordering.module.css";
 
 export default function Ordering() {
     const dispatch = useDispatch();
 
     function ordering(e) {
+        dispatch(resetPage())
         dispatch(setFeedToLoading());
         dispatch(setOrdering(e.target.value))
     }

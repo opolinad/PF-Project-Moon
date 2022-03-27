@@ -96,5 +96,7 @@ export default function Feed(props) {
       );
     });
 
+
   return <div id={FeedCss.FeedContainer}>{postsArr}</div>;
+
 }

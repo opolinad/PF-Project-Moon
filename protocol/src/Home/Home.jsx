@@ -48,7 +48,7 @@ export default function Home() {
     return (
         <div id={HomeCss.homeCont}>
             <div id={HomeCss.filterOrderCont}>
-                <Filter />
+                {/* <Filter /> */}
                 <Ordering />
             </div>
             <div id={HomeCss.InfoCont}>

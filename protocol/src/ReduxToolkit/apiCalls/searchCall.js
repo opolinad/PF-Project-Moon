@@ -2,10 +2,10 @@ import axios from "axios";
 import { FEED_DATABASE, NOT_FOUND_404, SUCCESS_200 } from "../consts";
 import { feedDatabase, resetPage, setFeedToLoading } from "../reducers/homeSlice";
 
-export const getSearchResults = async (id=null,dispatch,search = "",selectedCategory = "",filter = "",order = "recent",page) =>
+export const getSearchResults = async (id=null,dispatch,search = "",selectedCategory = "",filter = "",order = "recent", page = 1) =>
 {
   let q = "";
-
+  
   if(page===1)
   {
     q = q + "&order=" + order;
@@ -21,10 +21,10 @@ export const getSearchResults = async (id=null,dispatch,search = "",selectedCate
     }
     if (order !== "") {
     }
+    
     console.log(q)
   
     const resp = await axios.get(`http://localhost:3001/api/feed/${id}?${q}`);
-    console.log(resp.data)
     let status = NOT_FOUND_404;
     if (resp.data.length) status = SUCCESS_200;
 
