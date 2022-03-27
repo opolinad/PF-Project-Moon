@@ -1,0 +1,8 @@
+.Bandeja {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.chatMenu {
+    background-color: blue;
+}
