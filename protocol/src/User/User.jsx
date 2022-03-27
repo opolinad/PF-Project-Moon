@@ -85,9 +85,9 @@ export default function User() {
               <Link to={"posts"} id={css.postsLink}>
                 <button>POSTS</button>
               </Link>
-              <Link to={"favorites"} id={css.postsLink}>
+              {/* <Link to={"favorites"} id={css.postsLink}>
                 <button>FAVORITES</button>
-              </Link>
+              </Link> */}
               <Link to={`edit`} id={css.postsLink}>
                 <button>EDIT</button>
               </Link>
