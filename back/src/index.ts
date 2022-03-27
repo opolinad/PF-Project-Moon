@@ -63,6 +63,7 @@ io.on("connection", (socket:any) => {
   //Se añade el usuario a las personas conectadas
   socket.on("addUser", (userId:string) => {
     addUser(userId, socket.id);
+    console.log(users)
     io.emit("getUsers", users);
   });
 
