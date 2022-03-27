@@ -1,6 +1,6 @@
 import {Schema,model} from 'mongoose'
 
-const UserSchema = new Schema(
+const CommentSchema = new Schema(
     {
 
         user: {type: Schema.Types.ObjectId, ref:'User'},
@@ -11,4 +11,4 @@ const UserSchema = new Schema(
     {timestamps:true}
 )
 
-module.exports = model('Comment', UserSchema)
+module.exports = model('Comment', CommentSchema)

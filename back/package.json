@@ -33,6 +33,7 @@
         "passport-microsoft": "^0.1.0",
         "pg": "^8.5.1",
         "stripe": "^8.212.0",
+        "socket.io": "^4.4.1",
         "ts-node": "^10.7.0"
     },
     "devDependencies": {
