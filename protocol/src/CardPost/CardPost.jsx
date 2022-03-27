@@ -58,7 +58,7 @@ export default function CardPost(props) {
   const userData = useSelector((state) => state.user.currentUser);
   const userPosts = useSelector((state) => state.userPostsById.posts);
   let feed = useSelector((state) => state.feed.posts);
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user.currentUser);
 
   let cardValues = {};
   props.description
@@ -83,7 +83,6 @@ export default function CardPost(props) {
       ))}
     </div>
   );
-        console.log(props.shareUser)
 
   props.shared? cardValues.shared = <div className={Cardpost.sharedCont}>Original post by <Link to={"users/"+props.shareUser?._id}>{props.shareUser? (props.shareUser.username? props.shareUser.username : "user") : ""}</Link> </div> : cardValues.shared="";
 
@@ -95,7 +94,7 @@ export default function CardPost(props) {
     setLiked(true);
     socket.emit("sendNotification", {
       senderName: user,
-      receiverName: userPosts,
+      receiverName: props.userId,
       type,
     });
   }
@@ -109,7 +108,7 @@ export default function CardPost(props) {
     likeAction(
       dispatch,
       props.id,
-      userData._id,
+      {idUser: userData._id},
       userData.accessToken,
       index
     );
@@ -153,7 +152,7 @@ export default function CardPost(props) {
             <div className={Cardpost.userPhotoCont}><img className={Cardpost.userPhoto} src={ props.userPhoto ? props.userPhoto : "./default_profile_photo.svg"} alt="not_found"/></div>
             <p className={Cardpost.userNameP}>{props.userName}</p>
           </Link>
-          {props.userId === user.currentUser?._id && (
+          {props.userId === user._id && (
             <span className={Cardpost.deleteBut} onClick={() => handleDelete(props.id)}>
               <FontAwesomeIcon icon={faTrashAlt} />
             </span>

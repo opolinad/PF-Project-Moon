@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef} from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faSearch, faBell } from "@fortawesome/free-solid-svg-icons";
 import { logoutUser } from "../ReduxToolkit/apiCalls/loginCall";
 import { useLocation } from "react-router";
-import socket from "../Conversations/socket"
+import { io } from 'socket.io-client'
 
 import NavbarCss from "./Navbar.module.css";
 import useTabName from "../helpers/CustomHooks/useTabName.js";
@@ -23,13 +23,26 @@ export default function Navbar() {
   const [search, setSearch] = useState("");
   const [searchErr, setSearchErr] = useState("");
   const [open, setOpen] = useState(false);
+  const socket = useRef()
+  const user = useSelector(state => state.user.currentUser)
 
   const dispatch = useDispatch();
   const location = useLocation();
+  
 
   const currentUser = useSelector((state) => state.user.currentUser);
  
 
+  useEffect(()=> {
+    socket.current = io('ws://localhost:3000/')
+    socket.current.on("getNotification", (data) => {
+        setNotifications((prev) => [...prev, data])
+    })
+  }, [])
+
+  useEffect(() => { //
+    socket.current.emit("addUser", user._id);
+  }, [user]);
   
 
   //const testingUse= useTabName();
@@ -38,11 +51,6 @@ export default function Navbar() {
     return "";
   }
 
-  // useEffect(()=> {
-  //   socket.on("getNotification", (data) => {
-  //       setNotifications((prev) => [...prev, data])
-  //   })
-  // }, [socket])
 
   function displayNotifications({ senderName, type }) {
     let action;

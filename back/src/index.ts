@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import passport from "passport";
 import { dbConnect } from './db';
 import cookieSession from "cookie-session";
+import { NumericLiteral } from 'typescript';
 const allRoute = require('./routes/routes')
 const app = express();
 const http = require('http')
@@ -75,6 +76,21 @@ io.on("connection", (socket:any) => {
       text,
     });
   });
+
+  socket.on("sendNotification",({ senderName, receiverName, type }:{senderName:any, receiverName:string, type:number}) =>{
+    try {
+      console.log("El que lo manda es",senderName);
+      
+      const user: any = getUser(receiverName);
+      console.log("manda notificacion",user);
+    io.to(user.socketId).emit("getNotification", {
+      senderName: senderName.email.split("@",1),
+      type
+    })
+  } catch (err) {
+    console.log(err)
+  }
+  })
 
   //Cuando un usuario se desconecta
   socket.on("disconnect", () => {
