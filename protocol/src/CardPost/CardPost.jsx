@@ -106,7 +106,7 @@ export default function CardPost(props) {
     likeAction(
       dispatch,
       props.id,
-      { idUser: userData._id },
+      userData._id,
       userData.accessToken,
       index
     );
@@ -121,7 +121,7 @@ export default function CardPost(props) {
     shareAction(
       dispatch,
       props.id,
-      { userId: userData._id },
+      { idUser: userData._id },
       userData.accessToken,
       index
     );
