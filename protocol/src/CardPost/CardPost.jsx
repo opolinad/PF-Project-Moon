@@ -9,7 +9,7 @@ import {
   faCommentAlt,
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import socket from "../socket/socket";
+import socket from "../Conversations/socket";
 
 import { useDispatch, useSelector } from "react-redux";
 import { likeAction, shareAction } from "../ReduxToolkit/apiCalls/cardPostCall";

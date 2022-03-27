@@ -12,9 +12,9 @@ import Navbar from "./Navbar/Navbar.jsx";
 import CookiesPolicy from "./CookiesPolicy/CookiesPolicy.jsx";
 import PostPost from "./PostPost/PostPost"
 
-
 import "./App.css";
 import UserEdit from "./User/UserEdit.jsx";
+import Bandeja from "./Conversations/Bandeja.jsx";
 
 export default function App() {
 
@@ -34,6 +34,7 @@ export default function App() {
 
                         <Route className={"routeCont"} path={"users/:id/*"} element={ <> <User /> <UserBoard /> </> } />
 
+                        <Route path='/mensajes' element={<Bandeja />}/>
                         <Route path="*" element={<NotFound />} />
                         {/* <Route path="CookiesPolicy" element={<CookiesPolicy />} /> */}
                     </Route>
