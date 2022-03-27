@@ -84,6 +84,8 @@ export default function Feed(props) {
           description={element.description}
           imgs={element.images}
           shares={element.shares}
+          shared={element.share}
+          shareUser={element.shareUser}
           likes={element.likes}
           id={element._id}
           userName={element.user.username}
