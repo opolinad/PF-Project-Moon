@@ -37,7 +37,20 @@
     transition: 0.2s;
 }   
 
+
 .image{
     width: 8vw;
     height: auto;
+}
+
+
+.name{
+    display: flex;
+    align-items: center;
+
+    color: #864879;
+    font-size: 1.2vw;
+    text-align: center;
+
+    overflow: hidden;
 }
