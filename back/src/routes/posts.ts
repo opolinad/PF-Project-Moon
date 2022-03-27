@@ -182,11 +182,12 @@ router.put('/like/:idPost', verifyToken, async (req:Request, res:Response) => {
 router.post('/share/:idPost', async (req:Request, res:Response) => {
     const { idPost } = req.params
     const { idUser } = req.body
+    let post = await Post.findById(idPost)
     try {
-        let post = await Post.findById(idPost)
         if(!post.shares.includes(idUser)) { 
             
         const share = {
+            originId: idPost,
             user: post.user,
             images: post.images,
             description: post.description,
@@ -199,14 +200,29 @@ router.post('/share/:idPost', async (req:Request, res:Response) => {
         }
 
             const sharePost = new Post(share)
-            const savedPost = await sharePost.save()
+            await sharePost.save()
 
             await post.updateOne({$push: {shares: idUser}})
-            res.json(savedPost)
+
+            let returnPost = await Post.findById(idPost, {shares:1})
+            .populate('shares',{username: 1, profilePhoto:1})
+
+            res.json(returnPost)
         } else {
-            res.status(400).json('Ya compartiste esta publicacion antes')
+            let posts = await Post.find({shareUser: idUser})
+            console.log(posts)
+            posts = posts.filter((post:any) => post.originId === post._id)
+            await Post.findByIdAndDelete(posts._id)
+
+            await post.updateOne({$pull: {shares: idUser}})
+
+            let returnPost = await Post.findById(idPost, {shares:1})
+            .populate('shares',{username: 1, profilePhoto:1})
+
+            res.json(returnPost)
         }
     } catch(error) {
+        console.log(error)
         res.status(500).json({error: error})
     }
 })

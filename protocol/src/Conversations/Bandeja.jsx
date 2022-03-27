@@ -61,6 +61,7 @@ const Bandeja = () => {
       try {
         const res = await axios.get("http://localhost:3001/api/messages/" + currentChat?._id);
         setMessages(res.data);
+        console.log(res)
       } catch (err) {
         console.log(err);
       }
@@ -71,9 +72,9 @@ const Bandeja = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const message = {
+      conversationId: currentChat._id,
       sender: user._id,
       text: newMessage,
-      conversationId: currentChat._id,
     };
 
     const receiverId = currentChat.members.find(
@@ -102,6 +103,7 @@ const Bandeja = () => {
   return (
       <div className={BandejaCss.Bandeja}>
         <div className={BandejaCss.chatMenu}>
+          <h1>Conversations </h1>
             {conversations.map((conversation) => (
               <div onClick={() => setCurrentChat(conversation)}>
                 <Conversation conversation={conversation} currentUser={user} />
@@ -113,9 +115,9 @@ const Bandeja = () => {
               <div>
                 <div className={BandejaCss.chatBoxTop}>
                   {messages.map((message) => (
-                    <div ref={scrollRef}>
+                    // <div ref={scrollRef}>
                       <Message message={message} own={message.sender === user._id} />
-                    </div>
+                    // </div>
                   ))}
                 </div>
                 <div className={BandejaCss.chatFin}>
@@ -125,7 +127,7 @@ const Bandeja = () => {
                     onChange={(e) => setNewMessage(e.target.value)}
                     value={newMessage}
                   ></textarea>
-                  <button className={BandejaCss.button} onClick={handleSubmit}>
+                  <button className={BandejaCss.button} onClick={(e) => handleSubmit(e)}>
                     Send
                   </button>
                 </div>
@@ -137,6 +139,7 @@ const Bandeja = () => {
             )}
         </div>
         <div className={BandejaCss.ChatOnline}>
+          <h1>OnlineUsers</h1>
             <ChatOnline
               onlineUsers={onlineUsers}
               currentId={user._id}

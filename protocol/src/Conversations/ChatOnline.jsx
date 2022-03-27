@@ -3,10 +3,11 @@ import defaultPhoto from '../assets/default_profile_photo.svg'
 import ChatOnlineCss from "./ChatOnline.module.css";
 
 export default function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
-  
-  const handleClick = async (user) => {
+console.log(onlineUsers)
+  const handleClick = async (event, user) => {
+    event.preventDefault()
     try {
-      const res = await axios.get(`http://localhost:3001/conversations/find/${currentId}/${user._id}`);
+      const res = await axios.get(`http://localhost:3001/api/conversations/find/${currentId}/${user}`);
       setCurrentChat(res.data);
     } catch (err) {
       console.log(err);
@@ -16,7 +17,7 @@ export default function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
   return (
     <div className={ChatOnlineCss.ChatOnline}>
       {onlineUsers.map((userOnline) => (
-        <div className={ChatOnlineCss.userOnline} onClick={() => handleClick(userOnline)}>
+        <div className={ChatOnlineCss.userOnline} onClick={(event) => handleClick(event,userOnline)}>
           <div className={ChatOnlineCss.container}>
             <img
               className={ChatOnlineCss.image}
