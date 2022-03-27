@@ -21,11 +21,8 @@ export default function Conversation({ conversation, user }) {
   }, [currentUser, conversation]);
   return (
     <div className={ConversationCss.conversation}>
-      <img
-        className={ConversationCss.image}
-        src={ currentUser?.profilePhoto? currentUser.profilePhoto : defaultPhoto}
-        alt="Not found"
-      />
+      <div className={ConversationCss.imgCont}><img className={ConversationCss.image} src={ currentUser?.profilePhoto? currentUser.profilePhoto : defaultPhoto} alt="Not found"/></div>
+      
       <span className={ConversationCss.name}>{currentUser?.username}</span>
     </div>
   );
