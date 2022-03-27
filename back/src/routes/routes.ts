@@ -10,6 +10,7 @@ const favoritesRoute = require('./favourites')
 const feedRoute = require('./feed')
 const categoriesRoute = require('./categories')
 const profileRoute = require('./profile')
+const stripeRoute = require('./stripe')
 
 router.use('/register', registerRoute)
 router.use('/login', loginRoute)
@@ -20,5 +21,6 @@ router.use('/favourites', favoritesRoute)
 router.use('/feed', feedRoute)
 router.use('/categories', categoriesRoute)
 router.use('/profile', profileRoute)
+router.use('/checkout', stripeRoute)
 
 module.exports = router;

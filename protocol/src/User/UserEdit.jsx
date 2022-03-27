@@ -75,6 +75,7 @@ export default function UserEdit() {
     return (
         <div id={styles.editCont}>
             <form id={styles.editForm} onSubmit={(e) => handleSubmit(e)}>
+
                 <div className={styles.editShell}>
                     <label className={styles.editLabel} >Username: </label>
                     <input
@@ -85,6 +86,7 @@ export default function UserEdit() {
                         onChange={handleInputChange}
                     />
                 </div>
+
                 <div className={styles.editShell}>
                     <label className={styles.editLabel}>FullName: </label>
                     <input
@@ -95,38 +97,37 @@ export default function UserEdit() {
                         onChange={handleInputChange}
                     />
                 </div>
+
                 <div className={styles.editShell}>
                     <label className={styles.editLabel}>Profile Photo: </label>
-                    <div style={{ width: '150px', height: '150px', position: 'relative' }} >
+                    <div  id={styles.currentImgProfileCont}>
                         {
                             loading1 ?
-                                <img src="https://acegif.com/wp-content/uploads/loading-25.gif" style={{ width: "100%", height: '100%', objectFit: 'cover' }} /> :
-                                <img src={!image1 ? inputs?.profilePhoto || DefaultProfile : image1} alt="profile" style={{ width: "100%", height: '100%', objectFit: 'cover', borderRadius: '100%', border: "5px solid #864879" }} />
+                                <img id={styles.currentImgProfile} src="https://acegif.com/wp-content/uploads/loading-25.gif" /> :
+                                <img id={styles.currentImgProfile} src={!image1 ? inputs?.profilePhoto || DefaultProfile : image1} alt="profile"/>
                         }
 
                     </div>
-                    <input
-                        className={styles.editInput}
-                        type={type1}
-                        id="file1"
-                        onChange={onChange1}
-                    />
+
+                    <div className={styles.decoFileInput}>Change Profile</div>
+                    <input className={styles.editInputFile} type={type1} id="file1" onChange={onChange1}/>
+                
                 </div>
+
                 <div className={styles.editShell}>
-                    <label className={styles.editLabel} >BackgroundPhoto: </label>
-                    <div style={{ width: '300px', height: '150px', position: 'relative' }} >
+                    <label className={styles.editLabel} >Background Image: </label>
+                    <div id={styles.currentImgBackCont} >
                         {
                             loading2 ?
-                                <img src="https://acegif.com/wp-content/uploads/loading-25.gif" style={{ width: "100%", height: '100%', objectFit: 'cover' }} /> :
-                                <img src={!image2 ? inputs?.backgroundPhoto || DefaultProfile : image2} alt="profile" style={{ width: "100%", height: '100%', objectFit: 'cover', border: "5px solid #864879" }} />
+                                <img id={styles.currentImgBack} src="https://acegif.com/wp-content/uploads/loading-25.gif"/> :
+                                <img id={styles.currentImgBack} src={!image2 ? inputs?.backgroundPhoto || DefaultProfile : image2} alt="profile"/>
                         }
                     </div>
-                    <input
-                        className={styles.editInput}
-                        type={type2}
-                        id="file2"
-                        onChange={onChange2}
-                    />
+
+                    <div className={styles.decoFileInput}>Change Background</div>
+                    <input className={styles.editInputFile} type={type2} id="file2" onChange={onChange2}/>
+                   
+
                 </div>
                 {!loading1 && !loading2 && <><button id={styles.editSubmit} type="submit" >SUBMIT</button></>}
             </form>
