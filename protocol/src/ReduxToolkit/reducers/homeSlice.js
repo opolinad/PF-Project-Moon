@@ -27,8 +27,11 @@ const feedSlice = createSlice({
         feedNextPageDatabase: (state, action) => {
             state.posts = action.payload;
         },
-        updateFeed: (state, action) => {
+        updateFeedLikes: (state, action) => {
             state.posts[action.payload.index].likes = action.payload.data.likes;
+        },
+        updateFeedShares: (state, action) => {
+            state.posts[action.payload.index].shares = action.payload.data.shares;
         }
     }
 });
@@ -98,7 +101,7 @@ const filterAndOrderSlice = createSlice({
     }
 });
 
-export const { searchingDatabase, feedDatabase, setSearchingToLoading, setFeedToLoading, feedNextPageDatabase, updateFeed } = feedSlice.actions;
+export const { searchingDatabase, feedDatabase, setSearchingToLoading, setFeedToLoading, feedNextPageDatabase, updateFeedLikes, updateFeedShares } = feedSlice.actions;
 export const feedReducer = feedSlice.reducer;
 export const { getCategoriesLoading, getCategories } = categoriesSlice.actions;
 export const categoriesReducer = categoriesSlice.reducer;
