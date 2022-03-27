@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getUser } from "../ReduxToolkit/apiCalls/userCall";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,22 +12,22 @@ export default function User() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [donationShow,setDonationShow] = useState(true);
+
   const { id } = useParams();
   const userData = useSelector((state) => state.userData);
   useEffect(() => {
     getUser(dispatch, id);
   }, []);
 
-  console.log(userData.error, userData.isFetching);
   if (userData.isFetching)
     return <div id={css.userStatus}>Loading Fuel, be patient!</div>;
-  else if (userData.error) {
-    console.log("24");
-    return <div id={css.userStatus}>Error!_Rocket Lost</div>;
-    console.log("26");
+  else if (userData.error) { 
+    return <div id={css.userStatus}>Error!_Rocket Lost</div>; 
   }
 
-  console.log("25");
+  let donateLength= donationShow? css.longDonationBut : css.shortDonationBut;
+  
   return (
     <div id={css.container}>
       <div id={css.upperCont}>
@@ -36,14 +36,12 @@ export default function User() {
             <div id={css.bannerCont}>
               <img src={ userData.currentUser?.backgroundPhoto ? userData.currentUser?.backgroundPhoto : "/default_banner_photo.svg"} alt="backgroundPhoto not found" id={css.banner}/>
             </div>
-
-            <Donation />
             
             <div id={css.profileSection}>
               <img src={ userData.currentUser?.profilePhoto ? userData.currentUser?.profilePhoto : "/default_profile_photo.svg"} alt="profilePhoto not found" id={css.profilePhoto}/>
               
               <div>
-                <h1> {userData.currentUser?.fullName ? userData.currentUser?.fullName : userData.currentUser?.email.split("@")[0]}</h1>
+                <h1>{userData.currentUser?.fullName ? userData.currentUser?.fullName : userData.currentUser?.email.split("@")[0]}</h1>
                 <p>@{userData.currentUser.username ? userData.currentUser?.username : userData.currentUser?.email.split("@")[0]} </p>
 
                 <div>
@@ -51,6 +49,12 @@ export default function User() {
                   <Link to={"followers"} id={css.followsLink}> <button> {userData.currentUser?.followers.length} followers </button> </Link>
                 </div>
               </div>
+
+              <div id={css.donationCont}>
+                <Donation />
+                <button onClick={()=>setDonationShow(!donationShow)} id={donateLength}>Donate to Artist</button>        
+              </div>
+              
 
             </div>
 

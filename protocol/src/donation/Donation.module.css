@@ -1,0 +1,10 @@
+#donationCont{
+    display: flex;
+    flex-direction: row;
+
+    width: 6vw;
+    height: 4vh;
+
+    grid-column: 1/3;
+    grid-row: 1/2;
+}

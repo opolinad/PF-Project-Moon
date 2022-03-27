@@ -123,6 +123,30 @@
 }
 
 
+
+#donationCont{
+    display: grid;
+    grid-auto-columns: 4vw;
+    grid-auto-rows: 4vh;
+
+    width: 16vw;
+    height: 4vh;
+}
+#longDonationBut{
+    grid-column: 1/5;
+    grid-row: 1/2;
+
+    width: 100%;
+}
+#shortDonationBut{
+    grid-column: 1/5;
+    grid-row: 1/2;
+    width:20%;
+}
+#longDonationBut,#shortDonationBut{
+    position: relative;
+}
+
 #postsLink {
     background-color: transparent;
     color: #ffffff;
