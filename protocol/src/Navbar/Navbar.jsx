@@ -85,7 +85,6 @@ export default function Navbar() {
 
   return (
     <div id={NavbarCss.navbarCont}>
-      {console.log(showMenu,notifications,search,searchErr,open)}
       <div id={NavbarCss.navbarShell}>
 
         <div id={NavbarCss.paddingIzq} />

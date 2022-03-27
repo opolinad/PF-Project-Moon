@@ -34,7 +34,6 @@ export default function Feed(props) {
   const homePage = useSelector((state) => state.homePage);
   const currentUser = useSelector((state) => state.user.currentUser);
 
-  console.log(feed);
 
   useEffect(() => {
     if (flag_1Carga) {

@@ -138,69 +138,57 @@ export default function CardPost(props) {
     navigate("/post/" + props.id);
   }
 
-  console.log("QUE ES ESTO??", props);
-
-  return (
-    <div className={Cardpost.CardPostCont}>
-      <div className={Cardpost.userInfoCont}>
-        <Link to={`/users/${props.userId}`} className={Cardpost.userName}>
-          <img
-            className={Cardpost.userPhoto}
-            src={
-              props.userPhoto ? props.userPhoto : "./default_profile_photo.svg"
-            }
-            alt="not_found"
-          />
-
-          {props.userName}
-        </Link>
-        {props.userId === userData?._id && (
-          <span
-            className={Cardpost.deleteBut}
-            onClick={() => handleDelete(props.id)}
-          >
-            <FontAwesomeIcon icon={faTrashAlt} />
-          </span>
-        )}
-      </div>
-
-      {/* title */}
-      <h2 className={Cardpost.cardPostTitle}>{props.title}</h2>
-
-      {/* description */}
-      <div className={Cardpost.descriptionCont}>
-        <p className={Cardpost.cardPostDescription}>{cardValues.description}</p>
-      </div>
-
-      {/* {cardValues.imgs} */}
-      <ImgPreviews imgs={props.imgs} id={props.id} />
-      {cardValues.categories}
-
-      <div className={Cardpost.analiticsCont}>
-        {/* likes */}
-        <div className={Cardpost.likesShell} onClick={() => handleLike()}>
-          <FontAwesomeIcon className={cardValues.likeImg} icon={faHeart} />
-          {props.likes.length}
+    return (
+      <div className={Cardpost.CardPostCont}>
+        <div className={Cardpost.userInfoCont}>
+          <Link to={`/users/${props.userId}`} className={Cardpost.userName}>
+            <div className={Cardpost.userPhotoCont}><img className={Cardpost.userPhoto} src={ props.userPhoto ? props.userPhoto : "./default_profile_photo.svg"} alt="not_found"/></div>
+            <p className={Cardpost.userNameP}>{props.userName}</p>
+          </Link>
+          {props.userId === userData?._id && (
+            <span className={Cardpost.deleteBut} onClick={() => handleDelete(props.id)}>
+              <FontAwesomeIcon icon={faTrashAlt} />
+            </span>
+          )}
         </div>
-        {/* shares */}
-        <div className={Cardpost.sharesShell} onClick={() => handleShare()}>
-          <FontAwesomeIcon
-            className={cardValues.sharedImg}
-            icon={faShareSquare}
-          />
-          {props.shares.length}
+  
+        {/* title */}
+        <h2 className={Cardpost.cardPostTitle}>{props.title}</h2>
+  
+        {/* description */}
+        <div className={Cardpost.descriptionCont}>
+          <p className={Cardpost.cardPostDescription}>{cardValues.description}</p>
         </div>
-        {/* favorites */}
-        <div className={Cardpost.favoritesShell}>{"fav"}</div>
-        <div className={Cardpost.commentShell}>
-          <div onClick={() => navigate("/post/" + props.id)}>
-            <FontAwesomeIcon icon={faCommentAlt} /> Commentaries
+  
+        {/* {cardValues.imgs} */}
+        <ImgPreviews imgs={props.imgs} id={props.id} />
+        {cardValues.categories}
+  
+        <div className={Cardpost.analiticsCont}>
+          {/* likes */}
+          <div className={Cardpost.likesShell} onClick={() => handleLike()}>
+            <FontAwesomeIcon className={cardValues.likeImg} icon={faHeart} />
+            {props.likes.length}
+          </div>
+          {/* shares */}
+          <div className={Cardpost.sharesShell} onClick={() => handleShare()}>
+            <FontAwesomeIcon
+              className={cardValues.sharedImg}
+              icon={faShareSquare}
+            />
+            {props.shares.length}
+          </div>
+          {/* favorites */}
+          <div className={Cardpost.favoritesShell}>{"fav"}</div>
+          <div className={Cardpost.commentShell}>
+            <div onClick={() => navigate("/post/" + props.id)}>
+              <FontAwesomeIcon icon={faCommentAlt} /> Commentaries
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
 /* return(
     <div className={Cardpost.CardPostCont}>

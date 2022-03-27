@@ -21,8 +21,6 @@ export const getSearchResults = async (id=null,dispatch,search = "",selectedCate
     }
     if (order !== "") {
     }
-    
-    console.log(q)
   
     const resp = await axios.get(`http://localhost:3001/api/feed/${id}?${q}`);
     let status = NOT_FOUND_404;

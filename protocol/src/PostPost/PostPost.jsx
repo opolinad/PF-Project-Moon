@@ -52,77 +52,12 @@ export default function PostPost() {
     categories: [],
   });
 
-  // const upImage = (e) => {
-  //     e.preventDefault()
-  //     //Para que las imagen con el mismo nombre no se pisen
-  //     const fileName = new Date().getTime() + profile.name
-  //     //Traer del storage los datos
-  //     const storage = getStorage(app)
-  //     //Referencia
-  //     const sotorageRef = ref(storage, fileName)
-  //     //COnfiguracion de Firebase para los File y conseguir la URL
-  //     const uploadTask = uploadBytesResumable(sotorageRef, profile);
-
-  //     // Register three observers:
-  //     // 1. 'state_changed' observer, called any time the state changes
-  //     // 2. Error observer, called on failure
-  //     // 3. Completion observer, called on successful completion
-  //     uploadTask.on('state_changed',
-  //         (snapshot) => {
-  //             // Observe state change events such as progress, pause, and resume
-  //             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-  //             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-  //             console.log('Upload is ' + progress + '% done');
-  //             switch (snapshot.state) {
-  //                 case 'paused':
-  //                     console.log('Upload is paused');
-  //                     break;
-  //                 case 'running':
-  //                     console.log('Upload is running');
-  //                     break;
-  //                 default:
-  //             }
-  //         },
-  //         (error) => {
-  //             // Handle unsuccessful uploads
-  //         },
-  //         () => {
-  //             // Handle successful uploads on complete
-  //             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-  //             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-  //                 setInput({
-  //                     ...input,
-  //                     image: downloadURL
-  //                 })
-  //                 // setActive(false)
-  //                 // const updateUser = { ...inputs, profilePhoto: downloadURL };
-  //                 // console.log(updateUser);
-  //                 // addProduct(product, dispatch).then(response => {
-  //                 //     history.push('/products')
-  //                 // })
-  //             });
-  //         }
-  //     );
-  // }
-
+  
   useEffect(() => {
     getCategoriesAsync(dispatch);
   }, [dispatch]);
 
-  function handleDeSelect(e) {
-    setInput({
-      ...input,
-      categories: input.categories.filter(
-        (element) => element != e.target.value
-      ),
-    });
-    setErrors(
-      validate({
-        ...input,
-        [e.target.name]: e.target.value,
-      })
-    );
-  }
+
 
   // function handleImgChange(e) {
   //     setProfile(e.target.files[0])
@@ -142,11 +77,22 @@ export default function PostPost() {
     );
   }
 
-  function handleSelect(e) {
-    setInput({
-      ...input,
-      [e.target.name]: [...input.categories, e.target.value],
-    });
+  function handleSelect(e) 
+  {
+    console.log(e.target.value,input.categories)
+    if(!input.categories.includes(e.target.value))
+    {
+      setInput({...input, categories: [...input.categories, e.target.value]});
+      setErrors( validate({...input, [e.target.name]: e.target.value}) );
+    }
+
+ }
+
+  function handleDeSelect(e) {
+    e.preventDefault();
+
+    setInput({...input, categories: input.categories.filter((element) => element != e.target.value)});
+
     setErrors(
       validate({
         ...input,
@@ -189,96 +135,43 @@ export default function PostPost() {
         <div id={css.innerCreateCont}>
           {/* <div><button onClick={(e) => upImage(e)}>UPLOAD IMAGE</button></div> */}
           <div className={css.infoCont}>
-            <input
-              className={css.labelInputTitle}
-              onChange={(e) => handleChange(e)}
-              placeholder="Title"
-              type="text"
-              name="title"
-              value={input.title}
-            />
-            {errors.title && (
-              <span className={css.labelSpan}>
-                <small>{errors.title}</small>
-              </span>
-            )}
+            <input className={css.labelInputTitle} onChange={(e) => handleChange(e)} placeholder="Title" type="text" name="title" value={input.title}/>
+            {errors.title && (<span className={css.labelSpan}><small>{errors.title}</small></span>)}
           </div>
 
           <div className={css.infoCont}>
-            <textarea
-              className={css.labelInputDescription}
-              onChange={(e) => handleChange(e)}
-              placeholder="Description"
-              type="text"
-              name="description"
-              value={input.description}
-            />
-            {errors.description && (
-              <span className={css.labelSpan}>
-                <small>{errors.description}</small>
-              </span>
-            )}
+            <textarea className={css.labelInputDescription} onChange={(e) => handleChange(e)} placeholder="Description" type="text" name="description" value={input.description}/>
+            {errors.description && (<span className={css.labelSpan}> <small>{errors.description}</small></span>)}
           </div>
 
           <div id={css.imgUpCont}>
             <div id={css.imgUpHidden}>
               {input?.image && loading1 ? (
-                <img
-                  src="https://acegif.com/wp-content/uploads/loading-25.gif"
-                  id={css.imgUploaded}
-                />
-              ) : (
-                <img
-                  src={!image1 ? input?.image : image1}
-                  id={css.imgUploaded}
-                />
+                <img src="https://acegif.com/wp-content/uploads/loading-25.gif" id={css.imgUploaded}/>) : (<img src={!image1 ? input?.image : image1}id={css.imgUploaded}/>
               )}
-            </div>
+          </div>
 
-            <div className={css.labelImgUpload}>Upload Images</div>
-            <input
-              className={css.labelInputImg}
-              type={type1}
-              id="file1"
-              onChange={onChange1}
-            />
+          <div className={css.labelImgUpload}>Upload Images</div>
+            <input className={css.labelInputImg} type={type1} id="file1" onChange={onChange1}/>
           </div>
 
           <div className={css.infoContCat}>
-            <select
-              className={css.labelInputCat}
-              id="categories"
-              name="categories"
-              onChange={(e) => handleSelect(e)}
-              required
-            >
+
+            <select className={css.labelInputCat} id="categories" name="categories" onChange={(e) => handleSelect(e)} required>
               <option value="categories"> Choose the categories </option>
-              {categories?.map((c, i) => (
-                <option
-                  key={"category_option_" + i}
-                  className={css.optionCat}
-                  value={c}
-                >
-                  {c}
-                </option>
-              ))}
+              {categories?.map((c, i) => (<option key={"category_option_" + i} className={css.optionCat} value={c}> {c} </option>))}
             </select>
+
             <div className={css.selectedCont}>
-              {input.categories.map((element, index) => (
-                <button
-                  onClick={(e) => handleDeSelect(e)}
-                  className={css.categorySelected}
-                  key={"selected_cat_" + index}
-                  value={element}
-                >
-                  {element} <FontAwesomeIcon icon={faTimes} />
-                </button>
-              ))}
+              {input.categories.map((element, index) => (<button onClick={(e) => handleDeSelect(e)} className={css.categorySelected} key={"selected_cat_" + index} value={element}>{element} <FontAwesomeIcon icon={faTimes} /> </button>))}
             </div>
+
           </div>
+
           <button id={css.submitButPost} type="submit">
             Launch!
           </button>
+
         </div>
       </form>
     </div>
