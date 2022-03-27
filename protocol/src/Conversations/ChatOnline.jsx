@@ -19,12 +19,9 @@ console.log(onlineUsers)
       {onlineUsers.map((userOnline) => (
         <div className={ChatOnlineCss.userOnline} onClick={(event) => handleClick(event,userOnline)}>
           <div className={ChatOnlineCss.container}>
-            <img
-              className={ChatOnlineCss.image}
-              src={ userOnline?.profilePhoto? userOnline.profilePhoto : defaultPhoto}
-              alt="Not found"
-            />
+            <img className={ChatOnlineCss.image} src={ userOnline?.profilePhoto? userOnline.profilePhoto : defaultPhoto} alt="Not found"/>
           </div>
+          
           <span className={ChatOnlineCss.name}>{userOnline?.username}</span>
         </div>
       ))}

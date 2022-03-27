@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Fragment } from "react";
 import { useSelector } from "react-redux";
 import { io } from 'socket.io-client'
 import axios from "axios";
@@ -101,50 +101,31 @@ const Bandeja = () => {
   }, [messages]);
 
   return (
-      <div className={BandejaCss.Bandeja}>
-        <div className={BandejaCss.chatMenu}>
-          <h1>Conversations </h1>
+      <div id={BandejaCss.BandejaCont}>
+        <div id={BandejaCss.chatMenu}>
             {conversations.map((conversation) => (
-              <div onClick={() => setCurrentChat(conversation)}>
-                <Conversation conversation={conversation} currentUser={user} />
-              </div>
+              <div onClick={() => setCurrentChat(conversation)}> <Conversation conversation={conversation} currentUser={user} /> </div>
             ))}
         </div>
-        <div className={BandejaCss.chatBox}>
+
+        <div id={BandejaCss.chatBox}>
             {currentChat ? (
-              <div>
-                <div className={BandejaCss.chatBoxTop}>
-                  {messages.map((message) => (
-                    // <div ref={scrollRef}>
-                      <Message message={message} own={message.sender === user._id}image={user.profilePhoto} />
-                    // </div>
-                  ))}
+              <Fragment>
+                <div id={BandejaCss.chatBoxTop}>
+                  {messages.map((message) => ( <Message message={message} own={message.sender === user._id} /> ))}
                 </div>
-                <div className={BandejaCss.chatFin}>
-                  <textarea
-                    className={BandejaCss.textArea}
-                    placeholder="Enviar un mensaje..."
-                    onChange={(e) => setNewMessage(e.target.value)}
-                    value={newMessage}
-                  ></textarea>
-                  <button className={BandejaCss.button} onClick={(e) => handleSubmit(e)}>
-                    Send
-                  </button>
+
+                <div id={BandejaCss.chatFin}>
+                  <textarea id={BandejaCss.textArea} placeholder="Enviar un mensaje..." onChange={(e) => setNewMessage(e.target.value)} value={newMessage}></textarea>
+                  <button id={BandejaCss.button} onClick={(e) => handleSubmit(e)}> Send </button>
                 </div>
-              </div>
-            ) : (
-              <span className={BandejaCss.sinConversacion}>
-                Abre un chat para empezar
-              </span>
-            )}
+              </Fragment>
+            ) : ( <span id={BandejaCss.sinConversacion}> Abre un chat para empezar </span>)}
         </div>
-        <div className={BandejaCss.ChatOnline}>
-          <h1>OnlineUsers</h1>
-            <ChatOnline
-              onlineUsers={onlineUsers}
-              currentId={user._id}
-              setCurrentChat={setCurrentChat}
-            />
+
+        <div id={BandejaCss.ChatOnline}> 
+          <h1>OnlineUsers</h1> 
+          <ChatOnline onlineUsers={onlineUsers} currentId={user._id} setCurrentChat={setCurrentChat}/>
         </div>
       </div>
   );

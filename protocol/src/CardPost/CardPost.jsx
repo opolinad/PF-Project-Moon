@@ -83,9 +83,9 @@ export default function CardPost(props) {
       ))}
     </div>
   );
-        console.log(props.share)
+        console.log(props.shareUser)
 
-  props.shared? cardValues.shared = <div className={Cardpost.sharedCont}>Original post by <Link to={"users/"+props.shareUser?._id}>{props.shareUser?.username}</Link> </div> : cardValues.shared="";
+  props.shared? cardValues.shared = <div className={Cardpost.sharedCont}>Original post by <Link to={"users/"+props.shareUser?._id}>{props.shareUser? (props.shareUser.username? props.shareUser.username : "user") : ""}</Link> </div> : cardValues.shared="";
 
   cardValues.likes = props.likes.length;
   cardValues.shares = props.shares.length;
