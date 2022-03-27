@@ -113,12 +113,17 @@ export default function CardPost(props) {
   }
 
   function handleShare() {
+    let index;
+    for (let i = 0; i < feed.length; i++) {
+      if (feed[i]._id === props.id) index = i;
+    }
     handleNotifications(2);
     shareAction(
       dispatch,
       props.id,
       { userId: userData._id },
-      userData.accessToken
+      userData.accessToken,
+      index
     );
   }
 
