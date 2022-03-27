@@ -116,7 +116,7 @@ const Bandeja = () => {
                 <div className={BandejaCss.chatBoxTop}>
                   {messages.map((message) => (
                     // <div ref={scrollRef}>
-                      <Message message={message} own={message.sender === user._id} />
+                      <Message message={message} own={message.sender === user._id}image={user.profilePhoto} />
                     // </div>
                   ))}
                 </div>

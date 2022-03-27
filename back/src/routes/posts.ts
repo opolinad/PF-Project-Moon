@@ -183,6 +183,7 @@ router.post('/share/:idPost', async (req:Request, res:Response) => {
     const { idPost } = req.params
     const { idUser } = req.body
     let post = await Post.findById(idPost)
+    if(post.shareUser !== idUser){ 
     try {
         if(!post.shares.includes(idUser)) { 
             
@@ -224,6 +225,9 @@ router.post('/share/:idPost', async (req:Request, res:Response) => {
     } catch(error) {
         console.log(error)
         res.status(500).json({error: error})
+    }
+    } else {
+        res.status(400).json("Esta publicacion es tuya")
     }
 })
 
