@@ -45,7 +45,7 @@ export default function PostPost() {
   const [showCreate, setShowCreate] = useState(false);
 
   const [input, setInput] = useState({
-    user: user._id,
+    user: user?._id,
     image: "",
     title: "",
     description: "",

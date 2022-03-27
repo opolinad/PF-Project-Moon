@@ -9,7 +9,7 @@ import { faBars, faSearch, faBell } from "@fortawesome/free-solid-svg-icons";
 import { logoutUser } from "../ReduxToolkit/apiCalls/loginCall";
 import { useLocation } from "react-router";
 import { io } from 'socket.io-client'
-
+import { useNavigate } from "react-router";
 import NavbarCss from "./Navbar.module.css";
 import useTabName from "../helpers/CustomHooks/useTabName.js";
 import { nextPage, resetPage, setFeedToLoading } from "../ReduxToolkit/reducers/homeSlice.js";
@@ -29,7 +29,7 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const location = useLocation();
   
-
+  const navigate = useNavigate();
   const currentUser = useSelector((state) => state.user.currentUser);
  
 
@@ -41,7 +41,7 @@ export default function Navbar() {
   }, [])
 
   useEffect(() => { //
-    socket.current.emit("addUser", user._id);
+    socket.current.emit("addUser", user?._id);
   }, [user]);
   
 
@@ -79,6 +79,7 @@ export default function Navbar() {
 
   const handleLogout = () => {
     logoutUser(dispatch);
+    navigate('/')
   };
 
   const onClickHandler = () => {

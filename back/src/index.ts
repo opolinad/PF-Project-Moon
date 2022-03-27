@@ -5,7 +5,6 @@ import dotenv from 'dotenv';
 import passport from "passport";
 import { dbConnect } from './db';
 import cookieSession from "cookie-session";
-import { NumericLiteral } from 'typescript';
 const allRoute = require('./routes/routes')
 const app = express();
 const http = require('http')
