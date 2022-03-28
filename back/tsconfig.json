@@ -6,11 +6,11 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist",
-    "watch": true,
+    "watch": false,
     "strict": true,
     "declaration": true
   },
   "lib": ["es2015"],
-  "include": ["src//*"],
+  "include": ["./src/*.ts","./src/*/*.ts"],
   "exclude": ["node_modules", "/*.spec.ts"]
 }
