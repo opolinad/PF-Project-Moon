@@ -15,7 +15,7 @@ import axios from "axios"
 import "./App.css";
 import UserEdit from "./User/UserEdit.jsx";
 import Bandeja from "./Conversations/Bandeja.jsx";
-const axios.defaults.baseURL=process.env.REACT_APP_API;
+axios.defaults.baseURL=process.env.REACT_APP_API;
 
 export default function App() {
 
