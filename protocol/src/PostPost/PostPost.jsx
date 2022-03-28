@@ -46,7 +46,7 @@ export default function PostPost() {
 
   const [input, setInput] = useState({
     user: user?._id,
-    image: "",
+    images: "",
     title: "",
     description: "",
     categories: [],
@@ -60,7 +60,7 @@ export default function PostPost() {
   useEffect(() => {
     image1 && setInput({
       ...input,
-      image: image1
+      images: image1
     })
   }, [image1])
 
@@ -117,7 +117,7 @@ export default function PostPost() {
     postPost(dispatch, user._id, input, user.accessToken);
     setInput({
       user: user._id,
-      image: "",
+      images: "",
       title: "",
       description: "",
       categories: [],
