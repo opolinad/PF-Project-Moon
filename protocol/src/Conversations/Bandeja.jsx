@@ -21,7 +21,7 @@ const Bandeja = () => {
   const scrollRef = ("");
 
   useEffect(() => {
-    socket.current = io('/')
+    socket.current = io(process.env.REACT_APP_SOCKET+'/')
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
