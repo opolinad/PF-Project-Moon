@@ -9,9 +9,9 @@ export const loginUser = async (dispatch, user) => {
     try {
         let res;
         if (user.hasOwnProperty("platform")) {
-            res = await axios.get(`http://localhost:3001/api/login/session/`, { withCredentials: true });
+            res = await axios.get(`/api/login/session/`, { withCredentials: true });
         } else {
-            res = await axios.post(`http://localhost:3001/api/login/`, user)
+            res = await axios.post(`/api/login/`, user)
         }
         dispatch(loginSuccess(res.data))
     } catch (error) {
