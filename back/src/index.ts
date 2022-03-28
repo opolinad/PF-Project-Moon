@@ -14,7 +14,7 @@ dotenv.config()
 app.use(cookieSession({ name: "session", keys: ["lama"], maxAge: 24 * 60 * 60* 100 }));
 app.use(passport.session());
 
-app.use(cors("*"));
+app.use(cors({origin:"*"}));
 app.use(express.json());
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
