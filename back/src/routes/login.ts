@@ -33,7 +33,7 @@ router.post('/', async (req: Request, res: Response) => {
 router.get("/session", async (req: Request, res: Response) => {
   let userEmail;
   let infoUser: any = req.user;
-  console.log("req",req)
+  console.log("req",infoUser)
   const { email } = infoUser._json;
   const { mail } = infoUser._json;
   const { emails } = infoUser;
