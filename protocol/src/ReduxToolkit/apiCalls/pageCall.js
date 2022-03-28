@@ -14,7 +14,7 @@ export const findNextPage = async (dispatch, search = "", selectedCategory = "",
 
     console.log(q)
 
-    const resp = await axios.get("http://localhost:3001/api/posts"); // hay que cambiar la ruta al feed
+    const resp = await axios.get("/api/posts"); // hay que cambiar la ruta al feed
     let status = NOT_FOUND_404;
     if (resp.data.length) { status = SUCCESS_200 }
     dispatch(feedNextPageDatabase(resp.data)); //envia los 20 post
