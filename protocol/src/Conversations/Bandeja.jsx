@@ -21,7 +21,7 @@ const Bandeja = () => {
   const scrollRef = ("");
 
   useEffect(() => {
-    socket.current = io('ws://localhost:3000/')
+    socket.current = io('/')
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
@@ -49,7 +49,7 @@ const Bandeja = () => {
   useEffect(() => {
     const getConversations = async () => {
       try {
-        const res = await axios.get("http://localhost:3001/api/conversations/" + user._id);
+        const res = await axios.get("/api/conversations/" + user._id);
         setConversations(res.data);
       } catch (err) {
         console.log(err);
@@ -61,7 +61,7 @@ const Bandeja = () => {
   useEffect(() => {
     const getMessages = async () => {
       try {
-        const res = await axios.get("http://localhost:3001/api/messages/" + currentChat?._id);
+        const res = await axios.get("/api/messages/" + currentChat?._id);
         setMessages(res.data);
         console.log(res)
       } catch (err) {
@@ -90,7 +90,7 @@ const Bandeja = () => {
     });
 
     try {
-      const res = await axios.post("http://localhost:3001/api/messages", message);
+      const res = await axios.post("/api/messages", message);
       setMessages([...messages, res.data]);
       setNewMessage("");
     } catch (err) {
