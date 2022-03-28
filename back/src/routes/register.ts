@@ -9,7 +9,8 @@ router.post('/', async (req:Request,res:Response) => {
 
     const newUser = new User({
         email,
-        password: CryptoJS.AES.encrypt(password,process.env.HASH_CRYPTO).toString()
+        password: CryptoJS.AES.encrypt(password,process.env.HASH_CRYPTO).toString(),
+        username: email.split('@')[0]
     })
     
     try {

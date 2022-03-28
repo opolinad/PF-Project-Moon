@@ -1,0 +1,48 @@
+.messageOwn,.message{
+    width: 90%;
+    height: fit-content;
+
+    margin-bottom: 1vh;
+    transition: 0.2s;
+}
+.messageOwn:hover,.message:hover{
+    background-color: #3F3351;
+    transition: 0.2s;
+}
+.messageOwn{
+    margin-left: 10%;
+
+    border-top-left-radius: 0.5vw;
+    border-bottom-left-radius: 0.5vw;
+
+    background-color: #1F1D36;
+}
+.message{
+    margin-right: 10%;
+
+    border-top-right-radius: 0.5vw;
+    border-bottom-right-radius: 0.5vw;
+
+
+    background-color: #131222;
+}
+
+.messageText{
+    width: 90%;
+    margin: 0 5% 0 5%;
+    color: #F0E9D2;
+}
+
+.TimeAgo{
+    width: fit-content;
+    height: 2vh;
+    margin: 1vh 0 0 auto;
+
+    border-top-left-radius: 0.2vw;
+    border-top-right-radius: 0.2vw;
+
+    background-color: #171629;
+    color: #f0e9d298;
+
+    font-size: 0.8vw;
+}

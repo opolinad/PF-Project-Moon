@@ -6,7 +6,7 @@ const CryptoJS = require('crypto-js')
 
 
 // Editar usuario
-router.put('/:id',verifyToken, async (req:Request,res:Response) => {
+router.put('/:idUser',verifyToken, async (req:Request,res:Response) => {
     const { password } = req.body
     if(password){
         req.body.password = CryptoJS.AES.encrypt(
@@ -16,41 +16,43 @@ router.put('/:id',verifyToken, async (req:Request,res:Response) => {
     }
     try {
         const putUser = await User.findByIdAndUpdate(
-            req.params.id, 
+            req.params.idUser, 
             {
                 $set: req.body
             },
             { new: true }
         )
+        .populate('followers', {username: 1, profilePhoto: 1})
+        .populate('followings', {username: 1, profilePhoto: 1})
+        .populate('favourites', {title: 1, images:1})
+        .populate({ path:'comments', populate: { path: 'user', model:'User', select: 'username profilePhoto'}})
+        .populate('premium', {username: 1, profilePhoto: 1})
+        .populate('myPremium', {username: 1, profilePhoto: 1})
         res.json(putUser)
     } catch (error) {
-        res.status(404).json(error)
+        res.status(500).json({error: error})
     }
 })
 
 // Follow/Unfollow id por params del que va a seguir e userId por body de a quien vas a seguir
-router.put('/:id/follow', async (req: Request, res: Response) => {
-    if(req.body.userId !== req.params.id) {
+router.put('/:idUser/follow', async (req: Request, res: Response) => {
+    if(req.body.userId !== req.params.idUser) {
         try {
-            const user = await User.findById(req.params.id)
-            const currentUser = await User.findById(req.body.userId)
-            const objUser = { username: user.username, profilePhoto: user.profilePhoto, _id: user._id}
-            const objCurrentUser = { username: currentUser.username, profilePhoto: currentUser.profilePhoto, _id: currentUser._id }
-            if(!user.followingId.includes(req.body.userId)) {
-                await user.updateOne({$push: {following: objCurrentUser}})
-                await user.updateOne({$push: {followingId: req.body.userId}})
-                await currentUser.updateOne({$push: {followers: objUser}})
-                await currentUser.updateOne({$push: {followersId: req.params.id}})
+            const user = await User.findById(req.params.idUser,{followings:1})
+            const currentUser = await User.findById(req.body.userId,{followers:1})
+            
+            if(!user.followings.includes(req.body.userId)) {
+                await user.updateOne({$push: {followings: req.body.userId}})
+                await currentUser.updateOne({$push: {followers: req.params.idUser}})
                 return res.status(200).json('Esta siguiendo a este usuario')
             }else {
-                await user.updateOne({$pull: {following: objCurrentUser}})
-                await user.updateOne({$pull: {followingId: req.body.userId}})
-                await currentUser.updateOne({$pull: {followers: objUser}})
-                await currentUser.updateOne({$pull: {followersId: req.params.id}})
+                await user.updateOne({$pull: {followings: req.body.userId}})
+                await currentUser.updateOne({$pull: {followers: req.params.idUser}})
                 return res.status(200).json('Dejaste de seguir a este usuario')
             }
         } catch (error){
-            res.status(500).json(error)
+            console.log(error)
+            res.status(500).json({error: error})
         }
 
     } else{
@@ -59,14 +61,14 @@ router.put('/:id/follow', async (req: Request, res: Response) => {
 })
 
 // Borrar usuario
-router.delete('/:id', verifyToken, async (req:Request,res:Response) => {
-    const { id } = req.params
+router.delete('/:idUser', verifyToken, async (req:Request,res:Response) => {
+    const { idUser } = req.params
 
     try {
-        await User.findByIdAndDelete(id)
+        await User.findByIdAndDelete(idUser)
         res.json('The user has been deleted :C...')
     } catch (error) {
-        res.status(404).json(error)
+        res.status(500).json({error: error})
     }
 })
 

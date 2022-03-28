@@ -123,6 +123,70 @@
 }
 
 
+
+#donationCont{
+    display: grid;
+    grid-auto-columns: 4vw;
+    grid-auto-rows: 4vh;
+
+    width: 16vw;
+    height: 4vh;
+
+    color: #F0E9D2;
+}
+#longDonationBut{
+    grid-column: 1/5;
+    grid-row: 1/2;
+
+    width: 105%;
+}
+#shortDonationBut{
+    grid-column: 1/5;
+    grid-row: 1/2;
+    
+    width:25%;   
+}
+#longDonationBut,#shortDonationBut{ 
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    justify-content: space-evenly;
+
+    border: none;
+    border-radius: 0.5vw;
+
+    background-color: #864879;
+    color: #F0E9D2;
+
+    transition: 0.2s;
+}
+#longDonationBut:hover,#shortDonationBut:hover{ 
+    border-radius: 0.2vw;
+
+    background-color: #E9A6A6;
+    color: #151425;
+    
+    transition: 0.2s;
+}
+#butSvgDecoLeft{
+    font-size: 2vw;
+    
+    transition: 0.2s;
+}
+#butSvgDecoRight{
+    font-size: 2vw;
+
+    transition: 0.2s;
+}
+#longDonationBut:hover > #butSvgDecoLeft{
+    padding-right: 2vw;
+    transition: 0.2s;
+}
+#longDonationBut:hover > #butSvgDecoRight{
+    padding-left: 2vw;
+    transition: 0.2s;
+}
+
 #postsLink {
     background-color: transparent;
     color: #ffffff;
@@ -174,4 +238,16 @@
 
     box-shadow: inset 0vw 0.2vh 0.5vh rgb(63, 51, 81);
     background-color: #11101F;
+}
+
+#userStatus{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100wv;
+    height: 100vh;
+
+    font-size: 5vw;
+    text-align: center;
+    color: #E9A6A6;
 }

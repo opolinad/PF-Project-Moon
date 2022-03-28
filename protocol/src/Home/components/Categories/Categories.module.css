@@ -1,4 +1,7 @@
 #CategoriesContainer{
+    position: sticky;
+    top: 17.5vw;
+    
     width: 16vw;
     height: 60vh;
 
@@ -58,7 +61,6 @@
     width: 15vw;
     margin: auto;       
     margin-top: 5vh;
-    
 
     color: #F0E9D2;
     font-size: 1.4vw;
@@ -97,4 +99,6 @@
 
     text-decoration: underline;
     font-size: 1.3vw;
+
+    cursor: pointer;
 }

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link, useParams, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getFollowers, getFollowing } from "../redux/actions/Follows.js";
 import css from "./UserFollows.module.css"
 import DefaultProfile from '../assets/default_profile_photo.svg'
 import { followAndUnFollow } from '../ReduxToolkit/apiCalls/followUser.js';

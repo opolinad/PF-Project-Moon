@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { GET_CATEGORIES, LOADING_0, STARTING_STATUS, NOT_FOUND_404, SUCCESS_200 } from "../../redux/consts";
+import { GET_CATEGORIES, LOADING_0, STARTING_STATUS, NOT_FOUND_404, SUCCESS_200 } from "../consts";
 
 
 const feedSlice = createSlice({
@@ -12,17 +12,26 @@ const feedSlice = createSlice({
         searchingDatabase: (state, action) => {
             state = action.payload;
         },
-        feedDatabase: (state, action) => {
-            return state = action.payload;
+        feedDatabase: (state, action) => {   
+            state.posts = action.payload.posts;
+            state.status = action.payload.status;
         },
         setSearchingToLoading: (state) => {
+            console.log("setting to load feed")
             state.status = LOADING_0;
         },
         setFeedToLoading: (state) => {
             state.status = LOADING_0;
+            state.posts = [];
         },
         feedNextPageDatabase: (state, action) => {
             state.posts = action.payload;
+        },
+        updateFeedLikes: (state, action) => {
+            state.posts[action.payload.index].likes = action.payload.data.likes;
+        },
+        updateFeedShares: (state, action) => {
+            state.posts[action.payload.index].shares = action.payload.data.shares;
         }
     }
 });
@@ -62,37 +71,37 @@ const selectedCategorySlice = createSlice({
 
 const homePageSlicer = createSlice({
     name: "homePage",
-    initialState: {page:0},
+    initialState: {page:1},
     reducers: {
         resetPage: (state) => {
-            return state = {...state,page:0};
+             state.page = 1;
         },
-        nextPage: (state) => {
-            return {...state,page:state.page+1};
+        nextPage: (state,action) => {
+            state.page = action.payload;
         }
     }
 });
 
 const filterAndOrderSlice = createSlice({
     name: "filterAndOrder",
-    initialState: {},
+    initialState: {ordering:"recent",filter:""},
     reducers: {
         resetOptions: (state, action) => {
-            state = {};
+            return state = {};
         },
         searchResetOptionsCategoryFAO: (state, action) => {
-            state = {}
+            return state = {}
         },
         setFilter: (state, action) => {
-            state = { ...state, filter: action.payload };
+            return state = { ...state, filter: action.payload };
         },
         setOrdering: (state, action) => {
-            state = { ...state, ordering: action.payload };
+            return state = { ...state, ordering: action.payload };
         }
     }
 });
 
-export const { searchingDatabase, feedDatabase, setSearchingToLoading, setFeedToLoading, feedNextPageDatabase } = feedSlice.actions;
+export const { searchingDatabase, feedDatabase, setSearchingToLoading, setFeedToLoading, feedNextPageDatabase, updateFeedLikes, updateFeedShares } = feedSlice.actions;
 export const feedReducer = feedSlice.reducer;
 export const { getCategoriesLoading, getCategories } = categoriesSlice.actions;
 export const categoriesReducer = categoriesSlice.reducer;

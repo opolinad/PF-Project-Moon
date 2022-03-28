@@ -1,77 +1,103 @@
-
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { STARTING_STATUS } from "../../../redux/consts.js";
 import CardPost from "../../../CardPost/CardPost.jsx";
-import { LOADING_0, NOT_FOUND_404, SUCCESS_200 } from "../../../redux/consts.js";
-import { setFeedToLoading, resetPage, feedNextPageDatabase } from "../../../ReduxToolkit/reducers/homeSlice.js";
+import {
+  setFeedToLoading,
+  resetPage,
+  resetOptions,
+  resetSelectedCategory,
+} from "../../../ReduxToolkit/reducers/homeSlice.js";
 import { searchingAction } from "../../../ReduxToolkit/reducers/navBarSlice.js";
 import { getSearchResults } from "../../../ReduxToolkit/apiCalls/searchCall.js";
 import FeedCss from "./Feed.module.css";
-import { findNextPage } from "../../../ReduxToolkit/apiCalls/pageCall.js";
-/*
-    Estoy asumiendo nombres, cambiar cuando lleguen las conexiones del back
-    ademas, cuando se entra al detalle del CardPost y pasa a aser Post, se piden los comentarios!
+import {
+  STARTING_STATUS,
+  LOADING_0,
+  NOT_FOUND_404,
+  SUCCESS_200,
+} from "../../../ReduxToolkit/consts.js";
+import { setDetailedLoading } from "../../../ReduxToolkit/reducers/postSlice.js";
 
-    title: string,
-    description: string,
-    imgs: array de urls,
-    shares:int,
-    likes:int,
-    saved:int,
-    id:string,
-
-    Este es un simple array de CardPosts, Agregar en parte 2:
-    - llamada a action que pida los posts
-    - funcionalidad de cargar mas posts (limitarnos con 20 a la vez o tal, como paginacion oculta)
-*/
+let flag_1Carga = true;
 
 export default function Feed(props) {
+  const dispatch = useDispatch();
 
-    const dispatch = useDispatch();
-    const feed = useSelector(state => state.feed);
-    const query = useLocation();//.search.split("=")[1]
-    const filterAndOrder = useSelector(state => state.filterAndOrder);
-    const selectedCategory = useSelector(state => state.selectedCategory);
-    const search = useSelector(state => state.search);
-    const homePage = useSelector(state => state.homePage)
-    useEffect(() => {
-        if (feed.status === STARTING_STATUS) {
-            console.log("41")
-            dispatch(setFeedToLoading())
-            if (query.search) {
-                getSearchResults(dispatch, query.search.split("=")[1]);
-                dispatch(searchingAction(query.search.split("=")[1]));
-            }
-            else {
-                getSearchResults(dispatch);
-                dispatch(searchingAction(""));
-            }
-        }
-    }, []);  //Primera vez que cargue feed, vera si hay un search para pedir search al back
+  const query = useLocation();
 
-    useEffect(() => {
-        console.log("55")
-        dispatch(setFeedToLoading());
-        dispatch(resetPage());
-    }, [filterAndOrder, selectedCategory, search]); //reseteo page cuando detecto cambios en filtro, categoria o search
-
-    useEffect(() => {
-        console.log("60")
-        if (homePage.page === 0) getSearchResults(dispatch, search, selectedCategory, filterAndOrder.filter, filterAndOrder.ordering, 0); //cuando es primera pagina (cambios dee filter etc).
-        else findNextPage(dispatch, search, selectedCategory, filterAndOrder.filter, filterAndOrder.ordering, homePage.page); //Cada cambio de page
-    }, [homePage]);
-
-    let postsArr;
-    if (feed.status === STARTING_STATUS || feed.status === LOADING_0) { postsArr = <p className={FeedCss.feedStatus}>Loading the Sweet Sweet Posts</p> }
-    else if (feed.status === NOT_FOUND_404) { postsArr = <p className={FeedCss.feedStatus}>Error! No Post Found</p>; }
-    else if (feed.status === SUCCESS_200) postsArr = feed.posts.map((element, index) => <CardPost key={"post_" + element._id} title={element.title} description={element.description} imgs={element.images} shares={element.shares} likes={element.likes} id={element._id} /> )// se borra el saved
+  const feed = useSelector((state) => state.feed);
+  const user = useSelector((state) => state.user);
+  const filterAndOrder = useSelector((state) => state.filterAndOrder);
+  const selectedCategory = useSelector((state) => state.selectedCategory);
+  const search = useSelector((state) => state.search);
+  const homePage = useSelector((state) => state.homePage);
+  const currentUser = useSelector((state) => state.user.currentUser);
 
 
-    return (
-     <div id={FeedCss.FeedContainer}>
-         {postsArr}
-     </div>
- )
+  useEffect(() => {
+    if (flag_1Carga) {
+      if (!query.search && search !== "") dispatch(searchingAction(""));
+      else if (query.search && search !== query.search.split("=")[1])
+        dispatch(searchingAction(query.search.split("=")[1]));
+      getSearchResults(
+        user.currentUser?._id,
+        dispatch,
+        query.search.split("=")[1],
+        "",
+        "",
+        "recent",
+        1
+      );
+      dispatch(resetOptions());
+      dispatch(resetSelectedCategory());
+      dispatch(resetPage());
+    } else if (!flag_1Carga) {
+      getSearchResults(
+        user.currentUser?._id,
+        dispatch,
+        search,
+        selectedCategory,
+        filterAndOrder.filter,
+        filterAndOrder.ordering,
+        homePage.page
+      );
+      /* SI HAY UN HOMEPAGE DEBERIA NO ENVIAR NADA Y DEBERIA VER ALGO DEL SEARCH POR ACA OWO */
+    }
+    flag_1Carga = false;
+    dispatch(setDetailedLoading());
+  }, [filterAndOrder, search, selectedCategory]);
+
+  let postsArr;
+  if (feed.status === STARTING_STATUS || feed.status === LOADING_0) {
+    postsArr = (
+      <p className={FeedCss.feedStatus}>Loading the Sweet Sweet Posts</p>
+    );
+  } else if (feed.status === NOT_FOUND_404) {
+    postsArr = <p className={FeedCss.feedStatus}>Error! No Post Found</p>;
+  } else if (feed.status === SUCCESS_200)
+    postsArr = feed.posts?.map((element, index) => {
+      return (
+        <CardPost
+          key={"post_" + element._id}
+          title={element.title}
+          description={element.description}
+          imgs={element.images}
+          shares={element.shares}
+          shared={element.share}
+          shareUser={element.shareUser}
+          likes={element.likes}
+          id={element._id}
+          userName={element.user.username}
+          userPhoto={element.user.profilePhoto}
+          userId={element.user._id}
+          categories={element.categories}
+          componentFather={"Feed"}
+        />
+      );
+    });
+
+
+  return <div id={FeedCss.FeedContainer}>{postsArr}</div>;
+
 }

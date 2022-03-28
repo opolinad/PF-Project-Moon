@@ -33,9 +33,8 @@ export default function Posts() {
     //     favorites: [{ title: "bart", image: "https://pbs.twimg.com/media/FOFBicMXIAI2DR5?format=jpg&name=small"}, {title: "apu", image: "https://pbs.twimg.com/media/FOEzsHqWQAUxnO2?format=jpg&name=small"}, {title: "krusty", image: "https://pbs.twimg.com/media/FN8OZ9rXIAIyebn?format=jpg&name=small"}]
     // }
 
-    // const URL = useLocation();
-    // let displaying = userData.posts
-    // console.log(URL.pathname.includes("favorites"))
+    const URL = useLocation();
+    let displaying = posts
     // if(URL.pathname.includes("favorites")) displaying = userData.favorites;
 
     return (
@@ -48,8 +47,9 @@ export default function Posts() {
                 ) : (
                     <>
                         {
-                            posts && posts?.map(data => (
-                                <CardPost key={data._id} title={data.title} description={data.description} imgs={data.images} shares={data.shares} likes={data.likes} id={data._id} />
+                            displaying && displaying?.map(data => (
+                                <CardPost key={data._id} title={data.title} shared={data.share} shareUser={data.shareUser} description={data.description} imgs={data.images} shares={data.shares} likes={data.likes} id={data._id} userName={data.user.username} userPhoto={data.user.profilePhoto} userId={data.user._id} componentFather={"UserPost"}/>
+
                             ))
                         }
                     </>

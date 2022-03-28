@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import Actions from "../../../redux/actions/index.js";
-
+import { setFeedToLoading, setFilter } from "../../../ReduxToolkit/reducers/homeSlice";
 import FilterCss from "./Filter.module.css";
 
 export default function Filter()
@@ -10,13 +9,13 @@ export default function Filter()
 
     function filtering(e)
     {
-        dispatch(Actions.setFeedToLoading())
-        dispatch(Actions.changeFilter(e.target.value))
+        dispatch(setFeedToLoading());
+        dispatch(setFilter(e.target.value));
     }
 
     return(
         <div id={FilterCss.filterCont}>
-            <select name="filterSelect" id={FilterCss.filterSelect} onChange={(e)=>filtering(e)}>  
+            <select name="filterSelect" id={FilterCss.filterSelect} onChange={filtering}>
                 <option value="" className={FilterCss.filterOption}>All</option>
                 {/* <option value="trending" className="filterOption">Trending</option> */}
                 <option value="designsOnly" className={FilterCss.filterOption}>Designs Only</option>

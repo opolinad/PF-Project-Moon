@@ -1,39 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useLocation, useNavigate, useParams, useRoutes } from 'react-router';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft, faAngleRight, faHeart, faShareSquare } from '@fortawesome/free-solid-svg-icons';
-
-import { getPostData } from '../redux/actions/Post.js'
-
+import { faAngleLeft, faAngleRight, faHeart, faShareSquare } from '@fortawesome/free-solid-svg-icons'; 
 import PostCss from "./Post.module.css"
+import { getDetailedPost, sendBackComment } from '../ReduxToolkit/apiCalls/postCall';
+import { setDetailedLoading, setDetailedPost } from '../ReduxToolkit/reducers/postSlice';
 
-const dummy = {
-    userName:"Username",
-    postId:0,
-    userId:0,
-    userPhoto:"./logo512.png",
-    title: "Title",
-    description: "vewy long description dummy or whatevs",
-    shared:false,
-    liked:false,
-    likes: 3,
-    shares: 3,
-    favorite: false,
-    images: ["./logo512.png", "./logo512.png"],
-    comments: [{photo:"./logo512.png",id:0,name:"useruser",comment:"owowowowowo  wowow owowowowwow owowowowow owowowow owo owowo owooow owo owowowoow o oowow"},{photo:"./logo512.png",id:0,name:"useruser",comment:"owowowowowo  wowow owowowowwow owowowowow owowowow owo owowo owooow owo owowowoow o oowow"}],
-} 
+// const detailedPost = {
+//     userName:"Username",
+//     postId:0,
+//     userId:0,
+//     userPhoto:"./logo512.png",
+//     title: "Title",
+//     description: "vewy long description detailedPost or whatevs",
+//     shared:false,
+//     liked:false,
+//     likes: 3,
+//     shares: 3,
+//     favorite: false,
+//     images: ["./logo512.png", "./logo512.png"],
+//     comments: [{photo:"./logo512.png",id:0,name:"useruser",comment:"owowowowowo  wowow owowowowwow owowowowow owowowow owo owowo owooow owo owowowoow o oowow"},{photo:"./logo512.png",id:0,name:"useruser",comment:"owowowowowo  wowow owowowowwow owowowowow owowowow owo owowo owooow owo owowowoow o oowow"}],
+// } 
 
-/* let dummy={}; */
-/* let dummyComments=[]; */
+/* let detailedPost={}; */
+/* let detailedPostComments=[]; */
 
 function Comment(props)
 {
     return(
         <div className={PostCss.commentCont}>
             <div className={PostCss.commentUser}>
-                <img src={props.photo} alt="no foto :c" />
+                <img src={props.photo ? props.photo : "http://localhost:4000/default_profile_photo.svg"} alt="no foto :c" />
                 <Link className={PostCss.commentName} to={"/user/"+props.id}>{props.name}</Link>
             </div>
 
@@ -45,17 +44,34 @@ function Comment(props)
 export default function Post()
 {
     const dispatch = useDispatch()
-    const {username, postId} = useParams()
-    // const dummy = useSelector ((state) => state.postData)
-    const dummyA = useSelector ((state) => state.postData)
-    useEffect (() => dispatch(getPostData(username, postId)), [])
+    
+    const detailedPost = useSelector ((state) => state.detailedPost);
+    const user = useSelector(state=>state.userData);
+
+    const {id} = useParams();
+    const navigate = useNavigate();
 
     const [newComment,setNewComment] = useState("");
-    const [imgNum,setImgNum]= useState(0);
+    const [imgNum,setImgNum] = useState(0);
 
+    useEffect (() => 
+    {
+        getDetailedPost(id,dispatch);
+        return dispatch(setDetailedLoading());
+    }, []);
+
+    //Functions
     function sendComment()
     {
-        
+        let input={}
+        input.user=user.currentUser._id;
+        input.comment=newComment;
+        input.score=-1;
+
+        console.log(input)
+        sendBackComment(id, input, dispatch);
+
+        setNewComment("");
     }
 
     function handleImgNum(action)
@@ -72,16 +88,24 @@ export default function Post()
         }
     }
 
+    //Status!
+    if(detailedPost.loading){ return <div id={PostCss.statusText}>Loading...</div>}
+    else if(!detailedPost.detailed.hasOwnProperty("_id")){ return <div id={PostCss.statusText}>Error!_404</div> }
+    
+
     let cardValues={};
     
     //veo si hay descripcion
-    dummy.description? cardValues.description=dummy.description : cardValues.description="";
+    detailedPost.detailed.description? cardValues.description=detailedPost.detailed.description : cardValues.description="";
     cardValues.styleInfo=PostCss.longInfoCont;
+
     //Hagp chequeo de las imagenes
-    if(dummy.images){cardValues.imgs=dummy.images.map((element,index)=><img key={"img_"+index} className={PostCss.cardPostImg} src={element} alt={"nu existe :c"}/>)}
+    if(detailedPost.detailed.images){cardValues.imgs=detailedPost.detailed.images.map((element,index)=><img key={"img_"+index} className={PostCss.cardPostImg} src={element} alt={"nu existe :c"}/>)}
     if(cardValues.imgs.length)
     {
         cardValues.showImgs=<div id={PostCss.bigImgsCont}>
+                                <div id={PostCss.backLink} onClick={()=>navigate(-1)}><button id={PostCss.backBut}><FontAwesomeIcon icon={ faAngleLeft }/>Back</button></div>
+
                                 <div id={PostCss.indexImg}> <p id={PostCss.leftIndex}>{imgNum+1}</p> | <p>{cardValues.imgs.length}</p> </div>
                                 <button onClick={()=>{handleImgNum("back")}} id={PostCss.CarouselButLeft}><FontAwesomeIcon icon={ faAngleLeft }/></button>
                                 <div id={PostCss.arrImgCont}>{cardValues.imgs[imgNum]}</div>
@@ -89,36 +113,41 @@ export default function Post()
                             </div>
         cardValues.styleInfo=PostCss.infoCont;
     }
+    else{
+        cardValues.backWoImgs= <div id={PostCss.backLinkWoImg} onClick={()=>navigate(-1)}><button id={PostCss.backButWoImgs}><FontAwesomeIcon icon={ faAngleLeft }/>Back</button></div>
+    }
 
-    //para sacar el color de like y share
-    dummy.liked ? cardValues.likeImg=<FontAwesomeIcon className={PostCss.notLikedImg} icon={faHeart}/> : cardValues.likeImg=<FontAwesomeIcon className={PostCss.likedImg} icon={faHeart} /> ; 
-    dummy.shared ? cardValues.sharedImg=<FontAwesomeIcon className={PostCss.notSharedImg} icon={faShareSquare} /> : cardValues.sharedImg=<FontAwesomeIcon className={PostCss.sharedImg}  icon={faShareSquare} /> ; 
-    
+    //css de likes 
+    detailedPost.detailed.likes.includes(user.currentUser?._id) ? cardValues.likeImg=PostCss.likedImg : cardValues.likeImg=PostCss.notLikedImg; 
+    detailedPost.detailed.shares.includes(user.currentUser?._id) ? cardValues.sharedImg=PostCss.sharedImg : cardValues.sharedImg=PostCss.notSharedImg; 
 
     //los numeros de likes y shares, ademas del icono de favorito
-    cardValues.likes=dummy.likes;
-    cardValues.shares=dummy.shares;
-    cardValues.saved=dummy.favorite;
+    cardValues.likes=detailedPost.detailed.likes.length;
+    cardValues.shares=detailedPost.detailed.shares.length;
+    cardValues.saved=detailedPost.detailed.favorite;
 
-    let commentArr=dummy.comments.map((element,index)=> {return <Comment key={"comment_"+element.id} comment={element.comment} photo={element.photo} id={element.id} name={element.name}/>})
+    //Comentarios
+    let commentArr=detailedPost.detailed.comments.map((element,index)=> {return <Comment key={"comment_"+index+"_user_"+element._id} comment={element.content} photo={element.user.profilePhoto} id={element.user._id} name={element.user.username}/>})
 
     return(
         <div id={PostCss.bigPostCont}>
 
-            
             <div id={cardValues.styleInfo}>
                 <div id={PostCss.userInfoCont}> 
-                    <img id={PostCss.posterImg} src={dummy.userPhoto} alt="photo :x"/>
-                    <Link to={`/user/${dummy.userId}/*`} id={PostCss.posterName}>{dummy.userName}</Link>
+                    <img id={PostCss.posterImg} src={detailedPost.detailed.userPhoto? detailedPost.detailed.userPhoto : "http://localhost:4000/default_profile_photo.svg"} alt="photo :x"/>
+                    <Link to={`/user/${detailedPost.userid}/*`} id={PostCss.posterName}>{detailedPost.userName}</Link>
                 </div>
-                <h1 >{dummy.title}</h1>
+                <h1 >{detailedPost.title}</h1>
 
                 <div id={PostCss.bigDescriptionCont}>{cardValues.description}</div>
 
                 <div id={PostCss.bigAnaliticsCont}>
-                    <div id={PostCss.likesShell} onClick={()=>{}}>{cardValues.likeImg}{cardValues.likes}</div>
-                    <div id={PostCss.sharesShell} onClick={()=>{}}>{cardValues.sharedImg}{cardValues.shares}</div>
+                    <div id={PostCss.likesShell} onClick={()=>{}}> <FontAwesomeIcon className={cardValues.likeImg} icon={faHeart}/> {cardValues.likes}</div>
+                    <div id={PostCss.sharesShell} onClick={()=>{}}> <FontAwesomeIcon className={cardValues.sharedImg} icon={faShareSquare} /> {cardValues.shares}</div>
+
                     <div id={PostCss.favoritesShell}>{cardValues.saved}</div>
+
+                    {cardValues.backWoImgs}
                 </div>
 
                 <div id={PostCss.newCommentaryCont}>
@@ -127,7 +156,6 @@ export default function Post()
                 </div>
 
                 <div className={PostCss.commentSection}>
-                    {console.log(commentArr)}
                     {commentArr}
                 </div>
             </div>

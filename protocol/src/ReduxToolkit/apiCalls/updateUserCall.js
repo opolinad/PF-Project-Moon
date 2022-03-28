@@ -3,7 +3,7 @@ import {
     updateStart,
     updateSuccess,
     updateFailure
-} from '../reducers/loginSlice'
+} from '../reducers/userSlice'
 
 //Call to API
 export const updateUsers = async (dispatch, id, user, token) => {

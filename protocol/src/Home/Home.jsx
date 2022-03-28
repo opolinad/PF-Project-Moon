@@ -1,47 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Categories from "./components/Categories/Categories.jsx";
 import Feed from "./components/Feed/Feed.jsx";
-import Actions from "../redux/actions/index.js";
 import Filter from "./components/Filters And Order/Filter.jsx";
 import Ordering from "./components/Filters And Order/Ordering.jsx";
 import { useNavigate } from "react-router-dom";
-
-import HomeCss from "./Home.module.css";
 import { useEffect } from "react";
 import { loginUser } from "../ReduxToolkit/apiCalls/loginCall.js";
 
+import HomeCss from "./Home.module.css";
+import { findNextPage } from "../ReduxToolkit/apiCalls/pageCall.js";
+import PostPost from "../PostPost/PostPost.jsx";
+
+
 export default function Home() {
     const dispatch = useDispatch();
-    const navigate = useNavigate()
-    const user = useSelector(state => state.user.currentUser)
+    
+    const navigate = useNavigate();
+
+    const user = useSelector(state => state.user.currentUser);
+    const filterAndOrder = useSelector(state => state.filterAndOrder);
+    const selectedCategory = useSelector(state => state.selectedCategory);
+    const search = useSelector(state => state.search);
+    const homePage = useSelector(state => state.homePage);
+
+    const [showCreate,setShowCreate] = useState(false);
 
     useEffect(() => {
-        if (!user?.password && user) loginUser(dispatch, { platform: true }); 
+        if (!user?.password) loginUser(dispatch, { platform: true });
         if (!user) {
             navigate("/");
         }
+        
     }, [])
 
     useEffect(() => {
         !user && navigate("/");
     }, [user])
 
+    function handleButton()
+    {
+        findNextPage(dispatch, search, selectedCategory, filterAndOrder.filter, filterAndOrder.ordering, homePage.page);
+    }
 
+  
 
     return (
         <div id={HomeCss.homeCont}>
             <div id={HomeCss.filterOrderCont}>
-                <Filter />
+                {/* <Filter /> */}
                 <Ordering />
-                <button onClick={() => dispatch(Actions.resetOptions())} id={HomeCss.resetOption}>Reset</button>
             </div>
             <div id={HomeCss.InfoCont}>
-            <Categories />     
-              <Feed />
-             
+                <Categories />
+                <Feed />
+                <PostPost/>
             </div>
-            <button id={HomeCss.nextPageBut} onClick={() => dispatch(Actions.nextPageAction())} >Load More</button>
+            <button id={HomeCss.nextPageBut} onClick={() => handleButton()} >Load More</button>
         </div>
     )
 }

@@ -1,6 +1,7 @@
 #navbarCont{
     position: sticky;
     top: 0;
+    z-index: 1;
 }
 
 #navbarShell{
@@ -140,7 +141,27 @@
 
     color: #F0E9D2;
 }
+#deletNotisBut{
+    width: fit-content;
+    height: 4vh;
+    margin: 2vh 0 2vh 0;
 
+    
+    border-radius: 0.5vw;
+    border: 0.1vw solid #864879;
+    box-shadow: 0 0 #864876 inset;
+    
+    color: #F0E9D2;
+    background-color: transparent;
+
+    transition: 0.2s;
+}
+#deletNotisBut:hover{
+    box-shadow: 0 -4vh #864876 inset;
+    color: #F8F8F8;
+
+    transition: 0.2s;
+}
 
 #logoutBut{
     width: fit-content;
@@ -149,14 +170,14 @@
     border: 0.1vw solid #864879;
     border-radius: 0.5vw;
   
-    box-shadow: 0 0vh 0 0 #864876 inset;
+    box-shadow: 0 0vh #864876 inset;
     background-color: rgb(31, 29, 54);
     color: #F0E9D2;
   
     transition: 0.5s;
   }
 #logoutBut:hover{
-    box-shadow: 0 5vh 0 0 #864876 inset;
+    box-shadow: 0 5vh #864876 inset;
     color: #F8F8F8;
   
     cursor: pointer;

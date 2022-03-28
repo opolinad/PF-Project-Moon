@@ -7,7 +7,7 @@ import { clearRegister, registerUser } from "../ReduxToolkit/apiCalls/regsterCal
 import styles from './register.module.css'
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft, faAngleRight, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 //validacion de errores
 function validar(input) {
@@ -79,13 +79,27 @@ const Register = () => {
 
     const handleSelect = (e) => {
         if (input.categories.includes(e.target.value)) return alert('ya esta en la lista')
+        if(e.target.value!="categories")
+        {
+            setInput(prev => {
+                return {
+                    ...prev,
+                    categories: [...input.categories, e.target.value]
+                }
+            })
+        }
+    }
+
+    function handleDeSelect(e)
+    {
+        e.preventDefault()
         setInput(prev => {
             return {
                 ...prev,
-                categories: [...input.categories, e.target.value]
+                categories: prev.categories.filter(element=>element!=e.target.value)
             }
         })
-    }
+    } 
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -106,7 +120,7 @@ const Register = () => {
         }
     }
 
-    console.log(currentRegister.registerUser)
+    //console.log(currentRegister.registerUser)
 
     useEffect(() => {
         (() => {
@@ -213,10 +227,13 @@ const Register = () => {
                             required
                         >
                             <option className={styles.categoriesOption} value='categories'> Choose some categories </option>
-                            {categoriesArray.map((c) => (
-                                <option className={styles.categoriesOption}  value={c}>{c}</option>
+                            {categoriesArray.map((c,i) => (
+                                <option key={"option_category_"+i} className={styles.categoriesOption}  value={c}>{c}</option>
                             ))}
                         </select>
+                        <div className={styles.selectedCont}>
+                                {input.categories.map((element,index)=><button onClick={(e)=>handleDeSelect(e)} className={styles.categorySelected} key={"selected_cat_"+index} value={element}>{element}</button>)}
+                            </div>
                     </div>
 
                     <input
