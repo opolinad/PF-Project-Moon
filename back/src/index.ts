@@ -17,7 +17,7 @@ app.use(passport.session());
 app.use(cors());
 app.use(express.json());
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://project-moon.vercel.app');
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Credentials', 'true');
   next();
 });
@@ -38,7 +38,7 @@ app.listen(process.env.PORT, () => {
 
 const io = require("socket.io")(process.env.PORT_SOCKET, {
   cors: {
-    origin: "https://project-moon.vercel.app/",
+    origin: "*",
   },
 });
 console.log("Puerto Socket",process.env.PORT_SOCKET)
