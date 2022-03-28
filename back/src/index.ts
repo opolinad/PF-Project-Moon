@@ -36,12 +36,12 @@ app.listen(process.env.PORT, () => {
 //   }
 // })
 
-const io = require("socket.io")(3000, {
+const io = require("socket.io")(process.env.PORT_SOCKET, {
   cors: {
     origin: "http://localhost:4000",
   },
 });
-
+console.log("Puerto Socket",process.env.PORT_SOCKET)
 let users:any = [];
 
 const addUser = (userId:string, socketId:string) => {
