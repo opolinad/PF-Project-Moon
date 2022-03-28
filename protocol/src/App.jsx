@@ -11,7 +11,7 @@ import NotFound from "./NotFound/NotFound";
 import Navbar from "./Navbar/Navbar.jsx";
 import CookiesPolicy from "./CookiesPolicy/CookiesPolicy.jsx";
 import PostPost from "./PostPost/PostPost"
-import axios from "axios"
+// import axios from "axios"
 import "./App.css";
 import UserEdit from "./User/UserEdit.jsx";
 import Bandeja from "./Conversations/Bandeja.jsx";
