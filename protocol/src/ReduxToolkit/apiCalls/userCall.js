@@ -8,7 +8,7 @@ import {
 export const getUser = async (dispatch, id) => {
     dispatch(userStart())
     try {
-        const res = await axios.get(`http://localhost:3001/api/users/${id}`)
+        const res = await axios.get(`/api/users/${id}`)
         console.log(res);
         dispatch(userSuccess(res.data))
     } catch (error) {
