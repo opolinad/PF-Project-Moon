@@ -10,7 +10,7 @@ passport.use(
     {
       clientID: <string>process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-      callbackURL: "http://localhost:3001/api/login/google/callback",
+      callbackURL: "https://protocolmoon.herokuapp.com/api/login/google/callback",
       passReqToCallback: true
     },
     function (request: any, accessToken: any, refreshToken: any, profile: any, done: (arg0: null, arg1: any) => any) {
