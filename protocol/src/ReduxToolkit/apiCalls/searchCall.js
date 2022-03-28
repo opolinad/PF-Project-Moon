@@ -22,7 +22,7 @@ export const getSearchResults = async (id=null,dispatch,search = "",selectedCate
     if (order !== "") {
     }
   
-    const resp = await axios.get(`http://localhost:3001/api/feed/${id}?${q}`);
+    const resp = await axios.get(`/api/feed/${id}?${q}`);
     let status = NOT_FOUND_404;
     if (resp.data.length) status = SUCCESS_200;
 
