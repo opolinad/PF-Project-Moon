@@ -24,9 +24,9 @@ app.use((req, res, next) => {
 
 app.use('/api', allRoute)
 
-app.listen(3001, () => {
+app.listen(process.env.PORT, () => {
     dbConnect()
-    console.log('Server on PORT 3001')
+    console.log('Server on PORT'+process.env.PORT)
 })
 
 // const server = http.createServer(app)
