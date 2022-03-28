@@ -46,11 +46,18 @@ export default function PostPost() {
 
   const [input, setInput] = useState({
     user: user?._id,
-    image: "",
+    images: "",
     title: "",
     description: "",
     categories: [],
   });
+
+  useEffect(() => {
+    image1 && setInput({
+      ...input,
+      images: image1 
+    })
+  }, [image1])
 
   
   useEffect(() => {
@@ -112,7 +119,7 @@ export default function PostPost() {
     postPost(dispatch, user._id, input, user.accessToken);
     setInput({
       user: user._id,
-      image: "",
+      images: "",
       title: "",
       description: "",
       categories: [],
@@ -146,8 +153,8 @@ export default function PostPost() {
 
           <div id={css.imgUpCont}>
             <div id={css.imgUpHidden}>
-              {input?.image && loading1 ? (
-                <img src="https://acegif.com/wp-content/uploads/loading-25.gif" id={css.imgUploaded}/>) : (<img src={!image1 ? input?.image : image1}id={css.imgUploaded}/>
+              {input?.images && loading1 ? (
+                <img src="https://acegif.com/wp-content/uploads/loading-25.gif" id={css.imgUploaded}/>) : (<img src={!image1 ? input?.images : image1}id={css.imgUploaded}/>
               )}
           </div>
 
