@@ -7,7 +7,7 @@ console.log(onlineUsers)
   const handleClick = async (event, user) => {
     event.preventDefault()
     try {
-      const res = await axios.get(`http://localhost:3001/api/conversations/find/${currentId}/${user}`);
+      const res = await axios.get(`/api/conversations/find/${currentId}/${user}`);
       setCurrentChat(res.data);
     } catch (err) {
       console.log(err);
