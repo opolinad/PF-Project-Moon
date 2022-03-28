@@ -11,7 +11,7 @@ export default function Conversation({ conversation, user }) {
 
     const getUser = async () => {
       try {
-        const res = await axios("http://localhost:3001/api/users/" + friendId);
+        const res = await axios("/api/users/" + friendId);
         setCurrentUser(res.data);
       } catch (err) {
         console.log(err);
