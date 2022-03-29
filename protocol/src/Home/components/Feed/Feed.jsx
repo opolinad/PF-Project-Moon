@@ -76,6 +76,7 @@ export default function Feed(props) {
   } else if (feed.status === NOT_FOUND_404) {
     postsArr = <p className={FeedCss.feedStatus}>Error! No Post Found</p>;
   } else if (feed.status === SUCCESS_200)
+    console.log("FEED RENDERIZANDO")
     postsArr = feed.posts?.map((element, index) => {
       return (
         <CardPost
