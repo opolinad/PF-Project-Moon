@@ -19,15 +19,16 @@ export const getDetailedPost = async (id,dispatch) => {
     dispatch(setDetailedPost(out));
 }
 
-export const postPost = async (dispatch, userId, input, token) => {
+export const postPost = async (dispatch, userId, input, token, feed) => {
     try {
+        let arrFeed=[...feed.posts];
         const res = await axios.post(`/api/posts/${userId}`, input, {
             headers: {
                 token
             }
         })
-        dispatch(postPost(res.data))
-        console.log("SE ENVIO EL POST CORRECTAMENTE")
+        arrFeed.unshift(res.data);
+        dispatch(feedDatabase({status:feed.status, posts: arrFeed}));
     } catch (error) {
         console.log(error)
     }

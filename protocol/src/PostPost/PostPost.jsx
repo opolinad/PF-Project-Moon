@@ -41,7 +41,7 @@ export default function PostPost() {
   } = useImage({ type: "file" });
   const user = useSelector((state) => state.user.currentUser);
   const categories = useSelector((state) => state.categories.posts.categories);
-
+  const feed=useSelector((state)=>state.feed);
   const [showCreate, setShowCreate] = useState(false);
 
   const [input, setInput] = useState({
@@ -55,11 +55,11 @@ export default function PostPost() {
   useEffect(() => {
     image1 && setInput({
       ...input,
-      images: image1 
+      images: image1
     })
   }, [image1])
 
-  
+
   useEffect(() => {
     getCategoriesAsync(dispatch);
   }, [dispatch]);
@@ -89,7 +89,7 @@ export default function PostPost() {
     );
   }
 
-  function handleSelect(e) 
+  function handleSelect(e)
   {
     console.log(e.target.value,input.categories)
     if(!input.categories.includes(e.target.value))
@@ -121,7 +121,7 @@ export default function PostPost() {
         [e.target.name]: e.target.value,
       })
     );
-    postPost(dispatch, user._id, input, user.accessToken);
+    postPost(dispatch, user._id, input, user.accessToken,feed);
     setInput({
       user: user._id,
       images: "",
