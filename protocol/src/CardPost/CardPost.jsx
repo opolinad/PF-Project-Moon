@@ -56,15 +56,20 @@ export default function CardPost(props) {
   const user = useSelector((state) => state.user.currentUser);
 
   let cardValues = {};
+  if (props.likes.some(e => e._id === user?._id))cardValues.likeImg = Cardpost.likedImg;
+  else cardValues.likeImg = Cardpost.notLikedImg;
+  if (props.shares.some(e => e._id === user?._id))cardValues.sharedImg = Cardpost.sharedImg;
+  else cardValues.sharedImg = Cardpost.notSharedImg;
+  
   props.description
     ? (cardValues.description = props.description)
     : (cardValues.description = "");
-  props.likes.includes(user?._id)
-    ? (cardValues.likeImg = Cardpost.likedImg)
-    : (cardValues.likeImg = Cardpost.notLikedImg);
-  props.shares.includes(user?._id)
-    ? (cardValues.sharedImg = Cardpost.sharedImg)
-    : (cardValues.sharedImg = Cardpost.notSharedImg);
+  // props.likes.includes(user?._id)
+  //   ? (cardValues.likeImg = Cardpost.likedImg)
+  //   : (cardValues.likeImg = Cardpost.notLikedImg);
+  // props.shares.includes(user?._id)
+  //   ? (cardValues.sharedImg = Cardpost.sharedImg)
+  //   : (cardValues.sharedImg = Cardpost.notSharedImg);
 
   cardValues.categories = (
     <div id={Cardpost.categoriesCont}>
