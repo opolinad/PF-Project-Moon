@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express'
 import { verifyToken } from '../helpers/verifyToken'
+const Conversation = require('../models/Conversation')
 const User = require('../models/User')
 const router = Router()
 const CryptoJS = require('crypto-js')
@@ -44,6 +45,14 @@ router.put('/:idUser/follow', async (req: Request, res: Response) => {
             if(!user.followings.includes(req.body.userId)) {
                 await user.updateOne({$push: {followings: req.body.userId}})
                 await currentUser.updateOne({$push: {followers: req.params.idUser}})
+                const conversation = await Conversation.find({members: req.body.userId})
+                console.log(conversation)
+                if(!conversation.length) { 
+                const newConversation = new Conversation({
+                    members: [req.body.userId, req.params.idUser],
+                  })
+                  console.log(newConversation)
+                }
                 return res.status(200).json('Esta siguiendo a este usuario')
             }else {
                 await user.updateOne({$pull: {followings: req.body.userId}})

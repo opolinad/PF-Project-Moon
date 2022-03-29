@@ -3,12 +3,7 @@ import Cardpost from "./CardPost.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { deletePost } from "../ReduxToolkit/apiCalls/postCall";
-import {
-  faHeart,
-  faShareSquare,
-  faCommentAlt,
-  faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faShareSquare, faCommentAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import socket from "../Conversations/socket";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -92,11 +87,13 @@ export default function CardPost(props) {
 
   function handleNotifications(type) {
     setLiked(true);
+    if(user?._id !== props.userId) {
     socket.emit("sendNotification", {
       senderName: user,
       receiverName: props.userId,
       type,
     });
+    }
   }
 
   function handleLike() {
@@ -104,7 +101,9 @@ export default function CardPost(props) {
     for (let i = 0; i < feed.length; i++) {
       if (feed[i]._id === props.id) index = i;
     }
+    if(!props.likes.filter(like => like._id === user._id).length > 0) {
     handleNotifications(1);
+    }
     likeAction(
       dispatch,
       props.id,
@@ -119,7 +118,9 @@ export default function CardPost(props) {
     for (let i = 0; i < feed.length; i++) {
       if (feed[i]._id === props.id) index = i;
     }
+    if(!props.shares.filter(share => share._id === user._id).length > 0) {
     handleNotifications(2);
+    }
     shareAction(
       dispatch,
       props.id,
@@ -141,7 +142,9 @@ export default function CardPost(props) {
   }
 
   function handleComment() {
+    if(!props.comments.filter(comment => comment.user._id === user._id).length > 0) {
     handleNotifications(3);
+    }
     navigate("/post/" + props.id);
   }
 
