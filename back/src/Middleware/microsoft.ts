@@ -7,7 +7,7 @@ config();
 passport.use(new Strategy({
   clientID: <string>process.env.MICROSOFT_CLIENT_ID,
   clientSecret: <string>process.env.MICROSOFT_CLIENT_SECRET,
-  callbackURL: "https://protocolmoon.herokuapp.com/api/login/microsoft/callback",
+  callbackURL: process.env.NODE_ENV === "production"?"https://protocolmoon.herokuapp.com/api/login/microsoft/callback":"http://localhost:3001/api/login/microsoft/callback",
   scope: ['user.read']
 },
   function (accessToken: any, refreshToken: any, profile: any, done: any) {
