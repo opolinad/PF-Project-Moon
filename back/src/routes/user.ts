@@ -46,12 +46,11 @@ router.put('/:idUser/follow', async (req: Request, res: Response) => {
                 await user.updateOne({$push: {followings: req.body.userId}})
                 await currentUser.updateOne({$push: {followers: req.params.idUser}})
                 const conversation = await Conversation.find({members: req.body.userId})
-                console.log(conversation)
                 if(!conversation.length) { 
                 const newConversation = new Conversation({
                     members: [req.body.userId, req.params.idUser],
                   })
-                  console.log(newConversation)
+                await newConversation.save()
                 }
                 return res.status(200).json('Esta siguiendo a este usuario')
             }else {
