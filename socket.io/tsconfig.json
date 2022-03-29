@@ -11,6 +11,6 @@
     "declaration": true
   },
   "lib": ["es2015"],
-  "include": ["./src/*.ts","./src/*/*.ts"],
+  "include": ["./index.ts"],
   "exclude": ["node_modules", "/*.spec.ts"]
 }

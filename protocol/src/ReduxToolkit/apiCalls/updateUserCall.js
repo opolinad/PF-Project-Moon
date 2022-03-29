@@ -9,7 +9,7 @@ import {
 export const updateUsers = async (dispatch, id, user, token) => {
     dispatch(updateStart())
     try {
-        const res = await axios.put(`http://localhost:3001/api/user/${id}`, user, {
+        const res = await axios.put(`/api/user/${id}`, user, {
             headers: {
                 token
             }

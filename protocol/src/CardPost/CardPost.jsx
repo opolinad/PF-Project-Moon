@@ -64,10 +64,10 @@ export default function CardPost(props) {
   props.description
     ? (cardValues.description = props.description)
     : (cardValues.description = "");
-  props.likes.includes(user.currentUser?._id)
+  props.likes.includes(user?._id)
     ? (cardValues.likeImg = Cardpost.likedImg)
     : (cardValues.likeImg = Cardpost.notLikedImg);
-  props.shares.includes(user.currentUser?._id)
+  props.shares.includes(user?._id)
     ? (cardValues.sharedImg = Cardpost.sharedImg)
     : (cardValues.sharedImg = Cardpost.notSharedImg);
 
@@ -152,7 +152,7 @@ export default function CardPost(props) {
             <div className={Cardpost.userPhotoCont}><img className={Cardpost.userPhoto} src={ props.userPhoto ? props.userPhoto : "./default_profile_photo.svg"} alt="not_found"/></div>
             <p className={Cardpost.userNameP}>{props.userName}</p>
           </Link>
-          {props.userId === user._id && (
+          {props.userId === user?._id && (
             <span className={Cardpost.deleteBut} onClick={() => handleDelete(props.id)}>
               <FontAwesomeIcon icon={faTrashAlt} />
             </span>

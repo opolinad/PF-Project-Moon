@@ -28,10 +28,10 @@ export default function Home() {
 
     useEffect(() => {
         if (!user?.password) loginUser(dispatch, { platform: true });
-        if (!user) {
-            navigate("/");
-        }
-        
+//         if (!user) {
+//             navigate("/");
+//         }
+        console.log(user);
     }, [])
 
     useEffect(() => {

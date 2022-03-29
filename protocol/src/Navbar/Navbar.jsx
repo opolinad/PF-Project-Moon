@@ -34,7 +34,7 @@ export default function Navbar() {
  
 
   useEffect(()=> {
-    socket.current = io('ws://localhost:3000/')
+    socket.current = io(process.env.REACT_APP_SOCKET+'/')
     socket.current.on("getNotification", (data) => {
         setNotifications((prev) => [...prev, data])
     })

@@ -4,7 +4,7 @@ import { updatePosts } from "../reducers/usersPosts";
 
 export const likeAction = async (dispatch, id, user, token, index) => {
   try {
-    const res = await axios.put(`http://localhost:3001/api/posts/like/${id}`, user, {
+    const res = await axios.put(`/api/posts/like/${id}`, user, {
       headers: {
         token,
       },
@@ -21,7 +21,7 @@ export const shareAction = async (dispatch, id, user, token, index) => {
     console.log("user", user)
     console.log("token", token)
     const res = await axios.post(
-      `http://localhost:3001/api/posts/share/${id}`,
+      `/api/posts/share/${id}`,
       user,
       {
         headers: {

@@ -89,7 +89,7 @@ export default function LandingPage() {
         // let left = window.outerWidth / 2 + window.screenX - (winHeight / 2);
         // window.open("http://localhost:3001/api/login/google", "Google log in", `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=${winWidth},height=${winHeight},left=${left},top=${top}`);
         // window.open("http://localhost:3001/api/login/google");
-        window.location.href = `http://localhost:3001/api/login/${e.target.innerText.toLowerCase()}`;
+        window.location.href = `https://protocolmoon.herokuapp.com/api/login/${e.target.innerText.toLowerCase()}`;
     }
 
 
