@@ -15,7 +15,7 @@ const UserSchema = new Schema(
         followings: {type: [{type: Schema.Types.ObjectId, ref:'User'}]},
         favourites: {type: [{type: Schema.Types.ObjectId, ref:'Post'}]},
         favouritesCategories: {type: []},
-        history: {type: []},
+        history: {type: [{type: Schema.Types.ObjectId, ref:'Order'}]},
         messages: {type: []},
         comments: {type: [{type: Schema.Types.ObjectId, ref:'Comment'}]},
         premium: {type: [{type: Schema.Types.ObjectId, ref:'User'}]}, //Los que estan suscritos
