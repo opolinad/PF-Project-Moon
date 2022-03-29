@@ -22,7 +22,7 @@ const Donation = () => {
     const checkoutStripe = async () => {
       try {
         const res = await axios.post(
-          "http://localhost:3001/api/checkout/payment",
+          "/api/checkout/payment",
           {
             tokenId: stripetoken.id,
             amount: amount * 100,
