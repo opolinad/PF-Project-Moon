@@ -104,6 +104,7 @@ const Bandeja = () => {
   return (
       <div id={BandejaCss.BandejaCont}>
         <div id={BandejaCss.chatMenu}>
+          <h3>Chats</h3> 
             {conversations.map((conversation) => (
               <div onClick={() => setCurrentChat(conversation)}> <Conversation conversation={conversation} user={user} /> </div>
             ))}
@@ -125,7 +126,7 @@ const Bandeja = () => {
         </div>
 
         <div id={BandejaCss.ChatOnline}> 
-          <h1>OnlineUsers</h1> 
+          <h3>Online Users</h3> 
           <ChatOnline onlineUsers={onlineUsers} currentId={user._id} setCurrentChat={setCurrentChat}/>
         </div>
       </div>

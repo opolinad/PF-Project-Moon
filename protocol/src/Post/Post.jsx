@@ -107,8 +107,8 @@ export default function Post()
                                 <div id={PostCss.backLink} onClick={()=>navigate(-1)}><button id={PostCss.backBut}><FontAwesomeIcon icon={ faAngleLeft }/>Back</button></div>
 
                                 <div id={PostCss.indexImg}> <p id={PostCss.leftIndex}>{imgNum+1}</p> | <p>{cardValues.imgs.length}</p> </div>
-                                <button onClick={()=>{handleImgNum("back")}} id={PostCss.CarouselButLeft}><FontAwesomeIcon icon={ faAngleLeft }/></button>
                                 <div id={PostCss.arrImgCont}>{cardValues.imgs[imgNum]}</div>
+                                <button onClick={()=>{handleImgNum("back")}} id={PostCss.CarouselButLeft}><FontAwesomeIcon icon={ faAngleLeft }/></button>
                                 <button onClick={()=>{handleImgNum("next")}} id={PostCss.CarouselButRight}><FontAwesomeIcon icon={ faAngleRight }/></button>
                             </div>
         cardValues.styleInfo=PostCss.infoCont;
