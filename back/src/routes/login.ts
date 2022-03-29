@@ -53,9 +53,9 @@ router.get('/google',
   }
   )
 );
-router.get('/google/callback', passport.authenticate('google', { failureRedirect: 'https://project-moon.vercel.app/', successRedirect: 'https://project-moon.vercel.app/home' }));
+router.get('/google/callback', passport.authenticate('google', { failureRedirect: process.env.NODE_ENV === "production"?"https://project-moon.vercel.app/":"http://localhost:4000/", successRedirect: process.env.NODE_ENV === "production"?"https://project-moon.vercel.app/home":"http://localhost:4000/home" }));
 router.get('/microsoft', passport.authenticate('microsoft'));
 router.get('/microsoft/callback',
-  passport.authenticate('microsoft', { failureRedirect: 'https://project-moon.vercel.app/', successRedirect: 'https://project-moon.vercel.app/home' }));
+  passport.authenticate('microsoft', { failureRedirect: process.env.NODE_ENV === "production"?"https://project-moon.vercel.app/":"http://localhost:4000/", successRedirect: process.env.NODE_ENV === "production"?"https://project-moon.vercel.app/home":"http://localhost:4000/home" }));
 
 module.exports = router;
