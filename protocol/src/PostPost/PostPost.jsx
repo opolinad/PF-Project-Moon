@@ -64,7 +64,12 @@ export default function PostPost() {
     getCategoriesAsync(dispatch);
   }, [dispatch]);
 
-
+  useEffect(() => {
+    image1 && setInput({
+      ...input,
+      images: image1
+    })
+  }, [image1])
 
   // function handleImgChange(e) {
   //     setProfile(e.target.files[0])

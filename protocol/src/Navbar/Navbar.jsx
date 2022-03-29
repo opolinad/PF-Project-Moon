@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faSearch, faBell } from "@fortawesome/free-solid-svg-icons";
 import { logoutUser } from "../ReduxToolkit/apiCalls/loginCall";
 import { useLocation } from "react-router";
-import { io } from 'socket.io-client'
+import socket from '../Conversations/socket'
 import { useNavigate } from "react-router";
 import NavbarCss from "./Navbar.module.css";
 import useTabName from "../helpers/CustomHooks/useTabName.js";
@@ -23,7 +23,6 @@ export default function Navbar() {
   const [search, setSearch] = useState("");
   const [searchErr, setSearchErr] = useState("");
   const [open, setOpen] = useState(false);
-  const socket = useRef()
   const user = useSelector(state => state.user.currentUser)
 
   const dispatch = useDispatch();
@@ -34,14 +33,13 @@ export default function Navbar() {
  
 
   useEffect(()=> {
-    socket.current = io(process.env.REACT_APP_SOCKET+'/')
-    socket.current.on("getNotification", (data) => {
+    socket.on("getNotification", (data) => {
         setNotifications((prev) => [...prev, data])
     })
   }, [])
 
   useEffect(() => { //
-    socket.current.emit("addUser", user?._id);
+    socket.emit("addUser", user?._id);
   }, [user]);
   
 
