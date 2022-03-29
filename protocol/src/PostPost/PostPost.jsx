@@ -41,7 +41,7 @@ export default function PostPost() {
   } = useImage({ type: "file" });
   const user = useSelector((state) => state.user.currentUser);
   const categories = useSelector((state) => state.categories.posts.categories);
-  const feed = useSelector((state)=>state.feed);
+  const feed=useSelector((state)=>state.feed);
   const [showCreate, setShowCreate] = useState(false);
 
   const [input, setInput] = useState({

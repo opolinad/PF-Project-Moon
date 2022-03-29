@@ -21,7 +21,6 @@ export const getDetailedPost = async (id,dispatch) => {
 
 export const postPost = async (dispatch, userId, input, token, feed) => {
     try {
-        console.log("Entrada", feed.posts);//Borrar
         let arrFeed=[...feed.posts];
         const res = await axios.post(`/api/posts/${userId}`, input, {
             headers: {
@@ -29,7 +28,6 @@ export const postPost = async (dispatch, userId, input, token, feed) => {
             }
         })
         arrFeed.unshift(res.data);
-        console.log("Resultado", arrFeed);//Borrar
         dispatch(feedDatabase({status:feed.status, posts: arrFeed}));
     } catch (error) {
         console.log(error)
