@@ -198,3 +198,13 @@
     width: 32vw;
     font-size: 1.1vw;
 }
+
+.btn{
+    border: 3px solid #1a1a1a;
+    display: inline-block;
+    padding: 10px;
+    position: relative;
+    text-align: center;
+    transition: background 600ms ease, color 600ms ease;
+}
+

@@ -70,7 +70,7 @@ export default function User() {
                 </div>
               </div>
 
-              { user?._id != userData.currentUser?._id ? donationDiv : ""}
+              { user?._id !== userData.currentUser?._id ? donationDiv : ""}
             </div>
 
             <div id={css.postsButtons}>
