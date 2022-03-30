@@ -26,6 +26,13 @@ const loginSlice = createSlice({
             state.isFetching = false
             state.error = false
         },
+        updateFollow:(state,action) => {
+            state.currentUser= action.payload;
+        },
+        updateUnfollow:(state,action) => {
+            console.log(action.payload)
+            state.currentUser= action.payload;
+        }
     }
 })
 
@@ -34,5 +41,7 @@ export const {
     loginSuccess,
     loginFailure,
     logoutStart,
+    updateFollow,
+    updateUnfollow
 } = loginSlice.actions;
 export default loginSlice.reducer;
