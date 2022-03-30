@@ -4,7 +4,7 @@ const OrderSchema = new Schema(
     {
         type: {type: String},
         user: {type: Schema.Types.ObjectId, ref:'User'},
-        amount: {type: String},
+        amount: {type: Number},
         card: {type: String},
         ticket:{type:String}
 
