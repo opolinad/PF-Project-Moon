@@ -49,7 +49,7 @@ export const deletePost=async(dispatch, postId, token, postArray, father)=>{
 
 export const sendBackComment = async (id,comment,dispatch) => {
     try {
-        //const res = await axios.post(`/api/posts/comment/${id} `, comment)
+        const res = await axios.put(`/api/posts/comment/${id} `, comment)
         console.log("PostCall")
         dispatch(setNewComment(comment))
 
