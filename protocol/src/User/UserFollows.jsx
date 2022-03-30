@@ -3,15 +3,16 @@ import { Link, useParams, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import css from "./UserFollows.module.css"
 import DefaultProfile from '../assets/default_profile_photo.svg'
-import { followAndUnFollow } from '../ReduxToolkit/apiCalls/followUser.js';
+import { followAndUnFollow, followCall } from '../ReduxToolkit/apiCalls/followUser.js';
 import { getUser } from '../ReduxToolkit/apiCalls/userCall.js';
 
 export default function Follows() {
     // const user = useSelector(state => state.user.currentUser)
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
+    const user = useSelector((state) => state.user.currentUser);
     const currentUser = useSelector(state => state.userData.currentUser)
-    const followers = useSelector(state => state.userData.currentUser.followers)
-    const following = useSelector(state => state.userData.currentUser.following)
+    const followers = useSelector(state => state.userData.currentUser?.followers)
+    const following = useSelector(state => state.userData.currentUser?.following)
 
     // useEffect(() => {
     //     getUser(dispatch(user._id))
@@ -21,24 +22,24 @@ export default function Follows() {
     // const followers = [{ user: "lisa", name: "bart simpson", image: "" }, { user: "march", name: "march simpson", image: "" }]
 
     const URL = useLocation();
-    let displaying = following;
-    if (URL.pathname.includes("followers")) displaying = followers;
-
+    let displaying = currentUser?.followings;
+    if (URL.pathname.includes("followers")) displaying = currentUser?.followers;
+    console.log(displaying)
     return (
         <>
             <div id={css.container}>
-                {displaying ? displaying.map((e) => {
+                {displaying?.length ? displaying.map((e,i) => {
                     return (
-                        <div id={css.card}>
+                        <div key={"follows_"+i} id={css.card}>
                             <img src={e.profilePhoto || DefaultProfile} alt={e.username || "photo"} />
                             <div>
                                 {/* <span className={css.followName}>{e.username}</span> */}
                                 <span className={css.followUsername}>@{e.username}</span>
                             </div>
-                            <button onClick={() => followAndUnFollow(currentUser._id, { userId: e._id })}>FOLLOW</button>
+                            {user?._id === e?._id ? <button>You</button> : <button onClick={()=>followCall(user?._id,e?._id,user?.followings.includes(e?._id) ? "following" : "follow",dispatch,user)}>{user?.followings.includes(e?._id) ? "Following" : "Follow"}</button>}  
                         </div>
                     )
-                }) : (<><p>No tienes followe</p></>)}
+                }) : (<p id={css.status}>{URL.pathname.includes("followers") ? "No followers" : "No followings"}</p>)}
             </div>
         </>
     )

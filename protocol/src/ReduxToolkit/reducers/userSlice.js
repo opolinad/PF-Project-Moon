@@ -39,7 +39,7 @@ const userSlice = createSlice({
             state.currentUser = null;
             state.isFetching = false;
             state.error = true;
-        },
+        }
     },
 });
 
@@ -49,6 +49,6 @@ export const {
     userFailure,
     updateStart,
     updateSuccess,
-    updateFailure
+    updateFailure,
 } = userSlice.actions;
 export default userSlice.reducer;
