@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Menu from "./components/Menu/Menu.jsx";
 import Notifications from "./components/Notifications/Notifications.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faSearch, faBell } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faSearch, faBell, faStream } from "@fortawesome/free-solid-svg-icons";
 import { logoutUser } from "../ReduxToolkit/apiCalls/loginCall";
 import { useLocation } from "react-router";
 import socket from '../Conversations/socket'
@@ -98,7 +98,7 @@ export default function Navbar() {
 
         <div id={NavbarCss.menuIcon}>
           <div id={menu[1]} onClick={() => setShowMenu(!showMenu)}>
-            <FontAwesomeIcon icon={faBars} />
+            <FontAwesomeIcon icon={showMenu? faStream : faBars} />
           </div>
         </div>
 
@@ -115,15 +115,10 @@ export default function Navbar() {
         <div id={NavbarCss.notificationsShell}>
           <div id={NavbarCss.notificationIcon} onClick={()=>setOpen(!open)}><FontAwesomeIcon icon={faBell} /></div>
             { notifications.length > 0 &&
-              <div>{notifications.length}</div>
+              <div id={NavbarCss.notiNumber}>{notifications.length}</div>
             }
         </div>
-        {notifications && (
-                <div>
-                    {notifications.map((n)=> displayNotifications(n))}    
-                    <button id={NavbarCss.deletNotisBut} onClick={handleRead}>Delete notifications</button>
-                </div> 
-          )}
+
         <div id={NavbarCss.paddingDer}>
           <button id={NavbarCss.logoutBut} onClick={() => handleLogout()}>
             LOGOUT
@@ -133,6 +128,13 @@ export default function Navbar() {
       <div id={menu[0]}>
         <Menu />
       </div>
+      {notifications && (
+                <div style={{display: open? "flex" : "none"}} id={NavbarCss.notisCont}>
+                    <button id={NavbarCss.deletNotisBut} onClick={handleRead}>Delete notifications</button>
+                    {notifications.map((n)=> displayNotifications(n))}    
+                    
+                </div> 
+          )}
     </div>
   );
 }

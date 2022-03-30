@@ -16,6 +16,9 @@ export const useImage = ({ type }) => {
   const onChange = (e) => {
     setFile(e.target.files[0]);
   };
+   const setNullFile =()=>{
+        setValue("");
+    }
 
   useEffect(() => {
     if (file) {
@@ -63,5 +66,6 @@ export const useImage = ({ type }) => {
     setSizeExceeded,
     loading,
     onChange,
+    setNullFile
   };
 };

@@ -11,7 +11,8 @@ router.post('/:idUser',async(req:Request, res:Response) => {
         const newOrder = await new Order(req.body)
         await newOrder.save()
         await user.updateOne({history: {$push: newOrder._id}})
-    
+        console.log(newOrder)
+        console.log(user.history)
         res.json(user.history)
     } catch (err) {
         res.status(400).json({error: err})
