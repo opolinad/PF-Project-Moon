@@ -100,23 +100,27 @@ export default function Feed(props) {
       );
     });
 
-    usersArr = feed.users?.map((e) => {
-      return (
-        <CardUser
-        image={e.profilePhoto}
-        fullName={e.fullname? e.fullName : e.email.split("@")[0]}
-        userName={e.username}
-        currentUserId={currentUser._id}
-        userId={e._id}
-        />
-      )
-    })
+    usersArr = (
+    <div id={FeedCss.cardUserArrCont}>{
+      feed.users?.map((e) => {
+        return (
+          <CardUser
+          image={e.profilePhoto}
+          fullName={e.fullname? e.fullName : e.email.split("@")[0]}
+          userName={e.username}
+          currentUserId={currentUser._id}
+          userId={e._id}
+          />
+        )
+      })
+      
+    }</div>) 
 
 
   return <div id={FeedCss.FeedContainer}>
-      {usersArr? <p>some users that match your search...</p> : null}
+      {usersArr? <h3 id={FeedCss.statusUsersCard}>Users</h3> : null}
       {usersArr}
-      {usersArr? <button>load more users</button> : null}
+      {usersArr? <button id={FeedCss.loadButUsers}>load more users</button> : null}
       {postsArr}
     </div>;
 
