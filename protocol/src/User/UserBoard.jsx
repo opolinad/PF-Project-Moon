@@ -11,6 +11,7 @@ export default function UserBoard() {
     return (
         <div id={css.userBoardCont}>
             <Routes>
+                <Route index element={<Posts />} />
                 <Route path="favorites" element={<Posts />} />
                 <Route path="posts" element={<Posts />} />
                 <Route path="following" element={<Follows />} />

@@ -33,7 +33,6 @@ router.post('/', async (req: Request, res: Response) => {
 router.get("/session", async (req: Request, res: Response) => {
   let userEmail;
   let infoUser: any = req.user;
-  console.log("req",infoUser)
   const { email } = infoUser._json;
   const { mail } = infoUser._json;
   const { emails } = infoUser;
@@ -42,7 +41,6 @@ router.get("/session", async (req: Request, res: Response) => {
 
   const { ...others } = user._doc;
   const accessToken = jwt.sign({ id: user._id }, process.env.JWT_KEY, { expiresIn: '1d' });
-  console.log("at", accessToken, others)
   res.json({ ...others, accessToken });
 })
 

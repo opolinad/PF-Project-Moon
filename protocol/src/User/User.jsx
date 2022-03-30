@@ -3,10 +3,11 @@ import { Link, useParams } from "react-router-dom";
 import { getUser } from "../ReduxToolkit/apiCalls/userCall";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft, faAngleRight,faCertificate, faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router";
 import css from "./User.module.css";
 import Donation from "../donation/Donation";
+import { followCall } from "../ReduxToolkit/apiCalls/followUser";
 
 export default function User() {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ export default function User() {
 
   const { id } = useParams();
   const userData = useSelector((state) => state.userData);
+  const user = useSelector((state) => state.user.currentUser);
   useEffect(() => {
     getUser(dispatch, id);
   }, []);
@@ -26,7 +28,17 @@ export default function User() {
     return <div id={css.userStatus}>Error!_Rocket Lost</div>; 
   }
 
+  let followingShow = user?.followings.includes(userData.currentUser?._id);
+
   let donateLength= donationShow? css.longDonationBut : css.shortDonationBut;
+
+  let donationDiv = (
+  <div id={css.donationCont}>
+    <Donation />
+    <button onClick={()=>setDonationShow(!donationShow)} id={donateLength}><FontAwesomeIcon id={css.butSvgDecoLeft} icon={faAngleLeft}/> <p>{donationShow?"Donate to Artist":""}</p>  <FontAwesomeIcon id={css.butSvgDecoRight} icon={faAngleRight}/></button>        
+  </div>)
+
+  let editDiv =(<Link to={`edit`} id={css.postsLink}> <button>EDIT</button> </Link>)
   
   return (
     <div id={css.container}>
@@ -38,7 +50,15 @@ export default function User() {
             </div>
             
             <div id={css.profileSection}>
-              <img src={ userData.currentUser?.profilePhoto ? userData.currentUser?.profilePhoto : "/default_profile_photo.svg"} alt="profilePhoto not found" id={css.profilePhoto}/>
+              <div id={css.leftProfileSect}>
+                <div id={css.profPhotoCont}>
+                  <img src={ userData.currentUser?.profilePhoto ? userData.currentUser?.profilePhoto : "/default_profile_photo.svg"} alt="profilePhoto not found" id={css.profilePhoto}/>
+                </div>
+                {user?._id === userData.currentUser?._id ? "" : 
+                <button id={followingShow ? css.followingButton : css.followButton} onClick={()=>followCall(user?._id,userData.currentUser?._id,followingShow ? "following" : "follow",dispatch,user)}>
+                  <FontAwesomeIcon icon={followingShow ? faCertificate : faCircleNotch } />{followingShow ? " Following" : " Follow"}
+                </button>}  
+              </div>
               
               <div>
                 <h1>{userData.currentUser?.fullName ? userData.currentUser?.fullName : userData.currentUser?.email.split("@")[0]}</h1>
@@ -50,18 +70,14 @@ export default function User() {
                 </div>
               </div>
 
-              <div id={css.donationCont}>
-                <Donation />
-                <button onClick={()=>setDonationShow(!donationShow)} id={donateLength}><FontAwesomeIcon id={css.butSvgDecoLeft} icon={faAngleLeft}/> <p>{donationShow?"Donate to Artist":""}</p>  <FontAwesomeIcon id={css.butSvgDecoRight} icon={faAngleRight}/></button>        
-              </div>
-              
-
+              { user?._id != userData.currentUser?._id ? donationDiv : ""}
             </div>
 
             <div id={css.postsButtons}>
               <Link to={"posts"} id={css.postsLink}> <button>POSTS</button> </Link>
               {/* <Link to={"favorites"} id={css.postsLink}> <button>FAVORITES</button> </Link> */}
-              <Link to={`edit`} id={css.postsLink}> <button>EDIT</button> </Link>
+              { user?._id === userData.currentUser?._id ? editDiv : ""}
+              
             </div>
           </div>
         ) : (
