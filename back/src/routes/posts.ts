@@ -183,7 +183,10 @@ router.post('/share/:idPost', async (req:Request, res:Response) => {
     const { idPost } = req.params
     const { idUser } = req.body
     let post = await Post.findById(idPost)
-    if(post.shareUser !== idUser){ 
+    let user = await User.findById(idUser)
+    if(post.shareUser && post.shareUser.toString() === user._id.toString()){ 
+        res.status(400).json("Ya compartiste esta publicacion antes")
+    } else {
     try {
         if(!post.shares.includes(idUser)) { 
             
@@ -210,11 +213,8 @@ router.post('/share/:idPost', async (req:Request, res:Response) => {
 
             res.json(returnPost)
         } else {
-            let posts = await Post.find({shareUser: idUser})
-            console.log(posts)
-            posts = posts.filter((post:any) => post.originId === post._id)
-            await Post.findByIdAndDelete(posts._id)
-
+            let posts = await Post.find({shareUser: idUser, originId: post._id})
+            await Post.findByIdAndDelete(posts[0]._id)
             await post.updateOne({$pull: {shares: idUser}})
 
             let returnPost = await Post.findById(idPost, {shares:1})
@@ -226,8 +226,6 @@ router.post('/share/:idPost', async (req:Request, res:Response) => {
         console.log(error)
         res.status(500).json({error: error})
     }
-    } else {
-        res.status(400).json("Esta publicacion es tuya")
     }
 })
 

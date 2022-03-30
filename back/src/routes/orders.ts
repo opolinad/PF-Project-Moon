@@ -9,12 +9,13 @@ router.post('/:idUser',async(req:Request, res:Response) => {
     try {
         const user = await User.findById(idUser)
         const newOrder = await new Order(req.body)
-        await newOrder.save()
-        await user.updateOne({history: {$push: newOrder._id}})
-        console.log(newOrder)
-        console.log(user.history)
+        const savedOrder = await newOrder.save()
+        await user.updateOne({$push: {history: savedOrder._id}})
+        const userFrom = await User.findById(req.body.user)
+        await userFrom.updateOne({$push: {history: savedOrder._id}})
         res.json(user.history)
     } catch (err) {
+        console.log(err)
         res.status(400).json({error: err})
     }
 })
