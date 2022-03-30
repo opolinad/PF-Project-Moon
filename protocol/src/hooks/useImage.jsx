@@ -11,6 +11,10 @@ export const useImage = ({ type }) => {
         setFile(e.target.files[0])
     }
 
+    const setNullFile =()=>{
+        setValue("");
+    }
+
     useEffect(() => {
         if (file) {
             setLoading(true)
@@ -49,5 +53,6 @@ export const useImage = ({ type }) => {
         value,
         loading,
         onChange,
+        setNullFile
     }
 }

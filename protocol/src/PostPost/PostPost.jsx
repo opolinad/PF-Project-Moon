@@ -38,6 +38,7 @@ export default function PostPost() {
     value: image1,
     loading: loading1,
     onChange: onChange1,
+    setNullFile
   } = useImage({ type: "file" });
   const user = useSelector((state) => state.user.currentUser);
   const categories = useSelector((state) => state.categories.posts.categories);
@@ -117,6 +118,7 @@ export default function PostPost() {
       })
     );
     postPost(dispatch, user._id, input, user.accessToken,feed);
+    setNullFile();
     setInput({
       user: user._id,
       images: "",
@@ -124,6 +126,7 @@ export default function PostPost() {
       description: "",
       categories: [],
     });
+    setShowCreate(false);
   }
 
   let CreateCss = showCreate ? css.openCreate : css.closeCreate;
