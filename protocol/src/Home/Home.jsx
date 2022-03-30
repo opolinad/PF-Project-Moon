@@ -15,16 +15,16 @@ import PostPost from "../PostPost/PostPost.jsx";
 
 export default function Home() {
     const dispatch = useDispatch();
-    
     const navigate = useNavigate();
-
     const user = useSelector(state => state.user.currentUser);
     const filterAndOrder = useSelector(state => state.filterAndOrder);
     const selectedCategory = useSelector(state => state.selectedCategory);
     const search = useSelector(state => state.search);
     const homePage = useSelector(state => state.homePage);
-
     const [showCreate,setShowCreate] = useState(false);
+   
+
+
 
     useEffect(() => {
         if (!user?.password) loginUser(dispatch, { platform: true });
@@ -40,7 +40,7 @@ export default function Home() {
 
     function handleButton()
     {
-        findNextPage(dispatch, search, selectedCategory, filterAndOrder.filter, filterAndOrder.ordering, homePage.page);
+        findNextPage(dispatch, search, selectedCategory, filterAndOrder.filter, filterAndOrder.ordering, homePage.page, user._id);
     }
 
   
