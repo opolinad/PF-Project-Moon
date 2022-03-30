@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CardPost from "../../../CardPost/CardPost.jsx";
+import CardUser from "../../../CardUser/CardUser.jsx";
 import {
   setFeedToLoading,
   resetPage,
@@ -69,6 +70,7 @@ export default function Feed(props) {
   }, [filterAndOrder, search, selectedCategory]);
 
   let postsArr;
+  let usersArr;
   if (feed.status === STARTING_STATUS || feed.status === LOADING_0) {
     postsArr = (
       <p className={FeedCss.feedStatus}>Loading the Sweet Sweet Posts</p>
@@ -98,7 +100,24 @@ export default function Feed(props) {
       );
     });
 
+    usersArr = feed.users?.map((e) => {
+      return (
+        <CardUser
+        image={e.profilePhoto}
+        fullName={e.fullname? e.fullName : e.email.split("@")[0]}
+        userName={e.username}
+        currentUserId={currentUser._id}
+        userId={e._id}
+        />
+      )
+    })
 
-  return <div id={FeedCss.FeedContainer}>{postsArr}</div>;
+
+  return <div id={FeedCss.FeedContainer}>
+      {usersArr? <p>some users that match your search...</p> : null}
+      {usersArr}
+      {usersArr? <button>load more users</button> : null}
+      {postsArr}
+    </div>;
 
 }

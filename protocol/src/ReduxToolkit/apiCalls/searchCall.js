@@ -28,7 +28,7 @@ export const getSearchResults = async (id=null,dispatch,search = "",selectedCate
 
     if( res.data.posts ){
       console.log("con users")
-      dispatch(feedDatabase({status,posts:res.data.posts}))
+      dispatch(feedDatabase({status,posts:res.data.posts ,users:res.data.users}))
     }else{
       console.log("sin users")
       dispatch(feedDatabase({status,posts:res.data}))
