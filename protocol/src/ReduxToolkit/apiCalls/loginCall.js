@@ -6,13 +6,15 @@ import {
 //Call to API
 export const loginUser = async (dispatch, user) => {
     dispatch(loginStart())
+    console.log("loginUser");//Borrar
     try {
         let res;
         if (user.hasOwnProperty("platform")) {
-            res = await axios.get(`/api/login/session/`/*, { withCredentials: true }*/);
+            res = await axios.get(`/api/login/session/`, { withCredentials: true });
         } else {
             res = await axios.post(`/api/login/`, user)
         }
+        console.log();
         dispatch(loginSuccess(res.data))
     } catch (error) {
         dispatch(loginFailure())
