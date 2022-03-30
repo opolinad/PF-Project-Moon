@@ -101,4 +101,9 @@
     font-size: 1.3vw;
 
     cursor: pointer;
+    transition: 0.2s;
+}
+.category:hover{
+    color: #E9A6A6;
+    transition: 0.2s;
 }

@@ -13,6 +13,7 @@ const profileRoute = require('./profile')
 const stripeRoute = require('./stripe')
 const messagesRoutes = require('./messages')
 const conversationsRoutes = require('./conversations')
+const ordersRoutes = require('./orders')
 
 
 router.use('/register', registerRoute)
@@ -27,6 +28,7 @@ router.use('/profile', profileRoute)
 router.use('/checkout', stripeRoute)
 router.use('/messages', messagesRoutes)
 router.use('/conversations', conversationsRoutes)
+router.use('/orders', ordersRoutes)
 
 
 module.exports = router;

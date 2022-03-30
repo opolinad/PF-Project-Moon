@@ -1,5 +1,5 @@
 import io from "socket.io-client";
 
-let socket = io("http://localhost:3000");
+const socket = io(process.env.REACT_APP_SOCKET+'/')
 
 export default socket;

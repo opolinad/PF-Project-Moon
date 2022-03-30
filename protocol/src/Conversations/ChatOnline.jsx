@@ -3,7 +3,6 @@ import defaultPhoto from '../assets/default_profile_photo.svg'
 import ChatOnlineCss from "./ChatOnline.module.css";
 
 export default function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
-console.log(onlineUsers)
   const handleClick = async (event, user) => {
     event.preventDefault()
     try {

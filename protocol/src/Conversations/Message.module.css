@@ -1,6 +1,44 @@
+.messageCont{
+    display: flex;
+    flex-direction: row;
+}
+.reverseMessageCont{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+
+.decoOwn,.decoNotOwn{
+    width: 0;
+    height: 0;
+    border-top:  0vw solid transparent;
+    border-bottom:  0.8vw solid transparent;
+
+    transition: 0.2s;
+}
+.decoOwn{
+    border-left: 0.8vw solid #1F1D36;
+    border-top-right-radius: 0.2vw;
+}
+.decoNotOwn{
+    border-right: 0.8vw solid #171629;
+    border-top-left-radius: 0.2vw;
+}
+
+.messageOwn:hover + .decoOwn{
+    border-left: 0.8vw solid #3F3351;
+} 
+.message:hover + .decoNotOwn{
+    border-right: 0.8vw solid #3F3351;
+}
+
+
 .messageOwn,.message{
-    width: 90%;
+    width: fit-content;
+    min-width: 18%;
+    max-width: 88%;
     height: fit-content;
+    padding: 2vh 1% 0vh 1%;
 
     margin-bottom: 1vh;
     transition: 0.2s;
@@ -9,23 +47,29 @@
     background-color: #3F3351;
     transition: 0.2s;
 }
+.messageOwn:hover > .TimeAgo,.message:hover > .TimeAgo{
+    background-color: #3F3351;
+    transition: 0.2s;
+}
 .messageOwn{
-    margin-left: 10%;
+    margin-left: auto;
 
     border-top-left-radius: 0.5vw;
     border-bottom-left-radius: 0.5vw;
+    border-bottom-right-radius: 0.5vw;
 
     background-color: #1F1D36;
 }
 .message{
-    margin-right: 10%;
+    margin-right: auto;
 
     border-top-right-radius: 0.5vw;
     border-bottom-right-radius: 0.5vw;
-
-
-    background-color: #131222;
+    border-bottom-left-radius: 0.5vw;
+    background-color: #171629;
 }
+
+
 
 .messageText{
     width: 90%;
@@ -36,13 +80,16 @@
 .TimeAgo{
     width: fit-content;
     height: 2vh;
-    margin: 1vh 0 0 auto;
+    margin: 0vh 0 0 auto;
+    padding: 0.1vh 0.1vw 0.1vh 0.1vw;
 
-    border-top-left-radius: 0.2vw;
-    border-top-right-radius: 0.2vw;
+    border-top-left-radius: 0.3vw;
+    border-top-right-radius: 0.3vw;
 
     background-color: #171629;
     color: #f0e9d298;
 
     font-size: 0.8vw;
+
+    transition: 0.2s;
 }

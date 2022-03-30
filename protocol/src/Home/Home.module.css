@@ -11,6 +11,8 @@
 }
 
 #filterOrderCont{
+    position: sticky;
+    top: 17.5vh;
     display: flex;
     flex-direction: row;
 
