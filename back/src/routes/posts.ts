@@ -113,6 +113,11 @@ router.delete('/:idPost', verifyToken, async (req:Request,res:Response) => {
     const { idPost } = req.params
     
     try {
+        const post = await Post.findById(idPost)
+        if(post.share) {
+            const postOrigin = await Post.findById(post.originId)
+            await postOrigin.updateOne({$pull: {shares: post.shareUser}})
+        }
         await Post.findByIdAndDelete(idPost)
         res.json('The Post has been deleted...')
     } catch (error) {
