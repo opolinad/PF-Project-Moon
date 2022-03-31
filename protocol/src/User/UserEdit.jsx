@@ -66,6 +66,8 @@ export default function UserEdit() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    let option = window.confirm("Are you sure you want to edit your profile?")
+    if (option === true) {
     updateUsers(
       dispatch,
       currentUser._id,
@@ -81,8 +83,9 @@ export default function UserEdit() {
       profilePhoto: "",
       backgroundPhoto: "",
     });
-
-    
+    } else {
+      alert("Cancelled")
+    }
   }
 
   useEffect(() => {

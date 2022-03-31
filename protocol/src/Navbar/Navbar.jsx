@@ -76,8 +76,13 @@ export default function Navbar() {
   (searchbut = (<p id={NavbarCss.searchLink} onClick={() => setSearchErr("owo small, >3 pls uwu")}></p>));
 
   const handleLogout = () => {
-    logoutUser(dispatch);
-    navigate('/')
+    let option = window.confirm("Are you sure you want to logout?")
+    if (option === true) {
+      logoutUser(dispatch);
+      navigate('/')
+    } else {
+      alert("Cancelled")
+    }
   };
 
   const onClickHandler = () => {
