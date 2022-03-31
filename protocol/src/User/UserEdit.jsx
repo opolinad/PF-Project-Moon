@@ -7,6 +7,7 @@ import DefaultProfile from "../assets/default_profile_photo.svg";
 import { useImage } from "../hooks/useImage";
 
 import styles from "./UserEdit.module.css";
+
 import { Toast } from "../helpers/alerts/alert";
 
 export default function UserEdit() {
@@ -37,6 +38,8 @@ export default function UserEdit() {
     profilePhoto: user?.profilePhoto || "",
     backgroundPhoto: user?.backgroundPhoto || "",
   });
+  
+
 
   function handleInputChange(e) {
     setInputs({
@@ -63,6 +66,8 @@ export default function UserEdit() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    let option = window.confirm("Are you sure you want to edit your profile?")
+    if (option === true) {
     updateUsers(
       dispatch,
       currentUser._id,
@@ -78,6 +83,9 @@ export default function UserEdit() {
       profilePhoto: "",
       backgroundPhoto: "",
     });
+    } else {
+      alert("Cancelled")
+    }
   }
 
   useEffect(() => {
@@ -119,6 +127,13 @@ export default function UserEdit() {
           />
         </div>
 
+        <div>
+        <input id="toggle-on" class="toggle toggle-left" name="toggle" value="false" type="radio" checked/>
+          <label for="toggle-on" class="btn">Artist</label>
+          <input id="toggle-off" class="toggle toggle-right" name="toggle" value="true" type="radio"/>
+          <label for="toggle-off" class="btn">Not an Artist</label>
+        </div>
+
         <div className={styles.editShell}>
           <label className={styles.editLabel}>Profile Photo: </label>
           <div id={styles.currentImgProfileCont}>
@@ -126,6 +141,7 @@ export default function UserEdit() {
               <img
                 id={styles.currentImgProfile}
                 src="https://acegif.com/wp-content/uploads/loading-25.gif"
+                alt="not found"
               />
             ) : (
               <img
@@ -152,6 +168,7 @@ export default function UserEdit() {
               <img
                 id={styles.currentImgBack}
                 src="https://acegif.com/wp-content/uploads/loading-25.gif"
+                alt="not found"
               />
             ) : (
               <img

@@ -136,14 +136,19 @@ export default function CardPost(props) {
   }
 
   function handleDelete(postId) {
-    let arr = props.componentFather === "Feed" ? feed : userPosts;
-    deletePost(
-      dispatch,
-      postId,
-      userData.accessToken,
-      arr,
-      props.componentFather
-    );
+    let option = window.confirm("Are you sure you want to delete this post?")
+    if (option === true) {
+      let arr = props.componentFather === "Feed" ? feed : userPosts;
+      deletePost(
+        dispatch,
+        postId,
+        userData.accessToken,
+        arr,
+        props.componentFather
+      );
+    } else {
+      alert("Cancelled")
+    }
   }
 
   function handleComment() {
