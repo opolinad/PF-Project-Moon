@@ -55,7 +55,7 @@ router.get('/portfolio/:idUser', async (req:Request, res:Response) => {
         posts.map((post:any) => {
         if(post.images.length) {
             post.images.forEach((image:string, index:any) => {     
-                portfolio.push({_id: post._id,images: post.images[index]})
+                portfolio.push({_id: post._id, image: post.images[index]})
             });
         }
         }) 
