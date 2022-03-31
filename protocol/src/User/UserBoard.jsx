@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router";
 import Follows from "./UserFollows";
-import Messages from "../Messages/Messages.jsx";
+import UserWallet from "./UserWallet";
 import Posts from "./UserPosts";
 import UserEdit from "./UserEdit";
 
@@ -16,7 +16,7 @@ export default function UserBoard() {
                 <Route path="posts" element={<Posts />} />
                 <Route path="following" element={<Follows />} />
                 <Route path="followers" element={<Follows />} />
-                {/* <Route path="messages" element={<Messages />} /> */}
+                <Route path="wallet" element={<UserWallet />} />
                 <Route path="edit" element={<UserEdit />} />
             </Routes>
         </div>
