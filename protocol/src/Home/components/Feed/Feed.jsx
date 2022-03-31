@@ -125,10 +125,11 @@ export default function Feed(props) {
 
 
   return <div id={FeedCss.FeedContainer}>
-      {usersArr? <h3>some users that match your search...</h3> : null}
+      {usersArr.length? <h3 id={FeedCss.statusUsersCard}>Users</h3> : null}
       {usersDisplaying}
       {usersArr? <button onClick={() => loadMore()}>load more users</button> : null}
 
+      
       {postsArr}
     </div>;
 
