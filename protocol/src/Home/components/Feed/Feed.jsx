@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CardPost from "../../../CardPost/CardPost.jsx";
@@ -116,11 +116,19 @@ export default function Feed(props) {
       
     }</div>) 
 
+    const [displaying, setDisplaying] = useState(3)
+    let usersDisplaying = usersArr?.slice(0, displaying);
+    function loadMore(e){
+        setDisplaying(displaying + 3)
+        usersDisplaying = usersArr?.slice(0, displaying);
+    }
+
 
   return <div id={FeedCss.FeedContainer}>
-      {usersArr? <h3 id={FeedCss.statusUsersCard}>Users</h3> : null}
-      {usersArr}
-      {usersArr? <button id={FeedCss.loadButUsers}>load more users</button> : null}
+      {usersArr? <h3>some users that match your search...</h3> : null}
+      {usersDisplaying}
+      {usersArr? <button onClick={() => loadMore()}>load more users</button> : null}
+
       {postsArr}
     </div>;
 
