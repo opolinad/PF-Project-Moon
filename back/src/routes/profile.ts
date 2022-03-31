@@ -45,4 +45,33 @@ router.get('/:idUser', async(req:Request, res:Response) => {
     }
 })
 
+router.get('/portfolio/:idUser', async (req:Request, res:Response) => {
+    const { idUser } = req.params
+    const { page = 1 }: { page?: number } = req.query;
+    
+    try {
+        const posts = await Post.find({ user: idUser})
+        let portfolio:any = []
+        posts.map((post:any) => {
+        if(post.images.length) {
+            post.images.forEach((image:string, index:any) => {     
+                portfolio.push({_id: post._id,images: post.images[index]})
+            });
+        }
+        }) 
+        if(page) {
+            const lastPage = page * 20
+            const firstPage = lastPage - 20
+            const postsShow = portfolio.slice(firstPage, lastPage)
+            return res.json(postsShow)
+        } else {
+            const postsShow = portfolio.splice(0,20)
+            res.json(postsShow)
+        }
+    } catch(err) {
+        console.log(err)
+        res.status(400).json({error: err})
+    }
+})
+
 module.exports = router;
