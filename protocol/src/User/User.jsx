@@ -38,6 +38,8 @@ export default function User() {
   </div>)
 
   let editDiv =(<Link to={`edit`} id={css.postsLink}> <button>EDIT</button> </Link>)
+
+  let walletDiv =(<Link to={`wallet`} id={css.postsLink}> <button>WALLET</button> </Link>)
   
   return (
     <div id={css.container}>
@@ -76,6 +78,7 @@ export default function User() {
               <Link to={"posts"} id={css.postsLink}> <button>POSTS</button> </Link>
               {/* <Link to={"favorites"} id={css.postsLink}> <button>FAVORITES</button> </Link> */}
               { user?._id === userData.currentUser?._id ? editDiv : ""}
+              { user?._id === userData.currentUser?._id ? walletDiv : ""}
               
             </div>
           </div>
