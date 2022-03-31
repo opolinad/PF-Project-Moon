@@ -5,6 +5,7 @@ import userReducer from "./reducers/userSlice"
 import { postReducer, detailedPostReducer} from "./reducers/postSlice";
 import searchReducer from "./reducers/navBarSlice";
 import userPostsById from "./reducers/usersPosts";
+import portfolioReducer from "./reducers/portfolioSlice";
 
 import {feedReducer, categoriesReducer, selectedCategoryReducer, filterAndOrderReducer, homePageReducer} from "./reducers/homeSlice"
 
@@ -40,7 +41,8 @@ const rootReducer = combineReducers({
     homePage: homePageReducer,
     userPostsById: userPostsById,
     createPost: postReducer,
-    detailedPost:detailedPostReducer
+    detailedPost:detailedPostReducer,
+    portfolio: portfolioReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
