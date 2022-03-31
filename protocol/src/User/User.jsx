@@ -4,7 +4,7 @@ import { getUser } from "../ReduxToolkit/apiCalls/userCall";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight,faCertificate, faCircleNotch } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import css from "./User.module.css";
 import Donation from "../donation/Donation";
 import { followCall } from "../ReduxToolkit/apiCalls/followUser";
@@ -18,9 +18,8 @@ export default function User() {
   const { id } = useParams();
   const userData = useSelector((state) => state.userData);
   const user = useSelector((state) => state.user.currentUser);
-  useEffect(() => {
-    getUser(dispatch, id);
-  }, []);
+
+  useEffect(()=> getUser(dispatch, id) , [id])
 
   if (userData.isFetching)
     return <div id={css.userStatus}>Loading Fuel, be patient!</div>;
@@ -70,7 +69,7 @@ export default function User() {
                 </div>
               </div>
 
-              { user?._id != userData.currentUser?._id ? donationDiv : ""}
+              { user?._id !== userData.currentUser?._id ? donationDiv : ""}
             </div>
 
             <div id={css.postsButtons}>
