@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Cardpost from "./CardPost.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -5,7 +6,8 @@ import { Link } from "react-router-dom";
 import { deletePost } from "../ReduxToolkit/apiCalls/postCall";
 import { faHeart, faShareSquare, faCommentAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import socket from "../Conversations/socket";
-
+import StripeCheckout from "react-stripe-checkout";
+import Logo from "../assets/default_profile_photo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { likeAction, shareAction } from "../ReduxToolkit/apiCalls/cardPostCall";
 import { useNavigate } from "react-router";
@@ -60,7 +62,7 @@ export default function CardPost(props) {
   else cardValues.likeImg = Cardpost.notLikedImg;
   if (props.shares.some(e => e._id === user?._id))cardValues.sharedImg = Cardpost.sharedImg;
   else cardValues.sharedImg = Cardpost.notSharedImg;
-  
+
   props.description
     ? (cardValues.description = props.description)
     : (cardValues.description = "");
@@ -93,6 +95,44 @@ export default function CardPost(props) {
   cardValues.likes = props.likes.length;
   cardValues.shares = props.shares.length;
   cardValues.favorite = props.favorite;
+  const KEY =
+  "pk_test_51KhjjyI7TYGSS0jsLUhfTM1b6D1CGvXdAw90KV1nXso6bES1yebf1jNNjImBF5vbvpYs4BBkM1RYMOj4Q8q9fCUS00UpSjNYNN";
+  async function handlePayment (token){
+    try {
+      const { data }= await axios.post(
+        "/api/checkout/payment",
+        {
+          tokenId: token.id,
+          amount: props.price*100,
+        }
+      );
+      console.log(data.success)
+      if(data.success) {
+        const order = {
+          type: 'shopped',
+          user: user._id,
+          to: props.userId,
+          amount: props.price,
+          card: data.success.payment_method_details.card.brand + ' ' + data.success.payment_method_details.card.last4,
+          ticket: data.success.receipt_url
+        }
+        await axios.post(`/api/orders/${props.userId}`, order);
+        order.type="sold";
+        await axios.post(`/api/orders/${user._id}`, order);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  console.log(props)
+  const stripeOptions = {
+    name: "Protocol Moon",
+    image: Logo,
+    description: `Checkout price is ${props.price} USD`,
+    stripeKey: KEY,
+    token: handlePayment,
+    amount:props.price*100
+  };
 
   function handleNotifications(type) {
     setLiked(true);
@@ -162,7 +202,6 @@ export default function CardPost(props) {
     navigate("/post/" + props.id);
   }
 
-  console.log(feed)
 
     return (
       <div className={Cardpost.CardPostCont}>
@@ -182,24 +221,20 @@ export default function CardPost(props) {
 
         {/* title */}
         <h2 className={Cardpost.cardPostTitle}>{props.title}</h2>
-  
+
         {/* description */}
         <div className={Cardpost.descriptionCont}>
           <p className={Cardpost.cardPostDescription}>{cardValues.description}</p>
         </div>
-  
+
         {/* {cardValues.imgs} */}
         <ImgPreviews imgs={props.imgs} id={props.id} />
 
-        {props.price === undefined ? (
-          <p>No price available.</p>
-           ) : (
-            <p className={Cardpost.cardPostDescription}>U$D {cardValues.price}</p>
-        )}
+        {cardValues.price!=="" && <StripeCheckout {...stripeOptions} billingAddress shippingAddress><p>{cardValues.price} USD</p></StripeCheckout> }
 
         {cardValues.categories}
 
-  
+
         <div className={Cardpost.analiticsCont}>
           {/* likes */}
           <div className={Cardpost.likesShell} onClick={() => handleLike()}>
