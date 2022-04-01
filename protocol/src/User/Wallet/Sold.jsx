@@ -46,7 +46,7 @@ export default function Sold() {
                         <a href={sold.ticket && sold.ticket}> Ticket </a>
                     </div>
                     <div>
-                        <img src={sold.post.image[0]}/>
+                        <img src={sold.post.image? sold.post.image[0] : ""}/>
                     </div>
                 </div>
             )})}

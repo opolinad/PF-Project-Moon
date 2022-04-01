@@ -95,6 +95,8 @@ export default function Post()
 
     let cardValues={};
     
+    detailedPost.detailed.price? cardValues.price=detailedPost.detailed.price : cardValues.price="";
+
     //veo si hay descripcion
     detailedPost.detailed.description? cardValues.description=detailedPost.detailed.description : cardValues.description="";
     cardValues.styleInfo=PostCss.longInfoCont;
@@ -140,6 +142,12 @@ export default function Post()
                 <h1 >{detailedPost.title}</h1>
 
                 <div id={PostCss.bigDescriptionCont}>{cardValues.description}</div>
+
+                {cardValues.price === "" ? (
+                    <p>No price available.</p>
+                    ) : (
+                    <p>U$D {cardValues.price}</p>
+                )}
 
                 <div id={PostCss.bigAnaliticsCont}>
                     <div id={PostCss.likesShell} onClick={()=>{}}> <FontAwesomeIcon className={cardValues.likeImg} icon={faHeart}/> {cardValues.likes}</div>

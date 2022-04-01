@@ -71,6 +71,10 @@ export default function CardPost(props) {
   //   ? (cardValues.sharedImg = Cardpost.sharedImg)
   //   : (cardValues.sharedImg = Cardpost.notSharedImg);
 
+  props.price
+    ? (cardValues.price = props.price)
+    : (cardValues.price = "");
+
   cardValues.categories = (
     <div id={Cardpost.categoriesCont}>
       {props.categories?.map((element, index) => (
@@ -158,6 +162,8 @@ export default function CardPost(props) {
     navigate("/post/" + props.id);
   }
 
+  console.log(feed)
+
     return (
       <div className={Cardpost.CardPostCont}>
         <div className={Cardpost.userInfoCont}>
@@ -184,7 +190,15 @@ export default function CardPost(props) {
   
         {/* {cardValues.imgs} */}
         <ImgPreviews imgs={props.imgs} id={props.id} />
+
+        {props.price === undefined ? (
+          <p>No price available.</p>
+           ) : (
+            <p className={Cardpost.cardPostDescription}>U$D {cardValues.price}</p>
+        )}
+
         {cardValues.categories}
+
   
         <div className={Cardpost.analiticsCont}>
           {/* likes */}
@@ -203,7 +217,7 @@ export default function CardPost(props) {
           {/* favorites */}
           {/* <div className={Cardpost.favoritesShell}>{"fav"}</div> */}
           <div className={Cardpost.commentShell}>
-            <div style={{cursor:"pointer"}} onClick={() => navigate("/post/" + props.id)}>
+            <div style={{cursor:"pointer"}} onClick={() => handleComment()}>
               <FontAwesomeIcon icon={faCommentAlt} /> Commentaries
             </div>
           </div>

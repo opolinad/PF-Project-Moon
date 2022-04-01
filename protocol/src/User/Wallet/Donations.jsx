@@ -3,6 +3,10 @@ import defaultPhoto from '../../assets/default_profile_photo.svg'
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleRight, faFileAlt, faBarcode } from "@fortawesome/free-solid-svg-icons";
+import Donation from "../../donation/Donation";
+
 
 export default function Donations() {
     const [donations, setDonations] = useState([])
@@ -25,30 +29,37 @@ export default function Donations() {
     useEffect(()=>getDonations(id),[id, page])
 
     return (
-        <div className={DonationsCss.margin}>
+        <div id={DonationsCss.donationCont}>
             { donations?.map(donation => {
-                return (<div className={DonationsCss.donation}>
-                    <div>
-                        <img clasName={DonationsCss.photo} src={donation.user.profilePhoto? donation.user.profilePhoto : defaultPhoto} />
-                        {donation.user.username && donation.user.username}
+                return (
+                <div className={DonationsCss.donation}>
+                    <div className={DonationsCss.UserShell}>
+                        <div className={DonationsCss.imgShell}>
+                            <img className={DonationsCss.img} src={donation.user.profilePhoto? donation.user.profilePhoto : defaultPhoto} />
+                        </div>
+                        <p className={DonationsCss.userName}> {donation.user.username && donation.user.username} </p>
                     </div>
-                    <div>
-                        <img src="https://thumbs.dreamstime.com/z/icono-del-vector-de-la-flecha-derecha-aislado-en-el-fondo-transparente-concepto-logotipo-137195702.jpg" alt="Not found :C"/>
+
+                    <div className={DonationsCss.arrowShell}>
+                        <FontAwesomeIcon icon={faAngleRight}/> {/*className={DonationsCss.} */}
+                        <FontAwesomeIcon icon={faAngleRight}/>
                     </div>
-                    <div>
-                        <img src={donation.to.profilePhoto? donation.to.profilePhoto : defaultPhoto} />
-                        {donation.to.username && donation.to.username}
+
+                    <div className={DonationsCss.UserShell}>
+                        <div className={DonationsCss.imgShell}>
+                            <img className={DonationsCss.img} src={donation.to.profilePhoto? donation.to.profilePhoto : defaultPhoto} /> 
+                        </div>    
+                        <p className={DonationsCss.userName}> {donation.to.username && donation.to.username} </p>
                     </div>
-                    <div>
-                        Amount: {donation.amount && donation.amount}
-                    </div>
-                    <div>
-                        <a href={donation.ticket && donation.ticket}> Ticket </a>
+
+                    <div className={DonationsCss.ticketShell}>
+                        <p className={DonationsCss.amount}>Amount: <span>U$S{donation.amount && donation.amount}</span></p>
+                        <a className={DonationsCss.ticketBut} target="_blank" href={donation.ticket && donation.ticket}> <FontAwesomeIcon icon={faBarcode}/> Ticket </a>
                     </div>
                 </div>
             )})}
-            <div>
-                <button onClick={(event) => loadMore(event)}>ShowMore</button>
+            <div className={DonationsCss.LoadMoreShell}>
+                <button id={DonationsCss.loadMoreBut} onClick={(event) => loadMore(event)}>More Donations History</button>
             </div>
         </div>
     );
