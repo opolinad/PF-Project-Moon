@@ -42,6 +42,7 @@ export default function Donations() {
 
                     <div className={DonationsCss.arrowShell}>
                         <FontAwesomeIcon icon={faAngleRight}/> {/*className={DonationsCss.} */}
+                        
                         <FontAwesomeIcon icon={faAngleRight}/>
                     </div>
 
@@ -58,9 +59,7 @@ export default function Donations() {
                     </div>
                 </div>
             )})}
-            <div className={DonationsCss.LoadMoreShell}>
                 <button id={DonationsCss.loadMoreBut} onClick={(event) => loadMore(event)}>More Donations History</button>
-            </div>
         </div>
     );
 }
