@@ -3,6 +3,9 @@ import defaultPhoto from '../../assets/default_profile_photo.svg'
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleRight, faFileAlt, faBarcode } from "@fortawesome/free-solid-svg-icons";
+
 
 export default function Sold() {
     const [solds, setSolds] = useState([])
@@ -23,36 +26,46 @@ export default function Sold() {
     }
 
     useEffect(()=>getSolds(id),[id, page])
-
+    //{SoldCss.}
     return (
-        <div className={SoldCss.margin}>
+        <div id={SoldCss.soldCont}>
             { solds?.map(sold => {
-                return (<div className={SoldCss.sold}>
-                    <div>
-                        <img clasName={SoldCss.photo} src={sold.user.profilePhoto? sold.user.profilePhoto : defaultPhoto} />
-                        {sold.user.username && sold.user.username}
+                return (
+                    <div className={SoldCss.wholeCont}>
+                        <div className={SoldCss.sold}>
+                            <div className={SoldCss.UserShell}>
+                                <div className={SoldCss.imgShell}>
+                                    <img className={SoldCss.img} src={sold.user.profilePhoto? sold.user.profilePhoto : defaultPhoto} />
+                                </div>
+                                <p className={SoldCss.userName}> {sold.user.username && sold.user.username} </p>
+                            </div>
+
+                            <div className={SoldCss.arrowShell}>
+                                <FontAwesomeIcon icon={faAngleRight}/> {/*className={SoldCss.} */}
+                                <p>Sold To</p>  
+                                <FontAwesomeIcon icon={faAngleRight}/>
+                            </div>
+
+                            <div className={SoldCss.UserShell}>
+                                <div className={SoldCss.imgShell}>
+                                    <img className={SoldCss.img} src={sold.to.profilePhoto? sold.to.profilePhoto : defaultPhoto} />
+                                </div>
+                                <p className={SoldCss.userName}>{sold.to.username && sold.to.username}</p>
+                            </div>
+
+                            <div className={SoldCss.ticketShell}>
+                                <p className={SoldCss.amount}>Amount: <span>US${sold.amount && sold.amount}</span></p>
+                                <a className={SoldCss.ticketBut} target="_blank" href={sold.ticket && sold.ticket}> <FontAwesomeIcon icon={faBarcode}/> Ticket </a>
+                            </div>
+                        </div>
+
+                        <div className={SoldCss.purchasedShell}>
+                            <img className={SoldCss.purchased} src={sold.post.image? sold.post.image[0] : "https://firebasestorage.googleapis.com/v0/b/protocol-moon-1d3b5.appspot.com/o/1648588055451ejemplo.jpg?alt=media&token=ab3f6d66-d990-42eb-969b-721f07bad7fc"}/>
+                        </div>
                     </div>
-                    <div>
-                        <img src="https://thumbs.dreamstime.com/z/icono-del-vector-de-la-flecha-derecha-aislado-en-el-fondo-transparente-concepto-logotipo-137195702.jpg" alt="Not found :C"/>
-                    </div>
-                    <div>
-                        <img src={sold.to.profilePhoto? sold.to.profilePhoto : defaultPhoto} />
-                        {sold.to.username && sold.to.username}
-                    </div>
-                    <div>
-                        Amount: {sold.amount && sold.amount}
-                    </div>
-                    <div>
-                        <a href={sold.ticket && sold.ticket}> Ticket </a>
-                    </div>
-                    <div>
-                        <img src={sold.post.image? sold.post.image[0] : ""}/>
-                    </div>
-                </div>
+
             )})}
-            <div>
-                <button onClick={(event) => loadMore(event)}>ShowMore</button>
-            </div>
+                <button id={SoldCss.loadMoreBut} onClick={(event) => loadMore(event)}>ShowMore</button>
         </div>
     );
 }
