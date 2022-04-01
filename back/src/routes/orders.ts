@@ -37,9 +37,14 @@ router.get('/donations/:idUser', async (req:Request, res:Response) => {
     const { page } : {page?: number}= req.query
     try {
         const user = await User.findById(idUser, {history: 1})
-        .populate({path: 'history', populate: { path: 'user', model:'User', select: 'username profilePhoto'}})
+        .populate({path: 'history', populate: { path: 'user to', model:'User', select: 'username profilePhoto'}})
         const orders = user.history
         const donations = orders.filter((order: any) => order.type === 'donation')
+        donations.sort((a:any, b:any) => {
+            if (a.createdAt < b.createdAt) return 1;
+            if (a.createdAt > b.createdAt) return -1;
+            return 0;
+        })
         if(page) {
             const lastPage = page * 20
             const firstPage = lastPage - 20
@@ -60,9 +65,14 @@ router.get('/solds/:idUser', async (req:Request, res:Response) => {
 
     try {
         const user = await User.findById(idUser, {history: 1})
-        .populate({path: 'history', populate: { path: 'user', model:'User', select: 'username profilePhoto'}})
+        .populate({path: 'history', populate: [{ path: 'user to', model:'User', select: 'username profilePhoto'},{path:'post', model:'Post', select: 'images'}]})
         const orders = user.history
         const solds = orders.filter((order: any) => order.type === 'sold')
+        solds.sort((a:any, b:any) => {
+            if (a.createdAt < b.createdAt) return 1;
+            if (a.createdAt > b.createdAt) return -1;
+            return 0;
+        })
         if(page) {
             const lastPage = page * 20
             const firstPage = lastPage - 20
@@ -73,6 +83,7 @@ router.get('/solds/:idUser', async (req:Request, res:Response) => {
             res.json(soldsShow)
         }
     } catch(err) {
+        console.log(err)
         res.status(400).json({error: err})
     }
 })
@@ -83,9 +94,14 @@ router.get('/shopped/:idUser', async (req:Request, res:Response) => {
 
     try {
         const user = await User.findById(idUser, {history: 1})
-        .populate({path: 'history', populate: { path: 'user', model:'User', select: 'username profilePhoto'}})
+        .populate({path: 'history', populate: [{ path: 'user to', model:'User', select: 'username profilePhoto'},{path:'post', model:'Post', select: 'images'}]})
         const orders = user.history
         const buys = orders.filter((order: any) => order.type === 'buy')
+        buys.sort((a:any, b:any) => {
+            if (a.createdAt < b.createdAt) return 1;
+            if (a.createdAt > b.createdAt) return -1;
+            return 0;
+        })
         if(page) {
             const lastPage = page * 20
             const firstPage = lastPage - 20
