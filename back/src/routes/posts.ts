@@ -234,5 +234,9 @@ router.post('/share/:idPost', async (req:Request, res:Response) => {
     }
 })
 
+router.post('/buy/:idPost', async(req:Request, res:Response) => {
+    
+})
+
 
 module.exports =  router;
