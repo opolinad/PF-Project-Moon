@@ -50,6 +50,7 @@ export default function PostPost() {
     images: "",
     title: "",
     description: "",
+    price: "",
     categories: [],
   });
 
@@ -129,6 +130,7 @@ export default function PostPost() {
       images: "",
       title: "",
       description: "",
+      price: "",
       categories: [],
     });
     setShowCreate(false);
@@ -169,6 +171,13 @@ export default function PostPost() {
           <div className={css.labelImgUpload}>Upload Images</div>
             <input className={css.labelInputImg} type={type1} id="file1" onChange={onChange1}/>
           </div>
+
+          {input?.images && (
+            <div className={css.infoCont}>
+              <span>U$D</span>
+              <input className={css.labelInputTitle} onChange={(e) => handleChange(e)} placeholder="Price" type="number" name="price" value={input.price}/>
+            </div>
+          )}
 
           <div className={css.infoContCat}>
 
