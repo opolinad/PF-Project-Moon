@@ -52,6 +52,7 @@ export default function PostPost() {
     description: "",
     price: "",
     categories: [],
+    premium:false
   });
 
   useEffect(() => {
@@ -135,6 +136,9 @@ export default function PostPost() {
     });
     setShowCreate(false);
   }
+  function handleSelectPremium() {
+    setInput({...input, premium:!input.premium})
+  }
 
   let CreateCss = showCreate ? css.openCreate : css.closeCreate;
 
@@ -178,7 +182,12 @@ export default function PostPost() {
               <input className={css.labelInputTitle} onChange={(e) => handleChange(e)} placeholder="Price" type="number" name="price" value={input.price}/>
             </div>
           )}
-
+          {input?.images && (
+            <div>
+              <input type="checkbox" name="premium" id="premiumCheckbox" checked={input.premium} onChange={handleSelectPremium}/>
+              <label htmlFor="premiumCheckbox">Premium</label>
+            </div>
+          )}
           <div className={css.infoContCat}>
 
             <select className={css.labelInputCat} id="categories" name="categories" onChange={(e) => handleSelect(e)} required>
