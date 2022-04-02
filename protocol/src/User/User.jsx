@@ -79,7 +79,7 @@ export default function User() {
               {/* <Link to={"favorites"} id={css.postsLink}> <button>FAVORITES</button> </Link> */}
               { user?._id === userData.currentUser?._id ? editDiv : ""}
               { user?._id === userData.currentUser?._id ? walletDiv : ""}
-              
+              <Link to={"portfolio"} id={css.postsLink}> <button>PORTFOLIO</button></Link>
             </div>
           </div>
         ) : (

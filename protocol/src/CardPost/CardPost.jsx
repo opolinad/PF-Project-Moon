@@ -162,8 +162,6 @@ export default function CardPost(props) {
     navigate("/post/" + props.id);
   }
 
-  console.log(feed)
-
     return (
       <div className={Cardpost.CardPostCont}>
         <div className={Cardpost.userInfoCont}>

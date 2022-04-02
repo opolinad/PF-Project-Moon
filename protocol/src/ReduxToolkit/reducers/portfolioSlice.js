@@ -16,9 +16,10 @@ const portfolioUserSlice =createSlice({
             state.statusPortolio = LOADING_0;
         },
         portfolioUpdate: (state, action) => {
-            state.posts = action.payload
+            state.posts = action.payload.posts
             state.statusPortolio = action.payload.statusPortolio;
             state.page = state.page + 1;
+            console.log("portfolioUpdate")
         },
         portfolioReset:(state) =>{
             state.posts = [];

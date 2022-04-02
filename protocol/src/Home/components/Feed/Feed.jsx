@@ -36,35 +36,19 @@ export default function Feed(props) {
   const currentUser = useSelector((state) => state.user.currentUser);
 
 
-  useEffect(() => {
-    if (flag_1Carga) {
+  useEffect(() => 
+  {
+    if (flag_1Carga) 
+    {
       if (!query.search && search !== "") dispatch(searchingAction(""));
       else if (query.search && search !== query.search.split("=")[1])
         dispatch(searchingAction(query.search.split("=")[1]));
-      getSearchResults(
-        user.currentUser?._id,
-        dispatch,
-        query.search.split("=")[1],
-        "",
-        "",
-        "recent",
-        1
-      );
+      getSearchResults(user.currentUser?._id, dispatch, query.search.split("=")[1], "", "", "recent", 1);
       dispatch(resetOptions());
       dispatch(resetSelectedCategory());
       dispatch(resetPage());
-    } else if (!flag_1Carga) {
-      getSearchResults(
-        user.currentUser?._id,
-        dispatch,
-        search,
-        selectedCategory,
-        filterAndOrder.filter,
-        filterAndOrder.ordering,
-        homePage.page
-      );
-      /* SI HAY UN HOMEPAGE DEBERIA NO ENVIAR NADA Y DEBERIA VER ALGO DEL SEARCH POR ACA OWO */
-    }
+    } 
+    else if (!flag_1Carga) {getSearchResults(user.currentUser?._id, dispatch, search, selectedCategory, filterAndOrder.filter, filterAndOrder.ordering, homePage.page);}
     flag_1Carga = false;
     dispatch(setDetailedLoading());
   }, [filterAndOrder, search, selectedCategory]);
@@ -78,25 +62,14 @@ export default function Feed(props) {
   } else if (feed.status === NOT_FOUND_404) {
     postsArr = <p className={FeedCss.feedStatus}>Error! No Post Found</p>;
   } else if (feed.status === SUCCESS_200)
-    console.log("FEED RENDERIZANDO")
     postsArr = feed.posts?.map((element, index) => {
       return (
         <CardPost
-          key={"post_" + element._id}
-          title={element.title}
-          description={element.description}
-          imgs={element.images}
-          price={element.price}
-          shares={element.shares}
-          shared={element.share}
-          shareUser={element.user}
-          likes={element.likes}
-          id={element._id}
-          userName={element.shareUser? element.shareUser.username : element.user.username}
-          userPhoto={element.shareUser? element.shareUser.profilePhoto : element.user.profilePhoto}
-          userId={element.shareUser? element.shareUser._id : element.user._id}
-          categories={element.categories}
-          componentFather={"Feed"}
+          key={"post_" + element._id} title={element.title} description={element.description} imgs={element.images}
+          price={element.price} shares={element.shares} shared={element.share} shareUser={element.user}
+          likes={element.likes} id={element._id} userName={element.shareUser? element.shareUser.username : element.user.username}
+          userPhoto={element.shareUser? element.shareUser.profilePhoto : element.user.profilePhoto} userId={element.shareUser? element.shareUser._id : element.user._id}
+          categories={element.categories} componentFather={"Feed"}
         />
       );
     });
@@ -116,7 +89,7 @@ export default function Feed(props) {
       
 
     const [displaying, setDisplaying] = useState(3)
-    let usersDisplaying = usersArr.length? usersArr.slice(0, displaying) : "";
+    let usersDisplaying = usersArr?.length? usersArr.slice(0, displaying) : "";
     function loadMore(e){
         setDisplaying(displaying + 3)
         usersDisplaying = usersArr?.slice(0, displaying);
@@ -124,9 +97,9 @@ export default function Feed(props) {
 
 
   return <div id={FeedCss.FeedContainer}>
-      {usersArr.length? <h3 id={FeedCss.statusUsersCard}>Users</h3> : null}
+      {usersArr?.length? <h3 id={FeedCss.statusUsersCard}>Users</h3> : null}
       <div id={FeedCss.cardUserArrCont}>{usersDisplaying}</div>
-      {usersArr.length? <button id={FeedCss.loadButUsers} onClick={() => loadMore()}>load more users</button> : null}
+      {usersArr?.length? <button id={FeedCss.loadButUsers} onClick={() => loadMore()}>load more users</button> : null}
 
       {postsArr}
     </div>;
