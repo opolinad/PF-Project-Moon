@@ -4,8 +4,10 @@ import Follows from "./UserFollows";
 import UserWallet from "./UserWallet";
 import Posts from "./UserPosts";
 import UserEdit from "./UserEdit";
+import Portfolio from "./UserPorfolio";
 
 import css from "./User.module.css";
+
 
 export default function UserBoard() {
     return (
@@ -18,6 +20,7 @@ export default function UserBoard() {
                 <Route path="followers" element={<Follows />} />
                 <Route path="wallet" element={<UserWallet />} />
                 <Route path="edit" element={<UserEdit />} />
+                <Route path="portfolio" element={<Portfolio />} />
             </Routes>
         </div>
     );

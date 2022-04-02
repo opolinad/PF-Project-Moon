@@ -11,6 +11,7 @@ import Logo from "../assets/default_profile_photo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { likeAction, shareAction } from "../ReduxToolkit/apiCalls/cardPostCall";
 import { useNavigate } from "react-router";
+import { setSelectedCategory } from "../ReduxToolkit/reducers/homeSlice";
 
 function ImgPreviews({ imgs, id }) {
   const navigate = useNavigate();
@@ -51,11 +52,14 @@ function ImgPreviews({ imgs, id }) {
 export default function CardPost(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [liked, setLiked] = useState(false);
+
   const userData = useSelector((state) => state.user.currentUser);
   const userPosts = useSelector((state) => state.userPostsById.posts);
   let feed = useSelector((state) => state.feed.posts);
   const user = useSelector((state) => state.user.currentUser);
+  // const selectedCategories = useSelector(state => state.selectedCategories)
 
   let cardValues = {};
   if (props.likes.some(e => e._id === user?._id))cardValues.likeImg = Cardpost.likedImg;
@@ -80,12 +84,13 @@ export default function CardPost(props) {
   cardValues.categories = (
     <div id={Cardpost.categoriesCont}>
       {props.categories?.map((element, index) => (
-        <p
-          key={"cardpost_" + props._id + "_category" + index}
-          className={Cardpost.category}
-        >
-          {element}
-        </p>
+        // <p
+        //   key={"cardpost_" + props._id + "_category" + index}
+        //   className={Cardpost.category}
+        // >
+        //   {element}
+        // </p>
+        <button key={"cardpost_" + props._id + "_category" + index} value={element} className={Cardpost.category} onClick={(e)=>dispatch(setSelectedCategory(e.target.value))}>{element}</button>
       ))}
     </div>
   );
@@ -202,7 +207,6 @@ export default function CardPost(props) {
     navigate("/post/" + props.id);
   }
 
-
     return (
       <div className={Cardpost.CardPostCont}>
         <div className={Cardpost.userInfoCont}>
@@ -230,7 +234,7 @@ export default function CardPost(props) {
         {/* {cardValues.imgs} */}
         <ImgPreviews imgs={props.imgs} id={props.id} />
 
-        {cardValues.price!=="" && <StripeCheckout {...stripeOptions} billingAddress shippingAddress><p>{cardValues.price} USD</p></StripeCheckout> }
+        {cardValues.price!=="" && <StripeCheckout {...stripeOptions} billingAddress shippingAddress><p {Cardpost.cardPostPrice}>{cardValues.price} USD</p></StripeCheckout> }
 
         {cardValues.categories}
 

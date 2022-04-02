@@ -36,7 +36,7 @@ export default function Navbar() {
     socket.on("getNotification", (data) => {
         setNotifications((prev) => [...prev, data])
     })
-  }, [])
+  }, [socket])
 
   useEffect(() => { //
     socket.emit("addUser", user?._id);

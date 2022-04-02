@@ -5,6 +5,7 @@ import { portfolioError, portfolioFilter, portfolioOrder, portfolioStart, portfo
 
 export const portfolioByPage = async (page=1,currentId=-1,designerId=-1,dispatch,command="",option="") =>
 {
+    console.log("portfolioByPage")
     dispatch(portfolioStart());
     try
     {
@@ -12,16 +13,19 @@ export const portfolioByPage = async (page=1,currentId=-1,designerId=-1,dispatch
         let statusPortolio;
         // dispatch(portfolioUpdate({posts:res.data, statusPortolio}));
 
-        switch (command) {
+        switch (command) 
+        {
             case "more": //CASO: primer carga // cargar siguiente pagina
-                res = await axios.get(`/api/profile/${currentId}/portfolio?page=${page}`);
+                res = await axios.get(`/api/profile/portfolio/${designerId}?page=${page}`); ///api/profile/portfolio/:idUser
+                console.log(res.data)
                 statusPortolio= res.data.length? SUCCESS_200 : END_ALL;
 
                 dispatch(portfolioUpdate({posts:res.data, statusPortolio}));
             break;
 
             case "order": //CASO: cambio ordenamiento, la pagina va a 1
-                res = await axios.get(`/api/profile/${currentId}/portfolio?page=${1}`);
+                res = await axios.get(`/api/profile/portfolio/${designerId}?page=${page}`);
+                console.log(res.data)
                 statusPortolio= res.data.length? SUCCESS_200 : END_ALL;
 
                 dispatch(portfolioUpdate({posts:res.data, statusPortolio}));
@@ -29,7 +33,8 @@ export const portfolioByPage = async (page=1,currentId=-1,designerId=-1,dispatch
             break;
 
             case "filter": //CASO: cambio de filtro, la pagina va a 1 
-                res = await axios.get(`/api/profile/${currentId}/portfolio?page=${1}`);
+                res = await axios.get(`/api/profile/portfolio/${designerId}?page=${page}`);
+                console.log(res.data)
                 statusPortolio= res.data.length? SUCCESS_200 : END_ALL;
 
                 dispatch(portfolioUpdate({posts:res.data, statusPortolio}));

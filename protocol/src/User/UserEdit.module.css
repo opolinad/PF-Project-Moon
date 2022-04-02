@@ -29,6 +29,17 @@
 
     background-color: #1F1D36;
 }
+#rowEditsCont{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+#textEdits{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
 .editShell{
     display: flex;
@@ -147,6 +158,25 @@
     opacity:0;
     cursor: pointer;
 }
+
+
+
+#artistChoice{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    width: 30vw;
+    height: 5vh;
+
+    margin: 1vh auto 1vh auto;
+
+    color: #F0E9D2;
+}
+.typeUserChoice > label, .typeUserChoice > input{
+    cursor: pointer;
+}
+
 
 #editSubmit{
     width: 100%;

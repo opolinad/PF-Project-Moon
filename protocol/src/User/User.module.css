@@ -315,7 +315,7 @@
     color: #ffffff;
     font-size: 20px;
     text-decoration: none;
-    height: 100px;
+    height: fit-content;
 }
 #postsLink button{
     background-color: transparent;

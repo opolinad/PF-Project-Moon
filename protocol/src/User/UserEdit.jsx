@@ -105,97 +105,62 @@ export default function UserEdit() {
   return (
     <div id={styles.editCont}>
       <form id={styles.editForm} onSubmit={(e) => handleSubmit(e)}>
-        <div className={styles.editShell}>
-          <label className={styles.editLabel}>Username: </label>
-          <input
-            className={styles.editInput}
-            name="username"
-            type="text"
-            placeholder={user?.username}
-            onChange={handleInputChange}
-          />
-        </div>
 
-        <div className={styles.editShell}>
-          <label className={styles.editLabel}>FullName: </label>
-          <input
-            className={styles.editInput}
-            name="fullName"
-            type="text"
-            placeholder={user?.fullName}
-            onChange={handleInputChange}
-          />
-        </div>
+        <div id={styles.rowEditsCont}>
+          <div id={styles.textEdits}>
+            <div className={styles.editShell}>
+            <label className={styles.editLabel}>Username: </label>
 
-        <div>
-        <input id="toggle-on" class="toggle toggle-left" name="toggle" value="false" type="radio" checked/>
-          <label for="toggle-on" class="btn">Artist</label>
-          <input id="toggle-off" class="toggle toggle-right" name="toggle" value="true" type="radio"/>
-          <label for="toggle-off" class="btn">Not an Artist</label>
-        </div>
+            <input className={styles.editInput} name="username" type="text" placeholder={user?.username} onChange={handleInputChange}/>
+            </div>
 
-        <div className={styles.editShell}>
-          <label className={styles.editLabel}>Profile Photo: </label>
-          <div id={styles.currentImgProfileCont}>
-            {loading1 ? (
-              <img
-                id={styles.currentImgProfile}
-                src="https://acegif.com/wp-content/uploads/loading-25.gif"
-                alt="not found"
-              />
-            ) : (
-              <img
-                id={styles.currentImgProfile}
-                src={!image1 ? inputs?.profilePhoto || DefaultProfile : image1}
-                alt="profile"
-              />
-            )}
+            <div className={styles.editShell}>
+            <label className={styles.editLabel}>FullName: </label>
+            <input className={styles.editInput} name="fullName" type="text" placeholder={user?.fullName} onChange={handleInputChange} />
+            </div>
           </div>
 
-          <div className={styles.decoFileInput}>Change Profile</div>
-          <input
-            className={styles.editInputFile}
-            type={type1}
-            id="file1"
-            onChange={onChange1}
-          />
+          <div id={styles.imagesEdits}>
+            <div className={styles.editShell}>
+              <label className={styles.editLabel}>Background Image: </label>
+
+              <div id={styles.currentImgBackCont}>
+                {loading2 ? (<img id={styles.currentImgBack} src="https://acegif.com/wp-content/uploads/loading-25.gif" alt="not found"/>) : (<img id={styles.currentImgBack} src={ !image2 ? inputs?.backgroundPhoto || DefaultProfile : image2} alt="profile"/>)}
+              </div>
+
+              <div className={styles.decoFileInput}>Change Background</div>
+
+              <input className={styles.editInputFile} type={type2} id="file2" onChange={onChange2}/>
+            </div>
+
+            <div className={styles.editShell}>
+              <label className={styles.editLabel}>Profile Photo: </label>
+
+              <div id={styles.currentImgProfileCont}>
+                {loading1 ? (<img id={styles.currentImgProfile} src="https://acegif.com/wp-content/uploads/loading-25.gif" alt="not found"/>) : (<img id={styles.currentImgProfile} src={!image1 ? inputs?.profilePhoto || DefaultProfile : image1} alt="profile"/>)}
+              </div>
+
+              <div className={styles.decoFileInput}>Change Profile</div>
+
+              <input className={styles.editInputFile} type={type1} id="file1" onChange={onChange1}/>
+            </div>
+          </div>
         </div>
 
-        <div className={styles.editShell}>
-          <label className={styles.editLabel}>Background Image: </label>
-          <div id={styles.currentImgBackCont}>
-            {loading2 ? (
-              <img
-                id={styles.currentImgBack}
-                src="https://acegif.com/wp-content/uploads/loading-25.gif"
-                alt="not found"
-              />
-            ) : (
-              <img
-                id={styles.currentImgBack}
-                src={
-                  !image2 ? inputs?.backgroundPhoto || DefaultProfile : image2
-                }
-                alt="profile"
-              />
-            )}
+        <div id={styles.artistChoice}>
+          <div className={styles.typeUserChoice}>
+            <input id="toggle-on" class="toggle toggle-left" name="toggle" value="false" type="radio" checked={user.artist? true : false}/>
+            <label for="toggle-on" class="btn">Artist</label>
+          </div>
+          <div className={styles.typeUserChoice}>
+            <input id="toggle-off" class="toggle toggle-right" name="toggle" value="true" type="radio" checked={user.artist? false : true}/>
+            <label for="toggle-off" class="btn">Not an Artist</label>
           </div>
 
-          <div className={styles.decoFileInput}>Change Background</div>
-          <input
-            className={styles.editInputFile}
-            type={type2}
-            id="file2"
-            onChange={onChange2}
-          />
+
         </div>
-        {!loading1 && !loading2 && (
-          <>
-            <button id={styles.editSubmit} type="submit">
-              SUBMIT
-            </button>
-          </>
-        )}
+
+        {!loading1 && !loading2 && (<button id={styles.editSubmit} type="submit"> Save Changes </button>)}
       </form>
     </div>
   );
