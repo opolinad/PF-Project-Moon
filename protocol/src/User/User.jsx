@@ -37,9 +37,11 @@ export default function User() {
     <button onClick={()=>setDonationShow(!donationShow)} id={donateLength}><FontAwesomeIcon id={css.butSvgDecoLeft} icon={faAngleLeft}/> <p>{donationShow?"Donate to Artist":""}</p>  <FontAwesomeIcon id={css.butSvgDecoRight} icon={faAngleRight}/></button>        
   </div>)
 
-  let editDiv =(<Link to={`edit`} id={css.postsLink}> <button>EDIT</button> </Link>)
+  let editDiv = (<Link to={`edit`} id={css.postsLink}> <button>EDIT</button> </Link>);
 
-  let walletDiv =(<Link to={`wallet`} id={css.postsLink}> <button>WALLET</button> </Link>)
+  let walletDiv = (<Link to={`wallet`} id={css.postsLink}> <button>WALLET</button> </Link>);
+
+  let portfolioDiv = (<Link to={"portfolio"} id={css.postsLink}> <button>PORTFOLIO</button></Link>);
   
   return (
     <div id={css.container}>
@@ -79,7 +81,8 @@ export default function User() {
               {/* <Link to={"favorites"} id={css.postsLink}> <button>FAVORITES</button> </Link> */}
               { user?._id === userData.currentUser?._id ? editDiv : ""}
               { user?._id === userData.currentUser?._id ? walletDiv : ""}
-              <Link to={"portfolio"} id={css.postsLink}> <button>PORTFOLIO</button></Link>
+              {/* {userData.artist ? portfolioDiv : ""} */}
+              {portfolioDiv}
             </div>
           </div>
         ) : (

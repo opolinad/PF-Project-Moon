@@ -65,6 +65,7 @@ export default function Portfolio()
     }
 
     let isPremium = user.premium.includes(userData?._id);
+    let subscribedBut = <div id={css.subedContDeco}><div id={css.subscribedButCont}> <span> <button id={css.subscribedBut}> <FontAwesomeIcon id={css.altLeftHeart} icon={faHeart}/> Subscribed! <FontAwesomeIcon id={css.altRightHeart} icon={faHeart}/> </button> </span> </div></div>
 
     return(
         <div id={css.portfolioCont}>
@@ -82,8 +83,8 @@ export default function Portfolio()
                     <option className={css.optionFree} value="recent">By Date</option>
                 </select>
               </div>
-              
-              {isPremium ?  <button id={css.subscribedBut}> <FontAwesomeIcon icon={faHeart}/> Subscribed <FontAwesomeIcon icon={faHeart}/> </button> : <SubscriptionBut>Subscribe!</SubscriptionBut>}
+                
+              {isPremium ? subscribedBut : <SubscriptionBut>Subscribe!</SubscriptionBut>}
             </div>
 
             <div id={css.imgsArrCont}>
@@ -97,6 +98,7 @@ export default function Portfolio()
     )
 }
 
+//        
 
 function SubscriptionBut()
 {
@@ -128,7 +130,7 @@ function SubscriptionBut()
 
     return(
         <div id={css.subsContDeco}><div id={css.subscriptionButCont}>
-            <StripeCheckout {...stripeOptions} billingAddress shippingAddress> <button id={css.subscribeBut}> <FontAwesomeIcon id={css.leftHeart} icon={faHeart}/> Subscribe <FontAwesomeIcon id={css.rigthtHeart} icon={faHeart}/> </button> </StripeCheckout>
+            <StripeCheckout {...stripeOptions} billingAddress shippingAddress> <button id={css.subscribeBut}> <FontAwesomeIcon id={css.leftHeart} icon={faHeart}/> Subscribe <FontAwesomeIcon id={css.righttHeart} icon={faHeart}/> </button> </StripeCheckout>
         </div></div>
     )
 }

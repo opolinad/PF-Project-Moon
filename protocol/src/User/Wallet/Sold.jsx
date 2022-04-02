@@ -60,7 +60,7 @@ export default function Sold() {
                         </div>
 
                         <div className={SoldCss.purchasedShell}>
-                            <img className={SoldCss.purchased} src={sold.post.image? sold.post.image[0] : "https://firebasestorage.googleapis.com/v0/b/protocol-moon-1d3b5.appspot.com/o/1648588055451ejemplo.jpg?alt=media&token=ab3f6d66-d990-42eb-969b-721f07bad7fc"}/>
+                            <img className={SoldCss.purchased} src={sold.post.image? sold.post.image[0] : ""}/>
                         </div>
                     </div>
 
