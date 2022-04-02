@@ -37,9 +37,14 @@ export default function UserEdit() {
     fullName: user?.fullName,
     profilePhoto: user?.profilePhoto || "",
     backgroundPhoto: user?.backgroundPhoto || "",
+    artist: user?.artist ? true : false,
   });
   
-
+  function handleArtist()
+  {
+    setInputs({...inputs,artist:!inputs.artist})
+    console.log(inputs)
+  }
 
   function handleInputChange(e) {
     setInputs({
@@ -148,16 +153,10 @@ export default function UserEdit() {
         </div>
 
         <div id={styles.artistChoice}>
-          <div className={styles.typeUserChoice}>
-            <input id="toggle-on" class="toggle toggle-left" name="toggle" value="false" type="radio" checked={user.artist? true : false}/>
-            <label for="toggle-on" class="btn">Artist</label>
+          <p>Are You an Artist?</p>
+          <div id={ inputs.artist? styles.SliderShellOn : styles.SliderShellOff } onClick={handleArtist}>
+              <div id={inputs.artist? styles.sliderOn : styles.sliderOff}></div>       
           </div>
-          <div className={styles.typeUserChoice}>
-            <input id="toggle-off" class="toggle toggle-right" name="toggle" value="true" type="radio" checked={user.artist? false : true}/>
-            <label for="toggle-off" class="btn">Not an Artist</label>
-          </div>
-
-
         </div>
 
         {!loading1 && !loading2 && (<button id={styles.editSubmit} type="submit"> Save Changes </button>)}

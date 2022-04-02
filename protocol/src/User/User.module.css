@@ -90,6 +90,27 @@
     /* border-top: 0.5vh solid #11101F; */
 }
 
+#artistBadge{
+    position: relative;
+    top: 2vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 2.2vw;
+    height: 2.2vw;
+
+    border-radius: 3vw;
+    border: 0.3vw solid #E3B04B;
+
+    color: #E3B04B;
+
+    font-size: 1.7vw;
+
+    cursor: context-menu;
+}
+
 #leftProfileSect{
     width: 10.8vw;
     height: fit-content;

@@ -234,7 +234,7 @@ export default function CardPost(props) {
         {/* {cardValues.imgs} */}
         <ImgPreviews imgs={props.imgs} id={props.id} />
 
-        {cardValues.price!=="" && <StripeCheckout {...stripeOptions} billingAddress shippingAddress><p {Cardpost.cardPostPrice}>{cardValues.price} USD</p></StripeCheckout> }
+        {cardValues.price!=="" && <StripeCheckout {...stripeOptions} billingAddress shippingAddress> <p className={Cardpost.cardPostPrice}>{cardValues.price} USD</p> </StripeCheckout> }
 
         {cardValues.categories}
 
