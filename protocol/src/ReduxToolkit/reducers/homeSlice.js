@@ -27,7 +27,8 @@ const feedSlice = createSlice({
             state.posts = [];
         },
         feedNextPageDatabase: (state, action) => {
-            state.posts = action.payload;
+            state.posts = [...state.posts,...action.payload];
+            console.log(state.posts)
         },
         updateFeedLikes: (state, action) => {
             state.posts[action.payload.index].likes = action.payload.data.likes;

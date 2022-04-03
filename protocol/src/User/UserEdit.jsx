@@ -14,7 +14,7 @@ export default function UserEdit() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.user.currentUser);
-  const user = useSelector((state) => state.userData.currentUser);
+  const user = useSelector((state) => state.user.currentUser);
   const {
     type: type1,
     value: image1,
@@ -130,7 +130,7 @@ export default function UserEdit() {
               <label className={styles.editLabel}>Background Image: </label>
 
               <div id={styles.currentImgBackCont}>
-                {loading2 ? (<img id={styles.currentImgBack} src="https://acegif.com/wp-content/uploads/loading-25.gif" alt="not found"/>) : (<img id={styles.currentImgBack} src={ !image2 ? inputs?.backgroundPhoto || DefaultProfile : image2} alt="profile"/>)}
+                {loading2 ? (<img id={styles.currentImgBack} src="/default_banner_photo.svg" alt="not found"/>) : (<img id={styles.currentImgBack} src={ !image2 ? inputs?.backgroundPhoto || DefaultProfile : image2} alt="banner"/>)}
               </div>
 
               <div className={styles.decoFileInput}>Change Background</div>
@@ -142,7 +142,7 @@ export default function UserEdit() {
               <label className={styles.editLabel}>Profile Photo: </label>
 
               <div id={styles.currentImgProfileCont}>
-                {loading1 ? (<img id={styles.currentImgProfile} src="https://acegif.com/wp-content/uploads/loading-25.gif" alt="not found"/>) : (<img id={styles.currentImgProfile} src={!image1 ? inputs?.profilePhoto || DefaultProfile : image1} alt="profile"/>)}
+                <div>{loading1 ? (<img id={styles.currentImgProfile} src="https://acegif.com/wp-content/uploads/loading-25.gif" alt="not found"/>) : (<img id={styles.currentImgProfile} src={!image1 ? inputs?.profilePhoto || DefaultProfile : image1} alt="profile"/>)}</div>
               </div>
 
               <div className={styles.decoFileInput}>Change Profile</div>

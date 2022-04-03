@@ -64,10 +64,6 @@
 }
 
 #currentImgProfileCont{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
     width: 10vw;
     height: 10vw;
     margin: 1vh 0 2vh 0;
@@ -80,9 +76,17 @@
     overflow: hidden;
 
 }
+#currentImgProfileCont > div{
+    position: relative;
+    /* top: -25%; */
+    left: -25%;
+    width: 15vw;
+    height: fit-content;
+}
 #currentImgProfile{
-    width: auto;
-    max-width: 10vw;
+    width: 100%;
+    max-width: 20vw;
+    
     height: auto;
 }
 
