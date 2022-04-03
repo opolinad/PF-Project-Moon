@@ -124,6 +124,7 @@ export default function CardPost(props) {
         await axios.post(`/api/orders/${props.userId}`, order);
         order.type="sold";
         await axios.post(`/api/orders/${user._id}`, order);
+        await axios.post(`/api/posts/buy/${props._id}`, {idUser: user._id})
       }
     } catch (error) {
       console.log(error);
