@@ -95,7 +95,9 @@ export default function CardPost(props) {
     </div>
   );
 
-  props.shared? cardValues.shared = <div className={Cardpost.sharedCont}>Original post by <Link to={"users/"+props.shareUser?._id}>{props.shareUser? (props.shareUser.username? props.shareUser.username : "user") : ""}</Link> </div> : cardValues.shared="";
+  props.shared? cardValues.shared = <div className={Cardpost.sharedCont}>Post sahred by <Link to={"users/"+props.shareUser?._id}>{props.shareUser? (props.shareUser.username? props.shareUser.username : "user") : ""}</Link> </div> : cardValues.shared="";
+
+  props.sold? cardValues.sold = <div className={Cardpost.sharedCont}>{props.soldUser? `Post sold by `: `Post purchased by `}<Link to={"users/"+props.soldUser?._id}>{props.soldUser? (props.soldUser.username? props.soldUser.username : "user") : props.shoppedUser? (props.shoppedUser.username? props.shoppedUser.username : "user") : ""}</Link> </div> : cardValues.sold="";
 
   cardValues.likes = props.likes.length;
   cardValues.shares = props.shares.length;
@@ -124,6 +126,7 @@ export default function CardPost(props) {
         await axios.post(`/api/orders/${props.userId}`, order);
         order.type="sold";
         await axios.post(`/api/orders/${user._id}`, order);
+        await axios.post(`/api/posts/buy/${props.id}`, {idUser: user._id})
       }
     } catch (error) {
       console.log(error);
@@ -221,6 +224,9 @@ export default function CardPost(props) {
         {/* shared */}
         {cardValues.shared}
 
+        {/* sold */}
+        {cardValues.sold}
+
         {/* title */}
         <h2 className={Cardpost.cardPostTitle}>{props.title}</h2>
 
@@ -231,6 +237,8 @@ export default function CardPost(props) {
 
         {/* {cardValues.imgs} */}
         <ImgPreviews imgs={props.imgs} id={props.id} />
+
+        {cardValues.sold && !props.soldUser? <p className={CardPost.cardPostPrice}>SOLD</p> : <p></p>}
 
         {cardValues.price!=="" && <StripeCheckout {...stripeOptions} billingAddress shippingAddress> <p className={Cardpost.cardPostPrice}>{cardValues.price} USD</p> </StripeCheckout> }
 
