@@ -29,6 +29,17 @@
 
     background-color: #1F1D36;
 }
+#rowEditsCont{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+#textEdits{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
 .editShell{
     display: flex;
@@ -147,6 +158,66 @@
     opacity:0;
     cursor: pointer;
 }
+
+
+#artistChoice{
+    display: flex;
+    flex-direction: row;
+
+    width: fit-content;
+    height: 4vh;
+
+    margin: 0 auto 3vh auto;
+}
+#artistChoice > p{
+    margin: auto;
+    margin-right: 1vw;
+
+    color: #F0E9D2;
+
+    font-size: 1.4vw;
+}
+
+#SliderShellOn, #SliderShellOff{
+    display: flex;
+
+    width: 4vw;
+    height: 4vh;
+
+    border-radius: 2vh;
+
+    cursor: pointer;
+    transition: 0.4s;
+}
+#SliderShellOn{
+    background-color: #E9A6A6;
+
+}
+#SliderShellOff{
+    background-color: #3F3351;
+}
+
+#sliderOn, #sliderOff{
+    position: relative;
+    top: 0.25vh;
+
+    height: 3.5vh;
+    width: 3.5vh;
+    margin: 0 0.2vw 0 0.2vw ;
+
+    border-radius: 3.5vh;
+
+    background-color: white;
+
+    transition: 0.4s;
+}
+#sliderOn{
+    left: 1.9vw;
+}
+#sliderOff{
+    left: 0;
+}
+
 
 #editSubmit{
     width: 100%;

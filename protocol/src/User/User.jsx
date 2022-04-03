@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { getUser } from "../ReduxToolkit/apiCalls/userCall";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleLeft, faAngleRight,faCertificate, faCircleNotch } from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft, faAngleRight,faCertificate, faCircleNotch, faPalette } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useNavigate } from "react-router";
 import css from "./User.module.css";
 import Donation from "../donation/Donation";
@@ -37,9 +37,11 @@ export default function User() {
     <button onClick={()=>setDonationShow(!donationShow)} id={donateLength}><FontAwesomeIcon id={css.butSvgDecoLeft} icon={faAngleLeft}/> <p>{donationShow?"Donate to Artist":""}</p>  <FontAwesomeIcon id={css.butSvgDecoRight} icon={faAngleRight}/></button>        
   </div>)
 
-  let editDiv =(<Link to={`edit`} id={css.postsLink}> <button>EDIT</button> </Link>)
+  let editDiv = (<Link to={`edit`} id={css.postsLink}> <button>EDIT</button> </Link>);
 
-  let walletDiv =(<Link to={`wallet`} id={css.postsLink}> <button>WALLET</button> </Link>)
+  let walletDiv = (<Link to={`wallet`} id={css.postsLink}> <button>WALLET</button> </Link>);
+
+  let portfolioDiv = (<Link to={"portfolio"} id={css.postsLink}> <button>PORTFOLIO</button></Link>);
   
   return (
     <div id={css.container}>
@@ -51,10 +53,13 @@ export default function User() {
             </div>
             
             <div id={css.profileSection}>
+              <div id={css.artistBadge}><FontAwesomeIcon icon={faPalette}/></div>
+              
               <div id={css.leftProfileSect}>
                 <div id={css.profPhotoCont}>
                   <img src={ userData.currentUser?.profilePhoto ? userData.currentUser?.profilePhoto : "/default_profile_photo.svg"} alt="profilePhoto not found" id={css.profilePhoto}/>
                 </div>
+
                 {user?._id === userData.currentUser?._id ? "" : 
                 <button id={followingShow ? css.followingButton : css.followButton} onClick={()=>followCall(user?._id,userData.currentUser?._id,followingShow ? "following" : "follow",dispatch,user)}>
                   <FontAwesomeIcon icon={followingShow ? faCertificate : faCircleNotch } />{followingShow ? " Following" : " Follow"}
@@ -79,33 +84,16 @@ export default function User() {
               {/* <Link to={"favorites"} id={css.postsLink}> <button>FAVORITES</button> </Link> */}
               { user?._id === userData.currentUser?._id ? editDiv : ""}
               { user?._id === userData.currentUser?._id ? walletDiv : ""}
-              
+              {userData.currentUser?.artist ? portfolioDiv : ""}
+              {/* {portfolioDiv} */}
             </div>
           </div>
         ) : (
           <div>
-            {/* <h1>{userData.currentUser.fullName? userData.currentUser.fullName : userData.currentUser.email.split("@")[0]}</h1>
-              <p>@{userData.currentUser.username? userData.currentUser.username : userData.currentUser.email.split("@")[0]}</p>
-              <div>
-                <Link to={"following"} id={css.followsLink}>
-                  <button>{userData.currentUser.following.length} following</button>
-                </Link>
-                <Link to={"followers"} id={css.followsLink}>
-                  <button>{userData.currentUser.followers.length} followers</button>
-                </Link>
-              </div> */}
             <span>loading</span>
           </div>
         )}
       </div>
-      {/* <div id={css.postsButtons}>
-          <Link to={"posts"} id={css.postsLink}>
-            <button>POSTS</button>
-          </Link>
-          <Link to={"favorites"} id={css.postsLink}>
-            <button>FAVORITES</button>
-          </Link>
-        </div> */}
 
       <form>
         <div></div>
