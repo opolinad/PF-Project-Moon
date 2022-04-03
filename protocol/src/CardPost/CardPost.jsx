@@ -201,9 +201,7 @@ export default function CardPost(props) {
   }
 
   function handleComment() {
-    if(!props.comments.filter(comment => comment.user._id === user._id).length > 0) {
-    handleNotifications(3);
-    }
+
     navigate("/post/" + props.id);
   }
 
