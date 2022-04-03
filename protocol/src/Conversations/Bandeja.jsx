@@ -7,7 +7,8 @@ import Message from "./Message";
 import ChatOnline from "./ChatOnline";
 import BandejaCss from './Bandeja.module.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const Bandeja = () => {
   const user = useSelector(state => state.user.currentUser);
@@ -104,7 +105,14 @@ const Bandeja = () => {
   return (
       <div id={BandejaCss.BandejaCont}>
         <div id={BandejaCss.chatMenu}>
-          <h3>Chats</h3> 
+          <h3>
+            <Link id={BandejaCss.backLink} to={"/home"}>
+              <button id={BandejaCss.backBut}>
+                <FontAwesomeIcon icon={faAngleLeft} /> Home
+              </button>
+            </Link>
+            Chats
+          </h3> 
             {conversations.map((conversation) => (
               <div onClick={() => setCurrentChat(conversation)}> <Conversation conversation={conversation} user={user} /> </div>
             ))}

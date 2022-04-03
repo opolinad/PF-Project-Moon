@@ -33,7 +33,7 @@ function Comment(props)
         <div className={PostCss.commentCont}>
             <div className={PostCss.commentUser}>
                 <img src={props.photo ? props.photo : "http://localhost:4000/default_profile_photo.svg"} alt="no foto :c" />
-                <Link className={PostCss.commentName} to={"/user/"+props.id}>{props.name}</Link>
+                <Link className={PostCss.commentName} to={"/users/"+props.id}>{props.name}</Link>
             </div>
 
             <div className={PostCss.commentaryShell}>{props.comment}</div>
@@ -46,7 +46,7 @@ export default function Post()
     const dispatch = useDispatch()
     
     const detailedPost = useSelector ((state) => state.detailedPost);
-    const user = useSelector(state=>state.userData);
+    const user = useSelector(state=>state.user);
 
     const {id} = useParams();
     const navigate = useNavigate();
@@ -137,7 +137,7 @@ export default function Post()
             <div id={cardValues.styleInfo}>
                 <div id={PostCss.userInfoCont}> 
                     <img id={PostCss.posterImg} src={detailedPost.detailed.userPhoto? detailedPost.detailed.userPhoto : "http://localhost:4000/default_profile_photo.svg"} alt="photo :x"/>
-                    <Link to={`/user/${detailedPost.userid}/*`} id={PostCss.posterName}>{detailedPost.userName}</Link>
+                    <Link to={`/users/${detailedPost.userid}/*`} id={PostCss.posterName}>{detailedPost.userName}</Link>
                 </div>
                 <h1 >{detailedPost.title}</h1>
 

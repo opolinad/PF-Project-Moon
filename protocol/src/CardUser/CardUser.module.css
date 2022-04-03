@@ -65,11 +65,10 @@
     align-items: center;
 
     width: 8vw;
-    max-width: 8vw;
-    height: fit-content;
+    height: 3vh;
     margin: auto;
 
-    overflow-x: hidden;
+    overflow: hidden;
 }
 .fullName{
     font-size: 1.4vw;

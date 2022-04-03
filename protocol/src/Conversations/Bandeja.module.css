@@ -23,6 +23,56 @@
     overflow-y: scroll;
 }
 
+#backLink{
+    text-decoration: none;
+  }
+#backBut{
+  position: absolute;
+  top: -0vh;
+  left: -0vw; 
+
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  width: 6vw;
+  height: 5.4vh;
+
+  border: none;
+  border-top-right-radius: 1vw;
+  border-bottom-right-radius: 1vw;
+
+  color: #F0E9D2;
+  background-color: #11101F;
+
+
+  font-size: 1.3vw;
+  font-weight: bold;
+  text-decoration: none;
+
+  cursor: pointer;
+  transition: 0.5s;
+
+}
+#backBut:hover{
+  box-shadow: -10vw 0vh 0 0 #864876 inset;
+
+  transition: 0.5s;
+}
+#backBut > svg{
+  position: relative;
+  left: -0vw;
+  transition: 0.5s;
+}
+#backBut:hover > svg{
+  position: relative;
+  left: -2vw;
+
+  transition: 0.5s;
+}
+
+
+
 #chatBox{
     width: 59.5%;
     height: 100%;   
@@ -119,6 +169,22 @@
 #button:hover > svg{
     font-size: 1.2vw;
     transition: 0.2s;
+}
+
+#sinConversacion{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 59.5vw;
+    height: 100%;   
+    margin: 0 0.125% 0 0.125%;
+
+    border-radius: 0.5vw;
+
+    background-color: #11101F;
+
+    font-size: 2.5vw;
 }
 
 

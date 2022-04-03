@@ -38,9 +38,7 @@ export default function User() {
   </div>)
 
   let editDiv = (<Link to={`edit`} id={css.postsLink}> <button>EDIT</button> </Link>);
-
   let walletDiv = (<Link to={`wallet`} id={css.postsLink}> <button>WALLET</button> </Link>);
-
   let portfolioDiv = (<Link to={"portfolio"} id={css.postsLink}> <button>PORTFOLIO</button></Link>);
   
   return (
@@ -53,11 +51,11 @@ export default function User() {
             </div>
             
             <div id={css.profileSection}>
-              <div id={css.artistBadge}><FontAwesomeIcon icon={faPalette}/></div>
+              {userData.currentUser?.artist? <div id={css.artistBadge}><FontAwesomeIcon icon={faPalette}/></div> : ""}
               
               <div id={css.leftProfileSect}>
                 <div id={css.profPhotoCont}>
-                  <img src={ userData.currentUser?.profilePhoto ? userData.currentUser?.profilePhoto : "/default_profile_photo.svg"} alt="profilePhoto not found" id={css.profilePhoto}/>
+                  <div><img src={ userData.currentUser?.profilePhoto ? userData.currentUser?.profilePhoto : "/default_profile_photo.svg"} alt="profilePhoto not found" id={css.profilePhoto}/></div>
                 </div>
 
                 {user?._id === userData.currentUser?._id ? "" : 
@@ -76,7 +74,7 @@ export default function User() {
                 </div>
               </div>
 
-              { user?._id !== userData.currentUser?._id ? donationDiv : ""}
+              { user?._id !== userData.currentUser?._id && userData.currentUser?.artist ? donationDiv : ""}
             </div>
 
             <div id={css.postsButtons}>
