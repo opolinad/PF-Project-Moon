@@ -234,5 +234,36 @@ router.post('/share/:idPost', async (req:Request, res:Response) => {
     }
 })
 
+router.post('/buy/:idPost', async(req:Request, res:Response) => {
+    const { idPost } = req.params
+    const { idUser } = req.body
+    try {
+        const post = await Post.findById(idPost)
+        const user = await User.findById(idUser)
+        const buy = {
+            originId: post._id,
+            user: user._id,
+            images: post.images,
+            description: post.description,
+            likes: [],
+            categories: post.categories,
+            price: "",
+            comments: [],
+            shares: [],
+            sold: true,
+            soldUser: post.user
+        }
+        const buyPost = new Post(buy)
+        await buyPost.save()
+        await post.updateOne({price: "", sold: true, shoppedUser: buy.user}) 
+        // await post.updateOne({sold: true})
+        // await post.updateOne({shoppedUser: buy.user})
+        res.json({post: post, newPost: buyPost})
+    } catch(err) {
+        console.log(err)
+        res.status(400).json({error: err})
+    }
+})
+
 
 module.exports =  router;
