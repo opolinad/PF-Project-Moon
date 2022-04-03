@@ -59,6 +59,33 @@ router.get('/donations/:idUser', async (req:Request, res:Response) => {
     }
 })
 
+router.get('/premiums/:idUser', async (req:Request, res:Response) => {
+    const { idUser } = req.params
+    const { page } : {page?: number}= req.query
+    try {
+        const user = await User.findById(idUser, {history: 1})
+        .populate({path: 'history', populate: { path: 'user to', model:'User', select: 'username profilePhoto'}})
+        const orders = user.history
+        const premiums = orders.filter((order: any) => order.type === 'premium')
+        premiums.sort((a:any, b:any) => {
+            if (a.createdAt < b.createdAt) return 1;
+            if (a.createdAt > b.createdAt) return -1;
+            return 0;
+        })
+        if(page) {
+            const lastPage = page * 20
+            const firstPage = lastPage - 20
+            const donationsShow = premiums.slice(firstPage, lastPage)
+            return res.json(donationsShow)
+        } else {
+            const donationsShow = premiums.splice(0,20)
+            res.json(donationsShow)
+        }
+    } catch(err) {
+        res.status(400).json({error: err})
+    }
+})
+
 router.get('/solds/:idUser', async (req:Request, res:Response) => {
     const { idUser } = req.params
     const { page } : {page?: number}= req.query
