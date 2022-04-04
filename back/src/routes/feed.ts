@@ -14,12 +14,18 @@ router.get('/:idUser', async (req:Request, res:Response) => {
         if(!search && !category) {
             try {
                 const user = await User.findById(idUser)
-                let posts : object [] = []
-                let postsAux = await Post.find({})
+                let posts = await Post.find({})
+                .populate('user',{username: 1, profilePhoto:1})
+                .populate('likes',{username: 1, profilePhoto:1})
+                .populate({ path:'comments', populate: { path: 'user', model:'User', select: 'username profilePhoto'}})
+                .populate('shares',{username: 1, profilePhoto:1})
+                .populate('shareUser',{username: 1, profilePhoto:1})
+                .populate('soldUser',{username: 1, profilePhoto:1})
+
         
                 if(!user.followings.length) {
         
-                posts = postsAux.filter((post:any) => post.categories.some((category: any) => user.favouritesCategories.includes(category)))
+                posts = posts.filter((post:any) => post.categories.some((category: any) => user.favouritesCategories.includes(category)))
 
                 if (filter) {
                     if(filter === "designsOnly") {
@@ -28,6 +34,8 @@ router.get('/:idUser', async (req:Request, res:Response) => {
                     posts = posts.filter((post : any) => post.images.length === 0)
                     }
                 }
+
+                // posts = posts.filter((post:any) => user.followings.includes(post.user._id) || user.followings.includes(post.shareUser._id))
                 
                 if (order === "trending") {
                     posts.sort((function (a:any, b:any) {
@@ -54,7 +62,6 @@ router.get('/:idUser', async (req:Request, res:Response) => {
                 }
                 }
                 
-                posts = postsAux.filter((post:any) => user.followings.includes(post.user) || user.followings.includes(post.shareUser))
         
                 if (filter) {
                     if(filter === "designsOnly") {
