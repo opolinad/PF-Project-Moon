@@ -174,8 +174,7 @@ export default function PostPost() {
 
           {input?.images && (
             <div className={css.infoCont}>
-              <span>U$D</span>
-              <input className={css.labelInputTitle} onChange={(e) => handleChange(e)} placeholder="Price" type="number" name="price" value={input.price}/>
+              <input className={css.labelInputTitle} onChange={(e) => handleChange(e)} placeholder="Price (U$D)" type="number" name="price" value={input.price}/>
             </div>
           )}
 
@@ -192,9 +191,7 @@ export default function PostPost() {
 
           </div>
 
-          <button id={css.submitButPost} type="submit">
-            Launch!
-          </button>
+          <button id={css.submitButPost} type="submit"> Launch! </button>
 
         </div>
       </form>
