@@ -34,8 +34,6 @@ router.get('/:idUser', async (req:Request, res:Response) => {
                     posts = posts.filter((post : any) => post.images.length === 0)
                     }
                 }
-
-                // posts = posts.filter((post:any) => user.followings.includes(post.user._id) || user.followings.includes(post.shareUser._id))
                 
                 if (order === "trending") {
                     posts.sort((function (a:any, b:any) {
@@ -50,7 +48,7 @@ router.get('/:idUser', async (req:Request, res:Response) => {
                         return 0;
                     }))
                 }
-        
+                
                 if(page) {
                     const lastPage = page * 20
                     const firstPage = lastPage - 20
@@ -60,8 +58,9 @@ router.get('/:idUser', async (req:Request, res:Response) => {
                     const postsShow = posts.splice(0,20)
                     return res.json(postsShow)
                 }
-                }
-                
+            }
+            
+            posts = posts.filter((post:any) => user.followings.includes(post.user._id) || user.followings.includes(post.shareUser?._id))
         
                 if (filter) {
                     if(filter === "designsOnly") {
@@ -96,6 +95,7 @@ router.get('/:idUser', async (req:Request, res:Response) => {
                 }
         
             } catch(err) {
+                console.log(err)
                 res.status(400).json(err)
             }
         }
