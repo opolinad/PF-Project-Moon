@@ -58,7 +58,7 @@ export default function Portfolio()
     {
         portfolioByPage(1,user?._id,userData?._id,dispatch,"order",e.target.value)
     }
-    
+
     function handleFilter(e)
     {
         portfolioByPage(1,user?._id,userData?._id,dispatch,"filter",e.target.value)
@@ -83,7 +83,7 @@ export default function Portfolio()
                     <option className={css.optionFree} value="recent">By Date</option>
                 </select>
               </div>
-                
+
               {isPremium ? subscribedBut : <SubscriptionBut>Subscribe!</SubscriptionBut>}
             </div>
 
@@ -98,7 +98,7 @@ export default function Portfolio()
     )
 }
 
-//        
+//
 
 function SubscriptionBut()
 {
@@ -106,15 +106,15 @@ function SubscriptionBut()
     const [stripetoken, setStripetoken] = useState(null);
     const currentUser = useSelector((state) => state.userData.currentUser)
     const user = useSelector((state) => state.user.currentUser)
-  
+
     const onToken = (token) => { setStripetoken(token);};
-  
+
     useEffect(() => {
       const checkoutStripe = async () => {
-        try 
+        try
         {
           const { data }= await axios.post(
-            "/api/checkout/payment", //CAMBIAR A LA RUTA VERDADERA
+            "/api/checkout/payment",
             { tokenId: stripetoken.id,amount: amount * 100,}
           );
           if(data.success) { const order = { type: 'subscription', user: user._id, to: currentUser._id, amount: amount, card: data.success.payment_method_details.card.brand + ' ' + data.success.payment_method_details.card.last4, ticket: data.success.receipt_url}
@@ -126,7 +126,7 @@ function SubscriptionBut()
       };
       stripetoken && checkoutStripe();
     }, [stripetoken]);
-  
+
     const stripeOptions = {name: "Protocol Moon", image: Logo, description: `Your subscription total is US$${amount}.`, amount: amount * 100, token: onToken, stripeKey: KEY};
 
     return(
