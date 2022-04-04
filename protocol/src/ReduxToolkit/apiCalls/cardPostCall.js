@@ -1,6 +1,6 @@
 import axios from "axios";
 import { updateFeedLikes, updateFeedShares } from "../reducers/homeSlice";
-import { updatePosts } from "../reducers/usersPosts";
+import { updatePostLikes, updatePostShares} from "../reducers/postSlice";
 
 export const likeAction = async (dispatch, id, user, token, index) => {
   try {
@@ -9,7 +9,11 @@ export const likeAction = async (dispatch, id, user, token, index) => {
         token,
       },
     });
-    dispatch(updateFeedLikes({data: res.data, index: index}))
+    if(index !== false){
+      dispatch(updateFeedLikes({data: res.data, index: index}))
+    }else {
+      dispatch(updatePostLikes({data: res.data}))
+    }
   } catch (error) {
     console.log("cannot run likeAction", error);
   }
@@ -29,8 +33,11 @@ export const shareAction = async (dispatch, id, user, token, index) => {
         },
       }
     );
-    console.log("res", res.data)
-    dispatch(updateFeedShares({data: res.data, index: index}));
+    if(index !== false){
+      dispatch(updateFeedShares({data: res.data, index: index}));
+    } else {
+      dispatch(updatePostShares({data: res.data}))
+    }
   } catch (error) {
     console.log("cannot run shareAction", error);
   }
