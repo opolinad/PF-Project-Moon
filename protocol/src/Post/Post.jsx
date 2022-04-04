@@ -7,6 +7,7 @@ import { faAngleLeft, faAngleRight, faHeart, faShareSquare } from '@fortawesome/
 import PostCss from "./Post.module.css"
 import { getDetailedPost, sendBackComment } from '../ReduxToolkit/apiCalls/postCall';
 import { setDetailedLoading, setDetailedPost } from '../ReduxToolkit/reducers/postSlice';
+import { likeAction, shareAction } from '../ReduxToolkit/apiCalls/cardPostCall';
 
 // const detailedPost = {
 //     userName:"Username",
@@ -88,6 +89,26 @@ export default function Post()
         }
     }
 
+    function handleLike() {
+        likeAction(
+          dispatch,
+          id,
+          {idUser: user.currentUser._id},
+          user.currentUser.accessToken,
+          false
+        );
+      }
+    
+      function handleShare() {
+        shareAction(
+          dispatch,
+          id,
+          { idUser: user.currentUser._id },
+          user.currentUser.accessToken,
+          false
+        );
+      }
+
     //Status!
     if(detailedPost.loading){ return <div id={PostCss.statusText}>Loading...</div>}
     else if(!detailedPost.detailed.hasOwnProperty("_id")){ return <div id={PostCss.statusText}>Error!_404</div> }
@@ -120,12 +141,12 @@ export default function Post()
     }
 
     //css de likes 
-    detailedPost.detailed.likes.includes(user.currentUser?._id) ? cardValues.likeImg=PostCss.likedImg : cardValues.likeImg=PostCss.notLikedImg; 
-    detailedPost.detailed.shares.includes(user.currentUser?._id) ? cardValues.sharedImg=PostCss.sharedImg : cardValues.sharedImg=PostCss.notSharedImg; 
+    detailedPost.detailed.likes?.includes(user.currentUser?._id) ? cardValues.likeImg=PostCss.likedImg : cardValues.likeImg=PostCss.notLikedImg; 
+    detailedPost.detailed.shares?.includes(user.currentUser?._id) ? cardValues.sharedImg=PostCss.sharedImg : cardValues.sharedImg=PostCss.notSharedImg; 
 
     //los numeros de likes y shares, ademas del icono de favorito
-    cardValues.likes=detailedPost.detailed.likes.length;
-    cardValues.shares=detailedPost.detailed.shares.length;
+    cardValues.likes=detailedPost.detailed.likes?.length;
+    cardValues.shares=detailedPost.detailed.shares?.length;
     cardValues.saved=detailedPost.detailed.favorite;
 
     //Comentarios
@@ -150,8 +171,8 @@ export default function Post()
                 )}
 
                 <div id={PostCss.bigAnaliticsCont}>
-                    <div id={PostCss.likesShell} onClick={()=>{}}> <FontAwesomeIcon className={cardValues.likeImg} icon={faHeart}/> {cardValues.likes}</div>
-                    <div id={PostCss.sharesShell} onClick={()=>{}}> <FontAwesomeIcon className={cardValues.sharedImg} icon={faShareSquare} /> {cardValues.shares}</div>
+                    <div id={PostCss.likesShell} onClick={() => handleLike()}> <FontAwesomeIcon className={cardValues.likeImg} icon={faHeart}/> {cardValues.likes}</div>
+                    <div id={PostCss.sharesShell} onClick={()=> handleShare()}> <FontAwesomeIcon className={cardValues.sharedImg} icon={faShareSquare} /> {cardValues.shares}</div>
 
                     <div id={PostCss.favoritesShell}>{cardValues.saved}</div>
 
