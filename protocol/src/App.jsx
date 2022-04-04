@@ -5,15 +5,11 @@ import LandingPage from "./LandingPage/LandingPage.jsx";
 import Post from "./Post/Post.jsx";
 import Register from "./Register/Register.jsx";
 import User from "./User/User";
-import Messages from "./Messages/Messages.jsx";
 import UserBoard from "./User/UserBoard.jsx";
 import NotFound from "./NotFound/NotFound";
 import Navbar from "./Navbar/Navbar.jsx";
-import CookiesPolicy from "./CookiesPolicy/CookiesPolicy.jsx";
-import PostPost from "./PostPost/PostPost"
 import axios from "axios"
 import "./App.css";
-import UserEdit from "./User/UserEdit.jsx";
 import Bandeja from "./Conversations/Bandeja.jsx";
 axios.defaults.baseURL=process.env.REACT_APP_API;
 

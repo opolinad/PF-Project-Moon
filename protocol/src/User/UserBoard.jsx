@@ -1,10 +1,10 @@
 import React from "react";
 import { Route, Routes } from "react-router";
-import Follows from "./UserFollows";
-import UserWallet from "./UserWallet";
-import Posts from "./UserPosts";
-import UserEdit from "./UserEdit";
-import Portfolio from "./UserPorfolio";
+import Follows from "./Follows/UserFollows";
+import UserWallet from "./Wallet/UserWallet";
+import Posts from "./Posts/UserPosts";
+import UserEdit from "./Edit/UserEdit";
+import Portfolio from "./Portfolio/UserPorfolio";
 
 import css from "./User.module.css";
 

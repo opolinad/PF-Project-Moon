@@ -1,6 +1,6 @@
-import Donations from './Wallet/Donations'
-import Shopped from './Wallet/Shopped'
-import Sold from './Wallet/Sold'
+import Donations from './Donations'
+import Shopped from './Shopped'
+import Sold from './Sold'
 import UserWalletCss from "./UserWallet.module.css";
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

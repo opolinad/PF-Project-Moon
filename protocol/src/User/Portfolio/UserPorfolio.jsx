@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router";
-import { END_ALL, LOADING_0 } from "../ReduxToolkit/consts";
-import { portfolioByPage } from "../ReduxToolkit/apiCalls/portfolioCall";
-import { portfolioReset } from "../ReduxToolkit/reducers/portfolioSlice";
+import { END_ALL, LOADING_0 } from "../../ReduxToolkit/consts";
+import { portfolioByPage } from "../../ReduxToolkit/apiCalls/portfolioCall";
+import { portfolioReset } from "../../ReduxToolkit/reducers/portfolioSlice";
 import StripeCheckout from "react-stripe-checkout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight, faSeedling, faHeart } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import Logo from "../assets/default_profile_photo.svg";
+import Logo from "../../assets/default_profile_photo.svg";
 
 import css from "./UserPortfolio.module.css";
 
@@ -119,7 +119,8 @@ function SubscriptionBut()
           );
           if(data.success) { const order = { type: 'subscription', user: user._id, to: currentUser._id, amount: amount, card: data.success.payment_method_details.card.brand + ' ' + data.success.payment_method_details.card.last4, ticket: data.success.receipt_url}
             const res = await axios.post(`/api/orders/${currentUser._id}`, order) //CAMBIAR A RUTA VERDADERA
-            console.log(res.data)
+            await axios.post(`/api/orders/${user._id}`, order);
+            await axios.post(`/api/user/${user._id}/premium`, {userId:currentUser._id});
           }
         } catch (error) {console.log(error);}
       };

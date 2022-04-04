@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { Link, useParams, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import css from "./UserPosts.module.css"
-import { allPostById } from '../ReduxToolkit/apiCalls/userPostsById';
+import { allPostById } from '../../ReduxToolkit/apiCalls/userPostsById';
 import { useState } from 'react';
-import CardPost from '../CardPost/CardPost'
+import CardPost from '../../CardPost/CardPost'
 
 export default function Posts() {
     // const {user} = useParams()

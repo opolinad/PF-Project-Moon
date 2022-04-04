@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUsers } from "../ReduxToolkit/apiCalls/updateUserCall";
+import { updateUsers } from "../../ReduxToolkit/apiCalls/updateUserCall";
 import { useNavigate } from "react-router-dom";
-import DefaultProfile from "../assets/default_profile_photo.svg";
+import DefaultProfile from "../../assets/default_profile_photo.svg";
 
-import { useImage } from "../hooks/useImage";
+import { useImage } from "../../hooks/useImage";
 
 import styles from "./UserEdit.module.css";
 
-import { Toast } from "../helpers/alerts/alert";
+import { Toast } from "../../helpers/alerts/alert";
 
 export default function UserEdit() {
   const dispatch = useDispatch();

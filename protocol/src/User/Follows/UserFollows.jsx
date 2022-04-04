@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import css from "./UserFollows.module.css"
-import DefaultProfile from '../assets/default_profile_photo.svg'
-import { followCall } from '../ReduxToolkit/apiCalls/followUser.js';
-import { getUser } from '../ReduxToolkit/apiCalls/userCall.js';
+import DefaultProfile from '../../assets/default_profile_photo.svg'
+import { followCall } from '../../ReduxToolkit/apiCalls/followUser.js';
+import { getUser } from '../../ReduxToolkit/apiCalls/userCall.js';
 
 export default function Follows() {
     // const user = useSelector(state => state.user.currentUser)
