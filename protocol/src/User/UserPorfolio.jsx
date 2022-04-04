@@ -119,7 +119,8 @@ function SubscriptionBut()
           );
           if(data.success) { const order = { type: 'premium', user: user._id, to: currentUser._id, amount: amount, card: data.success.payment_method_details.card.brand + ' ' + data.success.payment_method_details.card.last4, ticket: data.success.receipt_url}
             const res = await axios.post(`/api/orders/${currentUser._id}`, order);
-            axios.post(`/api/user/${user._id}/premium`, {userId:currentUser._id});//toca validar que la ruta esté lista
+            await axios.post(`/api/orders/${user._id}`, order);
+            await axios.post(`/api/user/${user._id}/premium`, {userId:currentUser._id});//toca validar que la ruta esté lista
 
           }
         } catch (error) {console.log(error);}
