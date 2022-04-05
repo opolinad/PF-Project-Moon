@@ -3,6 +3,18 @@ const User = require('../models/User')
 const Order = require('../models/Order')
 const router = Router()
 
+router.get('/', async(req:Request, res:Response) =>{
+    try {
+    const orders = await Order.find({})
+    .populate({ path: 'user to', model:'User', select: 'username profilePhoto'})
+    .populate({ path: 'post', model:'Post', select: 'images title'})
+    res.json(orders)
+    } catch(err) {
+        console.log(err)
+        res.status(400).json({error: err})
+    }
+})
+
 router.post('/:idUser',async(req:Request, res:Response) => {
     const { idUser } = req.params
 
@@ -59,16 +71,6 @@ router.get('/donations/:idUser', async (req:Request, res:Response) => {
     }
 })
 
-router.get('/', async(req:Request, res:Response) =>{
-    try {
-    const orders = await Order.find({})
-    .populate({path: 'history', populate: [{ path: 'user to', model:'User', select: 'username profilePhoto'},{path:'post', model:'Post', select: 'images'}]})
-    .populate
-    res.json(orders)
-    } catch(err) {
-        res.status(400).json({error: err})
-    }
-})
 
 router.get('/premiums/:idUser', async (req:Request, res:Response) => {
     const { idUser } = req.params
