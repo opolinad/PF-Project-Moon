@@ -45,7 +45,8 @@ router.put('/:idUser/follow', async (req: Request, res: Response) => {
             if(!user.followings.includes(req.body.userId)) {
                 await user.updateOne({$push: {followings: req.body.userId}})
                 await currentUser.updateOne({$push: {followers: req.params.idUser}})
-                const conversation = await Conversation.find({members: req.body.userId})
+                const conversation = await Conversation.find({members: { $all: [req.params.idUser, req.body.userId] }})
+                console.log(conversation)
                 if(!conversation.length) {
                 const newConversation = new Conversation({
                     members: [req.body.userId, req.params.idUser],
