@@ -34,7 +34,7 @@ router.post('/', async (req: Request, res: Response) => {
 router.get("/session", async (req: Request, res: Response) => {
   try {
     console.log("Correo",userEmail)
-    const user = await User.findOne({ email: userEmail });
+    const user = await User.find({ email: userEmail });
     console.log("Usuario encontrado",user);
     const { ...others } = user._doc;
     const accessToken = jwt.sign({ id: user._id }, process.env.JWT_KEY, { expiresIn: '1d' });
