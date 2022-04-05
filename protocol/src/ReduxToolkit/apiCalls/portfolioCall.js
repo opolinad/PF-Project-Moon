@@ -16,7 +16,7 @@ export const portfolioByPage = async (page=1,currentId=-1,designerId=-1,dispatch
         switch (command) 
         {
             case "more": //CASO: primer carga // cargar siguiente pagina
-                res = await axios.get(`/api/profile/portfolio/${designerId}?page=${page}`); ///api/profile/portfolio/:idUser
+                res = await axios.get(`/api/profile/portfolio/${designerId}/${currentId}?page=${page}`); ///api/profile/portfolio/:idUser
                 console.log(res.data)
                 statusPortolio= res.data.length? SUCCESS_200 : END_ALL;
 

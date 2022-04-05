@@ -27,6 +27,8 @@ router.get('/:idUser', async (req:Request, res:Response) => {
         
                 posts = posts.filter((post:any) => post.categories.some((category: any) => user.favouritesCategories.includes(category)))
 
+                posts = posts.filter((post:any) => !post.premium)
+ 
                 if (filter) {
                     if(filter === "designsOnly") {
                         posts = posts.filter((post : any) => post.images.length > 0)
@@ -61,6 +63,9 @@ router.get('/:idUser', async (req:Request, res:Response) => {
             }
             
             posts = posts.filter((post:any) => user.followings.includes(post.user._id) || user.followings.includes(post.shareUser?._id))
+
+            posts = posts.filter((post:any) => !post.premium)
+
         
                 if (filter) {
                     if(filter === "designsOnly") {
@@ -110,6 +115,8 @@ router.get('/:idUser', async (req:Request, res:Response) => {
             .populate('soldUser',{username: 1, profilePhoto:1})
 
             postSearch = postSearch.filter((post : any) => post.title?.toLowerCase().includes(search.toLowerCase()))
+
+            posts = posts.filter((post:any) => !post.premium)
 
             let userSearch = await User.find({})
 
