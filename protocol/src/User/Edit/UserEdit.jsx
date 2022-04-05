@@ -7,7 +7,7 @@ import axios from "axios";
 import { useImage } from "../../hooks/useImage";
 
 import styles from "./UserEdit.module.css";
-
+import Swal from 'sweetalert2';
 import { Toast } from "../../helpers/alerts/alert";
 
 function validar(input) {
@@ -105,34 +105,47 @@ export default function UserEdit() {
   async function handleSubmit(e) {
     e.preventDefault();
     if (!errors.oldPassword && !errors.newPassword && !errors.confirmPassword) {
-      let option = window.confirm("Are you sure you want to edit your profile?")
-      if (option === true) {
-        if (password.oldPassword !== "") {
-          try {
-            const verified = await axios.post("/api/login", { email: user.email, password: password.oldPassword });
-            await axios.put(`/api/user/${user._id}`, { password: password.confirmPassword })
-          } catch (error) {
-            alert("Wrong old password")
+      Swal.fire({
+        title: 'Are you sure you want to edit your profile?',
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, bring the changes!'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          if (password.oldPassword !== "") {
+            try {
+              const verified = await axios.post("/api/login", { email: user.email, password: password.oldPassword });
+              await axios.put(`/api/user/${user._id}`, { password: password.confirmPassword })
+            } catch (error) {
+              Toast.fire({
+                icon: 'error',
+                title: 'Wrong old password',
+              })
+            }
           }
+          updateUsers(
+            dispatch,
+            currentUser._id,
+            inputs,
+            currentUser.accessToken
+          ).then((res) => {
+            navigate(`/users/${currentUser._id}`);
+          });
+          setInputs({
+            username: "",
+            fullName: "",
+            profilePhoto: "",
+            backgroundPhoto: "",
+          });
+        }else{
+          Toast.fire({
+            icon: 'info',
+            title: 'Changes dismissed',
+          })
         }
-        updateUsers(
-          dispatch,
-          currentUser._id,
-          inputs,
-          currentUser.accessToken
-        ).then((res) => {
-          navigate(`/users/${currentUser._id}`);
-        });
-        setInputs({
-          username: "",
-          fullName: "",
-
-          profilePhoto: "",
-          backgroundPhoto: "",
-        });
-      } else {
-        alert("Cancelled")
-      }
+      })
     }
   }
   function handlePaswordChange(e) {

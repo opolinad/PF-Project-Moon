@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { likeAction, shareAction } from "../ReduxToolkit/apiCalls/cardPostCall";
 import { useNavigate } from "react-router";
 import { setSelectedCategory } from "../ReduxToolkit/reducers/homeSlice";
+import { Toast } from "../helpers/alerts/alert";
+import Swal from 'sweetalert2';
 
 function ImgPreviews({ imgs, id }) {
   const navigate = useNavigate();
@@ -188,19 +190,35 @@ export default function CardPost(props) {
   }
 
   function handleDelete(postId) {
-    let option = window.confirm("Are you sure you want to delete this post?")
-    if (option === true) {
-      let arr = props.componentFather === "Feed" ? feed : userPosts;
-      deletePost(
-        dispatch,
-        postId,
-        userData.accessToken,
-        arr,
-        props.componentFather
-      );
-    } else {
-      alert("Cancelled")
-    }
+    Swal.fire({
+      title: 'Are you sure you want to delete this post?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let arr = props.componentFather === "Feed" ? feed : userPosts;
+        deletePost(
+          dispatch,
+          postId,
+          userData.accessToken,
+          arr,
+          props.componentFather
+        );
+        Toast.fire({
+          icon: 'info',
+          title: 'Post deleted',
+        })
+      }else{
+        Toast.fire({
+          icon: 'info',
+          title: 'Post NOT deleted',
+        })
+      }
+    })
   }
 
   function handleComment() {
