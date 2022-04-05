@@ -32,16 +32,8 @@ function ImgPreviews({ imgs, id }) {
       else if (i == 1 && imgs.length >= 3) raw = Cardpost.quarterImg; //Cardpost.quarterImg
 
       cardValues.testing.push(
-        <div
-          key={"img_" + i + "_id_" + id}
-          onClick={() => navigate("/post/" + id)}
-          className={`${Cardpost.imgSingleCont} ${raw}`}
-        >
-          <img
-            className={Cardpost.cardpostImg}
-            src={imgs[i]}
-            alt={"nu existe :c"}
-          />
+        <div key={"img_" + i + "_id_" + id} onClick={() => navigate("/post/" + id)} className={`${Cardpost.imgSingleCont} ${raw}`}>
+          <img className={Cardpost.cardpostImg} src={imgs[i]} alt={"nu existe :c"}/>
         </div>
       );
     }

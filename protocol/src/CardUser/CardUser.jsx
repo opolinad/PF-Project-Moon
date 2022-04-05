@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+    import { useDispatch, useSelector } from "react-redux";
 import profilePhoto from "../assets/default_profile_photo.svg";
 import { followAndUnFollow, followCall } from "../ReduxToolkit/apiCalls/followUser";
 import { Link } from "react-router-dom";
