@@ -3,12 +3,21 @@ import "./datatableUser.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { format } from "timeago.js";
+import { editUser } from "../../redux/apiCalls/editUserCall"
+import { useDispatch, useSelector } from "react-redux";
 
 const Datatable = ({ users }) => {
   const [data, setData] = useState(users);
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.user.currentUser);
 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item._id !== id));
+  const handleBan = (id) => {
+    //setData(data.filter((item) => item._id !== id));
+    editUser(dispatch, id, currentUser.accessToken, true);
+  };
+  const handleUnban = (id) => {
+    //setData(data.filter((item) => item._id !== id));
+    editUser(dispatch, id, currentUser.accessToken, false);
   };
 
   const userColumns = [
@@ -18,7 +27,7 @@ const Datatable = ({ users }) => {
       headerName: "Profile",
       width: 70,
       renderCell: (params) => {
-        console.log(params);
+        //console.log(params);
         return (
           <div className="cellWithImg">
             <img
@@ -75,7 +84,7 @@ const Datatable = ({ users }) => {
     {
       field: "action",
       headerName: "Action",
-      width: 140,
+      width: 200,
       renderCell: (params) => {
         return (
           <div className="cellAction">
@@ -85,11 +94,14 @@ const Datatable = ({ users }) => {
             >
               <div className="viewButton">View</div>
             </Link>
+            <div className="banButton" onClick={() => handleBan(params.row._id)}>
+              ban
+            </div>
             <div
-              className="deleteButton"
-              onClick={() => handleDelete(params.row._id)}
+              className="unbanButton"
+              onClick={() => handleUnban(params.row._id)}
             >
-              Delete
+              unban
             </div>
           </div>
         );
