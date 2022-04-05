@@ -3,12 +3,32 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateUsers } from "../../ReduxToolkit/apiCalls/updateUserCall";
 import { useNavigate } from "react-router-dom";
 import DefaultProfile from "../../assets/default_profile_photo.svg";
-
+import axios from "axios";
 import { useImage } from "../../hooks/useImage";
 
 import styles from "./UserEdit.module.css";
-
+import Swal from 'sweetalert2';
 import { Toast } from "../../helpers/alerts/alert";
+
+function validar(input) {
+  let errors = {}
+  if (!input.oldPassword) {
+    errors.oldPassword = "This field can't be empty"
+  }
+  if (!input.newPassword) {
+    errors.newPassword = "This field can't be empty"
+  } else if (input.newPassword.trim().length < 8) {
+    errors.newPassword = 'It must must have at least 8 characters'
+  } else if (!/^(?=.*\d)(?=.*[a-záéíóúüñ]).*[A-ZÁÉÍÓÚÜÑ]/.test(input.newPassword)) {
+    errors.newPassword = 'It must have an uppercase, a lowercase and a digit'
+  }
+  if (!input.confirmPassword) {
+    errors.confirmPassword = 'Confirm your password'
+  } else if (input.newPassword !== input.confirmPassword) {
+    errors.confirmPassword = 'Passwords must be the same'
+  }
+  return errors
+}
 
 export default function UserEdit() {
   const dispatch = useDispatch();
@@ -39,10 +59,23 @@ export default function UserEdit() {
     backgroundPhoto: user?.backgroundPhoto || "",
     artist: user?.artist ? true : false,
   });
-  
-  function handleArtist()
-  {
-    setInputs({...inputs,artist:!inputs.artist})
+  const [password, setPassword] = useState({
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: ""
+  });
+  const [errors, setErrors] = useState({});
+  const [userPlatform, setUserPlatform] = useState(true);
+
+  useEffect(async () => {
+    const res = await axios.get(`api/password/?email=${user.email}`);
+    console.log(user.email)
+    console.log(res.data)
+    res.data.msg!=="User must log in through Google/Microsoft" && setUserPlatform(false);
+  }, []);
+
+  function handleArtist() {
+    setInputs({ ...inputs, artist: !inputs.artist })
     console.log(inputs)
   }
 
@@ -69,28 +102,55 @@ export default function UserEdit() {
       });
   }, [image2]);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    let option = window.confirm("Are you sure you want to edit your profile?")
-    if (option === true) {
-    updateUsers(
-      dispatch,
-      currentUser._id,
-      inputs,
-      currentUser.accessToken
-    ).then((res) => {
-      navigate(`/users/${currentUser._id}`);
-    });
-    setInputs({
-      username: "",
-      fullName: "",
-
-      profilePhoto: "",
-      backgroundPhoto: "",
-    });
-    } else {
-      alert("Cancelled")
+    if (!errors.oldPassword && !errors.newPassword && !errors.confirmPassword) {
+      Swal.fire({
+        title: 'Are you sure you want to edit your profile?',
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, bring the changes!'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          if (password.oldPassword !== "") {
+            try {
+              const verified = await axios.post("/api/login", { email: user.email, password: password.oldPassword });
+              await axios.put(`/api/user/${user._id}`, { password: password.confirmPassword })
+            } catch (error) {
+              Toast.fire({
+                icon: 'error',
+                title: 'Wrong old password',
+              })
+            }
+          }
+          updateUsers(
+            dispatch,
+            currentUser._id,
+            inputs,
+            currentUser.accessToken
+          ).then((res) => {
+            navigate(`/users/${currentUser._id}`);
+          });
+          setInputs({
+            username: "",
+            fullName: "",
+            profilePhoto: "",
+            backgroundPhoto: "",
+          });
+        }else{
+          Toast.fire({
+            icon: 'info',
+            title: 'Changes dismissed',
+          })
+        }
+      })
     }
+  }
+  function handlePaswordChange(e) {
+    setPassword({ ...password, [e.target.name]: e.target.value })
+    setErrors(validar({ ...password, [e.target.name]: e.target.value }))
   }
 
   useEffect(() => {
@@ -104,9 +164,6 @@ export default function UserEdit() {
     }
   }, [sizeExceeded1, sizeExceeded2, setSizeExceeded1, setSizeExceeded2]);
 
-  console.log(sizeExceeded1);
-  console.log(sizeExceeded2);
-
   return (
     <div id={styles.editCont}>
       <form id={styles.editForm} onSubmit={(e) => handleSubmit(e)}>
@@ -114,15 +171,32 @@ export default function UserEdit() {
         <div id={styles.rowEditsCont}>
           <div id={styles.textEdits}>
             <div className={styles.editShell}>
-            <label className={styles.editLabel}>Username: </label>
+              <label className={styles.editLabel}>Username: </label>
 
-            <input className={styles.editInput} name="username" type="text" placeholder={user?.username} onChange={handleInputChange}/>
+              <input className={styles.editInput} name="username" type="text" placeholder={user?.username} onChange={handleInputChange} />
             </div>
 
             <div className={styles.editShell}>
-            <label className={styles.editLabel}>FullName: </label>
-            <input className={styles.editInput} name="fullName" type="text" placeholder={user?.fullName} onChange={handleInputChange} />
+              <label className={styles.editLabel}>FullName: </label>
+              <input className={styles.editInput} name="fullName" type="text" placeholder={user?.fullName} onChange={handleInputChange} />
             </div>
+            {!userPlatform && <div id={styles.passwordCont}>
+              <div className={styles.editShell}>
+                <label className={styles.editLabel}>Old password: </label>
+                <input className={styles.editInput} name="oldPassword" type="password" onChange={handlePaswordChange} value={password.oldPassword} />
+                {errors.oldPassword && <span className={styles.error}>{errors.oldPassword}</span>}
+              </div>
+              <div className={styles.editShell}>
+                <label className={styles.editLabel}>New password:</label>
+                <input className={styles.editInput} name="newPassword" type="password" onChange={handlePaswordChange} value={password.newPassword} />
+                {errors.newPassword && <span className={styles.error}>{errors.newPassword}</span>}
+              </div>
+              <div className={styles.editShell}>
+                <label className={styles.editLabel}>Confirm new password:</label>
+                <input className={styles.editInput} name="confirmPassword" type="password" onChange={handlePaswordChange} value={password.confirmPassword} />
+                {errors.confirmPassword && <span className={styles.error}>{errors.confirmPassword}</span>}
+              </div>
+            </div>}
           </div>
 
           <div id={styles.imagesEdits}>
@@ -130,32 +204,32 @@ export default function UserEdit() {
               <label className={styles.editLabel}>Background Image: </label>
 
               <div id={styles.currentImgBackCont}>
-                {loading2 ? (<img id={styles.currentImgBack} src="/default_banner_photo.svg" alt="not found"/>) : (<img id={styles.currentImgBack} src={ !image2 ? inputs?.backgroundPhoto || DefaultProfile : image2} alt="banner"/>)}
+                {loading2 ? (<img id={styles.currentImgBack} src="/default_banner_photo.svg" alt="not found" />) : (<img id={styles.currentImgBack} src={!image2 ? inputs?.backgroundPhoto || DefaultProfile : image2} alt="banner" />)}
               </div>
 
               <div className={styles.decoFileInput}>Change Background</div>
 
-              <input className={styles.editInputFile} type={type2} id="file2" onChange={onChange2}/>
+              <input className={styles.editInputFile} type={type2} id="file2" onChange={onChange2} />
             </div>
 
             <div className={styles.editShell}>
               <label className={styles.editLabel}>Profile Photo: </label>
 
               <div id={styles.currentImgProfileCont}>
-                <div>{loading1 ? (<img id={styles.currentImgProfile} src="https://acegif.com/wp-content/uploads/loading-25.gif" alt="not found"/>) : (<img id={styles.currentImgProfile} src={!image1 ? inputs?.profilePhoto || DefaultProfile : image1} alt="profile"/>)}</div>
+                <div>{loading1 ? (<img id={styles.currentImgProfile} src="https://acegif.com/wp-content/uploads/loading-25.gif" alt="not found" />) : (<img id={styles.currentImgProfile} src={!image1 ? inputs?.profilePhoto || DefaultProfile : image1} alt="profile" />)}</div>
               </div>
 
               <div className={styles.decoFileInput}>Change Profile</div>
 
-              <input className={styles.editInputFile} type={type1} id="file1" onChange={onChange1}/>
+              <input className={styles.editInputFile} type={type1} id="file1" onChange={onChange1} />
             </div>
           </div>
         </div>
 
         <div id={styles.artistChoice}>
           <p>Are You an Artist?</p>
-          <div id={ inputs.artist? styles.SliderShellOn : styles.SliderShellOff } onClick={handleArtist}>
-              <div id={inputs.artist? styles.sliderOn : styles.sliderOff}></div>       
+          <div id={inputs.artist ? styles.SliderShellOn : styles.SliderShellOff} onClick={handleArtist}>
+            <div id={inputs.artist ? styles.sliderOn : styles.sliderOff}></div>
           </div>
         </div>
 

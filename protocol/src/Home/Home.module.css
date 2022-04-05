@@ -66,3 +66,36 @@
     cursor: pointer; 
     
 }
+
+
+
+
+@media screen and (max-width:1024px){
+    #homeCont{
+        margin-top: 0vh;
+        
+    }
+    #InfoCont{
+        display: flex;
+        flex-direction: column;
+    
+        width: 100%;
+        
+        contain: none;
+    }
+
+    #filterOrderCont{
+        position: relative;
+        top: 0;
+        left: -45vw;
+        display: flex;
+        flex-direction: row;
+    
+        width: 10vw;
+        height: 4vh;
+        padding: 3vh 0 3vh 3.5vw;
+    }
+    #filterOrderCont{
+        padding: 0vh 0 1vh 0.5vw;
+    }
+}

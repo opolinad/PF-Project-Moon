@@ -111,17 +111,28 @@ export default function Feed(props) {
       );
     });
 
-  usersArr = feed.users?.map((e) => {
-    return (
-      <CardUser
-        image={e.profilePhoto}
-        fullName={e.fullname ? e.fullName : e.email.split("@")[0]}
-        userName={e.username}
-        currentUserId={currentUser._id}
-        userId={e._id}
-      />
-    );
-  });
+
+    usersArr = 
+      feed.users?.map((e) => {
+        return (
+          <CardUser
+          image={e.profilePhoto}
+          fullName={e.fullName? e.fullName : e.email.split("@")[0]}
+          userName={e.username}
+          currentUserId={currentUser._id}
+          userId={e._id}
+          />
+        )
+      })
+      
+
+    const [displaying, setDisplaying] = useState(3)
+    let usersDisplaying = usersArr?.length? usersArr.slice(0, displaying) : "";
+    function loadMore(e){
+        setDisplaying(displaying + 3)
+        usersDisplaying = usersArr?.slice(0, displaying);
+    }
+
 
   const [displaying, setDisplaying] = useState(3);
   let usersDisplaying = usersArr?.length ? usersArr.slice(0, displaying) : "";
