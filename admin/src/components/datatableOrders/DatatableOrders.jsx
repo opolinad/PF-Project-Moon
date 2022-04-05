@@ -36,6 +36,25 @@ const DatatableOrders = ({ orders }) => {
         return <div className="cellDate">{format(params.row.createdAt)}</div>;
       },
     },
+    {
+      field: "link",
+      headerName: "Link",
+      width: 100,
+      renderCell: (params) => {
+        console.log(params.row.ticket);
+        //return <div className="cellDate">{format(params.row.createdAt)}</div>;
+        return <div className="cellDate">{
+            <a
+            style={{ textDecoration: "none" }}
+            href={params.row.ticket}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span className={`status Approved`}>LINK</span>
+          </a>
+        }</div>;
+      },
+    },
     // {
     //   field: "images",
     //   headerName: "Images",
@@ -91,29 +110,6 @@ const DatatableOrders = ({ orders }) => {
     //     return <div className="cellDate">{params.row.followings.length}</div>;
     //   },
     // },
-    {
-      field: "action",
-      headerName: "Action",
-      width: 140,
-      renderCell: (params) => {
-        return (
-          <div className="cellAction">
-            <Link
-              to={`/users/${params.row._id}`}
-              style={{ textDecoration: "none" }}
-            >
-              <div className="viewButton">View</div>
-            </Link>
-            <div
-              className="deleteButton"
-              onClick={() => handleDelete(params.row._id)}
-            >
-              Delete
-            </div>
-          </div>
-        );
-      },
-    },
   ];
   return (
     <div className="datatable">

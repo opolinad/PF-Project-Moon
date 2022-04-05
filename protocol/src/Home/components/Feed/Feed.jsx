@@ -54,7 +54,6 @@ export default function Feed(props) {
       dispatch(resetSelectedCategory());
       dispatch(resetPage());
     } else if (!flag_1Carga) {
-      console.log(posts);
       getSearchResults(
         user.currentUser?._id,
         dispatch,
@@ -132,14 +131,6 @@ export default function Feed(props) {
         setDisplaying(displaying + 3)
         usersDisplaying = usersArr?.slice(0, displaying);
     }
-
-
-  const [displaying, setDisplaying] = useState(3);
-  let usersDisplaying = usersArr?.length ? usersArr.slice(0, displaying) : "";
-  function loadMore(e) {
-    setDisplaying(displaying + 3);
-    usersDisplaying = usersArr?.slice(0, displaying);
-  }
 
   return (
     <div id={FeedCss.FeedContainer}>

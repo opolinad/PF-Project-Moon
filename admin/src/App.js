@@ -32,7 +32,7 @@ function App() {
               <Route path=":userId" element={<Single />} />
               <Route path="new" element={<New title="Add New User" />} />
             </Route>
-            <Route path="products">
+            <Route path="posts">
               <Route index element={<PostsList />} />
               <Route path=":productId" element={<Single />} />
               <Route path="new" element={<New title="Add New Product" />} />

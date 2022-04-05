@@ -105,12 +105,12 @@ const Datatable = ({ posts }) => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link
+            {/* <Link
               to={`/users/${params.row._id}`}
               style={{ textDecoration: "none" }}
             >
               <div className="viewButton">View</div>
-            </Link>
+            </Link> */}
             <div
               className="deleteButton"
               onClick={() => handleDelete(params.row._id)}
