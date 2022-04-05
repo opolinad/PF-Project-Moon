@@ -14,6 +14,7 @@ router.post('/', async (req: Request, res: Response) => {
   try {
 
     const user = await User.findOne({ email });
+    console.log("user en login",user);
     const hashedPassword = CryptoJS.AES.decrypt(user.password, process.env.HASH_CRYPTO)
     const originPassword = hashedPassword.toString(CryptoJS.enc.Utf8)
     const accessToken = jwt.sign({
@@ -34,6 +35,7 @@ router.get("/session", async (req: Request, res: Response) => {
   try {
     console.log("Correo",userEmail)
     const user = await User.findOne({ email: userEmail });
+    console.log("Usuario encontrado",user);
     const { ...others } = user._doc;
     const accessToken = jwt.sign({ id: user._id }, process.env.JWT_KEY, { expiresIn: '1d' });
     res.json({ ...others, accessToken });
