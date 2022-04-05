@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
 import { useParams } from "react-router";
-import logo from "../logo.svg"
 
 //validacion de errores
 function validar(input) {
@@ -87,7 +86,7 @@ export default function ChangePassword() {
             </Link>
 
             <div id={styles.decoCont}>
-                <img id={styles.landingImg} src={logo} alt="logo not found" />
+                <img id={styles.landingImg} src="/logo.svg" alt="logo not found" />
                 <h1>Protocol Moon</h1>
             </div>
             <form id={styles.formRegister} onSubmit={e => handleSubmit(e)}>
