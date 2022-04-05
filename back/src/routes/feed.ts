@@ -11,9 +11,9 @@ router.get('/:idUser', async (req:Request, res:Response) => {
     try {
         let posts : object [] = []
 
+        const user = await User.findById(idUser)
         if(!search && !category) {
             try {
-                const user = await User.findById(idUser)
                 let posts = await Post.find({})
                 .populate('user',{username: 1, profilePhoto:1})
                 .populate('likes',{username: 1, profilePhoto:1})
@@ -63,6 +63,10 @@ router.get('/:idUser', async (req:Request, res:Response) => {
                 posts = posts.filter((post:any) => post.categories.some((category: any) => user.favouritesCategories.includes(category)))
 
                 posts = posts.filter((post:any) => !post.premium)
+
+                let postsUser= await Post.find({user: user._id})
+
+               posts = posts.concat(postsUser)
  
                 if (filter) {
                     if(filter === "designsOnly") {
@@ -100,6 +104,11 @@ router.get('/:idUser', async (req:Request, res:Response) => {
             posts = posts.filter((post:any) => user.followings.includes(post.user._id) || user.followings.includes(post.shareUser?._id))
 
             posts = posts.filter((post:any) => !post.premium)
+
+            
+            let postsUser= await Post.find({user: user._id})
+
+            posts = posts.concat(postsUser)
 
         
                 if (filter) {
@@ -152,6 +161,11 @@ router.get('/:idUser', async (req:Request, res:Response) => {
             postSearch = postSearch.filter((post : any) => post.title?.toLowerCase().includes(search.toLowerCase()))
 
             posts = posts.filter((post:any) => !post.premium)
+
+            
+            let postsUser= await Post.find({user: user._id})
+
+            posts = posts.concat(postsUser)
 
             let userSearch = await User.find({})
 
