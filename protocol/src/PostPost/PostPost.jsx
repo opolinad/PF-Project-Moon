@@ -51,7 +51,7 @@ export default function PostPost() {
   });
 
   useEffect(() => {
-    image1 && !input.images && 
+    image1 &&
     setInput({
       ...input,
       images: image1
@@ -63,7 +63,7 @@ export default function PostPost() {
     getCategoriesAsync(dispatch);
   }, [dispatch]);
 
-  
+
   function handleChange(e) {
     setInput({
       ...input,
@@ -153,7 +153,7 @@ export default function PostPost() {
           <div id={css.imgUpCont}>
             <div id={css.imgUpHidden}>
               {input?.images && loading1 ? (
-                <img src="https://acegif.com/wp-content/uploads/loading-25.gif" id={css.imgUploaded}/>) : ( 
+                <img src="https://acegif.com/wp-content/uploads/loading-25.gif" id={css.imgUploaded}/>) : (
                   image1.map((e) => {
                     return (<div><img src={e} id={css.imgUploaded}/></div>)})
               )}
