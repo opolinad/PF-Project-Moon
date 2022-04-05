@@ -124,13 +124,12 @@ export default function Feed(props) {
         )
       })
       
-
-    const [displaying, setDisplaying] = useState(3)
-    let usersDisplaying = usersArr?.length? usersArr.slice(0, displaying) : "";
-    function loadMore(e){
-        setDisplaying(displaying + 3)
-        usersDisplaying = usersArr?.slice(0, displaying);
-    }
+  const [displaying, setDisplaying] = useState(3);
+  let usersDisplaying = usersArr?.length ? usersArr.slice(0, displaying) : "";
+  function loadMore(e) {
+    setDisplaying(displaying + 3);
+    usersDisplaying = usersArr?.slice(0, displaying);
+  }
 
   return (
     <div id={FeedCss.FeedContainer}>

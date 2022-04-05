@@ -9,7 +9,7 @@
     height: 40vh;
 }
 
- #openCreate{
+#openCreate{
     position: relative;
     left: -60.6vw;
     top: -25vh;
@@ -374,6 +374,10 @@
     position: relative;
     top: -5.5vh;
 }
+
+
+
+
 #premiumChoice{
     display: flex;
     flex-direction: row;
@@ -429,4 +433,164 @@
 }
 #sliderOff{
     left: 0;
+}
+
+
+
+
+
+
+@media screen and (max-width:1024px){
+    #createCont{
+        position: relative;
+        top: -10vh;
+        width: 20%;
+        height: 4vh;
+    }
+
+    #openCreate{
+        position: relative;
+        left: -0vw;
+        top: 10vh;
+
+        width: 90vw;
+        height: 80vh;
+    
+        padding: 10vh 5vw 8vh 5vw;
+        border-radius: 5vh;
+    
+
+        z-index: 2;
+    }
+    
+    #closeCreate{
+        position: relative;
+        left: -0vw;
+        top: -0vh;
+    
+        transition: 0.5s;
+    
+        width: 50vw;
+        height: 60vh;
+    
+        padding: 0vh 5vw 8vh 5vw;
+        border-radius: 5vh;
+
+        z-index: -1;
+    }
+
+    #innerCreateCont{
+        position: relative;
+        top: -1vw;
+        width: 80vw;
+        height: fit-content;
+        z-index: 2;
+    }
+
+
+
+
+    .infoCont{
+        width: 76vw;
+    }
+    .labelInputTitle{
+        width: 76vw;
+    }
+
+
+    .labelInputDescription{
+        width: 78vw;
+        font-size: 2.5vw;
+    }
+
+
+    .infoContCat{
+        width: 70vw;
+    }
+    .labelInputCat{
+        width: 70vw;
+        font-size: 2vw;
+
+    }
+    .optionCat{
+        width: 70vw ;
+        font-size: 2.5vw;
+    }
+    .selectedCont{
+        width: 76vw;
+    }
+    .categorySelected{
+        font-size: 2vw;
+    }
+
+
+    .labelImgUpload{
+        width: 70vw;
+        font-size: 2.5vw;
+    }
+
+
+
+
+
+
+
+    #premiumChoice{
+        height: 40px;
+    }
+    #premiumChoice > p{
+        font-size: 2.5vw;
+    }
+
+    #SliderShellOn, #SliderShellOff{
+        width: 90px;
+        height: 50px;
+        border-radius: 25px;
+    }
+
+    #sliderOn, #sliderOff{
+        position: relative;
+        top: 5px;
+
+        height: 40px;
+        width: 40px;
+        margin: 5px;
+        margin-top: 0;
+
+        border-radius: 20px;
+    }
+    #sliderOn{
+        left: 40px;
+    }
+    #sliderOff{
+        left: 0;
+    }
+
+
+
+    #submitButPost{
+        font-size: 2.5vw;
+    }
+
+
+
+
+    #slimBut{
+        position: relative;
+        top: 5vh;
+
+        width: 10vw;
+        height: 5vh;
+        
+        border: none;
+        border-top-right-radius: 1vw;
+        border-bottom-right-radius: 1vw;
+    
+        background-color: #864879;
+        color: #E9A6A6;
+
+        font-size: 3vw;
+        text-align: center;
+
+    }
 }
