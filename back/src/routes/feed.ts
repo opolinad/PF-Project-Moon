@@ -24,6 +24,41 @@ router.get('/:idUser', async (req:Request, res:Response) => {
 
         
                 if(!user.followings.length) {
+
+                    if(!user.favouritesCategories.length){
+    
+                        if (filter) {
+                            if(filter === "designsOnly") {
+                                posts = posts.filter((post : any) => post.images.length > 0)
+                            } else { 
+                            posts = posts.filter((post : any) => post.images.length === 0)
+                            }
+                        }
+                        
+                        if (order === "trending") {
+                            posts.sort((function (a:any, b:any) {
+                                if (a.likes.length < b.likes.length) return 1;
+                                if (a.likes.length > b.likes.length) return -1;
+                                return 0;
+                            }))
+                        } else {
+                            posts.sort((function (a:any, b:any) {
+                                if (a.createdAt < b.createdAt) return 1;
+                                if (a.createdAt > b.createdAt) return -1;
+                                return 0;
+                            }))
+                        }
+                        
+                        if(page) {
+                            const lastPage = page * 20
+                            const firstPage = lastPage - 20
+                            const postsShow = posts.slice(firstPage, lastPage)
+                            return res.json(postsShow)
+                        } else {
+                            const postsShow = posts.splice(0,20)
+                            return res.json(postsShow)
+                        }
+                    }
         
                 posts = posts.filter((post:any) => post.categories.some((category: any) => user.favouritesCategories.includes(category)))
 
