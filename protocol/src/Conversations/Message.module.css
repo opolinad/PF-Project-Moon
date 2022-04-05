@@ -93,3 +93,69 @@
 
     transition: 0.2s;
 }
+
+
+
+
+@media screen and (max-width:1025px){
+    .decoOwn,.decoNotOwn{
+        border-bottom:  2vw solid transparent;
+    }
+    .decoOwn{
+        border-left: 2vw solid #1F1D36;
+        border-top-right-radius: 0.4vw;
+    }
+    .decoNotOwn{
+        border-right: 2vw solid #171629;
+        border-top-left-radius: 0.4vw;
+    }
+
+
+
+    .messageOwn,.message{
+        width: fit-content;
+        min-width: 18%;
+        max-width: 88%;
+        height: fit-content;
+        padding: 2vh 1% 0vh 1%;
+    
+        margin-bottom: 1vh;
+        transition: 0.2s;
+    }
+
+    .messageOwn{
+        border-top-left-radius: 1vw;
+        border-bottom-left-radius: 1vw;
+        border-bottom-right-radius: 1vw;
+    }
+    .message{
+        border-top-right-radius: 1vw;
+        border-bottom-right-radius: 1vw;
+        border-bottom-left-radius: 1vw;
+    }
+
+
+
+    .messageText{
+        width: 90%;
+        margin: 0 5% 0 5%;
+        color: #F0E9D2;
+
+        font-size: 2.3vw;
+    }
+    
+    .TimeAgo{
+        width: fit-content;
+        height: 2vh;
+        margin: 0vh 0 0 auto;
+        padding: 0.1vh 1vw 0vh 1vw;
+    
+        border-top-left-radius: 0.6vw;
+        border-top-right-radius: 0.6vw;
+    
+        font-size: 1.6vw;
+        text-align: center;
+        text-justify: center;
+        
+    }
+}

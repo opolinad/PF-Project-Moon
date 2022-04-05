@@ -41,8 +41,7 @@ export default function Feed(props) {
     if (flag_1Carga) 
     {
       if (!query.search && search !== "") dispatch(searchingAction(""));
-      else if (query.search && search !== query.search.split("=")[1])
-        dispatch(searchingAction(query.search.split("=")[1]));
+      else if (query.search && search !== query.search.split("=")[1]) dispatch(searchingAction(query.search.split("=")[1]));
       getSearchResults(user.currentUser?._id, dispatch, query.search.split("=")[1], "", "", "recent", 1);
       dispatch(resetOptions());
       dispatch(resetSelectedCategory());
