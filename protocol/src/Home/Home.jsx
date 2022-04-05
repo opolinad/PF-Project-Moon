@@ -43,7 +43,7 @@ export default function Home() {
         findNextPage(dispatch, search, selectedCategory, filterAndOrder.filter, filterAndOrder.ordering, homePage.page, user._id);
     }
 
-  
+    const showWidth = document.documentElement.clientWidth<1025;
 
     return (
         <div id={HomeCss.homeCont}>
@@ -53,8 +53,9 @@ export default function Home() {
             </div>
             <div id={HomeCss.InfoCont}>
                 <Categories />
+                {showWidth ? <PostPost/> : ""}
                 <Feed />
-                <PostPost/>
+                {!showWidth ? <PostPost/> : ""}
             </div>
             <button id={HomeCss.nextPageBut} onClick={() => handleButton()} >Load More</button>
         </div>

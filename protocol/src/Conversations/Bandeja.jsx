@@ -104,8 +104,7 @@ const Bandeja = () => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const showWidth = document.documentElement.clientWidth<1025
-  console.log(showWidth)
+  const showWidth = document.documentElement.clientWidth<1025;
   let MessagesButs="";
   if(showWidth)
   { 
