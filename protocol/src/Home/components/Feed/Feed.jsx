@@ -91,7 +91,7 @@ export default function Feed(props) {
         return (
           <CardUser
           image={e.profilePhoto}
-          fullName={e.fullname? e.fullName : e.email.split("@")[0]}
+          fullName={e.fullName? e.fullName : e.email.split("@")[0]}
           userName={e.username}
           currentUserId={currentUser._id}
           userId={e._id}
