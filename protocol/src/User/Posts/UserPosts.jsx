@@ -2,7 +2,10 @@ import React, { useEffect } from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import css from "./UserPosts.module.css";
-import { allPostById } from "../../ReduxToolkit/apiCalls/userPostsById";
+import {
+  allPostById,
+  clearUserPost,
+} from "../../ReduxToolkit/apiCalls/userPostsById";
 import { useState } from "react";
 import CardPost from "../../CardPost/CardPost";
 
@@ -15,11 +18,11 @@ export default function Posts() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    allPostById(dispatch, user._id, currentUser._id).then((res) => {
-      console.log(currentUser);
+    allPostById(dispatch, user._id, currentUser?._id).then((res) => {
       setLoading(false);
+      return () => clearUserPost(dispatch);
     });
-  }, [dispatch, user]);
+  }, [dispatch, user, currentUser]);
 
   const URL = useLocation();
   let displaying = posts;
