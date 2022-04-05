@@ -26,6 +26,20 @@
     padding: 1.5vh 0 1.5vh 0;
 
     border-bottom: 0.2vh solid #150050;
+
+    transition: 0.2s;
+}
+.menuOptionShell:hover{
+
+    border-bottom: 0.4vh solid #864879;
+
+    transition: 0.2s;
+}
+.menuOptionShell:hover > .menuOption > .menuImg{
+
+    color: #E9A6A6;
+
+    transition: 0.2s;
 }
 
 .menuOption{
@@ -54,4 +68,12 @@
     font-size: 3vh;
 
     color: #6001ae9c;
+}
+
+
+
+@media screen and (max-width:1024px){
+    #MenuCont{ 
+        width: 100vw;
+    }
 }

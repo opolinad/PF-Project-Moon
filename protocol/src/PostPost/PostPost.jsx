@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoriesAsync } from "../ReduxToolkit/apiCalls/categoriesCall.js";
 import { postPost } from "../ReduxToolkit/apiCalls/postCall.js";
-import { useImage } from "../hooks/useImage";
-import style from "./PostPost.module.css";
-import { useParams } from "react-router-dom";
+import { usePostImage } from "../hooks/usePostImage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronCircleUp,
@@ -29,53 +27,43 @@ function validate(input) {
 }
 
 export default function PostPost() {
-  // const history = useNavigate()
   const dispatch = useDispatch();
-  const [profile, setProfile] = useState(null);
   const [errors, setErrors] = useState({});
   const {
     type: type1,
     value: image1,
     loading: loading1,
     onChange: onChange1,
-  } = useImage({ type: "file" });
+    setNullFile
+  } = usePostImage({ type: "file" });
   const user = useSelector((state) => state.user.currentUser);
   const categories = useSelector((state) => state.categories.posts.categories);
-
+  const feed=useSelector((state)=>state.feed);
   const [showCreate, setShowCreate] = useState(false);
 
   const [input, setInput] = useState({
     user: user?._id,
-    images: "",
+    images: [],
     title: "",
     description: "",
+    price: "",
     categories: [],
   });
 
   useEffect(() => {
-    image1 && setInput({
-      ...input,
-      images: image1 
-    })
-  }, [image1])
-
-  
-  useEffect(() => {
-    getCategoriesAsync(dispatch);
-  }, [dispatch]);
-
-  useEffect(() => {
-    image1 && setInput({
+    image1 && !input.images && 
+    setInput({
       ...input,
       images: image1
     })
   }, [image1])
 
-  // function handleImgChange(e) {
-  //     setProfile(e.target.files[0])
-  //     setActive(true)
-  // }
 
+  useEffect(() => {
+    getCategoriesAsync(dispatch);
+  }, [dispatch]);
+
+  
   function handleChange(e) {
     setInput({
       ...input,
@@ -89,7 +77,7 @@ export default function PostPost() {
     );
   }
 
-  function handleSelect(e) 
+  function handleSelect(e)
   {
     console.log(e.target.value,input.categories)
     if(!input.categories.includes(e.target.value))
@@ -121,17 +109,23 @@ export default function PostPost() {
         [e.target.name]: e.target.value,
       })
     );
-    postPost(dispatch, user._id, input, user.accessToken);
+    postPost(dispatch, user._id, input, user.accessToken,feed);
+    setNullFile();
     setInput({
       user: user._id,
-      images: "",
+      images: [],
       title: "",
       description: "",
+      price: "",
       categories: [],
     });
+    setShowCreate(false);
   }
 
   let CreateCss = showCreate ? css.openCreate : css.closeCreate;
+
+  console.log(image1)
+  console.log(input)
 
   return (
     <div id={css.createCont}>
@@ -159,13 +153,22 @@ export default function PostPost() {
           <div id={css.imgUpCont}>
             <div id={css.imgUpHidden}>
               {input?.images && loading1 ? (
-                <img src="https://acegif.com/wp-content/uploads/loading-25.gif" id={css.imgUploaded}/>) : (<img src={!image1 ? input?.images : image1}id={css.imgUploaded}/>
+                <img src="https://acegif.com/wp-content/uploads/loading-25.gif" id={css.imgUploaded}/>) : ( 
+                  image1.map((e) => {
+                    return (<div><img src={e} id={css.imgUploaded}/></div>)})
               )}
           </div>
 
           <div className={css.labelImgUpload}>Upload Images</div>
-            <input className={css.labelInputImg} type={type1} id="file1" onChange={onChange1}/>
+            <input className={css.labelInputImg} type={type1} id="file1" multiple onChange={onChange1}/>
           </div>
+
+          {input?.images && (
+            <div className={css.infoCont}>
+              <span>U$D</span>
+              <input className={css.labelInputTitle} onChange={(e) => handleChange(e)} placeholder="Price" type="number" name="price" value={input.price}/>
+            </div>
+          )}
 
           <div className={css.infoContCat}>
 

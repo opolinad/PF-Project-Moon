@@ -45,3 +45,22 @@
 
     transition: 0.2s;
 }
+
+
+@media screen and (max-width:1024px){
+    #donationCont{
+        width: 20vw;
+        height: 4vh;
+    
+        grid-column: 2/8;
+        grid-row: 1/2;
+    }
+    #donationInput{
+        width: 14vw;
+        font-size: 2.5vw;
+    }
+    #submitBut{
+        width: 5vw;
+        font-size: 2vw;
+    }
+}

@@ -35,22 +35,24 @@ const io = require("socket.io")(process.env.PORT, {
     });
   
     //Cuando se manda un mensaje
-    socket.on("sendMessage", ({ senderId, receiverId, text }:{senderId:string, receiverId:string, text:string}) => {
+    socket.on("sendMessage", ({ sender, receiverId, text }:{sender:string, receiverId:string, text:string}) => {
       const user: any = getUser(receiverId);
+      if(user) { 
+        console.log(user.socketId,sender);
+        
       io.to(user.socketId).emit("getMessage", {
-        senderId,
+        sender,
         text,
       });
+      }
     });
   
     socket.on("sendNotification",({ senderName, receiverName, type }:{senderName:any, receiverName:string, type:number}) =>{
       try {
-        console.log("El que lo manda es",senderName);
-        
         const user: any = getUser(receiverName);
         console.log("manda notificacion",user);
       io.to(user.socketId).emit("getNotification", {
-        senderName: senderName.email.split("@",1),
+        senderName: senderName.username,
         type
       })
     } catch (err) {

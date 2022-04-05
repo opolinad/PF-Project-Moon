@@ -1,13 +1,14 @@
-import React, { useState, useEffect, useRef, Fragment } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { useSelector } from "react-redux";
-import { io } from 'socket.io-client'
+import socket from "./socket";
 import axios from "axios";
 import Conversation from "./Conversation";
 import Message from "./Message";
 import ChatOnline from "./ChatOnline";
 import BandejaCss from './Bandeja.module.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const Bandeja = () => {
   const user = useSelector(state => state.user.currentUser);
@@ -17,14 +18,14 @@ const Bandeja = () => {
   const [newMessage, setNewMessage] = useState("");
   const [arrivalMessage, setArrivalMessage] = useState({});
   const [onlineUsers, setOnlineUsers] = useState([]);
-  const socket = useRef();
   const scrollRef = ("");
 
   useEffect(() => {
-    socket.current = io(process.env.REACT_APP_SOCKET+'/')
-    socket.current.on("getMessage", (data) => {
+    socket.on("getMessage", (data) => {
+      console.log(data)
+      console.log(arrivalMessage)
       setArrivalMessage({
-        sender: data.senderId,
+        sender: data.sender,
         text: data.text,
         createdAt: Date.now(),
       });
@@ -32,14 +33,14 @@ const Bandeja = () => {
   }, []);
 
   useEffect(() => {
-    arrivalMessage &&
-      currentChat?.members.includes(arrivalMessage.sender) &&
+    // arrivalMessage &&
+      // currentChat?.members.includes(arrivalMessage.sender) &&
       setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentChat]);
 
   useEffect(() => { //
-    socket.current.emit("addUser", user._id);
-    socket.current.on("getUsers", (users) => {
+    socket.emit("addUser", user._id);
+    socket.on("getUsers", (users) => {
       setOnlineUsers(
         user.followings.filter((follow) => users.some((user) => user.userId === follow))
       );
@@ -63,7 +64,6 @@ const Bandeja = () => {
       try {
         const res = await axios.get("/api/messages/" + currentChat?._id);
         setMessages(res.data);
-        console.log(res)
       } catch (err) {
         console.log(err);
       }
@@ -83,8 +83,8 @@ const Bandeja = () => {
       (member) => member !== user._id
     );
 
-    socket.current.emit("sendMessage", {
-      senderId: user._id,
+    socket.emit("sendMessage", {
+      sender: user._id,
       receiverId,
       text: newMessage,
     });
@@ -105,8 +105,16 @@ const Bandeja = () => {
   return (
       <div id={BandejaCss.BandejaCont}>
         <div id={BandejaCss.chatMenu}>
+          <h3>
+            <Link id={BandejaCss.backLink} to={"/home"}>
+              <button id={BandejaCss.backBut}>
+                <FontAwesomeIcon icon={faAngleLeft} /> Home
+              </button>
+            </Link>
+            Chats
+          </h3> 
             {conversations.map((conversation) => (
-              <div onClick={() => setCurrentChat(conversation)}> <Conversation conversation={conversation} currentUser={user} /> </div>
+              <div onClick={() => setCurrentChat(conversation)}> <Conversation conversation={conversation} user={user} /> </div>
             ))}
         </div>
 
@@ -114,8 +122,7 @@ const Bandeja = () => {
             {currentChat ? (
               <Fragment>
                 <div id={BandejaCss.chatBoxTop}>
-                  {console.log(messages)}
-                  {messages.map((message,index) => ( <Message key={"conversation_"+index} message={message} own={message.sender === user.currentUser?._id} /> ))}
+                  {messages.map((message,index) => ( <Message key={"conversation_"+index} message={message} own={message.sender === user._id} /> ))}
                 </div>
 
                 <div id={BandejaCss.chatFin}>
@@ -127,7 +134,7 @@ const Bandeja = () => {
         </div>
 
         <div id={BandejaCss.ChatOnline}> 
-          <h1>OnlineUsers</h1> 
+          <h3>Online Users</h3> 
           <ChatOnline onlineUsers={onlineUsers} currentId={user._id} setCurrentChat={setCurrentChat}/>
         </div>
       </div>

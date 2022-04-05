@@ -4,10 +4,12 @@ const Post = require('../models/Post')
 const router = Router()
 
 //Muestra los post hehcos y compartidos de un usuario
-router.get('/:idUser', async(req:Request, res:Response) => {
-    const { idUser } = req.params
+router.get('/:idUser/:idCurrentUser', async(req:Request, res:Response) => {
+    const { idUser, idCurrentUser } = req.params
     const { page = 1 }: { page?: number } = req.query;
     try {
+        const user = await User.findById(idUser)
+
         const posts = await Post.find({ user: idUser})
         .populate('user',{username: 1, profilePhoto:1})
         .populate('likes',{username: 1, profilePhoto:1})
@@ -15,6 +17,8 @@ router.get('/:idUser', async(req:Request, res:Response) => {
         .populate('shares',{username: 1, profilePhoto:1})
         .populate('shareUser',{username: 1, profilePhoto:1})
         .populate('soldUser',{username: 1, profilePhoto:1})
+
+        if(idUser !== idCurrentUser) !user.premium.includes(idCurrentUser) && posts.filter((post: any) => !post.premium)
 
         const shares = await Post.find({ shareUser: idUser})
         .populate('user',{username: 1, profilePhoto:1})
@@ -42,6 +46,38 @@ router.get('/:idUser', async(req:Request, res:Response) => {
     } catch (error) {
       console.log(error)
         res.status(500).json({error: error})
+    }
+})
+
+router.get('/portfolio/:idUser/:idCurrentUser', async (req:Request, res:Response) => {
+    const { idUser, idCurrentUser } = req.params
+    const { page = 1 }: { page?: number } = req.query;
+    
+    try {
+        const user = await User.findById(idUser)
+        let posts = await Post.find({ user: idUser})
+        let portfolio:any = []
+        if(idUser !== idCurrentUser) !user.premium.includes(idCurrentUser) && posts.filter((post: any) => !post.premium)
+
+        posts.map((post:any) => {
+        if(post.images.length) {
+            post.images.forEach((image:string, index:any) => {     
+                portfolio.push({_id: post._id, image: post.images[index]})
+            });
+        }
+        }) 
+        if(page) {
+            const lastPage = page * 20
+            const firstPage = lastPage - 20
+            const postsShow = portfolio.slice(firstPage, lastPage)
+            return res.json(postsShow)
+        } else {
+            const postsShow = portfolio.splice(0,20)
+            res.json(postsShow)
+        }
+    } catch(err) {
+        console.log(err)
+        res.status(400).json({error: err})
     }
 })
 

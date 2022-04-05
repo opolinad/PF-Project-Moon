@@ -6,7 +6,8 @@ const feedSlice = createSlice({
     name: "feed",
     initialState: {
         status: STARTING_STATUS,
-        posts: []
+        posts: [],
+        users: []
     },
     reducers: {
         searchingDatabase: (state, action) => {
@@ -14,6 +15,7 @@ const feedSlice = createSlice({
         },
         feedDatabase: (state, action) => {   
             state.posts = action.payload.posts;
+            state.users = action.payload.users;
             state.status = action.payload.status;
         },
         setSearchingToLoading: (state) => {
@@ -25,7 +27,8 @@ const feedSlice = createSlice({
             state.posts = [];
         },
         feedNextPageDatabase: (state, action) => {
-            state.posts = action.payload;
+            state.posts = [...state.posts,...action.payload];
+            console.log(state.posts)
         },
         updateFeedLikes: (state, action) => {
             state.posts[action.payload.index].likes = action.payload.data.likes;

@@ -25,13 +25,16 @@ router.get('/:category', async (req:Request, res:Response) => {
     let { category } = req.params
     const { page = 1 } : { page?: number }= req.query
     try { 
-        const posts = await Post.find({ categories: category})
+        let posts = await Post.find({ categories: category})
         .populate('user',{username: 1, profilePhoto:1})
         .populate('likes',{username: 1, profilePhoto:1})
         .populate({ path:'comments', populate: { path: 'user', model:'User', select: 'username profilePhoto'}})
         .populate('shares',{username: 1, profilePhoto:1})
         .populate('shareUser',{username: 1, profilePhoto:1})
         .populate('soldUser',{username: 1, profilePhoto:1})
+
+        posts = posts.filter((post:any) => !post.premium)
+
         posts.sort((a:any, b:any) => {
             if (a.createdAt < b.createdAt) return 1
             if (a.createdAt > b.createdAt) return -1

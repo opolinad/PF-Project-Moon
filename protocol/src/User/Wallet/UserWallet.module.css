@@ -1,0 +1,67 @@
+#margin{
+    display: flex;
+
+
+    width: 100%;
+}
+
+#menu{
+
+    width: 20vw;
+
+    border-right: 0.1vw solid #3F3351;
+    box-shadow: 0.5vw 0 1vh #3F3351;
+    background-color: #151425;
+}
+
+.menuOption{
+    width: 100%;
+    height: 2.5vh;
+    padding: 3vh 0 3vh 0;
+
+    border-bottom: 0.2vh solid #3F3351;
+
+    color: #F0E9D2;
+
+    font-size: 2.5vh;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+.menuOption:hover{
+    background-color: #3F3351;
+    color: #E3B04B;
+}
+.menuOption:hover > svg{
+    color: #E9A6A6;
+}
+.menuOption > svg{
+    padding-left: 3vw;
+    padding-right: 0.5vw;
+
+    color: #864879;
+}
+
+
+@media screen and (max-width:1024px){
+    #margin{
+       flex-direction: column;
+    }
+    #menu{
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: row;
+
+        width: 100%;
+    }
+
+    .menuOption{
+        width: fit-content;
+        margin: auto;
+        padding: 1vh 0 1vh 0;
+        font-size: 2.5vh;
+    }
+    .menuOption > svg{
+        padding-left: 0vw;
+    }
+}

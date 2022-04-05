@@ -199,3 +199,65 @@
 
   transition: 0.5s;
 }
+
+
+@media screen and (max-width:1024px) {
+  .landingContainer{
+    display: grid;
+
+    grid-auto-columns: 10vw;
+    grid-auto-rows: 10vh;
+  }
+  .ladingLeft {
+    grid-row: 1/10;
+    grid-column: 1/10;
+
+    height: 100%;
+  }
+  .landingTitle {
+    width: 60%;
+    margin: 3vh 20% 0 20%;
+  }
+
+  .ladingRight {
+    grid-row: 2/7;
+    grid-column: 3/8;
+
+    width: 100%;
+    z-index: 1;
+  }
+  .ladingFormCard {
+    width: 100%;
+
+    font-size: 2.5vw;
+  }
+  .ladingInput{
+    width: 36vw;
+    margin: auto;
+
+    font-size: 3vw;
+  }
+  #loginBut{
+    width: 40vw;
+  }
+  #landingLinksCont{
+      width: 50vw;
+  }
+  #landingLinksCont > a{
+    width: fit-content;
+    margin: auto;
+  }
+  #emailAccesCont{
+    display: flex;
+    justify-content: space-evenly;
+    
+    width: 100%;
+    margin: 0 3vw 0 3vw;
+  }
+  #emailAccesCont > button{
+    width: 20vw;
+    height: 4vh;
+ 
+    font-size: 2.5vw;  
+  }
+}

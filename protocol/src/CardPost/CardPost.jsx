@@ -1,19 +1,17 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Cardpost from "./CardPost.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { deletePost } from "../ReduxToolkit/apiCalls/postCall";
-import {
-  faHeart,
-  faShareSquare,
-  faCommentAlt,
-  faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faShareSquare, faCommentAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import socket from "../Conversations/socket";
-
+import StripeCheckout from "react-stripe-checkout";
+import Logo from "../assets/default_profile_photo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { likeAction, shareAction } from "../ReduxToolkit/apiCalls/cardPostCall";
 import { useNavigate } from "react-router";
+import { setSelectedCategory } from "../ReduxToolkit/reducers/homeSlice";
 
 function ImgPreviews({ imgs, id }) {
   const navigate = useNavigate();
@@ -54,49 +52,105 @@ function ImgPreviews({ imgs, id }) {
 export default function CardPost(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [liked, setLiked] = useState(false);
+
   const userData = useSelector((state) => state.user.currentUser);
   const userPosts = useSelector((state) => state.userPostsById.posts);
   let feed = useSelector((state) => state.feed.posts);
   const user = useSelector((state) => state.user.currentUser);
+  // const selectedCategories = useSelector(state => state.selectedCategories)
 
   let cardValues = {};
+  if (props.likes.some(e => e._id === user?._id))cardValues.likeImg = Cardpost.likedImg;
+  else cardValues.likeImg = Cardpost.notLikedImg;
+  if (props.shares.some(e => e._id === user?._id))cardValues.sharedImg = Cardpost.sharedImg;
+  else cardValues.sharedImg = Cardpost.notSharedImg;
+
   props.description
     ? (cardValues.description = props.description)
     : (cardValues.description = "");
-  props.likes.includes(user?._id)
-    ? (cardValues.likeImg = Cardpost.likedImg)
-    : (cardValues.likeImg = Cardpost.notLikedImg);
-  props.shares.includes(user?._id)
-    ? (cardValues.sharedImg = Cardpost.sharedImg)
-    : (cardValues.sharedImg = Cardpost.notSharedImg);
+  // props.likes.includes(user?._id)
+  //   ? (cardValues.likeImg = Cardpost.likedImg)
+  //   : (cardValues.likeImg = Cardpost.notLikedImg);
+  // props.shares.includes(user?._id)
+  //   ? (cardValues.sharedImg = Cardpost.sharedImg)
+  //   : (cardValues.sharedImg = Cardpost.notSharedImg);
+
+  props.price
+    ? (cardValues.price = props.price)
+    : (cardValues.price = "");
 
   cardValues.categories = (
     <div id={Cardpost.categoriesCont}>
       {props.categories?.map((element, index) => (
-        <p
-          key={"cardpost_" + props._id + "_category" + index}
-          className={Cardpost.category}
-        >
-          {element}
-        </p>
+        // <p
+        //   key={"cardpost_" + props._id + "_category" + index}
+        //   className={Cardpost.category}
+        // >
+        //   {element}
+        // </p>
+        <button key={"cardpost_" + props._id + "_category" + index} value={element} className={Cardpost.category} onClick={(e)=>dispatch(setSelectedCategory(e.target.value))}>{element}</button>
       ))}
     </div>
   );
 
-  props.shared? cardValues.shared = <div className={Cardpost.sharedCont}>Original post by <Link to={"users/"+props.shareUser?._id}>{props.shareUser? (props.shareUser.username? props.shareUser.username : "user") : ""}</Link> </div> : cardValues.shared="";
+  props.shared? cardValues.shared = <div className={Cardpost.sharedCont}>Post sahred by <Link to={"users/"+props.shareUser?._id}>{props.shareUser? (props.shareUser.username? props.shareUser.username : "user") : ""}</Link> </div> : cardValues.shared="";
+
+  props.sold? cardValues.sold = <div className={Cardpost.sharedCont}>{props.soldUser? `Post sold by `: `Post purchased by `}<Link to={"users/"+props.soldUser?._id}>{props.soldUser? (props.soldUser.username? props.soldUser.username : "user") : props.shoppedUser? (props.shoppedUser.username? props.shoppedUser.username : "user") : ""}</Link> </div> : cardValues.sold="";
 
   cardValues.likes = props.likes.length;
   cardValues.shares = props.shares.length;
   cardValues.favorite = props.favorite;
+  const KEY =
+  "pk_test_51KhjjyI7TYGSS0jsLUhfTM1b6D1CGvXdAw90KV1nXso6bES1yebf1jNNjImBF5vbvpYs4BBkM1RYMOj4Q8q9fCUS00UpSjNYNN";
+  async function handlePayment (token){
+    try {
+      const { data }= await axios.post(
+        "/api/checkout/payment",
+        {
+          tokenId: token.id,
+          amount: props.price*100,
+        }
+      );
+      console.log(data.success)
+      if(data.success) {
+        const order = {
+          type: 'shopped',
+          user: user._id,
+          to: props.userId,
+          amount: props.price,
+          card: data.success.payment_method_details.card.brand + ' ' + data.success.payment_method_details.card.last4,
+          ticket: data.success.receipt_url
+        }
+        await axios.post(`/api/orders/${props.userId}`, order);
+        order.type="sold";
+        await axios.post(`/api/orders/${user._id}`, order);
+        await axios.post(`/api/posts/buy/${props.id}`, {idUser: user._id})
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  console.log(props)
+  const stripeOptions = {
+    name: "Protocol Moon",
+    image: Logo,
+    description: `Checkout price is ${props.price} USD`,
+    stripeKey: KEY,
+    token: handlePayment,
+    amount:props.price*100
+  };
 
   function handleNotifications(type) {
     setLiked(true);
+    if(user?._id !== props.userId) {
     socket.emit("sendNotification", {
       senderName: user,
       receiverName: props.userId,
       type,
     });
+    }
   }
 
   function handleLike() {
@@ -104,7 +158,9 @@ export default function CardPost(props) {
     for (let i = 0; i < feed.length; i++) {
       if (feed[i]._id === props.id) index = i;
     }
+    if(!props.likes.filter(like => like._id === user._id).length > 0) {
     handleNotifications(1);
+    }
     likeAction(
       dispatch,
       props.id,
@@ -119,7 +175,9 @@ export default function CardPost(props) {
     for (let i = 0; i < feed.length; i++) {
       if (feed[i]._id === props.id) index = i;
     }
+    if(!props.shares.filter(share => share._id === user._id).length > 0) {
     handleNotifications(2);
+    }
     shareAction(
       dispatch,
       props.id,
@@ -130,18 +188,23 @@ export default function CardPost(props) {
   }
 
   function handleDelete(postId) {
-    let arr = props.componentFather === "Feed" ? feed : userPosts;
-    deletePost(
-      dispatch,
-      postId,
-      userData.accessToken,
-      arr,
-      props.componentFather
-    );
+    let option = window.confirm("Are you sure you want to delete this post?")
+    if (option === true) {
+      let arr = props.componentFather === "Feed" ? feed : userPosts;
+      deletePost(
+        dispatch,
+        postId,
+        userData.accessToken,
+        arr,
+        props.componentFather
+      );
+    } else {
+      alert("Cancelled")
+    }
   }
 
   function handleComment() {
-    handleNotifications(3);
+
     navigate("/post/" + props.id);
   }
 
@@ -161,18 +224,27 @@ export default function CardPost(props) {
         {/* shared */}
         {cardValues.shared}
 
+        {/* sold */}
+        {cardValues.sold}
+
         {/* title */}
         <h2 className={Cardpost.cardPostTitle}>{props.title}</h2>
-  
+
         {/* description */}
         <div className={Cardpost.descriptionCont}>
           <p className={Cardpost.cardPostDescription}>{cardValues.description}</p>
         </div>
-  
+
         {/* {cardValues.imgs} */}
         <ImgPreviews imgs={props.imgs} id={props.id} />
+
+        {cardValues.sold && !props.soldUser? <p className={Cardpost.cardPostPrice}>SOLD</p> : <p></p>}
+
+        {cardValues.price!=="" && <StripeCheckout {...stripeOptions} billingAddress shippingAddress> <p className={Cardpost.cardPostPrice}>{cardValues.price} USD</p> </StripeCheckout> }
+
         {cardValues.categories}
-  
+
+
         <div className={Cardpost.analiticsCont}>
           {/* likes */}
           <div className={Cardpost.likesShell} onClick={() => handleLike()}>
@@ -190,7 +262,7 @@ export default function CardPost(props) {
           {/* favorites */}
           {/* <div className={Cardpost.favoritesShell}>{"fav"}</div> */}
           <div className={Cardpost.commentShell}>
-            <div style={{cursor:"pointer"}} onClick={() => navigate("/post/" + props.id)}>
+            <div style={{cursor:"pointer"}} onClick={() => handleComment()}>
               <FontAwesomeIcon icon={faCommentAlt} /> Commentaries
             </div>
           </div>

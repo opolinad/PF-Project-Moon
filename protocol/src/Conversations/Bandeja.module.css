@@ -8,14 +8,14 @@
     border-radius: 0.5vw;
 
     color: #F0E9D2;
-    
+    background-color: #864879;
 }
 
 #chatMenu{
-    width: 19.5%;
+    width: 19.75%;
     height: 100%;
+    margin-right: 0.125%;
 
-    border-right: 0.5vw solid #151425;
     border-radius: 0.5vw;
 
     background-color: #11101F;
@@ -23,29 +23,85 @@
     overflow-y: scroll;
 }
 
+#backLink{
+    text-decoration: none;
+  }
+#backBut{
+  position: absolute;
+  top: -0vh;
+  left: -0vw; 
+
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  width: 6vw;
+  height: 5.4vh;
+
+  border: none;
+  border-top-right-radius: 1vw;
+  border-bottom-right-radius: 1vw;
+
+  color: #F0E9D2;
+  background-color: #11101F;
+
+
+  font-size: 1.3vw;
+  font-weight: bold;
+  text-decoration: none;
+
+  cursor: pointer;
+  transition: 0.5s;
+
+}
+#backBut:hover{
+  box-shadow: -10vw 0vh 0 0 #864876 inset;
+
+  transition: 0.5s;
+}
+#backBut > svg{
+  position: relative;
+  left: -0vw;
+  transition: 0.5s;
+}
+#backBut:hover > svg{
+  position: relative;
+  left: -2vw;
+
+  transition: 0.5s;
+}
+
+
+
 #chatBox{
-    width: 59%;
-    height: 100%;
+    width: 59.5%;
+    height: 100%;   
+    margin: 0 0.125% 0 0.125%;
 
     border-radius: 0.5vw;
-    border-right: 0.5vw solid #151425;
-    border-left: 0.5vw solid #151425;
 
-    background-color: #11101F;
+    /* border-right: 0.5vw solid #151425;
+    border-left: 0.5vw solid #151425; */
+
+    /* background-color: #11101F; */
 }
 #chatBoxTop{
     width: 100%;
-    height: 69vh;
+    height: 78.75vh;
+    padding-top: 1vh;
 
-    border-bottom: 1vh solid #151425;
+    border-radius: 0.5vw;
+    border-bottom: 0.25vh solid #151425;
+
+    background-color: #11101F;
 
     overflow-y: scroll;
 }
 #chatFin{
     width: 100%;
-    height: 29vh;
+    height: fit-content;
 
-    border-bottom: 1vh solid #151425;
+    /* border-bottom: 1vh solid #151425; */
     border-radius: 0.5vw;
 
     background-color: #11101F;
@@ -53,19 +109,31 @@
     overflow: hidden;
 }
 #textArea{
-    width: 100%;
-    height: 24vh;
+    width: 90%;
+    height: 14.75vh;
+    padding: 0.5vh 5% 0 5%;
 
     border: none;
+    border-radius: 0.5vw;
+    border-top: 0.25vh solid #864879;
 
-    background-color: transparent;
+    background-color: #11101F;
     color: #F0E9D2;
 
     resize: none;
+    transition: 0.2s;
 }
 #textArea:focus{
     outline: none;
+
+    background-color: #131222;
+
+    transition: 0.2s;
 }
+#textArea:focus + #chatBoxTop{
+    height: 68.75;
+}
+
 #button{
     align-items: center;
 
@@ -85,31 +153,56 @@
     transition: 0.2s;
 }
 #button:hover{
+
     background-color: #E9A6A6;
     color: #11101F;
+
     font-size: 1.2vw;
+
     transition: 0.2s;
 }
 #button > svg{
     color: #864879;
-    font-size: 1.4vw;
+    font-size: 0vw;
     transition: 0.2s;
+}
+#button:hover > svg{
+    font-size: 1.2vw;
+    transition: 0.2s;
+}
+
+#sinConversacion{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 59.5vw;
+    height: 100%;   
+    margin: 0 0.125% 0 0.125%;
+
+    border-radius: 0.5vw;
+
+    background-color: #11101F;
+
+    font-size: 2.5vw;
 }
 
 
 
 #ChatOnline{
-    width: 19.5%;
+    width: 19.75%;
     height: 100%;
+    margin-left: 0.125%;
 
     border-left: 0.5vw solid #151425;
-    
+    border-radius: 0.5vw;
 
     background-color: #11101F;
 
     overflow-y: scroll;
 }
-#ChatOnline > h1{
+#ChatOnline > h3,#chatMenu > h3{
     text-align: center;
     border-bottom: 0.2vh solid #E9A6A6;
+    margin-bottom: 0;
 }

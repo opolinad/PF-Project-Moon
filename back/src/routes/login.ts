@@ -8,7 +8,7 @@ const router = Router()
 const CryptoJS = require('crypto-js')
 const jwt = require('jsonwebtoken')
 config()
-
+var userEmail = "";
 router.post('/', async (req: Request, res: Response) => {
   const { email } = req.body
   try {
@@ -26,24 +26,19 @@ router.post('/', async (req: Request, res: Response) => {
       ? res.status(404).json('Wrong credentials')
       : res.json({ ...others, accessToken })
   } catch (error) {
-    res.status(500).json({error: error})
+    res.status(500).json({ error: error })
   }
 })
 
 router.get("/session", async (req: Request, res: Response) => {
-  let userEmail;
-  let infoUser: any = req.user;
-  console.log("req",infoUser)
-  const { email } = infoUser._json;
-  const { mail } = infoUser._json;
-  const { emails } = infoUser;
-  mail?userEmail=mail:(email?userEmail=email:userEmail=emails[0].value)
-  const user = await User.findOne({ email:userEmail });
-
-  const { ...others } = user._doc;
-  const accessToken = jwt.sign({ id: user._id }, process.env.JWT_KEY, { expiresIn: '1d' });
-  console.log("at", accessToken, others)
-  res.json({ ...others, accessToken });
+  try {
+    const user = await User.findOne({ email: userEmail });
+    const { ...others } = user._doc;
+    const accessToken = jwt.sign({ id: user._id }, process.env.JWT_KEY, { expiresIn: '1d' });
+    res.json({ ...others, accessToken });
+  } catch (err) {
+    console.error(err);
+  }
 })
 
 router.get('/google',
@@ -53,9 +48,17 @@ router.get('/google',
   }
   )
 );
-router.get('/google/callback', passport.authenticate('google', { failureRedirect: 'https://project-moon.vercel.app/', successRedirect: 'https://project-moon.vercel.app/home' }));
+router.get('/google/callback', passport.authenticate('google', { failureRedirect: process.env.NODE_ENV === "production" ? "https://project-moon.vercel.app/" : "http://localhost:4000/" }), (req: Request, res: Response) => {
+let infoUser:any = req.user;
+userEmail=infoUser?.email;
+res.redirect(process.env.NODE_ENV === "production" ? "https://project-moon.vercel.app/home" : "http://localhost:4000/home");
+});
 router.get('/microsoft', passport.authenticate('microsoft'));
 router.get('/microsoft/callback',
-  passport.authenticate('microsoft', { failureRedirect: 'https://project-moon.vercel.app/', successRedirect: 'https://project-moon.vercel.app/home' }));
+  passport.authenticate('microsoft', { failureRedirect: process.env.NODE_ENV === "production" ? "https://project-moon.vercel.app/" : "http://localhost:4000/"}),(req: Request, res: Response) => {
+    let infoUser:any = req.user;
+    userEmail=infoUser?.emails[0].value;
+    res.redirect(process.env.NODE_ENV === "production" ? "https://project-moon.vercel.app/home" : "http://localhost:4000/home");
+    });
 
 module.exports = router;

@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 import Menu from "./components/Menu/Menu.jsx";
 import Notifications from "./components/Notifications/Notifications.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faSearch, faBell } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faSearch, faBell, faStream } from "@fortawesome/free-solid-svg-icons";
 import { logoutUser } from "../ReduxToolkit/apiCalls/loginCall";
 import { useLocation } from "react-router";
-import { io } from 'socket.io-client'
+import socket from '../Conversations/socket'
 import { useNavigate } from "react-router";
 import NavbarCss from "./Navbar.module.css";
 import useTabName from "../helpers/CustomHooks/useTabName.js";
@@ -23,7 +23,6 @@ export default function Navbar() {
   const [search, setSearch] = useState("");
   const [searchErr, setSearchErr] = useState("");
   const [open, setOpen] = useState(false);
-  const socket = useRef()
   const user = useSelector(state => state.user.currentUser)
 
   const dispatch = useDispatch();
@@ -34,14 +33,13 @@ export default function Navbar() {
  
 
   useEffect(()=> {
-    socket.current = io(process.env.REACT_APP_SOCKET+'/')
-    socket.current.on("getNotification", (data) => {
+    socket.on("getNotification", (data) => {
         setNotifications((prev) => [...prev, data])
     })
-  }, [])
+  }, [socket])
 
   useEffect(() => { //
-    socket.current.emit("addUser", user?._id);
+    socket.emit("addUser", user?._id);
   }, [user]);
   
 
@@ -78,8 +76,13 @@ export default function Navbar() {
   (searchbut = (<p id={NavbarCss.searchLink} onClick={() => setSearchErr("owo small, >3 pls uwu")}></p>));
 
   const handleLogout = () => {
-    logoutUser(dispatch);
-    navigate('/')
+    let option = window.confirm("Are you sure you want to logout?")
+    if (option === true) {
+      logoutUser(dispatch);
+      navigate('/')
+    } else {
+      alert("Cancelled")
+    }
   };
 
   const onClickHandler = () => {
@@ -100,7 +103,7 @@ export default function Navbar() {
 
         <div id={NavbarCss.menuIcon}>
           <div id={menu[1]} onClick={() => setShowMenu(!showMenu)}>
-            <FontAwesomeIcon icon={faBars} />
+            <FontAwesomeIcon icon={showMenu? faStream : faBars} />
           </div>
         </div>
 
@@ -117,15 +120,10 @@ export default function Navbar() {
         <div id={NavbarCss.notificationsShell}>
           <div id={NavbarCss.notificationIcon} onClick={()=>setOpen(!open)}><FontAwesomeIcon icon={faBell} /></div>
             { notifications.length > 0 &&
-              <div>{notifications.length}</div>
+              <div id={NavbarCss.notiNumber}>{notifications.length}</div>
             }
         </div>
-        {notifications && (
-                <div>
-                    {notifications.map((n)=> displayNotifications(n))}    
-                    <button id={NavbarCss.deletNotisBut} onClick={handleRead}>Delete notifications</button>
-                </div> 
-          )}
+
         <div id={NavbarCss.paddingDer}>
           <button id={NavbarCss.logoutBut} onClick={() => handleLogout()}>
             LOGOUT
@@ -135,6 +133,13 @@ export default function Navbar() {
       <div id={menu[0]}>
         <Menu />
       </div>
+      {notifications && (
+                <div style={{display: open? "flex" : "none"}} id={NavbarCss.notisCont}>
+                    <button id={NavbarCss.deletNotisBut} onClick={handleRead}>Delete notifications</button>
+                    {notifications.map((n)=> displayNotifications(n))}    
+                    
+                </div> 
+          )}
     </div>
   );
 }

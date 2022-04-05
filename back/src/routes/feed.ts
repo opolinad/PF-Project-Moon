@@ -11,8 +11,101 @@ router.get('/:idUser', async (req:Request, res:Response) => {
     try {
         let posts : object [] = []
 
-        if(search) {
+        if(!search && !category) {
+            try {
+                const user = await User.findById(idUser)
+                let posts = await Post.find({})
+                .populate('user',{username: 1, profilePhoto:1})
+                .populate('likes',{username: 1, profilePhoto:1})
+                .populate({ path:'comments', populate: { path: 'user', model:'User', select: 'username profilePhoto'}})
+                .populate('shares',{username: 1, profilePhoto:1})
+                .populate('shareUser',{username: 1, profilePhoto:1})
+                .populate('soldUser',{username: 1, profilePhoto:1})
+
+        
+                if(!user.followings.length) {
+        
+                posts = posts.filter((post:any) => post.categories.some((category: any) => user.favouritesCategories.includes(category)))
+
+                posts = posts.filter((post:any) => !post.premium)
+ 
+                if (filter) {
+                    if(filter === "designsOnly") {
+                        posts = posts.filter((post : any) => post.images.length > 0)
+                    } else { 
+                    posts = posts.filter((post : any) => post.images.length === 0)
+                    }
+                }
+                
+                if (order === "trending") {
+                    posts.sort((function (a:any, b:any) {
+                        if (a.likes.length < b.likes.length) return 1;
+                        if (a.likes.length > b.likes.length) return -1;
+                        return 0;
+                    }))
+                } else {
+                    posts.sort((function (a:any, b:any) {
+                        if (a.createdAt < b.createdAt) return 1;
+                        if (a.createdAt > b.createdAt) return -1;
+                        return 0;
+                    }))
+                }
+                
+                if(page) {
+                    const lastPage = page * 20
+                    const firstPage = lastPage - 20
+                    const postsShow = posts.slice(firstPage, lastPage)
+                    return res.json(postsShow)
+                } else {
+                    const postsShow = posts.splice(0,20)
+                    return res.json(postsShow)
+                }
+            }
             
+            posts = posts.filter((post:any) => user.followings.includes(post.user._id) || user.followings.includes(post.shareUser?._id))
+
+            posts = posts.filter((post:any) => !post.premium)
+
+        
+                if (filter) {
+                    if(filter === "designsOnly") {
+                        posts = posts.filter((post : any) => post.images.length > 0)
+                    } else { 
+                    posts = posts.filter((post : any) => post.images.length === 0)
+                    }
+                }
+                
+                if (order === "trending") {
+                    posts.sort((function (a:any, b:any) {
+                        if (a.likes.length < b.likes.length) return 1;
+                        if (a.likes.length > b.likes.length) return -1;
+                        return 0;
+                    }))
+                } else {
+                    posts.sort((function (a:any, b:any) {
+                        if (a.createdAt < b.createdAt) return 1;
+                        if (a.createdAt > b.createdAt) return -1;
+                        return 0;
+                    }))
+                }
+        
+                if(page) {
+                    const lastPage = page * 20
+                    const firstPage = lastPage - 20
+                    const postsShow = posts.slice(firstPage, lastPage)
+                    return res.json(postsShow)
+                } else {
+                    const postsShow = posts.splice(0,20)
+                    return res.json(postsShow)
+                }
+        
+            } catch(err) {
+                console.log(err)
+                res.status(400).json(err)
+            }
+        }
+
+        if(search) {
             let postSearch = await Post.find({})
             .populate('user',{username: 1, profilePhoto:1})
             .populate('likes',{username: 1, profilePhoto:1})
@@ -22,6 +115,8 @@ router.get('/:idUser', async (req:Request, res:Response) => {
             .populate('soldUser',{username: 1, profilePhoto:1})
 
             postSearch = postSearch.filter((post : any) => post.title?.toLowerCase().includes(search.toLowerCase()))
+
+            posts = posts.filter((post:any) => !post.premium)
 
             let userSearch = await User.find({})
 
@@ -68,7 +163,6 @@ router.get('/:idUser', async (req:Request, res:Response) => {
                 return res.json({ posts: postsShow, users: userShow})
             }
         }
-
         if (category) {
             posts = await Post.find({ categories: category})
             .populate('user',{username: 1, profilePhoto:1})
@@ -120,7 +214,6 @@ router.get('/:idUser', async (req:Request, res:Response) => {
             return res.json(postsShow)
         }
     } catch (err) {
-        console.log(err)
         res.status(400).json(err)
     }
 })

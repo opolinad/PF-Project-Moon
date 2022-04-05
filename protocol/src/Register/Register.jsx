@@ -46,7 +46,7 @@ const Register = () => {
         email: "",
         password: "",
         confirmpassword: "",
-        categories: []
+        favouritesCategories: []
     })
 
     const categoriesArray = [
@@ -78,13 +78,13 @@ const Register = () => {
     }
 
     const handleSelect = (e) => {
-        if (input.categories.includes(e.target.value)) return alert('ya esta en la lista')
+        if (input.favouritesCategories.includes(e.target.value)) return alert('ya esta en la lista')
         if(e.target.value!="categories")
         {
             setInput(prev => {
                 return {
                     ...prev,
-                    categories: [...input.categories, e.target.value]
+                    favouritesCategories: [...input.favouritesCategories, e.target.value]
                 }
             })
         }
@@ -96,14 +96,14 @@ const Register = () => {
         setInput(prev => {
             return {
                 ...prev,
-                categories: prev.categories.filter(element=>element!=e.target.value)
+                favouritesCategories: prev.favouritesCategories.filter(element=>element!=e.target.value)
             }
         })
     } 
 
     function handleSubmit(e) {
         e.preventDefault();
-        if (!input.email || !input.password || !input.confirmpassword || input.categories.length <= 0) {
+        if (!input.email || !input.password || !input.confirmpassword || input.favouritesCategories.length <= 0) {
             Toast.fire({
                 icon: 'info',
                 title: 'Debe llenar todos los campos',
@@ -112,11 +112,11 @@ const Register = () => {
                 email: "",
                 password: "",
                 confirmpassword: "",
-                categories: []
+                favouritesCategories: []
             })
         } else {
-            const { email, password, categories } = input
-            registerUser(dispatch, { email, password, categories })
+            const { email, password, favouritesCategories } = input
+            registerUser(dispatch, { email, password, favouritesCategories })
         }
     }
 
@@ -133,7 +133,7 @@ const Register = () => {
                 email: "",
                 password: "",
                 confirmpassword: "",
-                categories: []
+                favouritesCategories: []
             })
             currentRegister.registerUser && clearRegister(dispatch)
         })()
@@ -149,7 +149,7 @@ const Register = () => {
                 email: "",
                 password: "",
                 confirmpassword: "",
-                categories: []
+                favouritesCategories: []
             })
         })()
     }, [currentRegister.error])
@@ -232,7 +232,7 @@ const Register = () => {
                             ))}
                         </select>
                         <div className={styles.selectedCont}>
-                                {input.categories.map((element,index)=><button onClick={(e)=>handleDeSelect(e)} className={styles.categorySelected} key={"selected_cat_"+index} value={element}>{element}</button>)}
+                                {input.favouritesCategories.map((element,index)=><button onClick={(e)=>handleDeSelect(e)} className={styles.categorySelected} key={"selected_cat_"+index} value={element}>{element}</button>)}
                             </div>
                     </div>
 

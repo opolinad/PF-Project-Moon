@@ -113,6 +113,11 @@ router.delete('/:idPost', verifyToken, async (req:Request,res:Response) => {
     const { idPost } = req.params
     
     try {
+        const post = await Post.findById(idPost)
+        if(post.share) {
+            const postOrigin = await Post.findById(post.originId)
+            await postOrigin.updateOne({$pull: {shares: post.shareUser}})
+        }
         await Post.findByIdAndDelete(idPost)
         res.json('The Post has been deleted...')
     } catch (error) {
@@ -183,7 +188,10 @@ router.post('/share/:idPost', async (req:Request, res:Response) => {
     const { idPost } = req.params
     const { idUser } = req.body
     let post = await Post.findById(idPost)
-    if(post.shareUser !== idUser){ 
+    let user = await User.findById(idUser)
+    if(post.shareUser && post.shareUser.toString() === user._id.toString()){ 
+        res.status(400).json("Ya compartiste esta publicacion antes")
+    } else {
     try {
         if(!post.shares.includes(idUser)) { 
             
@@ -210,11 +218,8 @@ router.post('/share/:idPost', async (req:Request, res:Response) => {
 
             res.json(returnPost)
         } else {
-            let posts = await Post.find({shareUser: idUser})
-            console.log(posts)
-            posts = posts.filter((post:any) => post.originId === post._id)
-            await Post.findByIdAndDelete(posts._id)
-
+            let posts = await Post.find({shareUser: idUser, originId: post._id})
+            await Post.findByIdAndDelete(posts[0]._id)
             await post.updateOne({$pull: {shares: idUser}})
 
             let returnPost = await Post.findById(idPost, {shares:1})
@@ -226,8 +231,37 @@ router.post('/share/:idPost', async (req:Request, res:Response) => {
         console.log(error)
         res.status(500).json({error: error})
     }
-    } else {
-        res.status(400).json("Esta publicacion es tuya")
+    }
+})
+
+router.post('/buy/:idPost', async(req:Request, res:Response) => {
+    const { idPost } = req.params
+    const { idUser } = req.body
+    try {
+        const post = await Post.findById(idPost)
+        const user = await User.findById(idUser)
+        const buy = {
+            originId: post._id,
+            user: user._id,
+            images: post.images,
+            description: post.description,
+            likes: [],
+            categories: post.categories,
+            price: "",
+            comments: [],
+            shares: [],
+            sold: true,
+            soldUser: post.user
+        }
+        const buyPost = new Post(buy)
+        await buyPost.save()
+        await post.updateOne({price: "", sold: true, shoppedUser: buy.user}) 
+        // await post.updateOne({sold: true})
+        // await post.updateOne({shoppedUser: buy.user})
+        res.json({post: post, newPost: buyPost})
+    } catch(err) {
+        console.log(err)
+        res.status(400).json({error: err})
     }
 })
 

@@ -11,12 +11,13 @@ const PostSchema = new Schema(
         likes: {type: [{type: Schema.Types.ObjectId, ref:'User'}]},
         comments: {type: [{type: Schema.Types.ObjectId, ref:'Comment'}]},
         price: {type:String},
-        premium: {type:Boolean},
-        share: {type:Boolean},
+        premium: {type:Boolean, default: false},
+        share: {type:Boolean, default: false},
         shares: {type: [{type: Schema.Types.ObjectId, ref:'User'}]},
         shareUser: {type: Schema.Types.ObjectId, ref:'User'},
-        sold: {type: Boolean},
+        sold: {type: Boolean, default: false},
         soldUser: {type: Schema.Types.ObjectId, ref:'User'},
+        shoppedUser: {type: Schema.Types.ObjectId, ref:'User'},
     },
     {timestamps:true}
     )
