@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
-import logo from "../logo.svg"
 
 //validacion de errores
 function validar(input) {
@@ -46,7 +45,7 @@ export default function PasswordReset() {
             </Link>
 
             <div id={styles.decoCont}>
-                <img id={styles.landingImg} src={logo} alt="logo not found" />
+                <img id={styles.landingImg} src="/logo.svg alt="logo not found" />
                 <h1>Protocol Moon</h1>
             </div>
             <form id={styles.formRegister} onSubmit={handleSubmit}>
