@@ -21,17 +21,18 @@ export const getSearchResults = async (id=null,dispatch,search = "",selectedCate
     }
     if (order !== "") {
     }
-  
-    const res = await axios.get(`/api/feed/${id}?${q}`);
-    let status = NOT_FOUND_404;
-    if (res.data.length) status = SUCCESS_200;
+    if(id){
+      const res = await axios.get(`/api/feed/${id}?${q}`);
+      let status = NOT_FOUND_404;
+      if (res.data.length) status = SUCCESS_200;
 
-    if( res.data.posts ){
-      console.log("con users")
-      dispatch(feedDatabase({status,posts:res.data.posts ,users:res.data.users}))
-    }else{
-      console.log("sin users")
-      dispatch(feedDatabase({status,posts:res.data}))
+      if( res.data.posts ){
+        console.log("con users")
+        dispatch(feedDatabase({status,posts:res.data.posts ,users:res.data.users}))
+      }else{
+        console.log("sin users")
+        dispatch(feedDatabase({status,posts:res.data}))
+      }
     }
   }
 
