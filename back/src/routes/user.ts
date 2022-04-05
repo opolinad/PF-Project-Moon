@@ -7,7 +7,7 @@ const CryptoJS = require('crypto-js')
 
 
 // Editar usuario
-router.put('/:idUser',verifyToken, async (req:Request,res:Response) => {
+router.put('/:idUser', async (req:Request,res:Response) => {
     const { password } = req.body
     if(password){
         req.body.password = CryptoJS.AES.encrypt(
@@ -17,7 +17,7 @@ router.put('/:idUser',verifyToken, async (req:Request,res:Response) => {
     }
     try {
         const putUser = await User.findByIdAndUpdate(
-            req.params.idUser, 
+            req.params.idUser,
             {
                 $set: req.body
             },
@@ -41,12 +41,12 @@ router.put('/:idUser/follow', async (req: Request, res: Response) => {
         try {
             const user = await User.findById(req.params.idUser,{followings:1})
             const currentUser = await User.findById(req.body.userId,{followers:1})
-            
+
             if(!user.followings.includes(req.body.userId)) {
                 await user.updateOne({$push: {followings: req.body.userId}})
                 await currentUser.updateOne({$push: {followers: req.params.idUser}})
                 const conversation = await Conversation.find({members: req.body.userId})
-                if(!conversation.length) { 
+                if(!conversation.length) {
                 const newConversation = new Conversation({
                     members: [req.body.userId, req.params.idUser],
                   })
@@ -74,7 +74,7 @@ router.put('/:idUser/premium', async (req: Request, res: Response) => {
         try {
             const user = await User.findById(req.params.idUser,{premium:1})
             const currentUser = await User.findById(req.body.userId,{myPremium:1})
-            
+
             if(!user.premium.includes(req.body.userId)) {
                 await user.updateOne({$push: {premium: req.body.userId}})
                 await currentUser.updateOne({$push: {myPremium: req.params.idUser}})

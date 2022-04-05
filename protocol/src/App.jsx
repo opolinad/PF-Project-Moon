@@ -11,6 +11,8 @@ import Navbar from "./Navbar/Navbar.jsx";
 import axios from "axios"
 import "./App.css";
 import Bandeja from "./Conversations/Bandeja.jsx";
+import PasswordReset from "./PasswordReset/PasswordReset.jsx";
+import ChangePassword from "./PasswordReset/ChangePassword.jsx";
 axios.defaults.baseURL=process.env.REACT_APP_API;
 
 export default function App() {
@@ -27,11 +29,13 @@ export default function App() {
                         <Route path="home" element={ <> <Home /> </> }/>
                         {/* <Route className={"routeCont"} path={"users/:id*"} element={<Fragment><User /><UserBoard /></Fragment>} /> */}
 
-                        <Route path="/post/:id" element={<Post/>} /> 
+                        <Route path="/post/:id" element={<Post/>} />
 
                         <Route className={"routeCont"} path={"users/:id/*"} element={ <> <User /> <UserBoard /> </> } />
 
                         <Route path='/mensajes' element={<Bandeja />}/>
+                        <Route path="password_reset" element={<PasswordReset/>}/>
+                        <Route path="password_reset/:idUser" element={<ChangePassword/>}/>
                         <Route path="*" element={<NotFound />} />
                         {/* <Route path="CookiesPolicy" element={<CookiesPolicy />} /> */}
                     </Route>
