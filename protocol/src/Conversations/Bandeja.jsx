@@ -18,6 +18,8 @@ const Bandeja = () => {
   const [newMessage, setNewMessage] = useState("");
   const [arrivalMessage, setArrivalMessage] = useState({});
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const [showButType, setShowButType] = useState("chats");
+
   const scrollRef = ("");
 
   useEffect(() => {
@@ -102,27 +104,45 @@ const Bandeja = () => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  const showWidth = document.documentElement.clientWidth<1025
+  console.log(showWidth)
+  let MessagesButs="";
+  if(showWidth)
+  { 
+    MessagesButs =(
+      <div id={BandejaCss.buttons}> 
+          <Link id={BandejaCss.backLink} to={"/home"}> <button id={BandejaCss.backBut}><FontAwesomeIcon icon={faAngleLeft} /> Home</button></Link>
+          <button onClick={()=>setShowButType("chats")} className={BandejaCss.optionChat}>Chats</button>
+          <button onClick={()=>setShowButType("newChats")} className={BandejaCss.optionChat}>New Chat</button>
+      </div>
+    )
+  }
+
+  function handleSelectChat(conversation=null)
+  {
+    if(conversation)setCurrentChat(conversation);
+    if(showWidth) setShowButType("messages");
+  }
+
+
   return (
       <div id={BandejaCss.BandejaCont}>
-        <div id={BandejaCss.chatMenu}>
+        {console.log(showWidth, showButType)}
+        {MessagesButs}
+
+        <div style={{display:!showWidth || showButType==="chats"? "block" : "none"}} id={BandejaCss.chatMenu}>
           <h3>
-            <Link id={BandejaCss.backLink} to={"/home"}>
-              <button id={BandejaCss.backBut}>
-                <FontAwesomeIcon icon={faAngleLeft} /> Home
-              </button>
-            </Link>
+            {!showWidth ? <Link id={BandejaCss.backLink} to={"/home"}> <button id={BandejaCss.backBut}><FontAwesomeIcon icon={faAngleLeft} /> Home</button></Link> : ""}
             Chats
           </h3> 
-            {conversations.map((conversation) => (
-              <div onClick={() => setCurrentChat(conversation)}> <Conversation conversation={conversation} user={user} /> </div>
-            ))}
+          {conversations.map((conversation) => (<div onClick={() => handleSelectChat(conversation )}> <Conversation conversation={conversation} user={user} /> </div>) )}
         </div>
 
-        <div id={BandejaCss.chatBox}>
+        <div style={{display:!showWidth || showButType==="messages"? "block" : "none"}} id={BandejaCss.chatBox}>
             {currentChat ? (
               <Fragment>
                 <div id={BandejaCss.chatBoxTop}>
-                  {messages.map((message,index) => ( <Message key={"conversation_"+index} message={message} own={message.sender === user._id} /> ))}
+                  {messages.map((message,index) => ( <Message key={"conversation_"+index} message={message} own={message.sender === user._id} /> ) )}
                 </div>
 
                 <div id={BandejaCss.chatFin}>
@@ -133,9 +153,9 @@ const Bandeja = () => {
             ) : ( <span id={BandejaCss.sinConversacion}> Abre un chat para empezar </span>)}
         </div>
 
-        <div id={BandejaCss.ChatOnline}> 
+        <div style={{display:!showWidth || showButType==="newChats"? "block" : "none"}} id={BandejaCss.ChatOnline}> 
           <h3>Online Users</h3> 
-          <ChatOnline onlineUsers={onlineUsers} currentId={user._id} setCurrentChat={setCurrentChat}/>
+          <div onClick={() => handleSelectChat()}> <ChatOnline onlineUsers={onlineUsers} currentId={user._id} setCurrentChat={setCurrentChat}/> </div>
         </div>
       </div>
   );
