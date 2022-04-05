@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
 import { useParams } from "react-router";
-import logo from "./logo.svg"
+import logo from "../logo.svg"
 
 //validacion de errores
 function validar(input) {
