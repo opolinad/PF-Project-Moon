@@ -127,18 +127,26 @@ export default function PostPost() {
 
   let CreateCss = showCreate ? css.openCreate : css.closeCreate;
 
-  console.log(image1)
-  console.log(input)
+  const showWidth = document.documentElement.clientWidth<1025;
+  let showBut="";
+  if(!showWidth)
+  {
+    showBut=(<button onClick={() => setShowCreate(!showCreate)} id={css.CreateButShow}>
+      {" "}
+      <FontAwesomeIcon id={css.rocketUp} icon={faRocket} />
+      <FontAwesomeIcon id={css.AngleUpUp} icon={faAngleUp} />
+      <FontAwesomeIcon id={css.chevronUp} icon={faChevronCircleUp} />
+      <FontAwesomeIcon id={css.AngleUpDown} icon={faAngleUp} />
+    </button>)
+  }
+  else
+  {
+    showBut=<button id={css.slimBut} onClick={() => setShowCreate(!showCreate)}><FontAwesomeIcon id={css.rocketUp} icon={faRocket} /></button>
+  }
 
   return (
     <div id={css.createCont}>
-      <button onClick={() => setShowCreate(!showCreate)} id={css.CreateButShow}>
-        {" "}
-        <FontAwesomeIcon id={css.rocketUp} icon={faRocket} />
-        <FontAwesomeIcon id={css.AngleUpUp} icon={faAngleUp} />
-        <FontAwesomeIcon id={css.chevronUp} icon={faChevronCircleUp} />
-        <FontAwesomeIcon id={css.AngleUpDown} icon={faAngleUp} />
-      </button>
+      {showBut}
 
       <form id={CreateCss} onSubmit={(e) => handleSubmit(e)}>
         <div id={css.innerCreateCont}>
