@@ -51,7 +51,7 @@ export default function PostPost() {
   });
 
   useEffect(() => {
-    image1 && !input.images && 
+    image1 && 
     setInput({
       ...input,
       images: image1
