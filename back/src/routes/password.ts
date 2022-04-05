@@ -24,7 +24,7 @@ router.get("/", async (req: Request, res: Response) => {
             text:
                 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n'
                 + 'Please click on the following link, or paste this into your browser to complete the process:\n\n'
-                + `http://localhost:4000/password_reset/${user._id}\n\n`
+                + `https://project-moon.vercel.app/password_reset/${user._id}\n\n`
                 + 'If you did not request this, please ignore this email and your password will remain unchanged.\n'
         };
         transporter.sendMail(mailOptions, (err, response) => {
