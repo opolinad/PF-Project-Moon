@@ -10,12 +10,12 @@ export const loginUser = async (dispatch, user) => {
     try {
         let res;
         if (user.hasOwnProperty("platform")) {
-            res = await axios.get(`/api/login/session/`, { withCredentials: true });
+            res = await axios.get(`/api/login/session/`);
         } else {
             res = await axios.post(`/api/login/`, user)
         }
-        console.log();
         dispatch(loginSuccess(res.data))
+
     } catch (error) {
         dispatch(loginFailure())
     }
