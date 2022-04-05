@@ -85,5 +85,13 @@
       border: 1px dotted rgba(220, 20, 60, 0.6);
       cursor: pointer;
     }
+
+    .linkButton {
+      padding: 2px 5px;
+      border-radius: 5px;
+      color: rgb(85, 161, 27);
+      border: 1px dotted rgba(27, 124, 24, 0.6);
+      cursor: pointer;
+    }
   }
 }
