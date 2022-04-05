@@ -34,7 +34,7 @@ export default function Feed(props) {
   const search = useSelector((state) => state.search);
   const homePage = useSelector((state) => state.homePage);
   const currentUser = useSelector((state) => state.user.currentUser);
-  const posts = useSelector((state) => state.userPostsById.posts);
+  
 
   useEffect(() => {
     if (flag_1Carga) {
