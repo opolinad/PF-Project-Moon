@@ -69,3 +69,11 @@
 
     color: #6001ae9c;
 }
+
+
+
+@media screen and (max-width:1024px){
+    #MenuCont{ 
+        width: 100vw;
+    }
+}

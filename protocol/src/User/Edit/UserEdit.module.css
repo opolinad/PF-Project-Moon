@@ -283,3 +283,87 @@
     transition: background 600ms ease, color 600ms ease;
 }
 
+
+
+@media screen and (max-width:1024px){
+    #rowEditsCont{
+        flex-direction: column;
+    }
+
+    .editShell{
+        width: 60vw;
+    }
+    .editLabel{
+        width: 50vw;
+    }
+    .editInput,.editInputFile{
+        height: 4vh;
+        width: 60vw;
+      
+        font-size: 2.5vw;
+    }
+    .decoFileInput{
+        width: 60vw;
+        font-size: 2.5vw;
+    }
+    
+
+    #currentImgProfileCont{
+        width: 20vw;
+        height: 20vw;
+        border-radius: 20vw;
+    }
+    #currentImgProfileCont > div{
+        left: -50%;
+        width: 30vw;
+    }
+    #currentImgProfile{
+        max-width: 30vw;
+    }
+    #currentImgBackCont{  
+        width: 56vw;
+
+    }
+    #currentImgBack{
+        width: 56vw;
+        height: auto;
+    }
+
+
+
+    #artistChoice{
+        height: 40px;
+    }
+    #artistChoice > p{   
+        font-size: 2.5vw;
+    }
+
+    #SliderShellOn, #SliderShellOff{ 
+        width: 90px;
+        height: 50px;  
+        border-radius: 25px;
+    }
+    
+    #sliderOn, #sliderOff{
+        position: relative;
+        top: 5px;
+    
+        height: 40px;
+        width: 40px;
+        margin: 5px;
+        margin-top: 0;
+    
+        border-radius: 20px;
+    }
+    #sliderOn{
+        left: 40px;
+    }
+    #sliderOff{
+        left: 0;
+    }
+
+
+    #editSubmit{
+        font-size: 3vw;
+    }
+}

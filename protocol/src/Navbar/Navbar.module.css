@@ -256,3 +256,19 @@
     text-align: center;
 
 }
+
+
+@media screen and (max-width:1024px){
+    #menuOpen,#menuClosed{
+        left: 0vw;
+    }
+    #menuClosed{
+        top: -7.5vh;
+    }
+    #searchLink{
+        font-size: 2vw;
+    }
+    #searchInput{
+        width: 40vw;
+    }
+}

@@ -64,7 +64,7 @@ export default function User() {
                 </button>}  
               </div>
               
-              <div>
+              <div id={css.infoCont}>
                 <h1>{userData.currentUser?.fullName ? userData.currentUser?.fullName : userData.currentUser?.email.split("@")[0]}</h1>
                 <p>@{userData.currentUser.username ? userData.currentUser?.username : userData.currentUser?.email.split("@")[0]} </p>
 

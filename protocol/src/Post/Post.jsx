@@ -165,9 +165,9 @@ export default function Post()
                 <div id={PostCss.bigDescriptionCont}>{cardValues.description}</div>
 
                 {cardValues.price === "" ? (
-                    <p>No price available.</p>
+                    <p className={PostCss.cardPostPrice}>No price available.</p>
                     ) : (
-                    <p>U$D {cardValues.price}</p>
+                    <p className={PostCss.cardPostPrice}>U$D {cardValues.price}</p>
                 )}
 
                 <div id={PostCss.bigAnaliticsCont}>

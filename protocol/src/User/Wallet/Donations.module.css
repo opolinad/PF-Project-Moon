@@ -224,3 +224,61 @@
     font-size: 0.9vw;
     font-weight: bold;
 }
+
+
+
+@media screen and (max-width:1024px){
+    #donationCont{
+        width: 90vw;
+    }
+    .donation{ 
+        width: 80vw;
+    }
+
+
+    .userShell{
+        width: 15vw;
+    }
+    .imgShell{
+        width: 10vw;
+        height: 10vw;   
+        border-radius: 10vw;
+
+        margin: auto;
+    }
+    .img{   
+        max-width: 25vw;
+        min-width: 10vw;
+    
+        max-height: 10vw;
+        min-height: 10vw;
+    }
+    .userName{
+        width: 100%;
+        height: 3vh;
+        
+        font-size: 2.5vw;
+    }
+
+
+    .arrowShell{
+        font-size: 5vw;
+    }
+
+
+    .ticketShell{ 
+        width: 20vw;
+        font-size: 2.5vw;
+    }
+
+    .ticketBut{
+       font-size: 4vw;
+    }
+    .ticketBut > svg{
+        left: 5.5vw;
+    
+        font-size: 4vw;
+
+    }
+    
+}

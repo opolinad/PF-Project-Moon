@@ -167,10 +167,6 @@
   text-decoration: none;
 }
 #backBut{
-  /* position: relative;
-  top: -45vh;
-  left: -5vw; */
-
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -209,4 +205,74 @@
   left: -2vw;
 
   transition: 0.5s;
+}
+
+
+
+
+
+
+@media screen and (max-width:1024px){
+  #registerCont{
+    flex-direction: column;  
+  }
+
+  #backBut{
+    width: 50vw;
+
+    font-size: 2.5vh;
+  }
+
+
+  #decoCont{
+    width: 20vw;
+    margin: 2vh;
+  
+    text-align: center;
+  
+    color: #864879;
+  }
+  #decoCont > h1{
+    margin-top: 0;
+    font-size: 3vw
+  }
+  #landingImg{
+    width: 20vw;
+    height: auto;
+    
+  }
+
+
+  .inputTextCont{
+    width: 50vw;
+    height: fit-content;
+    margin: 0vh auto 2vh auto;
+  }
+  .inputTextCont > label{
+    width: 40vw;
+    height: 3vh;
+    margin-bottom: 1vh;
+  
+    color: #F0E9D2;
+  
+    font-size: 3vh;
+  }
+  .inputText{
+    font-size: 3vw;
+  }
+  .error{
+    font-size: 2.5vw;
+  } 
+  #submitBut{
+    font-size: 3vw;
+  }
+  .selectCategories{
+    font-size: 3vw;
+  }
+  .categorySelected{
+    font-size: 3vw;
+  }
+  .categoriesOption{
+    font-size: 2vw;
+  }
 }
