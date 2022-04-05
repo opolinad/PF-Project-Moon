@@ -9,12 +9,13 @@ import CardPost from '../../CardPost/CardPost'
 export default function Posts() {
     // const {user} = useParams()
     const user = useSelector(state => state.user.currentUser);
+    const currentUser = useSelector(state => state.userData)
     const posts = useSelector(state => state.userPostsById.posts);
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        allPostById(dispatch, user._id)
+        allPostById(dispatch, user._id, currentUser?._id)
             .then(res => {
                 setLoading(false)
             })
