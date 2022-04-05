@@ -33,7 +33,7 @@ router.post('/', async (req: Request, res: Response) => {
 
 router.get("/session", async (req: Request, res: Response) => {
   try {
-    console.log("Correo",userEmail)
+    console.log("Correo",typeof userEmail)
     const user = await User.find({ email: userEmail });
     console.log("Usuario encontrado",user);
     const { ...others } = user._doc;
