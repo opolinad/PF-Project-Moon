@@ -33,7 +33,7 @@ const Single = () => {
               <img
                 src={
                   user.profilePhoto ||
-                  "http://panel.guerreroyroaconsultores.com/inc/fle/abog/abog_06e75ab7666cb5bb2dfbee89a9c0c693ab94debf.jpg"
+                  "/default_profile_photo.svg"
                 }
                 alt=""
                 className="itemImg"
@@ -45,18 +45,20 @@ const Single = () => {
                   <span className="itemValue">{user.email}</span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Phone:</span>
-                  <span className="itemValue">+1 2345 67 89</span>
+                  <span className="itemKey">Full name:</span>
+                  <span className="itemValue">{user?.fullName}</span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Address:</span>
-                  <span className="itemValue">
-                    Elton St. 234 Garden Yd. NewYork
-                  </span>
+                  <span className="itemKey">Username</span>
+                  <span className="itemValue">{user?.username}</span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Country:</span>
-                  <span className="itemValue">USA</span>
+                  <span className="itemKey">Followers</span>
+                  <span className="itemValue">{user?.followers.length}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Following</span>
+                  <span className="itemValue">{user?.followings.length}</span>
                 </div>
               </div>
             </div>
