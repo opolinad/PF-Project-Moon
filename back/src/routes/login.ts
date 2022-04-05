@@ -12,9 +12,7 @@ var email:string = "";
 router.post('/', async (req: Request, res: Response) => {
   const { email } = req.body
   try {
-
     const user = await User.findOne({ email });
-    console.log("user en login",user);
     const hashedPassword = CryptoJS.AES.decrypt(user.password, process.env.HASH_CRYPTO)
     const originPassword = hashedPassword.toString(CryptoJS.enc.Utf8)
     const accessToken = jwt.sign({
@@ -33,9 +31,7 @@ router.post('/', async (req: Request, res: Response) => {
 
 router.get("/session", async (req: Request, res: Response) => {
   try {
-    console.log("Correo",email)
-    const user = await User.find();
-    console.log("Usuario encontrado",user);
+    const user = await User.findOne({ email });
     const { ...others } = user._doc;
     const accessToken = jwt.sign({ id: user._id }, process.env.JWT_KEY, { expiresIn: '1d' });
     res.json({ ...others, accessToken });
@@ -53,7 +49,6 @@ router.get('/google',
 );
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: process.env.NODE_ENV === "production" ? "https://project-moon.vercel.app/" : "http://localhost:4000/" }), (req: Request, res: Response) => {
 let infoUser:any = req.user;
-console.log("user",infoUser);
 email=infoUser?.email;
 res.redirect(process.env.NODE_ENV === "production" ? "https://project-moon.vercel.app/home" : "http://localhost:4000/home");
 });
@@ -61,7 +56,6 @@ router.get('/microsoft', passport.authenticate('microsoft'));
 router.get('/microsoft/callback',
   passport.authenticate('microsoft', { failureRedirect: process.env.NODE_ENV === "production" ? "https://project-moon.vercel.app/" : "http://localhost:4000/"}),(req: Request, res: Response) => {
     let infoUser:any = req.user;
-    console.log("user",infoUser);
     email=infoUser?.emails[0].value;
     res.redirect(process.env.NODE_ENV === "production" ? "https://project-moon.vercel.app/home" : "http://localhost:4000/home");
     });
