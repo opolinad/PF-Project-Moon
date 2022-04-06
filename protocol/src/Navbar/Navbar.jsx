@@ -72,10 +72,9 @@ export default function Navbar() {
   let searchbut;
   showMenu ? (menu = [NavbarCss.menuOpen, NavbarCss.menuShell]) : (menu = [NavbarCss.menuClosed, NavbarCss.movedMenuShell]);
   // if (showNotifications) notifications = <Notifications />;
-  search.length > 3 || search.length === 0 ?
-  (searchbut = ( <Link to={"/home?search=" + search} id={NavbarCss.searchLink}> <FontAwesomeIcon icon={faSearch} /></Link>))
-  :
-  (searchbut = (<p id={NavbarCss.searchLink} onClick={() => setSearchErr("owo small, >3 pls uwu")}></p>));
+  if(search.length > 3) searchbut = ( <Link to={"/home?search=" + search} id={NavbarCss.searchLink}> <FontAwesomeIcon icon={faSearch} /></Link>)
+  else if ( search.length === 0 ) searchbut = ( <Link to={"/home"} id={NavbarCss.searchLink}> <FontAwesomeIcon icon={faSearch} /></Link>)
+  else searchbut = (<p id={NavbarCss.searchLink} onClick={() => setSearchErr("owo small, >3 pls uwu")}></p>);
 
   const handleLogout = () => {
     Swal.fire({

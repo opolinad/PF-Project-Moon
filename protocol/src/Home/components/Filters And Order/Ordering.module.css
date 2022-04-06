@@ -1,10 +1,14 @@
 #orderingCont{
+    position: relative;
+    left: -45vw;
     width: fit-content;
     margin: 0 0.5vw 0 0.5vw;
     
     border-radius: 1vw;
     border-bottom: 0.1vh solid #150050;
     box-shadow: 0 0.2vh 0.2vh #150050;
+
+    z-index: 1;
 }
 
 #orderingSelect{

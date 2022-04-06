@@ -64,12 +64,6 @@ export default function CardPost(props) {
   props.description
     ? (cardValues.description = props.description)
     : (cardValues.description = "");
-  // props.likes.includes(user?._id)
-  //   ? (cardValues.likeImg = Cardpost.likedImg)
-  //   : (cardValues.likeImg = Cardpost.notLikedImg);
-  // props.shares.includes(user?._id)
-  //   ? (cardValues.sharedImg = Cardpost.sharedImg)
-  //   : (cardValues.sharedImg = Cardpost.notSharedImg);
 
   props.price
     ? (cardValues.price = props.price)
@@ -78,20 +72,14 @@ export default function CardPost(props) {
   cardValues.categories = (
     <div id={Cardpost.categoriesCont}>
       {props.categories?.map((element, index) => (
-        // <p
-        //   key={"cardpost_" + props._id + "_category" + index}
-        //   className={Cardpost.category}
-        // >
-        //   {element}
-        // </p>
         <button key={"cardpost_" + props._id + "_category" + index} value={element} className={Cardpost.category} onClick={(e)=>dispatch(setSelectedCategory(e.target.value))}>{element}</button>
       ))}
     </div>
   );
 
-  props.shared? cardValues.shared = <div className={Cardpost.sharedCont}>Post sahred by <Link to={"users/"+props.shareUser?._id}>{props.shareUser? (props.shareUser.username? props.shareUser.username : "user") : ""}</Link> </div> : cardValues.shared="";
+  props.shared? cardValues.shared = <div className={Cardpost.sharedCont}>Post shared by <Link to={`/users/${props.shareUser?._id}`}>{props.shareUser? (props.shareUser.username? props.shareUser.username : "user") : ""}</Link> </div> : cardValues.shared="";
 
-  props.sold? cardValues.sold = <div className={Cardpost.sharedCont}>{props.soldUser? `Post sold by `: `Post purchased by `}<Link to={"users/"+props.soldUser?._id}>{props.soldUser? (props.soldUser.username? props.soldUser.username : "user") : props.shoppedUser? (props.shoppedUser.username? props.shoppedUser.username : "user") : ""}</Link> </div> : cardValues.sold="";
+  props.sold? cardValues.sold = <div className={Cardpost.sharedCont}>{props.soldUser? `Post sold by `: `Post purchased by `}<Link to={"/users/"+props.soldUser?._id}>{props.soldUser? (props.soldUser.username? props.soldUser.username : "user") : props.shoppedUser? (props.shoppedUser.username? props.shoppedUser.username : "user") : ""}</Link> </div> : cardValues.sold="";
 
   cardValues.likes = props.likes.length;
   cardValues.shares = props.shares.length;
@@ -126,7 +114,6 @@ export default function CardPost(props) {
       console.log(error);
     }
   }
-  console.log(props)
   const stripeOptions = {
     name: "Protocol Moon",
     image: Logo,

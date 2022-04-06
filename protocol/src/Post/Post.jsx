@@ -9,24 +9,6 @@ import { getDetailedPost, sendBackComment } from '../ReduxToolkit/apiCalls/postC
 import { setDetailedLoading, setDetailedPost } from '../ReduxToolkit/reducers/postSlice';
 import { likeAction, shareAction } from '../ReduxToolkit/apiCalls/cardPostCall';
 
-// const detailedPost = {
-//     userName:"Username",
-//     postId:0,
-//     userId:0,
-//     userPhoto:"./logo512.png",
-//     title: "Title",
-//     description: "vewy long description detailedPost or whatevs",
-//     shared:false,
-//     liked:false,
-//     likes: 3,
-//     shares: 3,
-//     favorite: false,
-//     images: ["./logo512.png", "./logo512.png"],
-//     comments: [{photo:"./logo512.png",id:0,name:"useruser",comment:"owowowowowo  wowow owowowowwow owowowowow owowowow owo owowo owooow owo owowowoow o oowow"},{photo:"./logo512.png",id:0,name:"useruser",comment:"owowowowowo  wowow owowowowwow owowowowow owowowow owo owowo owooow owo owowowoow o oowow"}],
-// } 
-
-/* let detailedPost={}; */
-/* let detailedPostComments=[]; */
 
 function Comment(props)
 {
@@ -141,8 +123,15 @@ export default function Post()
     }
 
     //css de likes 
-    detailedPost.detailed.likes?.includes(user.currentUser?._id) ? cardValues.likeImg=PostCss.likedImg : cardValues.likeImg=PostCss.notLikedImg; 
-    detailedPost.detailed.shares?.includes(user.currentUser?._id) ? cardValues.sharedImg=PostCss.sharedImg : cardValues.sharedImg=PostCss.notSharedImg; 
+    // detailedPost.detailed.likes?.includes(user.currentUser?._id) ? cardValues.likeImg=PostCss.likedImg : cardValues.likeImg=PostCss.notLikedImg; 
+    // detailedPost.detailed.shares?.includes(user.currentUser?._id) ? cardValues.sharedImg=PostCss.sharedImg : cardValues.sharedImg=PostCss.notSharedImg; 
+
+
+
+    if (detailedPost.detailed.likes?.some(e => e._id === user.currentUser?._id))cardValues.likeImg = PostCss.likedImg;
+    else cardValues.likeImg = PostCss.notLikedImg;
+    if (detailedPost.detailed.shares?.some(e => e._id === user.currentUser?._id))cardValues.sharedImg = PostCss.sharedImg;
+    else cardValues.sharedImg = PostCss.notSharedImg;
 
     //los numeros de likes y shares, ademas del icono de favorito
     cardValues.likes=detailedPost.detailed.likes?.length;
