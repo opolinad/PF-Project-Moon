@@ -10,9 +10,12 @@ import { useDispatch, useSelector } from "react-redux";
 const Single = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userById.user);
+  const orders = useSelector((state) => state.orders.orders);
   const location = useLocation();
   const userId = location.pathname.split("/").reverse()[0];
   const [isLoading, setIsLoading] = useState(true);
+
+  let OrdersById = orders.filter((order) => order.user._id === userId);
 
   useEffect(() => {
     getUserById(dispatch, userId).then((response) => setIsLoading(false));
@@ -66,7 +69,7 @@ const Single = () => {
         </div>
         <div className="bottom">
           <h1 className="title">Last Transactions</h1>
-          <List />
+          <List orders={OrdersById}/>
         </div>
       </div>
     </div>

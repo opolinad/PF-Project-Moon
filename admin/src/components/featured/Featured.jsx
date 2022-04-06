@@ -8,7 +8,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
 
 const Featured = () => {
-  const orders = useSelector((state) => state.orders?.orders);
+  const orders = useSelector((state) => state?.orders?.orders);
 
   //funtion that returns all the orders of today
   const lastDay = orders.filter((order) => {
