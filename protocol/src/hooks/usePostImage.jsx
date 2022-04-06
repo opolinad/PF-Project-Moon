@@ -65,7 +65,6 @@ export const usePostImage = ({ type }) => {
   })
   }, [file]);
 
-  console.log(file)
 
   return {
     type,
