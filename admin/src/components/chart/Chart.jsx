@@ -1,5 +1,6 @@
 import React from "react";
 import "./chart.scss";
+import { useSelector } from "react-redux";
 import {
   AreaChart,
   Area,
@@ -9,16 +10,32 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const data = [
+/* const data = [
   { name: "January", Total: 1200 },
   { name: "February", Total: 2100 },
   { name: "March", Total: 800 },
   { name: "April", Total: 1600 },
   { name: "May", Total: 900 },
-  { name: "June", Total: 1700 },
-];
+  { name: "asd", Total: 1700 },
+]; */
 
-const Chart = ({ aspect, title }) => {
+const Chart = ({ aspect, title }) => {  
+  const orders = useSelector((state) => state.orders?.orders);
+
+  const arr = orders.map((order) => {
+    return {
+      name: order.createdAt.slice(11, 16) + "hs",
+      Total: order.amount,
+    };
+  });
+
+  //funtion that returns last 6 objects of the array
+  const last6 = (arr) => {  
+    return arr.slice(arr.length - 6);
+  };
+
+  const data = last6(arr);
+
   return (
     <div className="chart">
       <div className="title">{title}</div>
