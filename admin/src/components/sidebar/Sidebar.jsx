@@ -16,17 +16,24 @@ import { Link, useNavigate } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { logoutUser } from "../../redux/apiCalls/loginCall";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
   const dispatchRedux = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user.currentUser);
 
   const handleLogout = (e) => {
     e.preventDefault();
     logoutUser(dispatchRedux).then((res) => {
       window.location.replace("/login");
     });
+  };
+
+  const handleProfile = (e) => {
+    e.preventDefault();
+    navigate("/users/" + user._id);
   };
 
   return (
@@ -68,7 +75,11 @@ const Sidebar = () => {
           <p className="title">USER</p>
           <li>
             <AccountCircleOutlinedIcon className="icon" />
-            <span>Profile</span>
+            <span
+            onClick={(e) => {handleProfile(e)}}
+            >
+              Profile
+            </span>
           </li>
           <li>
             <ExitToAppIcon style={{ cursor: "pointer" }} className="icon" />
