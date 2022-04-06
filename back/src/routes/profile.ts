@@ -57,7 +57,13 @@ router.get('/portfolio/:idUser/:idCurrentUser', async (req:Request, res:Response
         const user = await User.findById(idUser)
         let posts = await Post.find({ user: idUser})
         let portfolio:any = []
-        if(idUser !== idCurrentUser) !user.premium.includes(idCurrentUser) && posts.filter((post: any) => !post.premium)
+        if(idUser !== idCurrentUser) !user.premium.includes(idCurrentUser) && posts.filter((post: any) => post.premium)
+
+        posts.sort((function (a:any, b:any) {
+            if (a.createdAt < b.createdAt) return 1;
+            if (a.createdAt > b.createdAt) return -1;
+            return 0;
+        }))
 
         posts.map((post:any) => {
         if(post.images.length) {
