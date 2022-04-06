@@ -10,6 +10,9 @@ import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutl
 const Featured = () => {
   const orders = useSelector((state) => state?.orders?.orders);
   //funtion that returns all the orders of today
+  if(orders !== null){
+
+
   const lastDay = orders?.filter((order) => {
     return order.createdAt.slice(0, 10) === new Date().toISOString().slice(0, 10);
   });
@@ -93,6 +96,8 @@ const Featured = () => {
       </div>
     </div>
   );
+
+  }
 };
 
 export default Featured;
