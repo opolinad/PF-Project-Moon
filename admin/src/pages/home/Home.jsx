@@ -15,6 +15,7 @@ const Home = () => {
   const orders = useSelector((state) => state.orders?.orders);
 
   useEffect(() => {
+    console.log("useEffect/Home");
     getAllOrders(dispatch);
   }, []);
 

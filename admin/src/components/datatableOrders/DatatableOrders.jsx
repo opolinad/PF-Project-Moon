@@ -41,7 +41,6 @@ const DatatableOrders = ({ orders }) => {
       headerName: "Link",
       width: 100,
       renderCell: (params) => {
-        console.log(params.row.ticket);
         //return <div className="cellDate">{format(params.row.createdAt)}</div>;
         return <div className="cellDate">{
             <a
