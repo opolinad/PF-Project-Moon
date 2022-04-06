@@ -175,7 +175,7 @@ export default function PostPost() {
             <input className={css.labelInputImg} type={type1} id="file1" multiple onChange={onChange1} />
           </div>
 
-          {input?.images && (
+          {image1.length !== 0 && (
             <div className={css.infoCont}>
               <input className={css.labelInputTitle} onChange={(e) => handleChange(e)} placeholder="Price USD" type="number" name="price" value={input.price} />
               <div id={css.premiumChoice}>
