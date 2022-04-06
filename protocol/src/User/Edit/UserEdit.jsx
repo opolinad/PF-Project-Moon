@@ -52,12 +52,28 @@ export default function UserEdit() {
     onChange: onChange2,
   } = useImage({ type: "file" });
 
+  const categoriesArray = [
+    'anime',
+    'comics',
+    'customization',
+    'digitalart',
+    'fanart',
+    'fantasy',
+    'gameart',
+    'horror',
+    'photography',
+    'pixelart',
+    'sciencefiction',
+    'streetart',
+    'wallpaper']
+
   const [inputs, setInputs] = useState({
     username: user?.username,
     fullName: user?.fullName,
     profilePhoto: user?.profilePhoto || "",
     backgroundPhoto: user?.backgroundPhoto || "",
     artist: user?.artist ? true : false,
+    favouritesCategories: user?.favouritesCategories
   });
   const [password, setPassword] = useState({
     oldPassword: "",
@@ -153,6 +169,30 @@ export default function UserEdit() {
     setErrors(validar({ ...password, [e.target.name]: e.target.value }))
   }
 
+  const handleSelect = (e) => {
+    if (inputs.favouritesCategories.includes(e.target.value)) return alert('ya esta en la lista')
+    if(e.target.value!="categories")
+    {
+        setInputs(prev => {
+            return {
+                ...prev,
+                favouritesCategories: [...inputs.favouritesCategories, e.target.value]
+            }
+        })
+    }
+}
+
+  function handleDeSelect(e)
+    {
+        e.preventDefault()
+        setInputs(prev => {
+            return {
+                ...prev,
+                favouritesCategories: prev.favouritesCategories.filter(element=>element!=e.target.value)
+            }
+        })
+    } 
+
   useEffect(() => {
     if (sizeExceeded1 || sizeExceeded2) {
       Toast.fire({
@@ -225,6 +265,28 @@ export default function UserEdit() {
             </div>
           </div>
         </div>
+
+        <div className={styles.inputTextCont}>
+          <label className={styles.labelText}>
+            Categories:
+          </label>
+          <select 
+            className={styles.selectCategories}
+            id='categories'
+            name='categories'
+            onChange={(e) => handleSelect(e)}
+            required
+            >
+        <option className={styles.categoriesOption} value='categories'> Choose some categories </option>
+        {categoriesArray?.map((c,i) => (
+           <option key={"option_category_"+i} className={styles.categoriesOption}  value={c}>{c}</option>
+        ))}
+        </select>
+        <div className={styles.selectedCont}>
+          {inputs.favouritesCategories?.map((element,index)=><button onClick={(e)=>handleDeSelect(e)} className={styles.categorySelected} key={"selected_cat_"+index} value={element}>{element}</button>)}
+          </div>
+        </div>
+
 
         <div id={styles.artistChoice}>
           <p>Are You an Artist?</p>

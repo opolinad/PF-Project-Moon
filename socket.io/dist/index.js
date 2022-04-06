@@ -3,12 +3,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const express = require('express');
+const app = express();
+const server = require('http').Server(app);
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const io = require("socket.io")(process.env.PORT, {
+const io = require("socket.io")(server, {
     cors: {
-        origin: "*",
-    },
+        origin: "*"
+    }
 });
 console.log("Puerto Socket", process.env.PORT);
 let users = [];
@@ -31,20 +34,22 @@ io.on("connection", (socket) => {
         io.emit("getUsers", users);
     });
     //Cuando se manda un mensaje
-    socket.on("sendMessage", ({ senderId, receiverId, text }) => {
+    socket.on("sendMessage", ({ sender, receiverId, text }) => {
         const user = getUser(receiverId);
-        io.to(user.socketId).emit("getMessage", {
-            senderId,
-            text,
-        });
+        if (user) {
+            console.log(user.socketId, sender);
+            io.to(user.socketId).emit("getMessage", {
+                sender,
+                text,
+            });
+        }
     });
     socket.on("sendNotification", ({ senderName, receiverName, type }) => {
         try {
-            console.log("El que lo manda es", senderName);
             const user = getUser(receiverName);
             console.log("manda notificacion", user);
             io.to(user.socketId).emit("getNotification", {
-                senderName: senderName.email.split("@", 1),
+                senderName: senderName.username,
                 type
             });
         }
@@ -59,7 +64,7 @@ io.on("connection", (socket) => {
         io.emit("getUsers", users);
     });
 });
-// server.listen(3000,() => {
-//   console.log('Socke.io conect')
-// })
+server.listen(process.env.PORT, () => {
+    console.log('Socke.io conect on port ', process.env.PORT);
+});
 //# sourceMappingURL=index.js.map

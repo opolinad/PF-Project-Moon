@@ -293,6 +293,170 @@
 .error{
     color: #E9A6A6;
   }
+
+  .inputTextCont{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  
+    width: 30vw;
+    height: fit-content;
+    margin: 0vh auto 2vh auto;
+  }
+  .inputTextCont > label{
+    width: 15vw;
+    height: 3vh;
+    margin-bottom: 1vh;
+  
+    color: #F0E9D2;
+  
+    font-size: 3vh;
+  }
+  
+  .inputText{
+    height: 4vh;
+    margin-bottom: 1vh;
+    padding-left: 1vw;
+    padding-right: 1vw;
+  
+    border-radius: 0.5vw;
+    border: 0.1vw solid #864879;
+  
+    color: #F0E9D2;
+    background-color: transparent;
+  
+    font-size: 1.2vw;
+  
+    transition: 1s;
+  }
+  .inputText:focus{
+    outline: none;
+    border: 0.1vw solid #E9A6A6;
+  
+    transition: 1s;
+  }
+  
+  .error{
+    color: #E9A6A6;
+  }
+  
+  #submitBut{
+    width: 100%;
+    height: 4vh;
+    margin-bottom: 2vh;
+  
+    border: 0.1vw solid #864879;
+    border-bottom-left-radius: 0.5vw;
+    border-bottom-right-radius: 0.5vw;
+  
+    box-shadow: 0 0vh 0 0 #864876 inset;
+    background-color: transparent;
+    color: #F0E9D2;
+  
+    transition: 0.5s;
+  }
+  #submitBut:hover{
+    box-shadow: 0 5vh 0 0 #864876 inset;
+    color: #F8F8F8;
+    transition: 0.5s;
+  }
+  
+  .selectCategories{
+    height: 4vh;
+  
+    border-radius: 0.5vw;
+    border: 0.1vw solid #864879;
+  
+    color: #F0E9D2;
+    background-color: transparent;
+  
+    font-size: 1.4vw;
+  
+    transition: 1s;
+  }
+  .selectCategories::placeholder{
+    text-align: center;
+  }
+  .selectCategories:focus{
+    outline: none;
+  }
+  
+  .categoriesOption{
+    background-color: #1F1D36;
+  }
+  
+  .selectedCont{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  
+    width: 30vw;
+    height: fit-content;
+    padding: 1vh 0 1vh 0;
+  }
+  .categorySelected{
+    border: none;
+  
+    background-color: transparent;
+    
+    color: #E3B04B;
+    background-color: transparent;
+  
+    text-decoration: underline;
+    font-size: 1.2vw;
+  
+    cursor: pointer;
+  }
+  .categorySelected > svg{
+    color: #E9A6A6;
+  
+  }
+  
+  
+  #backLink{
+    text-decoration: none;
+  }
+  #backBut{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  
+    width: 10vw;
+    height: 5vh;
+  
+    border: none;
+    border-bottom: 0.2vw solid #864879;
+    border-radius: 1vw;
+  
+    color: #F0E9D2;
+    background-color: #11101F;
+  
+  
+    font-size: 1.3vw;
+    font-weight: bold;
+    text-decoration: none;
+  
+    cursor: pointer;
+    transition: 0.5s;
+  
+  }
+  #backBut:hover{
+    box-shadow: -10vw 0vh 0 0 #864876 inset;
+  
+    transition: 0.5s;
+  }
+  #backBut > svg{
+    position: relative;
+    left: -0vw;
+    transition: 0.5s;
+  }
+  #backBut:hover > svg{
+    position: relative;
+    left: -2vw;
+  
+    transition: 0.5s;
+  }
+  
 @media screen and (max-width:1024px){
     #rowEditsCont{
         flex-direction: column;
@@ -374,4 +538,66 @@
     #editSubmit{
         font-size: 3vw;
     }
+    #registerCont{
+        flex-direction: column;  
+      }
+    
+      #backBut{
+        width: 50vw;
+    
+        font-size: 2.5vh;
+      }
+    
+    
+      #decoCont{
+        width: 20vw;
+        margin: 2vh;
+      
+        text-align: center;
+      
+        color: #864879;
+      }
+      #decoCont > h1{
+        margin-top: 0;
+        font-size: 3vw
+      }
+      #landingImg{
+        width: 20vw;
+        height: auto;
+        
+      }
+    
+    
+      .inputTextCont{
+        width: 50vw;
+        height: fit-content;
+        margin: 0vh auto 2vh auto;
+      }
+      .inputTextCont > label{
+        width: 40vw;
+        height: 3vh;
+        margin-bottom: 1vh;
+      
+        color: #F0E9D2;
+      
+        font-size: 3vh;
+      }
+      .inputText{
+        font-size: 3vw;
+      }
+      .error{
+        font-size: 2.5vw;
+      } 
+      #submitBut{
+        font-size: 3vw;
+      }
+      .selectCategories{
+        font-size: 3vw;
+      }
+      .categorySelected{
+        font-size: 3vw;
+      }
+      .categoriesOption{
+        font-size: 2vw;
+      }
 }

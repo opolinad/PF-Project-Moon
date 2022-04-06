@@ -64,7 +64,7 @@ export default function Portfolio()
         portfolioByPage(1,user?._id,userData?._id,dispatch,"filter",e.target.value)
     }
 
-    let isPremium = userData?.premium.includes(user?._id);
+    let isPremium = userData?.premium.some(us => us._id === user?._id || user?._id === userData._id);
     let subscribedBut = <div id={css.subedContDeco}><div id={css.subscribedButCont}> <span> <button id={css.subscribedBut}> <FontAwesomeIcon id={css.altLeftHeart} icon={faHeart}/> Subscribed! <FontAwesomeIcon id={css.altRightHeart} icon={faHeart}/> </button> </span> </div></div>
 
     return(
@@ -103,31 +103,32 @@ export default function Portfolio()
 function SubscriptionBut()
 {
     // const [amount, setAmount] = useState(0);
-    const [stripetoken, setStripetoken] = useState(null);
     const currentUser = useSelector((state) => state.userData.currentUser)
     const user = useSelector((state) => state.user.currentUser)
 
-    const onToken = (token) => { setStripetoken(token);};
+    // const onToken = (token) => { setStripetoken(token);
 
-    useEffect(() => {
-      const checkoutStripe = async () => {
+    // useEffect(() => {
+      const checkoutStripe = async (token) => {
         try
         {
           const { data }= await axios.post(
             "/api/checkout/payment",
-            { tokenId: stripetoken.id,amount: amount * 100,}
+            { tokenId: token.id,amount: amount * 100,}
           );
+          console.log(data.success)
           if(data.success) { const order = { type: 'subscription', user: user._id, to: currentUser._id, amount: amount, card: data.success.payment_method_details.card.brand + ' ' + data.success.payment_method_details.card.last4, ticket: data.success.receipt_url}
             const res = await axios.post(`/api/orders/${currentUser._id}`, order) //CAMBIAR A RUTA VERDADERA
-            await axios.post(`/api/orders/${user._id}`, order);
-            await axios.post(`/api/user/${user._id}/premium`, {userId:currentUser._id});
+            const res2 = await axios.post(`/api/orders/${user._id}`, order);
+            const res3 = await axios.put(`/api/user/${currentUser._id}/premium`, {userId:user._id});
+            window.location.reload(false)
           }
         } catch (error) {console.log(error);}
       };
-      stripetoken && checkoutStripe();
-    }, [stripetoken]);
+    //   stripetoken && checkoutStripe();
+    // }, [stripetoken]);
 
-    const stripeOptions = {name: "Protocol Moon", image: Logo, description: `Your subscription total is US$${amount}.`, amount: amount * 100, token: onToken, stripeKey: KEY};
+    const stripeOptions = {name: "Protocol Moon", image: Logo, description: `Your subscription total is US$${amount}.`, amount: amount * 100, token: checkoutStripe, stripeKey: KEY};
 
     return(
         <div id={css.subsContDeco}><div id={css.subscriptionButCont}>

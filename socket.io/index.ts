@@ -1,12 +1,16 @@
+const express = require('express')
+const app = express()
+const server = require('http').Server(app)
+
 import dotenv from 'dotenv';
 
 dotenv.config()
 
-const io = require("socket.io")(process.env.PORT, {
-    cors: {
-      origin: "*",
-    },
-  });
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "*"
+  }
+});
   console.log("Puerto Socket",process.env.PORT)
 
   let users:any = [];
@@ -68,7 +72,7 @@ const io = require("socket.io")(process.env.PORT, {
     });
   });
   
-  // server.listen(3000,() => {
-  //   console.log('Socke.io conect')
-  // })
+  server.listen(process.env.PORT,() => {
+    console.log('Socke.io conect on port ', process.env.PORT)
+  })
   

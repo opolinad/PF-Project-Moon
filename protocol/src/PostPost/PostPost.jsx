@@ -40,9 +40,9 @@ export default function PostPost() {
   const categories = useSelector((state) => state.categories.posts.categories);
   const feed = useSelector((state) => state.feed);
   const [showCreate, setShowCreate] = useState(false);
-
+  
   const [input, setInput] = useState({
-    user: user?._id,
+    user: user._id,
     images: [],
     title: "",
     description: "",
@@ -121,6 +121,7 @@ export default function PostPost() {
       description: "",
       price: "",
       categories: [],
+      premium: false
     });
     setShowCreate(false);
   }
