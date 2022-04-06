@@ -5,6 +5,11 @@
     padding: 5%;
     color: white;
 }
+#container > p{
+    text-align: center;
+    font-size: 3vw;
+    color: #725AC1;
+}
 
 #container button {
     background-color: transparent;
