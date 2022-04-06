@@ -97,7 +97,7 @@ export default function CardPost(props) {
       );
       if(data.success) {
         const order = {
-          type: 'shopped',
+          type: 'sold',
           user: user._id,
           to: props.userId,
           amount: props.price,
@@ -105,7 +105,7 @@ export default function CardPost(props) {
           ticket: data.success.receipt_url
         }
         await axios.post(`/api/orders/${props.userId}`, order);
-        order.type="sold";
+        order.type="buy";
         await axios.post(`/api/orders/${user._id}`, order);
         await axios.post(`/api/posts/buy/${props.id}`, {idUser: user._id})
       }

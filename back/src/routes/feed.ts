@@ -162,7 +162,7 @@ router.get('/:idUser', async (req:Request, res:Response) => {
         }
 
         if(search) {
-            let postSearch = await Post.find({})
+            let posts = await Post.find({})
             .populate('user',{username: 1, profilePhoto:1})
             .populate('likes',{username: 1, profilePhoto:1})
             .populate({ path:'comments', populate: { path: 'user', model:'User', select: 'username profilePhoto'}})
@@ -170,11 +170,10 @@ router.get('/:idUser', async (req:Request, res:Response) => {
             .populate('shareUser',{username: 1, profilePhoto:1})
             .populate('soldUser',{username: 1, profilePhoto:1})
 
-            postSearch = postSearch.filter((post : any) => post.title?.toLowerCase().includes(search.toLowerCase()))
-
+            posts = posts.filter((post : any) => post.title?.toLowerCase().includes(search.toLowerCase()))
+            
             posts = posts.filter((post:any) => !post.premium)
 
-            
             let postsUser= await Post.find({user: user._id})
             .populate('user',{username: 1, profilePhoto:1})
             .populate('likes',{username: 1, profilePhoto:1})
@@ -183,8 +182,10 @@ router.get('/:idUser', async (req:Request, res:Response) => {
             .populate('shareUser',{username: 1, profilePhoto:1})
             .populate('soldUser',{username: 1, profilePhoto:1})
 
+            postsUser = postsUser.filter((post : any) => post.title?.toLowerCase().includes(search.toLowerCase()))
+            
             posts = posts.concat(postsUser)
-
+            
             let userSearch = await User.find({})
 
             userSearch = userSearch.filter((user : any) => user.username?.toLowerCase().includes(search.toLocaleLowerCase()))
@@ -192,16 +193,16 @@ router.get('/:idUser', async (req:Request, res:Response) => {
 
             if (filter) {
                 if(filter === "designsOnly") {
-                    postSearch = postSearch.filter((post : any) => post.images.length > 0)
+                    posts = posts.filter((post : any) => post.images.length > 0)
                 } else { 
-                postSearch = postSearch.filter((post : any) => post.images.length === 0)
+                posts = posts.filter((post : any) => post.images.length === 0)
                 }
             }
 
             if (category) { 
-                posts = postSearch.filter((post : any) => post.categories.includes(category))
+                posts = posts.filter((post : any) => post.categories.includes(category))
             } else {
-                posts = postSearch
+                posts = posts
             }
 
             if (order === "trending") {
