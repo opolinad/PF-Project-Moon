@@ -13,12 +13,15 @@
 #filterOrderCont{
     position: sticky;
     top: 17.5vh;
+    left: -40vw;
     display: flex;
     flex-direction: row;
 
-    width: 93.1vw;
-    height: 4vh;
-    padding: 3vh 0 3vh 3.5vw;
+    width: 0vw;
+    height: 0vh;
+    padding: 0;
+
+    z-index: 1;
 }
 
 #resetOption{

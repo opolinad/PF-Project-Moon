@@ -31,7 +31,6 @@ export default function Home() {
 //         if (!user) {
 //             navigate("/");
 //         }
-        console.log(user);
     }, [])
 
     useEffect(() => {
