@@ -25,6 +25,7 @@ const userPostsSlice = createSlice({
       console.log(action.payload.data.shares);
     },
     clearPost: (state, action) => {
+      console.log("borrando")
       state.posts = [];
     },
   },

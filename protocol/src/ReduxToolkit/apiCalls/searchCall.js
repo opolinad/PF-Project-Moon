@@ -32,7 +32,6 @@ export const getSearchResults = async (id = null, dispatch, search = "", selecte
         console.log("sin users")
         dispatch(feedDatabase({ status, posts: res.data }))
       }
-
     }
   }
 

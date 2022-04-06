@@ -10,12 +10,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllOrders } from "../../redux/apiCalls/orderCall";
 
 const Home = () => {
+  console.log("Home");
   const dispatch = useDispatch();
-  const orders = useSelector((state) => state.orders.orders);
+  const orders = useSelector((state) => state.orders?.orders);
 
   useEffect(() => {
+    console.log("useEffect/Home");
     getAllOrders(dispatch);
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className="home">
@@ -28,12 +30,12 @@ const Home = () => {
           <Widget type="post" />
         </div>
         <div className="charts">
-          <Featured />
-          <Chart title="Last 6 Months (Revenue)" aspect={2 / 1} />
+    {/*<Featured />*/}
+{/*<Chart title="Last 5 Orders (Revenue)" aspect={2 / 1} />*/}
         </div>
         <div className="listContainer">
           <div className="listTitle">Latest Transactions</div>
-          <Table orders={orders} />
+          <Table orders={orders? orders : null} />
         </div>
       </div>
     </div>

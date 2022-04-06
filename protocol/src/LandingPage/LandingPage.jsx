@@ -89,7 +89,7 @@ export default function LandingPage() {
         // let left = window.outerWidth / 2 + window.screenX - (winHeight / 2);
         // window.open("http://localhost:3001/api/login/google", "Google log in", `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=${winWidth},height=${winHeight},left=${left},top=${top}`);
         // window.open("http://localhost:3001/api/login/google");
-        let url = process.env.VERCEL_ENV === "production"?"https://protocolmoon.herokuapp.com/api/login/":"http://localhost:3001/api/login/"
+        let url = "https://protocolmoon.herokuapp.com/api/login/"
         window.location.href = url+e.target.innerText.toLowerCase();
     }
 

@@ -8,35 +8,42 @@ import {
 } from "../../ReduxToolkit/apiCalls/userPostsById";
 import { useState } from "react";
 import CardPost from "../../CardPost/CardPost";
+import { clearPost } from "../../ReduxToolkit/reducers/usersPosts";
 
 export default function Posts() {
-  // const {user} = useParams()
+  const {id} = useParams()
+
   const user = useSelector((state) => state.user.currentUser);
   const currentUser = useSelector((state) => state.userData.currentUser);
   const posts = useSelector((state) => state.userPostsById.posts);
+  const isFetching = useSelector((state) => state.userPostsById.isFetching);
+  const error = useSelector((state) => state.userPostsById.error);
+  
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
+
+  
 
   useEffect(() => {
-    allPostById(dispatch, user._id, currentUser?._id).then((res) => {
-      setLoading(false);
-      return () => clearUserPost(dispatch);
-    });
-  }, [dispatch, user, currentUser]);
+    if(posts.length===0)allPostById(dispatch, user._id, currentUser?._id)
+    return ()=>dispatch(clearPost())
+  }, [dispatch, user, currentUser,id]);
 
-  const URL = useLocation();
+  console.log(posts,isFetching)
+
   let displaying = posts;
+
+  if(isFetching && posts.length===0)return (<div id={css.container}><p>loading...</p></div>)
+  else if(error) return (<div id={css.container}><p>error</p></div>)
 
   return (
     <div id={css.container}>
-      {loading ? (
-        <p>loading...</p>
-      ) : (
+
         <>
           {displaying &&
-            displaying?.map((data) => (
+            displaying?.map((data,i) => (
               <CardPost
-                key={data._id}
+                key={data._id+"_"+i}
                 title={data.title}
                 shared={data.share}
                 shareUser={data.shareUser}
@@ -57,8 +64,7 @@ export default function Posts() {
               />
             ))}
         </>
-      )}
-      <button>LOAD MORE</button>
+      {/* <button>LOAD MORE</button> */}
     </div>
   );
 }

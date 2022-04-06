@@ -45,7 +45,7 @@ export default function PasswordReset() {
             </Link>
 
             <div id={styles.decoCont}>
-                <img id={styles.landingImg} src="./logo.svg" alt="logo not found" />
+                <img id={styles.landingImg} src="/logo.svg" alt="logo not found" />
                 <h1>Protocol Moon</h1>
             </div>
             <form id={styles.formRegister} onSubmit={handleSubmit}>

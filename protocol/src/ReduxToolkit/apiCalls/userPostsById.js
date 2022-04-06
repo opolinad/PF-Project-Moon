@@ -8,7 +8,7 @@ import {
 
 export const allPostById = async (dispatch, id, currentId) => {
   dispatch(userPostsStart());
-  console.log(id, currentId);
+  console.log(id,currentId)
   try {
     const res = await axios.get(`/api/profile/${currentId}/${id}`);
     dispatch(userPostsSuccess(res.data));

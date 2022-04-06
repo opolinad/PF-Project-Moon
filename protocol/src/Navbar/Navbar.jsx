@@ -16,6 +16,7 @@ import { nextPage, resetPage, setFeedToLoading } from "../ReduxToolkit/reducers/
 import { searchingAction } from "../ReduxToolkit/reducers/navBarSlice.js";
 import { Toast } from "../helpers/alerts/alert";
 import Swal from 'sweetalert2';
+import { userSuccess } from "../ReduxToolkit/reducers/userSlice.js";
 
 export default function Navbar() {
 
@@ -87,8 +88,9 @@ export default function Navbar() {
       confirmButtonText: 'Yes, logout!'
     }).then((result) => {
       if (result.isConfirmed) {
+        dispatch(userSuccess(null));
         logoutUser(dispatch);
-        navigate('/')
+        navigate('/');
         Toast.fire({
           icon: 'info',
           title: 'Logout successfully',
