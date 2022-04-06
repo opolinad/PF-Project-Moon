@@ -17,8 +17,8 @@ const List = ({ orders }) => {
           <TableRow>
             <TableCell className="tableCell">Nº TRANSACTION</TableCell>
             <TableCell className="tableCell">TYPE</TableCell>
-            <TableCell className="tableCell">PAYMENT</TableCell>
-            <TableCell className="tableCell">CREDIT</TableCell>
+            <TableCell className="tableCell">BY</TableCell>
+            <TableCell className="tableCell">TO</TableCell>
             <TableCell className="tableCell">AMOUNT</TableCell>
             <TableCell className="tableCell">DATE</TableCell>
             <TableCell className="tableCell">PAYMENT METHOD</TableCell>
@@ -32,8 +32,8 @@ const List = ({ orders }) => {
             <TableRow key={order._id}>
               <TableCell className="tableCell">{order._id}</TableCell>
               <TableCell className="tableCell">{order.type}</TableCell>
-              <TableCell className="tableCell">{order.to}</TableCell>
-              <TableCell className="tableCell">{order.user}</TableCell>
+              <TableCell className="tableCell">{order.user.username}</TableCell>
+              <TableCell className="tableCell">{order.to.username}</TableCell>
               <TableCell className="tableCell">$ {order.amount}</TableCell>
               <TableCell className="tableCell">
                 {format(order.createdAt)}

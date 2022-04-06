@@ -40,7 +40,7 @@ router.get('/', async(req:Request, res:Response) => {
             return 0;
           })
 
-        if(page) {
+        /* if(page) {
             const lastPage = page * 20
             const firstPage = lastPage - 20
             const postsShow = posts.slice(firstPage, lastPage)
@@ -48,7 +48,7 @@ router.get('/', async(req:Request, res:Response) => {
         } else {
             const postsShow = posts.splice(0,20)
             res.json(postsShow)
-        }
+        } */
         res.json(posts)
     } catch (err) {
         console.log(err)

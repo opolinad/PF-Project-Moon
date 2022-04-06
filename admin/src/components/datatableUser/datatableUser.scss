@@ -67,11 +67,18 @@
       cursor: pointer;
     }
 
-    .deleteButton {
+    .banButton {
       padding: 2px 5px;
       border-radius: 5px;
       color: crimson;
       border: 1px dotted rgba(220, 20, 60, 0.6);
+      cursor: pointer;
+    }
+    .unbanButton {
+      padding: 2px 5px;
+      border-radius: 5px;
+      color: rgb(27, 163, 84);
+      border: 1px dotted rgba(19, 124, 17, 0.6);
       cursor: pointer;
     }
   }

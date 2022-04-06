@@ -64,7 +64,7 @@ export default function Portfolio()
         portfolioByPage(1,user?._id,userData?._id,dispatch,"filter",e.target.value)
     }
 
-    let isPremium = user.premium.includes(userData?._id);
+    let isPremium = userData?.premium.includes(user?._id);
     let subscribedBut = <div id={css.subedContDeco}><div id={css.subscribedButCont}> <span> <button id={css.subscribedBut}> <FontAwesomeIcon id={css.altLeftHeart} icon={faHeart}/> Subscribed! <FontAwesomeIcon id={css.altRightHeart} icon={faHeart}/> </button> </span> </div></div>
 
     return(

@@ -1,21 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "./widget.scss";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
+import { getAllUsers } from "../../redux/apiCalls/usersCall/userCall";
 
 const Widget = ({ type }) => {
-  let data;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    getAllUsers(dispatch)
+  }, [dispatch]);
 
-  const amount = 100;
+  let data;
+  const users = useSelector((state) => state.users?.users?.length);
+  const orders = useSelector((state) => state.orders?.orders?.length);
+  const posts = useSelector((state) => state.posts?.posts?.length);
+
   const diff = 20;
 
   switch (type) {
     case "user":
       data = {
         title: "USERS",
+        amount: users,
         isMoney: false,
         link: "See all users",
         icon: (
@@ -32,6 +42,7 @@ const Widget = ({ type }) => {
     case "order":
       data = {
         title: "ORDERS",
+        amount: orders,
         isMoney: false,
         link: "View all orders",
         icon: (
@@ -45,11 +56,12 @@ const Widget = ({ type }) => {
         ),
       };
       break;
-    case "earning":
+    case "post":
       data = {
-        title: "EARNINGS",
-        isMoney: true,
-        link: "View net earnings",
+        title: "POSTS",
+        amount: posts,
+        isMoney: false,
+        link: "View posts",
         icon: (
           <MonetizationOnOutlinedIcon
             className="icon"
@@ -58,21 +70,7 @@ const Widget = ({ type }) => {
         ),
       };
       break;
-    case "balance":
-      data = {
-        title: "BALANCE",
-        isMoney: true,
-        link: "See details",
-        icon: (
-          <AccountBalanceWalletOutlinedIcon
-            className="icon"
-            style={{
-              backgroundColor: "rgba(128, 0, 128, 0.2)",
-              color: "purple",
-            }}
-          />
-        ),
-      };
+  
       break;
     default:
       break;
@@ -83,7 +81,7 @@ const Widget = ({ type }) => {
       <div className="left">
         <span className="title">{data.title}</span>
         <span className="counter">
-          {data.isMoney && "$"} {amount}
+          {data.isMoney && "$"} {data.amount}
         </span>
         <span className="link">{data.link}</span>
       </div>
