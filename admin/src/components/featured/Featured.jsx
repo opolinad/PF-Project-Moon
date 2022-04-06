@@ -9,7 +9,6 @@ import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutl
 
 const Featured = () => {
   const orders = useSelector((state) => state?.orders?.orders);
-
   //funtion that returns all the orders of today
   const lastDay = orders.filter((order) => {
     return order.createdAt.slice(0, 10) === new Date().toISOString().slice(0, 10);
@@ -17,7 +16,6 @@ const Featured = () => {
   const lastDayTotal = lastDay.reduce((acc, order) => {
     return acc + order.amount;
   }, 0);
-  console.log(lastDayTotal);
 
   //funtion that return the date of yesterday
   const yesterday = () => {

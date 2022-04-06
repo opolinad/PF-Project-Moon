@@ -10,12 +10,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllOrders } from "../../redux/apiCalls/orderCall";
 
 const Home = () => {
-  const dispatch = useDispatch();
-  const orders = useSelector((state) => state.orders.orders);
-
+  console.log("Home");
   useEffect(() => {
     getAllOrders(dispatch);
   }, [dispatch]);
+  const dispatch = useDispatch();
+  const orders = useSelector((state) => state.orders?.orders);
 
   return (
     <div className="home">

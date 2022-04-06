@@ -10,7 +10,6 @@ import Paper from "@mui/material/Paper";
 import { format } from "timeago.js";
 
 const List = ({ orders }) => {
-  console.log("orders", orders);
   return (
     <TableContainer component={Paper} className="table">
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
