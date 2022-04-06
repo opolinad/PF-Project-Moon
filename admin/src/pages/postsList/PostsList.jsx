@@ -5,6 +5,7 @@ import Navbar from "../../components/navbar/Navbar";
 import DatatablePosts from "../../components/datatablePosts/DatatablePosts";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPosts } from "../../redux/apiCalls/postsCall/postsCall";
+import Loading from "../../components/loading/loading";
 
 const UsersList = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const UsersList = () => {
     getAllPosts(dispatch).then((response) => setisLoading(false));
   }, [dispatch]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div><Loading/></div>;
 
   return (
     <div className="list">
