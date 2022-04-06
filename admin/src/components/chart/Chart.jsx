@@ -21,6 +21,8 @@ import {
 
 const Chart = ({ aspect, title }) => {  
   const orders = useSelector((state) => state.orders?.orders);
+  if(orders !== null){
+
 
   const arr = orders?.map((order) => {
     return {
@@ -66,6 +68,9 @@ const Chart = ({ aspect, title }) => {
       </ResponsiveContainer>
     </div>
   );
+
+  
+  }
 };
 
 export default Chart;
