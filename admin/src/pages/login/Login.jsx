@@ -6,6 +6,7 @@ import { Toast } from "../../helpers/alerts/alert";
 import { loginUser } from "../../redux/apiCalls/loginCall";
 
 const Login = () => {
+  console.log("Login");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);

@@ -14,7 +14,6 @@ export const loginUser = async (dispatch, user) => {
             res = await requestApiProtocol.get("/login/session/", { withCredentials: true });
         } else {
             res = await requestApiProtocol.post(`/login/`, user)
-            console.log(res)
         }
         if(res.data.admin){
             dispatch(loginSuccess(res.data))
