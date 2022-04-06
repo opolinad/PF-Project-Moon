@@ -3,11 +3,15 @@ import "./datatablePosts.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { format } from "timeago.js";
+import { useSelector } from "react-redux";
+import { deletePost } from "../../redux/apiCalls/postsCall/postsCall";
 
 const Datatable = ({ posts }) => {
   const [data, setData] = useState(posts);
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   const handleDelete = (id) => {
+    deletePost(id, currentUser.accessToken);
     setData(data.filter((item) => item._id !== id));
   };
 
@@ -111,6 +115,12 @@ const Datatable = ({ posts }) => {
             >
               <div className="viewButton">View</div>
             </Link> */}
+            <div
+              className="linkButton"
+              onClick={() => window.location.href = "https://project-moon.vercel.app/post/" + params.row._id}
+            >
+              View
+            </div>
             <div
               className="deleteButton"
               onClick={() => handleDelete(params.row._id)}
