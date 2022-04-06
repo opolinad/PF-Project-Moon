@@ -30,7 +30,7 @@ const Home = () => {
           <Widget type="post" />
         </div>
         <div className="charts">
-          <Featured />
+    {/*<Featured />*/}
           <Chart title="Last 5 Orders (Revenue)" aspect={2 / 1} />
         </div>
         <div className="listContainer">
