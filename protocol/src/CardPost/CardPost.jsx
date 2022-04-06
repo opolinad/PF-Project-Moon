@@ -95,7 +95,6 @@ export default function CardPost(props) {
           amount: props.price*100,
         }
       );
-      console.log(data.success)
       if(data.success) {
         const order = {
           type: 'shopped',
