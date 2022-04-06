@@ -114,6 +114,16 @@ export default function LandingPage() {
         })()
     }, [user.error])
 
+    useEffect(() => {
+        (() => {
+            user.banned && Toast.fire({
+                icon: 'info',
+                title: 'your account has been banned',
+            });
+            user.error && setInput({ email: '', password: '' })
+        })()
+    }, [user.banned])
+
     return (
         <div className={styles.landingContainer} >
             <div className={styles.ladingLeft} >

@@ -62,9 +62,36 @@
     display: flex;
     align-items: center;
 
+   width: 10vw;
+
     color: #864879;
     font-size: 1.2vw;
     text-align: center;
 
     overflow: hidden;
+}
+
+
+@media screen and (max-width:1025px){
+    .imgCont{
+    
+        width: 10vw;
+        height: 10vw;
+
+        border-radius: 20vw;
+    }
+    .imgCont:hover{
+        width: 15vw;
+        height: 15vw;
+    }   
+    
+    .image{
+        width: 8vw;
+        height: auto;
+    }
+
+    .name{
+        font-size: 3vw;
+        width: 50vw;
+    }
 }

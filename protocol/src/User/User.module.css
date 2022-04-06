@@ -136,9 +136,9 @@
 }
 
 #profilePhoto{
-    width: 100%;
+    width: 70%;
     max-width: 20vw;
-    
+    margin-left: 2.5vw;
     height: auto;
 }
 
@@ -431,7 +431,8 @@
         width: 30vw;
     }
     #profilePhoto{
-        max-width: 30vw;
+        margin-left: 5vw;
+        max-width: 20vw;
     }
     
 

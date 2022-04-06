@@ -74,3 +74,29 @@
     font-size: 3vw;
     text-align: center;
 }
+
+
+
+
+@media screen and (max-width:1024px){
+    #FeedContainer{
+        width: 90vw;
+        min-height: 70vh;
+        margin: 0 auto 0 auto;
+    }
+
+
+    #cardUserArrCont{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+    #statusUsersCard{
+        width: 80vw;
+        font-size: 3vw;
+    }
+    #loadButUsers{
+        font-size: 2vw;
+    }
+}

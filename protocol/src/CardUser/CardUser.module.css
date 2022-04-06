@@ -105,3 +105,63 @@
 .followBut:active {
     transform: scale(0.9);
 }
+
+
+
+
+@media screen and (max-width:1024px){
+    .card{
+        width: 80vw;
+        height: 9vh;
+    
+        margin: 1vh auto 1vh auto;
+    }
+
+
+
+    .linkShell{
+        display: flex;
+        flex-direction: row;
+
+        width: 70vw;
+
+        text-decoration: none;
+        color: #F0E9D2;
+    }
+
+    .imgShell{
+        width: 9vw;
+        height: 9vw;
+        margin: auto 5vw auto 5vw;
+
+        border-radius: 10vw;
+        border: 0.2vw solid #E9A6A6;
+
+        background-color: #864879;
+
+        overflow: hidden;
+
+        transition: 0.2s;
+    }
+    .img{
+        width: 14vw;
+        height: auto;
+    }
+
+
+    .namecShell{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: initial;
+
+        width: 40vw;
+        height: 3vh;
+        margin: auto;
+
+        font-size: 3vw;
+    }
+    .fullName{
+        font-size: 3vw;
+    }
+}

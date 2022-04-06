@@ -14,6 +14,8 @@ import NavbarCss from "./Navbar.module.css";
 import useTabName from "../helpers/CustomHooks/useTabName.js";
 import { nextPage, resetPage, setFeedToLoading } from "../ReduxToolkit/reducers/homeSlice.js";
 import { searchingAction } from "../ReduxToolkit/reducers/navBarSlice.js";
+import { Toast } from "../helpers/alerts/alert";
+import Swal from 'sweetalert2';
 
 export default function Navbar() {
 
@@ -27,10 +29,10 @@ export default function Navbar() {
 
   const dispatch = useDispatch();
   const location = useLocation();
-  
+
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.user.currentUser);
- 
+
 
   useEffect(()=> {
     socket.on("getNotification", (data) => {
@@ -41,7 +43,7 @@ export default function Navbar() {
   useEffect(() => { //
     socket.emit("addUser", user?._id);
   }, [user]);
-  
+
 
   //const testingUse= useTabName();
 
@@ -70,19 +72,35 @@ export default function Navbar() {
   let searchbut;
   showMenu ? (menu = [NavbarCss.menuOpen, NavbarCss.menuShell]) : (menu = [NavbarCss.menuClosed, NavbarCss.movedMenuShell]);
   // if (showNotifications) notifications = <Notifications />;
-  search.length > 3 || search.length === 0 ? 
+  search.length > 3 || search.length === 0 ?
   (searchbut = ( <Link to={"/home?search=" + search} id={NavbarCss.searchLink}> <FontAwesomeIcon icon={faSearch} /></Link>))
-  : 
+  :
   (searchbut = (<p id={NavbarCss.searchLink} onClick={() => setSearchErr("owo small, >3 pls uwu")}></p>));
 
   const handleLogout = () => {
-    let option = window.confirm("Are you sure you want to logout?")
-    if (option === true) {
-      logoutUser(dispatch);
-      navigate('/')
-    } else {
-      alert("Cancelled")
-    }
+    Swal.fire({
+      title: 'Do you want to logout?',
+      text: "We will miss you 😥",
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, logout!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logoutUser(dispatch);
+        navigate('/')
+        Toast.fire({
+          icon: 'info',
+          title: 'Logout successfully',
+        })
+      }else{
+        Toast.fire({
+          icon: 'info',
+          title: 'We\'re happy that you stay 😀',
+        })
+      }
+    })
   };
 
   const onClickHandler = () => {
@@ -136,9 +154,9 @@ export default function Navbar() {
       {notifications && (
                 <div style={{display: open? "flex" : "none"}} id={NavbarCss.notisCont}>
                     <button id={NavbarCss.deletNotisBut} onClick={handleRead}>Delete notifications</button>
-                    {notifications.map((n)=> displayNotifications(n))}    
-                    
-                </div> 
+                    {notifications.map((n)=> displayNotifications(n))}
+
+                </div>
           )}
     </div>
   );

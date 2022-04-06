@@ -5,7 +5,8 @@ const loginSlice = createSlice({
     initialState: {
         currentUser: null,
         isFetching: false,
-        error: false
+        error: false,
+        banned: false
     },
     reducers: {
         loginStart: (state) => {
@@ -20,6 +21,10 @@ const loginSlice = createSlice({
         loginFailure: (state) => {
             state.isFetching = true
             state.error = true
+        },
+        loginBanned: (state) => {
+            state.isFetching = true
+            state.banned = true
         },
         logoutStart: (state) => {
             state.currentUser = null
@@ -42,6 +47,7 @@ export const {
     loginFailure,
     logoutStart,
     updateFollow,
-    updateUnfollow
+    updateUnfollow,
+    loginBanned
 } = loginSlice.actions;
 export default loginSlice.reducer;
