@@ -87,8 +87,8 @@ export default function Navbar() {
       confirmButtonText: 'Yes, logout!'
     }).then((result) => {
       if (result.isConfirmed) {
+        navigate('/');
         logoutUser(dispatch);
-        navigate('/')
         Toast.fire({
           icon: 'info',
           title: 'Logout successfully',
