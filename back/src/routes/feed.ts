@@ -65,6 +65,12 @@ router.get('/:idUser', async (req:Request, res:Response) => {
                 posts = posts.filter((post:any) => !post.premium)
 
                 let postsUser= await Post.find({user: user._id})
+                .populate('user',{username: 1, profilePhoto:1})
+                .populate('likes',{username: 1, profilePhoto:1})
+                .populate({ path:'comments', populate: { path: 'user', model:'User', select: 'username profilePhoto'}})
+                .populate('shares',{username: 1, profilePhoto:1})
+                .populate('shareUser',{username: 1, profilePhoto:1})
+                .populate('soldUser',{username: 1, profilePhoto:1})
 
                posts = posts.concat(postsUser)
  
@@ -107,6 +113,12 @@ router.get('/:idUser', async (req:Request, res:Response) => {
 
             
             let postsUser= await Post.find({user: user._id})
+            .populate('user',{username: 1, profilePhoto:1})
+            .populate('likes',{username: 1, profilePhoto:1})
+            .populate({ path:'comments', populate: { path: 'user', model:'User', select: 'username profilePhoto'}})
+            .populate('shares',{username: 1, profilePhoto:1})
+            .populate('shareUser',{username: 1, profilePhoto:1})
+            .populate('soldUser',{username: 1, profilePhoto:1})
 
             posts = posts.concat(postsUser)
 
@@ -164,6 +176,12 @@ router.get('/:idUser', async (req:Request, res:Response) => {
 
             
             let postsUser= await Post.find({user: user._id})
+            .populate('user',{username: 1, profilePhoto:1})
+            .populate('likes',{username: 1, profilePhoto:1})
+            .populate({ path:'comments', populate: { path: 'user', model:'User', select: 'username profilePhoto'}})
+            .populate('shares',{username: 1, profilePhoto:1})
+            .populate('shareUser',{username: 1, profilePhoto:1})
+            .populate('soldUser',{username: 1, profilePhoto:1})
 
             posts = posts.concat(postsUser)
 
@@ -275,6 +293,12 @@ router.get('/home/:id', async(req:Request, res:Response) => {
         const user = await User.findById(id)
         let posts : object [] = []
         let postsAux = await Post.find({})
+        .populate('user',{username: 1, profilePhoto:1})
+        .populate('likes',{username: 1, profilePhoto:1})
+        .populate({ path:'comments', populate: { path: 'user', model:'User', select: 'username profilePhoto'}})
+        .populate('shares',{username: 1, profilePhoto:1})
+        .populate('shareUser',{username: 1, profilePhoto:1})
+        .populate('soldUser',{username: 1, profilePhoto:1})
 
         if(!user.following.length) {
 
@@ -329,6 +353,12 @@ router.get('/NewForYou/:id', async(req:Request, res:Response) => {
         let posts : object [] = []
             
         let postsAux = await Post.find({})
+        .populate('user',{username: 1, profilePhoto:1})
+        .populate('likes',{username: 1, profilePhoto:1})
+        .populate({ path:'comments', populate: { path: 'user', model:'User', select: 'username profilePhoto'}})
+        .populate('shares',{username: 1, profilePhoto:1})
+        .populate('shareUser',{username: 1, profilePhoto:1})
+        .populate('soldUser',{username: 1, profilePhoto:1})
             
         posts = postsAux.filter((post:any) => post.categories.some((category: any) => user.favouritesCategories.includes(category)))
 
