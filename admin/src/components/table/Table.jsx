@@ -10,6 +10,17 @@ import Paper from "@mui/material/Paper";
 import { format } from "timeago.js";
 
 const List = ({ orders }) => {
+  
+  let ordersCopy = [...orders];
+  //function that sort orders de createdAt date
+  const sortByDate = (a, b) => {
+    if (a.createdAt < b.createdAt) return 1;
+    if (a.createdAt > b.createdAt) return -1;
+    return 0;
+  };
+  //sort orders by date
+  ordersCopy.sort(sortByDate);
+
   return (
     <TableContainer component={Paper} className="table">
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -27,7 +38,7 @@ const List = ({ orders }) => {
         </TableHead>
         <TableBody>
 
-          {orders?.map((order) => (
+          {ordersCopy?.map((order) => (
 
             <TableRow key={order._id}>
               <TableCell className="tableCell">{order._id}</TableCell>
