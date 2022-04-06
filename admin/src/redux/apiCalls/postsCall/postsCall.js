@@ -15,3 +15,12 @@ export const getAllPosts = async (dispatch) => {
     dispatch(postsFailure());
   }
 };
+
+export const deletePost = async(postId, token)=>{
+  try {
+    const res = await requestApiProtocol.delete(`/posts/${postId}`, { headers:{token}})
+    console.log(res)
+  } catch (err) {
+    console.log(err)
+  }
+}
