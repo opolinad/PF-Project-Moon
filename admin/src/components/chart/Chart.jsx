@@ -22,7 +22,7 @@ import {
 const Chart = ({ aspect, title }) => {  
   const orders = useSelector((state) => state.orders?.orders);
 
-  const arr = orders.map((order) => {
+  const arr = orders?.map((order) => {
     return {
       name: order.createdAt.slice(11, 16) + "hs",
       Total: order.amount,

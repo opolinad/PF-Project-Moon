@@ -10,7 +10,7 @@ import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutl
 const Featured = () => {
   const orders = useSelector((state) => state?.orders?.orders);
   //funtion that returns all the orders of today
-  const lastDay = orders.filter((order) => {
+  const lastDay = orders?.filter((order) => {
     return order.createdAt.slice(0, 10) === new Date().toISOString().slice(0, 10);
   });
   const lastDayTotal = lastDay.reduce((acc, order) => {
@@ -23,7 +23,7 @@ const Featured = () => {
     date.setDate(date.getDate() - 1);
     return date.toISOString().slice(0, 10);
   };
-  const previousDay = orders.filter((order) => {
+  const previousDay = orders?.filter((order) => {
     return order.createdAt.slice(0, 10) === yesterday();
   });
   const previousDayTotal = previousDay.reduce((acc, order) => {
@@ -40,7 +40,7 @@ const Featured = () => {
     }
     return dates;
   };
-  const Last7DaysOrders = orders.filter((order) => {
+  const Last7DaysOrders = orders?.filter((order) => {
     return last7Days().includes(order.createdAt.slice(0, 10));
   });
   const Last7DaysTotal = Last7DaysOrders.reduce((acc, order) => {
