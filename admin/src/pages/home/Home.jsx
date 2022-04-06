@@ -11,11 +11,12 @@ import { getAllOrders } from "../../redux/apiCalls/orderCall";
 
 const Home = () => {
   console.log("Home");
-  useEffect(() => {
-    getAllOrders(dispatch);
-  }, [dispatch]);
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.orders?.orders);
+
+  useEffect(() => {
+    getAllOrders(dispatch);
+  }, []);
 
   return (
     <div className="home">
