@@ -6,6 +6,7 @@ import List from "../../components/table/Table";
 import { useLocation } from "react-router-dom";
 import { getUserById } from "../../redux/apiCalls/usersCall/userByIdCall";
 import { useDispatch, useSelector } from "react-redux";
+import Loading from "../../components/loading/loading";
 
 const Single = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const Single = () => {
     getUserById(dispatch, userId).then((response) => setIsLoading(false));
   }, [dispatch, userId]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div><Loading/></div>;
 
   return (
     <div className="single">

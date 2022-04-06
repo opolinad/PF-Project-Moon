@@ -5,6 +5,7 @@ import Navbar from "../../components/navbar/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllOrders } from "../../redux/apiCalls/orderCall";
 import DatatableOrders from "../../components/datatableOrders/DatatableOrders";
+import Loading from "../../components/loading/loading";
 
 const OrdersList = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const OrdersList = () => {
     getAllOrders(dispatch).then((response) => setIsLoading(false));
   }, [dispatch]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div><Loading/></div>;
 
   return (
     <div className="list">
