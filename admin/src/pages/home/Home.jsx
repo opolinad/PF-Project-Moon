@@ -35,7 +35,7 @@ const Home = () => {
         </div>
         <div className="listContainer">
           <div className="listTitle">Latest Transactions</div>
-          <Table orders={orders} />
+          <Table orders={orders? orders : null} />
         </div>
       </div>
     </div>
