@@ -87,25 +87,18 @@ export default function Feed(props) {
           price={element.price}
           shares={element.shares}
           shared={element.share}
-          shareUser={element.user}
+          shareUser={element.shareUser}
           likes={element.likes}
           id={element._id}
-          userName={
-            element.shareUser
-              ? element.shareUser.username
-              : element.user.username
-          }
-          userPhoto={
-            element.shareUser
-              ? element.shareUser.profilePhoto
-              : element.user.profilePhoto
-          }
-          userId={element.shareUser ? element.shareUser._id : element.user._id}
+          userName={element.user.username}
+          userPhoto={ element.user.profilePhoto}
+          userId={ element.user._id}
           categories={element.categories}
           sold={element.sold}
           soldUser={element.soldUser}
           shoppedUser={element.shoppedUser}
           componentFather={"Feed"}
+          
         />
       );
     });

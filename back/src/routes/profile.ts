@@ -10,29 +10,32 @@ router.get('/:idUser/:idCurrentUser', async(req:Request, res:Response) => {
     try {
         const user = await User.findById(idUser)
 
-        const posts = await Post.find({ user: idUser})
+        let posts = await Post.find({ user: idUser})
         .populate('user',{username: 1, profilePhoto:1})
         .populate('likes',{username: 1, profilePhoto:1})
         .populate({ path:'comments', populate: { path: 'user', model:'User', select: 'username profilePhoto'}})
         .populate('shares',{username: 1, profilePhoto:1})
         .populate('shareUser',{username: 1, profilePhoto:1})
         .populate('soldUser',{username: 1, profilePhoto:1})
-
-        if(idUser !== idCurrentUser) !user.premium.includes(idCurrentUser) && posts.filter((post: any) => !post.premium)
-
-        const shares = await Post.find({ shareUser: idUser})
+        
+        let shares = await Post.find({ shareUser: idUser})
         .populate('user',{username: 1, profilePhoto:1})
         .populate('likes',{username: 1, profilePhoto:1})
         .populate({ path:'comments', populate: { path: 'user', model:'User', select: 'username profilePhoto'}})
         .populate('shares',{username: 1, profilePhoto:1})
         .populate('shareUser',{username: 1, profilePhoto:1})
         .populate('soldUser',{username: 1, profilePhoto:1})
-
-        const profile = posts.concat(shares).sort((a:any, b:any) => {
+        
+        let profile = posts.concat(shares).sort((a:any, b:any) => {
             if (a.createdAt < b.createdAt) return 1
             if (a.createdAt > b.createdAt) return -1
             return 0;
-          })
+        })
+
+        if(idUser !== idCurrentUser){ 
+            if (!user.premium.includes(idCurrentUser)) profile = profile.filter((post: any) => !post.premium)
+        }
+
         if(page) {
             const lastPage = page * 20
             const firstPage = lastPage - 20
@@ -57,7 +60,16 @@ router.get('/portfolio/:idUser/:idCurrentUser', async (req:Request, res:Response
         const user = await User.findById(idUser)
         let posts = await Post.find({ user: idUser})
         let portfolio:any = []
-        if(idUser !== idCurrentUser) !user.premium.includes(idCurrentUser) && posts.filter((post: any) => !post.premium)
+
+        if(idUser !== idCurrentUser){ 
+            if (!user.premium.includes(idCurrentUser)) posts = posts.filter((post: any) => !post.premium)
+        }
+
+        posts.sort((function (a:any, b:any) {
+            if (a.createdAt < b.createdAt) return 1;
+            if (a.createdAt > b.createdAt) return -1;
+            return 0;
+        }))
 
         posts.map((post:any) => {
         if(post.images.length) {

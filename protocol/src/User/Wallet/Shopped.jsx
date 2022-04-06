@@ -59,9 +59,9 @@ export default function Shopped() {
                             </div>
                         </div>
                     
-                        <div className={ShoppedCss.purchasedShell}>
-                            <img className={ShoppedCss.purchased} src={shopped.post.image[0]}/>
-                        </div>
+                        {/* <div className={ShoppedCss.purchasedShell}>
+                            <img className={ShoppedCss.purchased} src={shopped.post.image}/>
+                        </div> */}
                     </div>
 
             )})}

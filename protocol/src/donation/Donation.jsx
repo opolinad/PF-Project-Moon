@@ -31,8 +31,6 @@ const Donation = () => {
             amount: amount * 100,
           }
         );
-        console.log(data);
-        console.log(user, currentUser)
         if(data.success) {
           const order = {
             type: 'donation',
@@ -43,7 +41,6 @@ const Donation = () => {
             ticket: data.success.receipt_url
           }
           const res = await axios.post(`/api/orders/${currentUser._id}`, order)
-          console.log(res.data)
         }
         setAmount(0);
       } catch (error) {
