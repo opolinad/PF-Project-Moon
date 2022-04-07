@@ -10,7 +10,9 @@ import Paper from "@mui/material/Paper";
 import { format } from "timeago.js";
 
 const List = ({ orders }) => {
-  
+  if(orders !== null) {
+
+
   let ordersCopy = [...orders];
   //function that sort orders de createdAt date
   const sortByDate = (a, b) => {
@@ -66,6 +68,9 @@ const List = ({ orders }) => {
       </Table>
     </TableContainer>
   );
+
+  
+  }
 };
 
 export default List;
