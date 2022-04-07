@@ -91,7 +91,7 @@ export default function UserEdit() {
   }, []);
 
   function handleArtist() {
-    setInputs({...input, artist:!input.artist})
+    setInputs({...inputs, artist:!inputs.artist})
   }
 
   function handleInputChange(e) {
