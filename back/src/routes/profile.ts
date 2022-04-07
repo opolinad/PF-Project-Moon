@@ -17,6 +17,8 @@ router.get('/:idUser/:idCurrentUser', async(req:Request, res:Response) => {
         .populate('shares',{username: 1, profilePhoto:1})
         .populate('shareUser',{username: 1, profilePhoto:1})
         .populate('soldUser',{username: 1, profilePhoto:1})
+
+        posts = posts.filter((post: any) => post.share)
         
         let shares = await Post.find({ shareUser: idUser})
         .populate('user',{username: 1, profilePhoto:1})
@@ -59,6 +61,7 @@ router.get('/portfolio/:idUser/:idCurrentUser', async (req:Request, res:Response
     try {
         const user = await User.findById(idUser)
         let posts = await Post.find({ user: idUser})
+        // posts = posts.filter((post: any) => post.share)
         let portfolio:any = []
 
         if(idUser !== idCurrentUser){ 

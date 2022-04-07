@@ -44,7 +44,7 @@ const Bandeja = () => {
     socket.emit("addUser", user._id);
     socket.on("getUsers", (users) => {
       setOnlineUsers(
-        user.followings.filter((follow) => users.some((user) => user.userId === follow))
+        user.followings.filter((follow) => users.some((user) => user.userId === follow._id))
       );
     });
   }, [user]);

@@ -13,7 +13,14 @@ router.post('/:idUser',verifyToken ,async (req:Request, res:Response) => {
     if(idUser === req.body.user) { 
     const newPost = new Post(req.body)
     try {
-        const savedPost = await newPost.save()
+        const post = await newPost.save()
+        const savedPost = await Post.findById(post._id)
+        .populate('user',{username: 1, profilePhoto:1})
+        .populate('likes',{username: 1, profilePhoto:1})
+        .populate({ path:'comments', populate: { path: 'user', model:'User', select: 'username profilePhoto'}})
+        .populate('shares',{username: 1, profilePhoto:1})
+        .populate('shareUser',{username: 1, profilePhoto:1})
+        .populate('soldUser',{username: 1, profilePhoto:1})
         res.status(200).json(savedPost)
     } catch (error) {
         res.status(500).json({error: error})
