@@ -12,10 +12,11 @@ import { likeAction, shareAction } from '../ReduxToolkit/apiCalls/cardPostCall';
 
 function Comment(props)
 {
+    console.log(props)
     return(
         <div className={PostCss.commentCont}>
             <div className={PostCss.commentUser}>
-                <img src={props.photo ? props.photo : "http://localhost:4000/default_profile_photo.svg"} alt="no foto :c" />
+                <img src={props.photo ? props.photo : "https://project-moon.vercel.app/default_profile_photo.svg"} alt="no foto :c" />
                 <Link className={PostCss.commentName} to={"/users/"+props.id}>{props.name}</Link>
             </div>
 
@@ -46,13 +47,22 @@ export default function Post()
     //Functions
     function sendComment()
     {
-        let input={}
-        input.user=user.currentUser._id;
-        input.comment=newComment;
-        input.score=-1;
+        let input={};
+        let localComment={user:{}};
 
-        console.log(input)
-        sendBackComment(id, input, dispatch);
+        input.user=user.currentUser._id;
+        localComment.user._id = user.currentUser._id;
+
+        input.comment=newComment;
+        localComment.comment = newComment;
+
+        input.score=-1;
+        localComment.score = -1;
+
+        localComment.user.username = user.currentUser.fullName? user.currentUser.fullName : user.currentUser.username? user.currentUser.username : user.currentUser.email.split("@")[0];
+        localComment.user.profilePhoto = user.currentUser.profilePhoto;
+
+        sendBackComment(id, input, dispatch,localComment);
 
         setNewComment("");
     }
@@ -139,6 +149,7 @@ export default function Post()
     cardValues.saved=detailedPost.detailed.favorite;
 
     //Comentarios
+    console.log(detailedPost.detailed.comments)
     let commentArr=detailedPost.detailed.comments.map((element,index)=> {return <Comment key={"comment_"+index+"_user_"+element._id} comment={element.comment} photo={element.user.profilePhoto} id={element.user._id} name={element.user.username}/>})
 
     return(
@@ -146,7 +157,7 @@ export default function Post()
 
             <div id={cardValues.styleInfo}>
                 <div id={PostCss.userInfoCont}> 
-                    <img id={PostCss.posterImg} src={detailedPost.detailed.userPhoto? detailedPost.detailed.userPhoto : "http://localhost:4000/default_profile_photo.svg"} alt="photo :x"/>
+                    <img id={PostCss.posterImg} src={detailedPost.detailed.userPhoto? detailedPost.detailed.userPhoto : "https://project-moon.vercel.app/default_profile_photo.svg"} alt="photo :x"/>
                     <Link to={`/users/${detailedPost.userid}/*`} id={PostCss.posterName}>{detailedPost.userName}</Link>
                 </div>
                 <h1 >{detailedPost.title}</h1>

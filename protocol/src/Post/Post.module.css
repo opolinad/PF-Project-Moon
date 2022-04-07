@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-evenly;
 
-    width: 100vw;
+    width: 99vw;
     height:100%;
 
     color: #F0E9D2;
@@ -12,9 +12,9 @@
     position: sticky;
     top: 0;
     display: grid;
-    grid-auto-columns: 4vw;
+    grid-auto-columns: 3.9vw;
     grid-auto-rows: 5vh;
-    width: 80vw;
+    width: 79vw;
     height: 100vh;
 }
 
