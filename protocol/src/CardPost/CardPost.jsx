@@ -13,7 +13,7 @@ import { likeAction, shareAction } from "../ReduxToolkit/apiCalls/cardPostCall";
 import { useNavigate } from "react-router";
 import { setSelectedCategory } from "../ReduxToolkit/reducers/homeSlice";
 import { Toast } from "../helpers/alerts/alert";
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2'
 
 function ImgPreviews({ imgs, id }) {
   const navigate = useNavigate();
