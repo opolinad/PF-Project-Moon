@@ -12,7 +12,13 @@ var email:string = "";
 router.post('/', async (req: Request, res: Response) => {
   const { email } = req.body
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email })
+    .populate('followers', {username: 1, profilePhoto: 1})
+    .populate('followings', {username: 1, profilePhoto: 1})
+    .populate('favourites', {title: 1, images:1})
+    .populate({ path:'comments', populate: { path: 'user', model:'User', select: 'username profilePhoto'}})
+    .populate('premium', {username: 1, profilePhoto: 1})
+    .populate('myPremium', {username: 1, profilePhoto: 1})
     const hashedPassword = CryptoJS.AES.decrypt(user.password, process.env.HASH_CRYPTO)
     const originPassword = hashedPassword.toString(CryptoJS.enc.Utf8)
     const accessToken = jwt.sign({
