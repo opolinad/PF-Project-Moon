@@ -27,6 +27,7 @@ export const postPost = async (dispatch, userId, input, token, feed) => {
                 token
             }
         })
+        console.log(res)
         arrFeed.unshift(res.data);
         dispatch(feedDatabase({status:feed.status, posts: arrFeed}));
     } catch (error) {
@@ -47,11 +48,10 @@ export const deletePost=async(dispatch, postId, token, postArray, father)=>{
     }
 }
 
-export const sendBackComment = async (id,comment,dispatch) => {
+export const sendBackComment = async (id,comment,dispatch,localComment) => {
     try {
-        const res = await axios.put(`/api/posts/comment/${id} `, comment)
-        console.log("PostCall")
-        dispatch(setNewComment(comment))
+        const res = await axios.put(`/api/posts/comment/${id} `, comment);
+        dispatch(setNewComment(localComment))
 
     } catch (error) {
         console.log(error)
