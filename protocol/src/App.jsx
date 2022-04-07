@@ -13,6 +13,7 @@ import "./App.css";
 import Bandeja from "./Conversations/Bandeja.jsx";
 import PasswordReset from "./PasswordReset/PasswordReset.jsx";
 import ChangePassword from "./PasswordReset/ChangePassword.jsx";
+import CookiesPolicy from "./CookiesPolicy/CookiesPolicy.jsx";
 axios.defaults.baseURL=process.env.REACT_APP_API;
 
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
                     <Route path="/">
                         <Route  element={<LandingPage />} />
                         <Route index element={<LandingPage />} />
+                        <Route path="cookiesPolicy" element={<CookiesPolicy />} />
                         <Route path="register" element={<Register />} />
                         <Route path="home" element={ <> <Home /> </> }/>
                         {/* <Route className={"routeCont"} path={"users/:id*"} element={<Fragment><User /><UserBoard /></Fragment>} /> */}
@@ -37,7 +39,6 @@ export default function App() {
                         <Route path="password_reset" element={<PasswordReset/>}/>
                         <Route path="password_reset/:idUser" element={<ChangePassword/>}/>
                         <Route path="*" element={<NotFound />} />
-                        {/* <Route path="CookiesPolicy" element={<CookiesPolicy />} /> */}
                     </Route>
                 </Routes>
             </BrowserRouter>
