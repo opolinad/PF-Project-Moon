@@ -42,7 +42,7 @@ export default function PostPost() {
   const [showCreate, setShowCreate] = useState(false);
   
   const [input, setInput] = useState({
-    user: {_id:user?._id,profilePhoto:user?.profilePhoto,username:user?.username},
+    user: user?._id,
     images: [],
     title: "",
     description: "",
@@ -115,7 +115,7 @@ export default function PostPost() {
     postPost(dispatch, user._id, input, user.accessToken, feed);
     setNullFile();
     setInput({
-      user: {_id:user._id,profilePhoto:user.profilePhoto,username: user.currentUser.username? user.currentUser.username : user.currentUser.email.split("@")[0]},
+      user: user._id,
       images: [],
       title: "",
       description: "",

@@ -22,7 +22,7 @@ export const getDetailedPost = async (id,dispatch) => {
 export const postPost = async (dispatch, userId, input, token, feed) => {
     try {
         let arrFeed=[...feed.posts];
-        const res = await axios.post(`/api/posts/${userId}`, {...input,user:userId}, {
+        const res = await axios.post(`/api/posts/${userId}`,input, {
             headers: {
                 token
             }
