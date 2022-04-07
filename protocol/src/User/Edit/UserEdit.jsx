@@ -150,10 +150,12 @@ export default function UserEdit() {
             navigate(`/users/${currentUser._id}`);
           });
           setInputs({
-            username: "",
-            fullName: "",
-            profilePhoto: "",
-            backgroundPhoto: "",
+            username: user?.username,
+            fullName: user?.fullName,
+            profilePhoto: user?.profilePhoto || "",
+            backgroundPhoto: user?.backgroundPhoto || "",
+            artist: user?.artist ? true : false,
+            favouritesCategories: user?.favouritesCategories
           });
         }else{
           Toast.fire({
