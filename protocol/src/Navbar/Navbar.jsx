@@ -46,7 +46,7 @@ export default function Navbar() {
   }, [user]);
 
 
-  //const testingUse= useTabName();
+  const testingUse= useTabName();
 
   if (location.pathname.substring(1, 5) !== "home") {
     return "";
