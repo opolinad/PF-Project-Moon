@@ -223,12 +223,11 @@ export default function LandingPage() {
 
 
             </div>
-            {/* <div id="cookies-policy">
-            <h3>Cookies</h3>
+
+            <div id={styles.cookies}>
             <p>Most mordern websites place small filles called "cookies" on your computer which improve your browsing experience and enable the website to function effectively.</p>
-            <button>OK</button>
-            <Link to={CookiesPolicy}><button>Cookies policy</button></Link>
-            </div>*/}
+            <Link to={"/cookiesPolicy"}><button>Cookies policy</button></Link>
+            </div>
 
         </div>
     );
