@@ -53,17 +53,17 @@ router.get('/google',
   }
   )
 );
-router.get('/google/callback', passport.authenticate('google', { failureRedirect: process.env.NODE_ENV === "production" ? "https://project-moon.vercel.app/" : "http://localhost:4000/" }), (req: Request, res: Response) => {
+router.get('/google/callback', passport.authenticate('google', { failureRedirect: process.env.NODE_ENV === "production" ? "https://projectmoon.vercel.app/" : "http://localhost:4000/" }), (req: Request, res: Response) => {
 let infoUser:any = req.user;
 email=infoUser?.email;
-res.redirect(process.env.NODE_ENV === "production" ? "https://project-moon.vercel.app/home" : "http://localhost:4000/home");
+res.redirect(process.env.NODE_ENV === "production" ? "https://projectmoon.vercel.app/home" : "http://localhost:4000/home");
 });
 router.get('/microsoft', passport.authenticate('microsoft'));
 router.get('/microsoft/callback',
-  passport.authenticate('microsoft', { failureRedirect: process.env.NODE_ENV === "production" ? "https://project-moon.vercel.app/" : "http://localhost:4000/"}),(req: Request, res: Response) => {
+  passport.authenticate('microsoft', { failureRedirect: process.env.NODE_ENV === "production" ? "https://projectmoon.vercel.app/" : "http://localhost:4000/"}),(req: Request, res: Response) => {
     let infoUser:any = req.user;
     email=infoUser?.emails[0].value;
-    res.redirect(process.env.NODE_ENV === "production" ? "https://project-moon.vercel.app/home" : "http://localhost:4000/home");
+    res.redirect(process.env.NODE_ENV === "production" ? "https://projectmoon.vercel.app/home" : "http://localhost:4000/home");
     });
 
 module.exports = router;
